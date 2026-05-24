@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WF × MadSheets — HB DTO Dashboard V1 Mockup (Final)</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --navy: #1E2A47;
+    --gray-900: #1a1a1a;
+    --gray-700: #444;
+    --gray-500: #666;
+    --gray-400: #888;
+    --gray-300: #bbb;
+    --gray-200: #e5e3dc;
+    --gray-100: #f0eee7;
+    --gray-50: #f7f6f3;
+    --blue-50: #E6F1FB;
+    --blue-100: #B5D4F4;
+    --blue-600: #185FA5;
+    --blue-800: #0C447C;
+    --green-50: #EAF3DE;
+    --green-600: #3B6D11;
+    --green-800: #173404;
+    --amber-50: #FAEEDA;
+    --amber-600: #BA7517;
+    --amber-800: #633806;
+    --red-50: #FCEBEB;
+    --red-600: #A32D2D;
+    --red-800: #791F1F;
+    --purple-50: #EEEDFE;
+    --purple-600: #534AB7;
+    --purple-800: #26215C;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--gray-900); background: var(--gray-50); margin: 0; padding: 24px; line-height: 1.5; }
+  .container { max-width: 1180px; margin: 0 auto; }
+
+  /* Preamble */
+  .preamble { background: #fff; border: 1px solid var(--gray-200); border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; }
+  .preamble h1 { margin: 0 0 8px; font-size: 22px; font-weight: 600; }
+  .preamble .kicker { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray-400); font-weight: 600; margin-bottom: 6px; }
+  .preamble p { margin: 8px 0; font-size: 14px; color: var(--gray-700); }
+  .preamble strong { color: var(--gray-900); }
+
+  /* Pushback callouts */
+  .callout { padding: 14px 18px; border-left: 4px solid var(--purple-600); background: var(--purple-50); border-radius: 0 8px 8px 0; margin: 12px 0; }
+  .callout.guessing { border-left-color: var(--amber-600); background: var(--amber-50); }
+  .callout .ck { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--purple-800); margin-bottom: 4px; }
+  .callout.guessing .ck { color: var(--amber-800); }
+  .callout p { margin: 0; font-size: 13px; color: var(--purple-800); font-style: italic; }
+  .callout.guessing p { color: var(--amber-800); }
+
+  /* Dashboard shell */
+  .dashboard { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-200); margin-bottom: 20px; }
+  .header { background: var(--navy); color: #fff; padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .header h2 { margin: 0; font-size: 19px; font-weight: 500; }
+  .header .meta { font-size: 12px; opacity: 0.7; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); overflow-x: auto; }
+  .tab { padding: 13px 18px; font-size: 13px; cursor: pointer; border: none; background: transparent; border-bottom: 2px solid transparent; white-space: nowrap; color: var(--gray-500); font-family: inherit; transition: all 0.15s; }
+  .tab:hover { color: var(--gray-900); background: rgba(0,0,0,0.02); }
+  .tab.active { background: #fff; color: var(--gray-900); border-bottom: 2px solid #378ADD; font-weight: 500; }
+
+  /* Body */
+  .body { padding: 24px 28px; min-height: 480px; }
+  .pane { display: none; animation: fadein 0.2s ease; }
+  .pane.active { display: block; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Controls */
+  .control-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; padding: 12px 14px; background: var(--gray-50); border-radius: 8px; flex-wrap: wrap; }
+  .control-bar label { font-size: 12px; color: var(--gray-500); font-weight: 500; }
+  .control-bar select { font-size: 13px; padding: 6px 10px; border: 1px solid var(--gray-200); border-radius: 6px; background: #fff; font-family: inherit; cursor: pointer; }
+
+  /* Pills */
+  .pill { font-size: 11px; padding: 3px 9px; border-radius: 12px; background: var(--blue-50); color: var(--blue-800); font-weight: 500; display: inline-block; }
+  .pill.warn { background: var(--amber-50); color: var(--amber-800); }
+  .pill.danger { background: var(--red-50); color: var(--red-800); }
+  .pill.success { background: var(--green-50); color: var(--green-800); }
+  .pill.purple { background: var(--purple-50); color: var(--purple-800); }
+  .pill.muted { background: var(--gray-100); color: var(--gray-500); }
+
+  /* Benchmark / Target / Current panel */
+  .btc-panel { padding: 18px 20px; background: linear-gradient(180deg, var(--purple-50) 0%, #fafaff 100%); border: 1px solid #d4d2eb; border-radius: 10px; margin-bottom: 18px; }
+  .btc-panel .btc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+  .btc-panel .btc-title { font-size: 13px; font-weight: 600; color: var(--purple-800); }
+  .btc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  .btc-cell { text-align: center; }
+  .btc-cell .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gray-500); font-weight: 600; margin-bottom: 4px; }
+  .btc-cell .val { font-size: 32px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .btc-cell .val.benchmark { color: var(--gray-500); }
+  .btc-cell .val.target { color: var(--blue-800); }
+  .btc-cell .val.current.green { color: var(--green-600); }
+  .btc-cell .val.current.amber { color: var(--amber-600); }
+  .btc-cell .val.current.red { color: var(--red-600); }
+  .btc-cell .sub { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+  .btc-progress { margin-top: 14px; height: 8px; background: var(--gray-100); border-radius: 4px; position: relative; overflow: hidden; }
+  .btc-progress .bench-marker { position: absolute; left: 27%; top: -2px; bottom: -2px; width: 2px; background: var(--gray-500); }
+  .btc-progress .target-marker { position: absolute; left: 67%; top: -2px; bottom: -2px; width: 2px; background: var(--blue-800); }
+  .btc-progress .current-bar { height: 100%; background: var(--amber-600); border-radius: 4px; transition: width 0.3s; }
+  .btc-progress-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; color: var(--gray-400); }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table th, table td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--gray-100); }
+  table th { font-weight: 500; color: var(--gray-500); font-size: 12px; background: var(--gray-50); text-transform: uppercase; letter-spacing: 0.4px; }
+  table td.num, table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .row-label { font-weight: 500; }
+  .row-derived { color: var(--gray-500); font-style: italic; background: #faf9f5; }
+  .highlight { background: var(--blue-50) !important; }
+  tr.subtle td { color: var(--gray-400); }
+
+  /* Confidence lights */
+  .light { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .green-l { background: #1D9E75; }
+  .yellow-l { background: #EF9F27; }
+  .red-l { background: #E24B4A; }
+
+  /* Section titles */
+  .section-title { font-size: 14px; font-weight: 600; margin: 22px 0 10px; color: var(--gray-900); }
+  .section-title:first-child { margin-top: 0; }
+  .note { font-size: 12px; color: var(--gray-500); margin: 8px 0 0; font-style: italic; }
+  .flag { font-size: 10px; padding: 2px 6px; border-radius: 4px; background: var(--red-50); color: var(--red-800); margin-left: 6px; font-weight: 500; }
+
+  /* Target banner */
+  .target-banner { display: flex; gap: 14px; align-items: center; padding: 12px 16px; background: var(--purple-50); border: 1px solid #d4d2eb; border-radius: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .target-banner strong { color: var(--purple-800); font-weight: 600; font-size: 13px; }
+  .target-banner select { background: #fff; padding: 6px 10px; border: 1px solid #d4d2eb; border-radius: 6px; font-size: 13px; font-family: inherit; }
+
+  /* Mini cards */
+  .mini-card { background: var(--gray-50); padding: 14px 16px; border-radius: 8px; border: 1px solid var(--gray-100); }
+  .mini-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-500); font-weight: 600; }
+  .mini-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .mini-card .delta { font-size: 11px; margin-top: 2px; }
+  .mini-card .delta.up { color: var(--green-600); }
+  .mini-card .delta.down { color: var(--red-600); }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+  .legend { font-size: 11px; color: var(--gray-400); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--gray-100); line-height: 1.6; }
+  code { font-family: Consolas, Monaco, monospace; font-size: 12px; background: var(--gray-100); padding: 1px 5px; border-radius: 3px; color: var(--purple-800); }
+
+  /* Test method badge */
+  .method-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: var(--gray-100); color: var(--gray-700); border-radius: 4px; font-size: 11px; font-weight: 500; }
+
+  @media (max-width: 760px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .btc-grid { grid-template-columns: 1fr; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Preamble -->
+  <div class="preamble">
+    <div class="kicker">V1 Dashboard Mockup · Final · For Daniyal review</div>
+    <h1>WF × MadSheets — HB DTO Dashboard</h1>
+    <p>Clickable mockup of all 6 tabs in the V1 system. Click between tabs to feel how the dashboard would be used. Numbers are illustrative; structure and field names match the brief exactly.</p>
+    <div class="callout">
+      <div class="ck">⇄ Co-architecture posture</div>
+      <p>This mockup represents Gray's starting position. Push back on any tab structure, any metric, any panel. The brief's reasoning is in the .docx companion — read it before reacting to this.</p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <div class="header">
+      <h2>WF | NetRevenue — Heather Blankenship DTO</h2>
+      <div class="meta">Live as of 2026-05-23 21:18 UTC · auto-refresh daily · Source: Supabase direct</div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-pane="p1">1. Funnel rollup</button>
+      <button class="tab" data-pane="p2">2. Variant comparison</button>
+      <button class="tab" data-pane="p3">3. Scoreboard</button>
+      <button class="tab" data-pane="p4">4. CRO log</button>
+      <button class="tab" data-pane="p5">5. Test backlog</button>
+      <button class="tab" data-pane="p6">6. Funnel map</button>
+    </div>
+
+    <div class="body">
+
+      <!-- ============ TAB 1: FUNNEL ROLLUP ============ -->
+      <div class="pane active" id="p1">
+        <div class="target-banner">
+          <strong>Optimizing for:</strong>
+          <select id="opt-target">
+            <option>Application submitted (low spend)</option>
+            <option selected>Qualified application (medium spend — HB current)</option>
+            <option>Calendar booked (NOT recommended — fluctuating availability)</option>
+          </select>
+          <span class="pill purple">Manual toggle · Gray controlled</span>
+        </div>
+
+        <!-- BENCHMARK / TARGET / CURRENT panel -->
+        <div class="btc-panel">
+          <div class="btc-header">
+            <div class="btc-title">Qualified application rate — Benchmark · Target · Current</div>
+            <span class="pill warn">Amber: above benchmark, below target</span>
+          </div>
+          <div class="btc-grid">
+            <div class="btc-cell">
+              <div class="lbl">Benchmark</div>
+              <div class="val benchmark">1.2%</div>
+              <div class="sub">HB's pre-engagement 90d avg</div>
+            </div>
+            <div class="btc-cell">
+              <div class="lbl">Target</div>
+              <div class="val target">3.0%</div>
+              <div class="sub">Committed at kickoff</div>
+            </div>
+            <div class="btc-cell">
+              <div class="lbl">Current (28d trailing)</div>
+              <div class="val current amber">2.4%</div>
+              <div class="sub">+100% vs benchmark · 80% of target</div>
+            </div>
+          </div>
+          <div class="btc-progress">
+            <div class="current-bar" style="width: 53%;"></div>
+            <div class="bench-marker"></div>
+            <div class="target-marker"></div>
+          </div>
+          <div class="btc-progress-labels">
+            <span>0%</span>
+            <span>Benchmark (1.2%)</span>
+            <span>Target (3.0%)</span>
+            <span>4.5%</span>
+          </div>
+        </div>
+
+        <div class="section-title">Funnel steps</div>
+        <table>
+          <thead>
+            <tr><th style="width: 32%;">Step</th><th class="num">Total</th><th class="num">Today</th><th class="num">Last 3d</th><th class="num">Last 7d</th><th class="num">Last 28d</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-label">Apps started / leads</td><td class="num">47</td><td class="num">2</td><td class="num">8</td><td class="num">14</td><td class="num">47</td></tr>
+            <tr><td class="row-label">Total applications <span class="pill muted">deduped 72h</span></td><td class="num">29</td><td class="num">1</td><td class="num">5</td><td class="num">9</td><td class="num">29</td></tr>
+            <tr class="highlight"><td class="row-label">Qualified <span class="pill">target</span></td><td class="num">17</td><td class="num">1</td><td class="num">3</td><td class="num">5</td><td class="num">17</td></tr>
+            <tr><td class="row-label">Disqualified</td><td class="num">12</td><td class="num">0</td><td class="num">2</td><td class="num">4</td><td class="num">12</td></tr>
+            <tr><td class="row-label">Calls booked <span class="pill muted">deduped appt_id</span></td><td class="num">17</td><td class="num">1</td><td class="num">3</td><td class="num">6</td><td class="num">17</td></tr>
+            <tr><td class="row-label">Unique leads who booked</td><td class="num">16</td><td class="num">1</td><td class="num">3</td><td class="num">6</td><td class="num">16</td></tr>
+            <tr><td class="row-label">Calls taken <span class="pill warn">CRM workflow pending</span></td><td class="num" style="color: var(--gray-400);">—</td><td class="num" style="color: var(--gray-400);">—</td><td class="num" style="color: var(--gray-400);">—</td><td class="num" style="color: var(--gray-400);">—</td><td class="num" style="color: var(--gray-400);">—</td></tr>
+            <tr><td class="row-label">Qualified calls taken <span class="pill warn">CRM workflow pending</span></td><td class="num" style="color: var(--gray-400);">—</td><td class="num" style="color: var(--gray-400);">—</td><td class="num" style="color: var(--gray-400);">—</td><td class="num" style="color: var(--gray-400);">—</td><td class="num" style="color: var(--gray-400);">—</td></tr>
+            <tr class="row-derived"><td>App → booking %</td><td class="num">58.6%</td><td class="num">100%</td><td class="num">60.0%</td><td class="num">66.7%</td><td class="num">58.6%</td></tr>
+            <tr class="row-derived"><td>App → qualified %</td><td class="num">58.6%</td><td class="num">100%</td><td class="num">60.0%</td><td class="num">55.6%</td><td class="num">58.6%</td></tr>
+            <tr class="row-derived"><td>Qualified → booking %</td><td class="num">94.1%</td><td class="num">100%</td><td class="num">100%</td><td class="num">120%</td><td class="num">94.1%</td></tr>
+          </tbody>
+        </table>
+        <p class="note">After applying the dedup fixes (§6a in the brief): App count dropped from 31 to 29 (2 same-email-within-72h duplicates). Booking count dropped from 20 to 17 (2 double-webhook fires + 1 rebook collapsed). Qualified → booking is now 94% instead of the impossible 111% you've been seeing.</p>
+        <p class="note">Calls Taken rows are intentionally blank, not zero — the CRM workflow that populates the attended column hasn't been wired yet. The dashboard distinguishes "not implemented" from "zero this week."</p>
+      </div>
+
+      <!-- ============ TAB 2: VARIANT COMPARISON ============ -->
+      <div class="pane" id="p2">
+        <div class="control-bar">
+          <label>Compare stage:</label>
+          <select>
+            <option>page_view → app_start</option>
+            <option selected>app_start → app_submitted</option>
+            <option>app_submitted → qualified</option>
+            <option>qualified → cal_booked</option>
+          </select>
+          <label style="margin-left: 8px;">Window:</label>
+          <select><option>Last 7d</option><option selected>Last 14d</option><option>Last 28d</option></select>
+          <label style="margin-left: 8px;">Test method:</label>
+          <span class="method-badge">Vercel URL split · 50/50</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Variant</th><th>Status</th><th class="num">Traffic</th><th class="num">Conversions</th><th class="num">Conv rate</th><th class="num">Lift vs control</th><th>Confidence</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-label">LP-A (control)</td><td><span class="pill">live</span></td><td class="num">412</td><td class="num">47</td><td class="num">11.4%</td><td class="num">—</td><td>—</td></tr>
+            <tr class="highlight"><td class="row-label">LP-B (challenger)</td><td><span class="pill">live</span></td><td class="num">398</td><td class="num">61</td><td class="num">15.3%</td><td class="num" style="color: var(--green-600); font-weight: 500;">+34.2%</td><td><span class="light yellow-l"></span>Yellow · 13d, 61 conv, 34% lift</td></tr>
+            <tr><td class="row-label">LP-C (challenger)</td><td><span class="pill">live</span></td><td class="num">405</td><td class="num">38</td><td class="num">9.4%</td><td class="num" style="color: var(--red-600);">−17.5%</td><td><span class="light yellow-l"></span>Yellow · 13d, 38 conv, neg lift</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Confidence thresholds (recalibrated for HB volume): 🟢 ≥80 conv/arm + ≥14d + ≥25% lift · 🟡 ≥40 conv/arm + ≥10d + ≥15% lift · 🔴 below either.</p>
+
+        <div class="callout" style="margin-top: 16px;">
+          <div class="ck">Mockup note</div>
+          <p>These variants don't exist yet. HB is on a single LP today. This is what the dashboard would look like once Daniyal builds the variant routing layer (Vercel cookie-based) and we ship LP-B and LP-C.</p>
+        </div>
+
+        <div class="section-title">Qualification split (the meta-qual vs CRM-qual delta)</div>
+        <table>
+          <thead>
+            <tr><th>Variant</th><th class="num">Apps</th><th class="num">Meta-qual rate</th><th class="num">CRM-qual rate</th><th class="num">Delta</th><th>Signal</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-label">LP-A</td><td class="num">47</td><td class="num">68%</td><td class="num">61%</td><td class="num">7pp</td><td><span class="pill success">Healthy</span></td></tr>
+            <tr><td class="row-label">LP-B</td><td class="num">61</td><td class="num">82%</td><td class="num">52%</td><td class="num" style="color: var(--red-600); font-weight: 500;">30pp</td><td><span class="pill danger">Tighten form, don't kill variant</span></td></tr>
+            <tr><td class="row-label">LP-C</td><td class="num">38</td><td class="num">71%</td><td class="num">64%</td><td class="num">7pp</td><td><span class="pill success">Healthy</span></td></tr>
+          </tbody>
+        </table>
+        <p class="note">When Meta-qualified rate is materially higher than CRM-qualified rate, the LP is letting "looks-qualified" leads through but the form isn't filtering them. That's a form-tightening signal, not a creative kill signal. LP-B is winning on raw conversion but its qualification quality is the worst — investigate before crowning it.</p>
+      </div>
+
+      <!-- ============ TAB 3: SCOREBOARD ============ -->
+      <div class="pane" id="p3">
+        <div class="control-bar">
+          <label>Source:</label>
+          <span class="pill purple">Meta Ads API · last sync 14m ago</span>
+          <label style="margin-left: 8px;">Window:</label>
+          <select><option>Last 7d</option><option selected>Last 28d</option><option>Last 90d</option></select>
+        </div>
+        <div class="grid-4">
+          <div class="mini-card">
+            <div class="label">Spend</div>
+            <div class="value">$8,420</div>
+            <div class="delta down">−$120 vs prev 28d</div>
+          </div>
+          <div class="mini-card">
+            <div class="label">Apps (deduped)</div>
+            <div class="value">29</div>
+            <div class="delta up">+3 vs prev</div>
+          </div>
+          <div class="mini-card">
+            <div class="label">CAC (per qualified app)</div>
+            <div class="value">$495</div>
+            <div class="delta down">−$24 vs prev</div>
+          </div>
+          <div class="mini-card">
+            <div class="label">ROAS</div>
+            <div class="value">2.4×</div>
+            <div class="delta up">+0.3× vs prev</div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Week</th><th class="num">Spend</th><th class="num">Apps</th><th class="num">Qualified</th><th class="num">Booked</th><th class="num">Closed</th><th class="num">Revenue</th><th class="num">ROAS</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-05-18</td><td class="num">$2,140</td><td class="num">9</td><td class="num">5</td><td class="num">6</td><td class="num">1</td><td class="num">$6,000</td><td class="num">2.8×</td></tr>
+            <tr><td>2026-05-11</td><td class="num">$2,080</td><td class="num">7</td><td class="num">5</td><td class="num">5</td><td class="num">1</td><td class="num">$5,000</td><td class="num">2.4×</td></tr>
+            <tr><td>2026-05-04</td><td class="num">$2,200</td><td class="num">7</td><td class="num">4</td><td class="num">3</td><td class="num">0</td><td class="num">$4,000</td><td class="num">1.8×</td></tr>
+            <tr><td>2026-04-27</td><td class="num">$2,000</td><td class="num">6</td><td class="num">3</td><td class="num">3</td><td class="num">1</td><td class="num">$5,200</td><td class="num">2.6×</td></tr>
+          </tbody>
+        </table>
+        <div class="legend">
+          Spend pulled from Meta Ads API (HB only for V1; multi-client rollup is V1.1). CAC = spend ÷ qualified_apps for the selected window. ROAS = revenue ÷ spend, lagged because revenue books on call close (typically 7-14 days after the qualified app). Revenue numbers reflect closed deals, not pipeline.
+        </div>
+      </div>
+
+      <!-- ============ TAB 4: CRO LOG ============ -->
+      <div class="pane" id="p4">
+        <table>
+          <thead>
+            <tr><th style="width: 10%;">Date</th><th style="width: 14%;">Change type</th><th style="width: 24%;">What changed</th><th style="width: 28%;">Hypothesis</th><th style="width: 24%;">Result</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>05-10</td><td><span class="pill">formal_test</span></td><td>LP-B headline: pain-led → outcome-led</td><td>Outcome framing converts higher for warm traffic</td><td><span class="light yellow-l"></span>In flight · Day 13 · 61 conv</td></tr>
+            <tr><td>05-08</td><td><span class="pill warn">form_logic</span></td><td>Added income-floor question to application</td><td>Filter unqualified before they hit CRM</td><td><span class="light green-l"></span>DQ rate ↓ 8pp · Won</td></tr>
+            <tr><td>05-03</td><td><span class="pill">single_variant_launch</span></td><td>LP-C launched (testimonial-first hero)</td><td>Social proof at fold lifts CTR</td><td><span class="light yellow-l"></span>In flight · Day 20 · negative trend</td></tr>
+            <tr><td>04-28</td><td><span class="pill danger">rollback</span></td><td>Reverted CTA color (orange → brand)</td><td>Orange CTA hurt brand congruence</td><td><span class="light red-l"></span>−12% CTR confirmed · Rolled back</td></tr>
+            <tr><td>04-20</td><td><span class="pill warn">fix</span></td><td>Pixel double-firing on /apply</td><td>Inflated app_start counts</td><td><span class="light green-l"></span>Resolved · counts now accurate</td></tr>
+          </tbody>
+        </table>
+        <div class="legend">
+          Every change to the funnel logs here. change_type values: formal_test, single_variant_launch, fix, rollback, form_logic. Predicted lift and source observation captured at hypothesis time (full schema in §6/§7 of the brief); compressed here for the mockup.
+        </div>
+      </div>
+
+      <!-- ============ TAB 5: TEST BACKLOG ============ -->
+      <div class="pane" id="p5">
+        <table>
+          <thead>
+            <tr><th style="width: 32%;">Hypothesis</th><th style="width: 10%;">Node</th><th class="num">Pred. lift</th><th class="num">Confidence</th><th class="num">Priority</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-label">Hero video → static image w/ outcome callout</td><td>LP</td><td class="num">+18%</td><td class="num">High</td><td class="num">9.2</td><td><span class="pill">approved</span></td></tr>
+            <tr><td class="row-label">Reduce app fields from 11 → 7</td><td>App</td><td class="num">+22%</td><td class="num">Medium</td><td class="num">8.4</td><td><span class="pill">proposed</span></td></tr>
+            <tr><td class="row-label">Add call-prep video to TY page (lift show rate)</td><td>TY</td><td class="num">+15%</td><td class="num">Medium</td><td class="num">7.1</td><td><span class="pill">proposed</span></td></tr>
+            <tr><td class="row-label">Income qualifier earlier in flow</td><td>App</td><td class="num">+10%</td><td class="num">High</td><td class="num">6.8</td><td><span class="pill warn">in_flight</span></td></tr>
+            <tr class="subtle"><td>Button copy: "Apply now" → "Get my plan"</td><td>LP</td><td class="num">+4%</td><td class="num">Low</td><td class="num">2.1</td><td><span class="pill danger">Too small for HB volume tier</span></td></tr>
+          </tbody>
+        </table>
+        <p class="note">Sorted by predicted_lift × confidence. The last row demonstrates the volume-tier guidance widget: at HB's 2K-10K monthly LP views, a 4% predicted lift won't reach yellow confidence within a reasonable test window. Flagged automatically.</p>
+      </div>
+
+      <!-- ============ TAB 6: FUNNEL MAP ============ -->
+      <div class="pane" id="p6">
+        <table>
+          <thead>
+            <tr><th style="width: 16%;">Node ID</th><th style="width: 11%;">Type</th><th style="width: 22%;">Name</th><th style="width: 13%;">Parent</th><th style="width: 13%;">Variant of</th><th style="width: 15%;">Test method</th><th class="num" style="width: 10%;">Active</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>hb_dto_lp</code></td><td>lp</td><td>DTO landing (control)</td><td>—</td><td>—</td><td>—</td><td class="num">✓</td></tr>
+            <tr><td><code>hb_dto_lp_b</code></td><td>lp</td><td>LP-B outcome headline</td><td>hb_dto_lp</td><td>hb_dto_lp</td><td><span class="method-badge">Vercel split</span></td><td class="num">✓</td></tr>
+            <tr><td><code>hb_dto_lp_c</code></td><td>lp</td><td>LP-C testimonial-first</td><td>hb_dto_lp</td><td>hb_dto_lp</td><td><span class="method-badge">Vercel split</span></td><td class="num">✓</td></tr>
+            <tr><td><code>hb_dto_app</code></td><td>application</td><td>DTO application (single)</td><td>hb_dto_lp</td><td>—</td><td>—</td><td class="num">✓</td></tr>
+            <tr><td><code>hb_dto_cal</code></td><td>calendar</td><td>DTO calendar (GHL iframe)</td><td>hb_dto_app</td><td>—</td><td>—</td><td class="num">✓</td></tr>
+            <tr><td><code>hb_dto_ty</code></td><td>ty</td><td>DTO thank-you</td><td>hb_dto_cal</td><td>—</td><td>—</td><td class="num">✓</td></tr>
+            <tr class="subtle"><td>—</td><td>—</td><td>20+ placeholder rows reserved for future variants</td><td>—</td><td>—</td><td>—</td><td class="num">—</td></tr>
+          </tbody>
+        </table>
+        <div class="legend">
+          Activating a variant = setting <code>active = TRUE</code>. No schema changes needed when adding variants — Tabs 1, 2, 3 read from this dynamically. Test method tracked per variant so the dashboard knows how to interpret the data (URL split vs Meta A/B vs duplicate campaign — see §8 of the brief).
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Post-mockup notes -->
+  <div class="preamble">
+    <div class="kicker">What changed vs the original brief mockup</div>
+    <p><strong>New: Benchmark / Target / Current panel</strong> at the top of Tab 1. This is the framing that anchors everything — we're not measuring absolute performance, we're measuring against a contractual baseline. Switches with the "Optimizing for" toggle.</p>
+    <p><strong>Tab 1 now shows real deduped numbers</strong> (29 apps not 31, 17 bookings not 20). Reflects what would happen if you shipped the §6a quick-fix formulas today. Also: "Calls Taken" rows are dashes not zeros, because the CRM workflow isn't wired — distinguishes "not implemented" from "no data this week."</p>
+    <p><strong>Tab 2 added test_method context</strong> — Vercel split vs Meta A/B vs duplicate campaign. The dashboard knows how the data was generated so you know how to interpret it.</p>
+    <p><strong>Tab 5 includes volume-tier guidance.</strong> The last row demonstrates the auto-flag for tests whose predicted lift is too small to ever reach confidence at current volume — prevents wasted test cycles on headline-only tests.</p>
+    <p><strong>Tab 6 added test_method column.</strong> Per-variant tracking of how the test is being run, so when you look back at a result you remember whether it was a clean URL split or a confounded campaign duplicate.</p>
+    <div class="callout">
+      <div class="ck">⇄ Three things to react to before sending to Daniyal</div>
+      <p>(1) The Benchmark/Target/Current panel design — does this framing feel right or is it busy? (2) Tab 2 still doesn't exist for real because you have no variants yet — should the mockup show it as "future state" more explicitly? (3) The dedup fix formulas in §6a of the brief — try them on a copy of the sheet before sending, so we know they actually work before promising Daniyal they will.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const tabs = document.querySelectorAll('#tabs .tab');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.pane).classList.add('active');
+  }));
+})();
+</script>
+</body>
+</html>
