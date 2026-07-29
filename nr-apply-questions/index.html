@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>NR Apply — Question Formatting: V1 vs V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   LAB SHELL — the review surface. Deliberately colourless so the
+   two phone specimens carry every bit of hue on the page.
+   Single dark theme on purpose: the product under review is
+   dark-by-spec, and a light shell would misreport its contrast.
+   ============================================================ */
+:root{
+  --lab-bg:#0C0C10;
+  --lab-panel:#14141A;
+  --lab-panel-2:#1A1A22;
+  --lab-line:#26262F;
+  --lab-line-soft:#1E1E26;
+  --lab-fg:#E9E9F0;
+  --lab-muted:#8B8B9C;
+  --lab-dim:#5E5E6E;
+
+  /* NetRevenue production tokens — copied from src/index.css, not eyeballed */
+  --nr-bg:hsl(0 0% 4%);
+  --nr-bg-sunken:hsl(0 0% 2%);
+  --nr-fg:hsl(0 0% 98%);
+  --nr-muted:hsl(0 0% 60%);
+  --nr-border:hsl(0 0% 14%);
+  --nr-accent:hsl(252 80% 65%);
+  --nr-accent-soft:hsl(252 60% 18%);
+  --nr-accent-soft-fg:hsl(252 90% 85%);
+  --nr-cta:hsl(22 95% 55%);
+  --nr-cta-grad:linear-gradient(180deg,hsl(22 95% 58%) 0%,hsl(18 95% 50%) 100%);
+  --nr-cta-shadow:0 10px 30px -10px hsl(22 95% 50% / .45), inset 0 1px 0 0 hsl(0 0% 100% / .18);
+  --nr-pill-grad:linear-gradient(135deg,hsl(252 70% 22%) 0%,hsl(232 70% 22%) 100%);
+  --nr-hero-glow:radial-gradient(ellipse at 50% 0%, hsl(252 80% 25% / .35) 0%, hsl(0 0% 4% / 0) 60%);
+
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --tight:"Inter Tight","Inter",ui-sans-serif,system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+body{
+  margin:0;background:var(--lab-bg);color:var(--lab-fg);
+  font-family:var(--sans);font-size:14px;line-height:1.5;
+}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--nr-accent);outline-offset:2px;border-radius:4px;}
+
+/* ---------- lab header ---------- */
+.lab-head{
+  border-bottom:1px solid var(--lab-line);
+  background:linear-gradient(180deg,#101016 0%,#0C0C10 100%);
+  padding:22px 28px 18px;
+}
+.lab-head-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;}
+.lab-eyebrow{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--lab-dim);margin:0 0 7px;
+}
+.lab-title{font-family:var(--tight);font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0;line-height:1.15;}
+.lab-sub{margin:7px 0 0;color:var(--lab-muted);font-size:13.5px;max-width:62ch;text-wrap:pretty;}
+.lab-sub code{font-family:var(--mono);font-size:12px;color:var(--lab-fg);background:var(--lab-panel-2);padding:1px 5px;border-radius:4px;}
+
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.ctrl{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  background:var(--lab-panel);border:1px solid var(--lab-line);color:var(--lab-muted);
+  padding:7px 12px;border-radius:8px;cursor:pointer;transition:.15s;
+}
+.ctrl:hover{border-color:#393946;color:var(--lab-fg);}
+.ctrl[aria-pressed="true"]{background:var(--nr-accent-soft);border-color:hsl(252 80% 65% / .45);color:var(--nr-accent-soft-fg);}
+
+/* ---------- stage ---------- */
+.stage{max-width:1180px;margin:0 auto;padding:30px 28px 8px;}
+.specimens{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;align-items:flex-start;}
+.specimen{display:flex;flex-direction:column;gap:11px;}
+.spec-label{display:flex;align-items:baseline;gap:9px;padding-left:2px;}
+.spec-tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 8px;border-radius:5px;border:1px solid var(--lab-line);color:var(--lab-muted);
+}
+.spec-tag.live{border-color:#3A3A46;color:#9A9AAB;}
+.spec-tag.new{border-color:hsl(22 95% 55% / .5);color:hsl(22 95% 68%);background:hsl(22 95% 55% / .09);}
+.spec-name{font-size:13px;font-weight:600;color:var(--lab-fg);}
+.spec-route{font-family:var(--mono);font-size:11px;color:var(--lab-dim);}
+
+/* phone frame */
+.phone{
+  width:405px;border-radius:38px;padding:14px;
+  background:linear-gradient(160deg,#26262F 0%,#131318 55%,#26262F 100%);
+  box-shadow:0 30px 70px -30px #000, 0 0 0 1px #2E2E38;
+  flex:0 0 auto;
+}
+.viewport{
+  width:375px;height:760px;border-radius:26px;overflow:hidden;position:relative;
+  background:var(--nr-bg);
+}
+.scroller{
+  position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
+  font-family:var(--sans);color:var(--nr-fg);
+  scrollbar-width:thin;scrollbar-color:#2A2A32 transparent;
+}
+.scroller::-webkit-scrollbar{width:5px;}
+.scroller::-webkit-scrollbar-thumb{background:#2A2A32;border-radius:3px;}
+
+/* measurement readout under each phone */
+.readout{
+  display:flex;gap:0;border:1px solid var(--lab-line);border-radius:9px;overflow:hidden;
+  background:var(--lab-panel);
+}
+.readout div{flex:1;padding:8px 10px;border-right:1px solid var(--lab-line-soft);}
+.readout div:last-child{border-right:0;}
+.readout dt{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--lab-dim);margin:0 0 3px;
+}
+.readout dd{
+  margin:0;font-family:var(--mono);font-size:14px;font-weight:500;
+  font-variant-numeric:tabular-nums;color:var(--lab-fg);
+}
+.readout dd.warn{color:hsl(22 95% 62%);}
+.readout dd.good{color:#4FD68A;}
+
+/* highlight pulse driven by the ledger */
+.hl-target{position:relative;}
+.hl-on::after{
+  content:"";position:absolute;inset:-5px;border-radius:12px;pointer-events:none;
+  border:1.5px solid hsl(22 95% 60% / .95);
+  box-shadow:0 0 0 4px hsl(22 95% 55% / .16);
+  animation:hlin .18s ease-out;
+}
+@keyframes hlin{from{opacity:0;}to{opacity:1;}}
+
+/* ============================================================
+   NR PHONE CONTENT — production tokens, production copy verbatim
+   ============================================================ */
+.nr-topbar{
+  position:sticky;top:0;z-index:40;width:100%;
+  border-bottom:1px solid hsl(0 0% 14% / .6);
+  background:hsl(0 0% 2% / .8);backdrop-filter:blur(12px);
+  height:64px;display:flex;align-items:center;justify-content:center;
+}
+.nr-topbar img{height:28px;width:auto;filter:brightness(0) invert(1);}
+
+.nr-hero{position:relative;overflow:hidden;}
+.nr-hero-glow{position:absolute;inset:0;pointer-events:none;background:var(--nr-hero-glow);}
+.nr-hero-in{position:relative;padding:24px 20px 16px;text-align:center;}
+.nr-pill{
+  display:inline-flex;align-items:center;gap:8px;border-radius:999px;
+  padding:6px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;
+  background:var(--nr-pill-grad);color:var(--nr-accent-soft-fg);
+  border:1px solid hsl(252 80% 65% / .25);
+}
+.nr-h1{
+  font-family:var(--tight);font-weight:700;color:var(--nr-fg);
+  font-size:22px;letter-spacing:-.02em;line-height:1.2;
+  margin:12px auto 0;max-width:300px;text-wrap:balance;
+}
+.nr-lede{
+  margin:8px auto 0;max-width:300px;font-size:14px;line-height:1.6;
+  color:var(--nr-muted);text-wrap:pretty;
+}
+.nr-body{padding:0 20px 32px;}
+.nr-card{
+  position:relative;border-radius:14px;padding:20px;
+  border:1px solid var(--nr-border);
+  background:linear-gradient(180deg,hsl(0 0% 8%) 0%,hsl(0 0% 6%) 100%);
+  box-shadow:0 1px 0 0 hsl(0 0% 100% / .04) inset, 0 20px 40px -24px hsl(0 0% 0% / .6);
+}
+.nr-foot{
+  border-top:1px solid hsl(0 0% 14% / .6);padding:22px 20px 26px;text-align:center;
+  font-size:12px;color:hsl(0 0% 42%);
+}
+.nr-foot a{color:hsl(0 0% 62%);text-decoration:none;margin:0 7px;}
+
+/* -- V1 progress row -- */
+.v1-prog{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.v1-back{
+  display:inline-flex;align-items:center;gap:4px;flex-shrink:0;background:none;border:0;padding:0;
+  font-family:var(--sans);font-size:12px;font-weight:500;color:var(--nr-muted);cursor:pointer;
+}
+.v1-back:hover{color:var(--nr-fg);}
+.v1-bar{flex:1;height:6px;border-radius:999px;background:hsl(0 0% 98% / .2);overflow:hidden;}
+.v1-bar i{display:block;height:100%;background:var(--nr-fg);transition:width .3s;}
+.v1-count{
+  flex-shrink:0;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--nr-muted);font-variant-numeric:tabular-nums;
+}
+.v1-q{display:block;font-size:18px;font-weight:600;line-height:1.35;color:var(--nr-fg);}
+.v1-help{margin:4px 0 0;font-size:13px;color:var(--nr-muted);}
+.v1-opts{margin-top:16px;display:grid;gap:10px;}
+.v1-opt{
+  display:flex;align-items:center;gap:12px;min-height:60px;cursor:pointer;
+  border-radius:12px;border:1px solid hsl(0 0% 100% / .08);
+  background:hsl(0 0% 100% / .03);padding:16px;
+  font-size:15px;line-height:1.35;color:hsl(0 0% 98% / .9);transition:all .15s;
+}
+.v1-opt:hover{border-color:var(--nr-accent);background:hsl(0 0% 100% / .05);}
+.v1-opt[aria-checked="true"]{border-color:var(--nr-accent);background:hsl(252 60% 18% / .25);}
+.v1-radio{
+  flex:0 0 auto;width:16px;height:16px;border-radius:50%;
+  border:1px solid var(--nr-accent);display:grid;place-items:center;
+}
+.v1-opt[aria-checked="true"] .v1-radio::after{
+  content:"";width:8px;height:8px;border-radius:50%;background:var(--nr-accent);
+}
+.v1-cta{
+  width:100%;margin-top:24px;border-radius:12px;border:0;padding:19px 16px;
+  font-family:var(--sans);font-size:15px;font-weight:600;color:#fff;cursor:pointer;
+  background:var(--nr-cta-grad);box-shadow:var(--nr-cta-shadow);
+}
+.v1-cta:hover{opacity:.95;}
+.v1-cta:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;color:hsl(0 0% 100% / .5);}
+
+/* -- V2 -- */
+/* One row: back · logo · segmented progress, right-aligned (Embeddables pattern) */
+.v2-topbar{
+  position:sticky;top:0;z-index:40;width:100%;
+  border-bottom:1px solid hsl(0 0% 14% / .6);
+  background:hsl(0 0% 2% / .92);backdrop-filter:blur(12px);
+  padding:14px 16px;display:flex;align-items:center;gap:10px;min-height:56px;
+}
+.v2-back{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;flex:0 0 auto;margin-left:-4px;
+  background:none;border:0;padding:0;cursor:pointer;
+  font-size:17px;line-height:1;color:var(--nr-muted);transition:color .15s;
+}
+.v2-back:hover{color:var(--nr-fg);}
+.v2-back[hidden]{display:none;}
+.v2-topbar img{height:19px;width:auto;filter:brightness(0) invert(1);opacity:.94;display:block;}
+.v2-logo-wrap{flex:0 0 auto;display:flex;align-items:center;}
+.v2-seg{display:flex;gap:4px;flex:0 0 128px;margin-left:auto;}
+.v2-seg i{
+  flex:1;height:4px;border-radius:2px;background:hsl(0 0% 100% / .17);
+  transition:background .28s ease, transform .28s ease;transform-origin:left;
+}
+.v2-seg i.done{background:hsl(0 0% 100% / .62);}
+.v2-seg i.now{background:var(--nr-cta);box-shadow:0 0 10px hsl(22 95% 55% / .55);}
+
+.v2-body{padding:26px 20px 44px;}
+.v2-narrow{max-width:320px;margin:0 auto;}
+/* Pin the footer to the bottom of the viewport so short steps don't leave it
+   floating in dead space. flex-grow beats vertical centering here: centering a
+   scroll container's contents clips the top once a long option list overflows. */
+#v2{display:flex;flex-direction:column;min-height:100%;}
+#v2 .v2-body{flex:1 0 auto;}
+/* Everything else must keep its intrinsic height. Without this the step-1 hero
+   (overflow:hidden, no min-height) gets shrunk to nothing the moment the column
+   overflows by even a pixel. */
+#v2 .v2-topbar,#v2 .nr-hero,#v2 .nr-foot{flex:0 0 auto;}
+.v2-stepwrap{position:relative;}
+.v2-step{animation:slideIn .19s cubic-bezier(.22,.61,.36,1);}
+.v2-step.back{animation-name:slideInBack;}
+@keyframes slideIn{from{opacity:0;transform:translateX(14px);}to{opacity:1;transform:none;}}
+@keyframes slideInBack{from{opacity:0;transform:translateX(-14px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){
+  .v2-step,.v2-step.back{animation:none;}
+  .v2-seg i{transition:none;}
+}
+/* Centered, narrow measure — the question is the axis the screen is built on */
+.v2-q{
+  display:block;margin:0 auto;max-width:290px;text-align:center;
+  font-family:var(--tight);font-size:24px;font-weight:700;
+  letter-spacing:-.024em;line-height:1.17;color:var(--nr-fg);text-wrap:balance;
+}
+.v2-help{
+  margin:9px auto 0;max-width:286px;text-align:center;
+  font-size:13.5px;line-height:1.5;color:var(--nr-muted);text-wrap:pretty;
+}
+.v2-opts{margin:22px auto 0;display:grid;gap:9px;max-width:320px;}
+.v2-opt{
+  position:relative;display:flex;align-items:center;gap:12px;
+  width:100%;min-height:54px;text-align:left;cursor:pointer;
+  border-radius:12px;border:1px solid hsl(0 0% 100% / .09);
+  background:hsl(0 0% 100% / .035);padding:12px 14px;
+  font-family:var(--sans);font-size:15px;line-height:1.3;color:hsl(0 0% 98% / .92);
+  transition:border-color .14s, background .14s, color .14s, transform .12s, box-shadow .14s;
+}
+.v2-opt:hover{border-color:hsl(0 0% 100% / .24);background:hsl(0 0% 100% / .07);}
+.v2-opt:active{transform:scale(.985);}
+.v2-key{
+  flex:0 0 auto;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;
+  border:1px solid hsl(0 0% 100% / .16);background:hsl(0 0% 100% / .05);
+  font-family:var(--mono);font-size:11px;font-weight:500;color:hsl(0 0% 100% / .62);
+  transition:.15s;
+}
+.v2-opt:hover .v2-key{color:hsl(0 0% 100% / .85);border-color:hsl(0 0% 100% / .28);}
+/* Selected = the whole row goes solid CTA. No ambiguity at arm's length. */
+.v2-opt[aria-checked="true"]{
+  border-color:transparent;color:#fff;font-weight:500;
+  background:var(--nr-cta-grad);
+  box-shadow:0 8px 22px -10px hsl(22 95% 50% / .75), inset 0 1px 0 0 hsl(0 0% 100% / .2);
+}
+.v2-opt[aria-checked="true"] .v2-key{
+  background:hsl(0 0% 100% / .22);border-color:hsl(0 0% 100% / .3);color:#fff;
+}
+.v2-opt[aria-checked="true"] .v2-key span{display:none;}
+.v2-opt[aria-checked="true"] .v2-key::after{
+  content:"";width:10px;height:5px;border:2px solid #fff;border-top:0;border-right:0;
+  transform:rotate(-45deg) translate(1px,-2px);border-radius:1px;
+}
+.v2-opt-label{flex:1;}
+
+/* Pill CTA — appears only where a second tap is genuinely required */
+.v2-cta{
+  display:block;margin:22px auto 0;border-radius:999px;border:0;padding:15px 40px;
+  font-family:var(--sans);font-size:15px;font-weight:600;color:#fff;cursor:pointer;
+  background:var(--nr-cta-grad);box-shadow:var(--nr-cta-shadow);transition:.15s;
+}
+.v2-cta:hover{opacity:.95;transform:translateY(-1px);}
+
+/* shared form bits */
+.nr-ta,.nr-in{
+  width:100%;margin-top:8px;border-radius:10px;padding:12px;
+  border:1px solid var(--nr-border);background:hsl(0 0% 12%);
+  font-family:var(--sans);font-size:15px;color:var(--nr-fg);resize:vertical;
+}
+.nr-ta::placeholder,.nr-in::placeholder{color:hsl(0 0% 45%);}
+.nr-ta:focus,.nr-in:focus{outline:2px solid hsl(252 80% 65% / .6);outline-offset:0;border-color:transparent;}
+.nr-other{margin-top:8px;border-radius:12px;border:1px solid hsl(0 0% 100% / .08);background:hsl(0 0% 100% / .02);padding:16px;}
+.nr-other label{font-size:13px;font-weight:500;color:hsl(0 0% 98% / .9);}
+.nr-fieldlabel{font-size:13.5px;font-weight:500;color:hsl(0 0% 98% / .88);}
+.nr-eyebrow{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--nr-muted);
+}
+.nr-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}
+.nr-field{margin-top:16px;}
+.nr-micro{margin:6px 0 0;font-size:12px;color:hsl(0 0% 100% / .45);}
+.nr-micro.center{text-align:center;margin-top:12px;}
+
+/* ============================================================
+   CHANGE LEDGER
+   ============================================================ */
+.ledger{max-width:1180px;margin:0 auto;padding:30px 28px 70px;}
+.ledger-head{
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  padding-bottom:14px;border-bottom:1px solid var(--lab-line);margin-bottom:4px;
+}
+.ledger-head h2{font-family:var(--tight);font-size:17px;font-weight:700;letter-spacing:-.015em;margin:0;}
+.ledger-head p{margin:0;color:var(--lab-dim);font-size:12.5px;}
+.row{
+  display:grid;grid-template-columns:34px 1.05fr 1.5fr 0.95fr;gap:18px;
+  padding:16px 10px 16px 4px;border-bottom:1px solid var(--lab-line-soft);
+  cursor:default;transition:background .14s;
+}
+.row:hover{background:var(--lab-panel);}
+.row-n{
+  font-family:var(--mono);font-size:11px;font-weight:500;color:var(--lab-dim);
+  padding-top:2px;font-variant-numeric:tabular-nums;
+}
+.row h3{font-size:13.5px;font-weight:600;margin:0 0 4px;color:var(--lab-fg);}
+.row .was{font-size:12.5px;color:var(--lab-dim);margin:0;}
+.row .why{font-size:13px;color:var(--lab-muted);margin:0;text-wrap:pretty;}
+.row .why b{color:var(--lab-fg);font-weight:600;}
+.effect{
+  font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--lab-muted);
+  align-self:start;padding-top:1px;
+}
+.effect b{display:block;color:hsl(22 95% 66%);font-weight:500;margin-bottom:3px;}
+.hdr-row{
+  display:grid;grid-template-columns:34px 1.05fr 1.5fr 0.95fr;gap:18px;
+  padding:10px 10px 8px 4px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--lab-dim);
+}
+.note{
+  margin-top:26px;padding:16px 18px;border-radius:11px;
+  border:1px solid var(--lab-line);background:var(--lab-panel);
+  font-size:13px;color:var(--lab-muted);text-wrap:pretty;
+}
+.note b{color:var(--lab-fg);font-weight:600;}
+.note code{font-family:var(--mono);font-size:11.5px;color:hsl(22 95% 68%);}
+.note + .note{margin-top:10px;}
+
+@media (max-width:900px){
+  .row,.hdr-row{grid-template-columns:26px 1fr;gap:10px;}
+  .hdr-row span:nth-child(n+3){display:none;}
+  .row .effect{grid-column:2;}
+  .row > div:nth-child(3){grid-column:2;}
+  .phone{width:100%;max-width:405px;}
+  .viewport{width:100%;}
+  .stage,.ledger,.lab-head{padding-left:16px;padding-right:16px;}
+}
+</style>
+</head>
+<body>
+
+<header class="lab-head">
+  <div class="lab-head-in">
+    <div>
+      <p class="lab-eyebrow">NetRevenue · Application form · CRO mockup</p>
+      <h1 class="lab-title">Question formatting — V1 live vs V2 proposed</h1>
+      <p class="lab-sub">Both phones are live and clickable at a true 375&nbsp;px. Every question, helper line and answer label is copied <b>verbatim</b> from <code>DtoApplyFS.tsx</code> — not one word was rewritten. Colours are the production tokens from <code>src/index.css</code>. Only layout, hierarchy and interaction changed.</p>
+    </div>
+    <div class="controls">
+      <button class="ctrl" id="syncBtn" aria-pressed="true">Sync&nbsp;steps: on</button>
+      <button class="ctrl" id="fillBtn">Auto-answer</button>
+      <button class="ctrl" id="resetBtn">Reset both</button>
+    </div>
+  </div>
+</header>
+
+<main class="stage">
+  <div class="specimens">
+
+    <section class="specimen">
+      <div class="spec-label">
+        <span class="spec-tag live">V1 · Live</span>
+        <span class="spec-name">Current</span>
+        <span class="spec-route">apply.netrevenue.io/dto/fs</span>
+      </div>
+      <div class="phone">
+        <div class="viewport"><div class="scroller" id="v1"></div></div>
+      </div>
+      <dl class="readout" id="ro1">
+        <div><dt>Taps to finish</dt><dd data-k="taps">—</dd></div>
+        <div><dt>1st option at</dt><dd data-k="fold">—</dd></div>
+        <div><dt>Progress count</dt><dd data-k="prog">—</dd></div>
+      </dl>
+    </section>
+
+    <section class="specimen">
+      <div class="spec-label">
+        <span class="spec-tag new">V2 · Proposed</span>
+        <span class="spec-name">Elite</span>
+        <span class="spec-route">mockup only — nothing deployed</span>
+      </div>
+      <div class="phone">
+        <div class="viewport"><div class="scroller" id="v2"></div></div>
+      </div>
+      <dl class="readout" id="ro2">
+        <div><dt>Taps to finish</dt><dd data-k="taps">—</dd></div>
+        <div><dt>1st option at</dt><dd data-k="fold">—</dd></div>
+        <div><dt>Progress count</dt><dd data-k="prog">—</dd></div>
+      </dl>
+    </section>
+
+  </div>
+</main>
+
+<section class="ledger">
+  <div class="ledger-head">
+    <h2>What changed, and why</h2>
+    <p>Hover a row to flash the affected region on the V2 phone.</p>
+  </div>
+  <div class="hdr-row"><span></span><span>Change</span><span>Reasoning</span><span>Expected effect</span></div>
+
+  <div class="row" data-hl="advance">
+    <div class="row-n">01</div>
+    <div>
+      <h3>Tapping an answer advances the form</h3>
+      <p class="was">Was: pick an answer, then reach for Continue.</p>
+    </div>
+    <div><p class="why">Single-choice questions carry no ambiguity about when the answer is final, so the second tap is pure friction, repeated eight times. The selection still confirms visibly for 260&nbsp;ms before the slide, and <b>Back restores the previous answer</b> so a mis-tap costs one tap to undo, not a lost form.</p></div>
+    <div class="effect"><b>8 fewer taps</b>the single biggest completion lever in a multi-step quiz</div>
+  </div>
+
+  <div class="row" data-hl="advance">
+    <div class="row-n">02</div>
+    <div>
+      <h3>The dead orange Continue is gone</h3>
+      <p class="was">Was: a permanently visible muddy-orange button, greyed until you answer.</p>
+    </div>
+    <div><p class="why">A disabled CTA in the brand's action colour reads as <b>a broken button, not a locked one</b> — it is the loudest object on the screen and it does nothing. On single-choice steps V2 shows no button at all; Continue returns only where it earns its place: the "Something else" write-in, the timeline write-in, and the contact step.</p></div>
+    <div class="effect"><b>Removes a false affordance</b>orange now only ever means "this works"</div>
+  </div>
+
+  <div class="row" data-hl="header">
+    <div class="row-n">03</div>
+    <div>
+      <h3>The hero stops repeating after question&nbsp;1</h3>
+      <p class="was">Was: logo bar + APPLICATION pill + "Let's find out if we're the right fit." re-rendered on every step.</p>
+    </div>
+    <div><p class="why">That block earns its space once — on step 1, where it sets the promise. On steps 2–9 it is 150&nbsp;px of repetition standing between the user and the thing they came to do. V2 keeps it in full on step&nbsp;1, then collapses to a slim sticky bar. <b>No copy was deleted</b>, only de-duplicated.</p></div>
+    <div class="effect"><b>~150&nbsp;px reclaimed</b>every option list now opens above the fold</div>
+  </div>
+
+  <div class="row" data-hl="progress">
+    <div class="row-n">04</div>
+    <div>
+      <h3>Progress that cannot go backwards</h3>
+      <p class="was">Was: "1 / 8" that silently becomes "5 / 9" when a conditional step is added.</p>
+    </div>
+    <div><p class="why">The live denominator grows mid-flow, so the form visibly gets <b>longer while you fill it in</b> — the exact moment a committed applicant reconsiders. V2 uses a segmented bar with no fraction: adding a segment is a sub-pixel change, and a filled-versus-empty bar answers "how much is left" without ever printing a number that can contradict itself.</p></div>
+    <div class="effect"><b>Kills the length surprise</b>the known drop-off point in this form</div>
+  </div>
+
+  <div class="row" data-hl="question">
+    <div class="row-n">05</div>
+    <div>
+      <h3>Centred column, and the card is gone</h3>
+      <p class="was">Was: 18&nbsp;px semibold, left-aligned, below a progress row, inside a bordered card, inside a hero.</p>
+    </div>
+    <div><p class="why">Three nested containers each took a turn before the question got to speak, and the card border drew a box around the one thing that needed no framing. V2 drops the card, centres the question on a 290&nbsp;px measure and the options on 320&nbsp;px, and sets the type in Inter Tight at 24&nbsp;px/-0.024&nbsp;em — the same face as the landing-page headlines, so the form reads as <b>the same product</b> rather than a shadcn default that inherited the colours.</p></div>
+    <div class="effect"><b>One clear axis</b>question, then options, nothing competing</div>
+  </div>
+
+  <div class="row" data-hl="options">
+    <div class="row-n">06</div>
+    <div>
+      <h3>Lettered keys replace radio dots</h3>
+      <p class="was">Was: a 16&nbsp;px shadcn radio circle, vertically centred against wrapping labels.</p>
+    </div>
+    <div><p class="why">The radio dot is small, generic, and drifts out of alignment the moment a label wraps to two lines — which four of the seven industry options do. A fixed 26&nbsp;px key holds the left edge steady, makes each row read as one deliberate object, and <b>doubles as the keyboard shortcut</b>: press A–G on desktop.</p></div>
+    <div class="effect"><b>Steady rhythm</b>plus real keyboard answering on desktop</div>
+  </div>
+
+  <div class="row" data-hl="options">
+    <div class="row-n">07</div>
+    <div>
+      <h3>The chosen row goes solid</h3>
+      <p class="was">Was: a purple border and a 25%-opacity purple tint — near-invisible on a phone in daylight.</p>
+    </div>
+    <div><p class="why">Selecting an answer is the only thing the user does on this screen, so it should be the only thing that lights up. The whole row fills with the CTA gradient and the key becomes a check — readable at arm's length, outdoors, at a glance. Purple stays the brand accent; <b>orange stays reserved for action</b>, which is exactly why it can no longer sit on a dead button.</p></div>
+    <div class="effect"><b>Confirmed at a glance</b>no second-guessing before the auto-advance</div>
+  </div>
+
+  <div class="row" data-hl="motion">
+    <div class="row-n">08</div>
+    <div>
+      <h3>Direction-aware step transitions</h3>
+      <p class="was">Was: an instant swap plus a smooth-scroll to top.</p>
+    </div>
+    <div><p class="why">A 190&nbsp;ms slide — forward one way, back the other — tells the user the form moved and which way it went, so the screen change is legible instead of startling. It is the difference between <b>an app and a page that reloaded</b>. Respects <code style="font-family:var(--mono);font-size:11.5px;">prefers-reduced-motion</code>.</p></div>
+    <div class="effect"><b>Perceived speed</b>continuity between steps</div>
+  </div>
+</section>
+
+<section class="ledger" style="padding-top:0;">
+  <div class="note"><b>Not changed on purpose:</b> every question, helper sentence, answer label and their order are byte-identical to production. The branching logic is the real one from <code>DtoApplyFS.tsx</code> — under-100 leads still adds the "can you get to 100+" gate, a soft timeline still adds the write-in, $50–150K still adds the offer choice. Nothing here is a copy test, so a V1/V2 result is attributable to formatting alone. No copy was <i>added</i> either — V2 ships no new instruction lines, hints or microcopy.</div>
+  <div class="note"><b>Same pattern, four places.</b> <code>DtoApply.tsx</code> (/dto/apply), <code>DtoApplyFS.tsx</code> (/dto/fs) and <code>fs/Apply.tsx</code> (/dto-fs/apply) each carry their own copy of this option UI, and /dto-vsl needs a form next. If V2 lands, it should ship as one shared component so this is the last time it gets fixed once per file.</div>
+  <div class="note"><b>Status:</b> mockup only. Nothing has been branched, built or deployed to any NetRevenue domain.</div>
+</section>
+
+<script>
+"use strict";
+
+const LOGO = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTUiIGhlaWdodD0iMjgiIGZpbGw9Im5vbmUiIHhtbG5zOnY9Imh0dHBzOi8vdmVjdGEuaW8vbmFubyI+PGcgY2xpcC1wYXRoPSJ1cmwoI0EpIiBmaWxsPSJjdXJyZW50Q29sb3IiPjxwYXRoIGQ9Ik0yMC45MTIgOS41OTNjLjAwMi4wMDguMDAxLjAxNy0uMDA0LjAyNWwtLjk4NCAxLjYtLjg3MSAxLjQ3Ni00LjgxIDcuODUyYy0uMDIuMDMzLS4wNS4wNS0uMDg5LjA1aC0yLjI5NmMtLjAxOS0uMDA3LS4wMjMtLjAxMS0uMDI1LS4wMTUtLjAwNC0uMDItLjAwMi0uMDI1IDAtLjAzbDYuOTE5LTExLjMwNWMuMDIyLS4wMzcuMDI3LS4wNzUuMDE0LS4xMTYtMS4xMzgtMy40MjYtNC4wMzQtNS44ODgtNy41NzYtNi41MTVhNC45NCA0Ljk0IDAgMCAwLS40OTgtLjA2M2MtLjAyMy0uMDAyLS4wMzUtLjAxNS0uMDM1LS4wMzhsLjAwNy0yLjAxOGMuMDA0LS4wMTUuMDA2LS4wMTkuMDA5LS4wMjEuMDE0LS4wMDcuMDE4LS4wMDguMDIyLS4wMDcgMi40ODIuMjUgNC42NzcgMS4xOTcgNi41ODYgMi44NDMgMS41OTkgMS4zNzkgMi43NDYgMy4xMTIgMy40NDEgNS4xOTcuMTAxLjMwMy4xODMuNjE5LjI0Ni45NDkuMDA4LjAzOC0uMDA1LjA2OS0uMDM4LjA5Mi0uMDE0LjAxLS4wMi4wMjQtLjAxNi4wNDJ6Ii8+PHBhdGggZD0iTTUuMDg4IDkuNzg5bDEuMTE3IDEuNTIxYy4wMjMuMDMxLjA1NC4wNDEuMDkyLjAyOWwyLjY0LS44NDdhLjA5LjA5IDAgMCAxIC4wNDMtLjAwM2MuMDE0LjAwMi4wMjguMDA5LjA0LjAxOWE0Ljg0IDQuODQgMCAwIDAgLjQ4MS4zNjZjMS4wOTMuNzI2IDIuNTg3LjM5MiAzLjI2Ni0uNzA2LjUzMy0uODYxLjQ2NS0xLjg2Mi0uMTI0LTIuNjc0LS4wMDktLjAxMy0uMDEzLS4wMjgtLjAxMS0uMDQzcy4wMS0uMDI5LjAyMS0uMDM5bDEuNDgxLTEuMjAzYy4wMDgtLjAwNy4wMTgtLjAxMi4wMjktLjAxNXMuMDIyLS4wMDQuMDMzLS4wMDMuMDIyLjAwNC4wMzEuMDEuMDE4LjAxMi4wMjUuMDIxYTMuNzggMy43OCAwIDAgMSAuNTA0LjgxMWMuNTQ5IDEuMjExLjU3NCAyLjQxMy4wNzUgMy42MDQtLjU1NCAxLjMyNC0xLjcxIDIuMjcyLTMuMTIxIDIuNTgxLTEuMDQzLjIyOC0yLjA1NC4wODQtMy4wMzEtLjQzMy0uMDE4LS4wMDktLjAzOC0uMDE1LS4wNTgtLjAxN3MtLjA0MSAwLS4wNi4wMDdsLTMuMDUuOTc2YS4wNi4wNiAwIDAgMS0uMDY2LS4wMjFMMi4yMzggOS40MzVjLS4wMTQtLjAxOC0uMDEyLS4wMzUuMDA2LS4wNDlsOC4zODUtNi44MTRjLjAyMy0uMDAxLjAyNi4wMDIuMDI3LjAwNWwuMDAzIDIuNTUyYzAgLjA0LS4wMTUuMDcyLS4wNDYuMDk4TDUuMDk2IDkuNzIxYy0uMDI0LjAyLS4wMjcuMDQzLS4wMDguMDY4em0zMi41ODIgNi44MmwtLjAwMy02LjY3YzAtLjA0Ny4wMjMtLjA3MS4wNy0uMDcxbDQuNDA4LjAwMmMuMDE2LjAwNC4wMTkuMDA2LjAyMi4wMDkuMDA4LjAxNC4wMDkuMDE4LjAwOS4wMjJsLjAwMSAxMS45MTVhLjA4LjA4IDAgMCAxLS4wMjMuMDU2Yy0uMDE1LjAxNS0uMDM1LjAyMy0uMDU2LjAyM2wtNC4zMzQuMDAyYS4zOC4zOCAwIDAgMS0uMjc1LS4xMTNMMzQuNTUgMTguOTNsLTMuMDEtMi45MDItMS40NDgtMS4zOTZhLjA0LjA0IDAgMCAwLS4wMi0uMDFjLS4wMDctLjAwMS0uMDE1LS4wMDEtLjAyMi4wMDJzLS4wMTMuMDA3LS4wMTguMDEzLS4wMDguMDEzLS4wMDkuMDIxYS43OC43OCAwIDAgMC0uMDA2LjA5NGwtLjAxIDcuMDhjMCAuMDQtLjAyLjA2LS4wNTkuMDZsLTQuMzY3LjAxYS4wOC4wOCAwIDAgMS0uMDkyLS4wOTNsLjAwMi0xMS44NzRjMC0uMDUuMDI1LS4wNzUuMDc1LS4wNzVsNC44NjgtLjAwMmMuMTI0IDAgLjIzMi4wNDQuMzIyLjEzMmw2LjY3MSA2LjU2YS4zLjMgMCAwIDAgLjIxNC4wOWMuMDIxIDAgLjAzMS0uMDEuMDMxLS4wMzF6bTEwLjYzNi0zLjgxOWwtLjAwNCAxLjQ4MWMwIC4wMjEuMDEuMDMxLjAzMS4wMzFsOC4zNDQuMDAzYS44Ny44NyAwIDAgMSAuMjE4LjAyOWMuMDEzLjAxLjAxNC4wMTQuMDE0LjAxOGwtLjAwNyAyLjc2NmMwIC4wMjQtLjAxLjA0Ny0uMDI3LjA2NHMtLjA0LjAyNy0uMDY1LjAyN2wtOC40ODEtLjAwMmMtLjAxIDAtLjAxNS4wMDUtLjAxNi4wMTR2MS42NTFjLjAwMS4wMzQuMDE4LjA1MS4wNTIuMDUxaDguNzY2Yy4wMTEgMCAuMDIyLjAwMi4wMzMuMDA3cy4wMi4wMTEuMDI4LjAxOS4wMTQuMDE4LjAxOC4wMjguMDA2LjAyMi4wMDYuMDMzbC4wMjEgMi44MDRjLjAwMi4wNTctLjAyNi4wODUtLjA4My4wODVINDMuODg3Yy0uMDYzIDAtLjA5NC0uMDMxLS4wOTQtLjA5M2wuMDAyLTExLjg1NWMwLS4wNTUuMDI3LS4wODIuMDgyLS4wODJsMTMuMTQyLjAwM2EuMDcuMDcgMCAwIDEgLjA4MS4wOGwtLjAwNCAyLjc0MWMwIC4wMTItLjAwNC4wMjUtLjAxMi4wMzRzLS4wMTkuMDE3LS4wMzEuMDE5Yy0uMDQuMDA5LS4wODQuMDEzLS4xMy4wMTNsLTguNTctLjAxNmEuMDQuMDQgMCAwIDAtLjA0Ni4wNDZ6bTkuNzgzLjI1bC0uMDA2LTMuMTAyYzAtLjAxNy4wMDctLjAzNC4wMTktLjA0NnMuMDI5LS4wMTkuMDQ2LS4wMTlsMTQuODYxLS4wMDNjLjAxNyAwIC4wMzQuMDA3LjA0Ni4wMTlzLjAxOS4wMjkuMDE5LjA0NmwuMDAxIDMuMTA1YzAgLjAxNy0uMDA3LjAzNC0uMDE5LjA0NnMtLjAyOS4wMTktLjA0Ni4wMTlsLTUuMDgyLjAwMWMtLjAxNyAwLS4wMzQuMDA3LS4wNDYuMDE5cy0uMDE5LjAyOS0uMDE5LjA0NmwtLjAwMiA4LjY2MWMwIC4wMTctLjAwNy4wMzQtLjAxOS4wNDZzLS4wMjkuMDE5LS4wNDYuMDE5bC00LjQzOC0uMDAyYy0uMDE3IDAtLjAzNC0uMDA3LS4wNDYtLjAxOXMtLjAxOS0uMDI5LS4wMTktLjA0NmwuMDAyLTguNjYxYzAtLjAxNy0uMDA3LS4wMzQtLjAxOS0uMDQ2cy0uMDI5LS4wMTktLjA0Ni0uMDE5bC01LjA3My4wMDFjLS4wMTcgMC0uMDM0LS4wMDctLjA0Ni0uMDE5cy0uMDE5LS4wMjktLjAxOS0uMDQ2em0yMC44MTMgNC43Nzd2NC4wMzJjMCAuMDI5LS4wMTUuMDQ0LS4wNDUuMDQ0bC00LjQ3Mi4wMDZjLS4wMTcgMC0uMDMzLS4wMDctLjA0NC0uMDE4cy0uMDE4LS4wMjgtLjAxOC0uMDQ0VjkuOTAxYzAtLjAwOS4wMDMtLjAxNy4wMS0uMDIzcy4wMTQtLjAxLjAyMy0uMDFsMTEuNTYuMDFjLjQ4LjAwMS45NDUuMSAxLjQxLjE3Mi44NjIuMTMyIDEuNzU5LjQ5IDIuMzUxIDEuMTczLjQ5NC41Ny42NSAxLjQ0OC41NzQgMi4xNzYtLjA3LjY2My0uMzQ2IDEuMTk3LS44MjggMS42YTMuNzkgMy43OSAwIDAgMS0xLjM5OC43NDZjLS4xNjMuMDQ3LS4xNjMuMDkzLjAwMi4xMzYgMS4zMDIuMzQ5IDIuMjU2IDEuMjkgMi4yNyAyLjY4NWwuMDA2IDEuNzgyYy0uMDAyLjQ4Mi4wNDYgMS4wMTguMjA4IDEuNDUuMDI2LjA2OS4wMDIuMTA0LS4wNzIuMTA0bC00LjU0Ny0uMDFjLS4wMjMtLjAwMS0uMDM2LS4wMTItLjAzOS0uMDM1bC0uMDUyLS42MDEtLjAxLTEuNTE4YTIuNTYgMi41NiAwIDAgMC0uMjA1LS45MjRjLS4zMzMtLjgwNC0xLjE3OC0xLjAzOC0yLjAxMy0xLjAzOWE4ODUuMyA4ODUuMyAwIDAgMC00LjYyNy4wMDJjLS4wMjggMC0uMDQyLjAxNC0uMDQyLjA0MnptLS4wMDItNS4wNDJ2Mi4wODhjMCAuMDA4LjAwMy4wMTUuMDA4LjAycy4wMTMuMDA4LjAyLjAwOGg1LjQ0MWMuMzI4IDAgLjY0My0uMTAzLjg3NS0uMjg3cy4zNjItLjQzMy4zNjItLjY5M3YtLjE4NGMwLS4yNi0uMTMtLjUxLS4zNjItLjY5NHMtLjU0Ny0uMjg3LS44NzUtLjI4N2gtNS40NDFjLS4wMDggMC0uMDE1LjAwMy0uMDIuMDA4cy0uMDA4LjAxMi0uMDA4LjAyem0xNy4yMTQgNi4wOTdjMCAuMDE0LjAwNS4wMjcuMDE1LjAzNmEuMDUuMDUgMCAwIDAgLjAzNi4wMTVoOC43OTNjLjA3NCAwIC4xMS4wMzcuMTEuMTFsLjAwMiAyLjgxNmMwIC4wMjUtLjAxMi4wMzgtLjAzNy4wMzhsLTEuNjE4LjAxNGE0MDc4LjYgNDA3OC42IDAgMCAwLTExLjA0Ny4wMDJjLS4yNDggMC0uNDgtLjAwNC0uNjk4LS4wMTMtLjAxIDAtLjAyLS4wMDUtLjAyNy0uMDEycy0uMDExLS4wMTctLjAxMS0uMDI3bC0uMDAxLTExLjkxOWMwLS4wMzkuMDE5LS4wNTkuMDU4LS4wNTlsMTMuMTkzLS4wMDFjLjAxIDAgLjAyMS4wMDQuMDI5LjAxMmEuMDQuMDQgMCAwIDEgLjAxMi4wMjlsLjAwMSAyLjc2NWMwIC4wNS0uMDI1LjA3NS0uMDc2LjA3NWwtOC42NzEuMDA3Yy0uMDQ0IDAtLjA2Ny4wMjItLjA2Ny4wNjdsLS4wMDggMS40MzVhLjA0LjA0IDAgMCAwIC4wMTEuMDI4Yy4wMDcuMDA3LjAxNy4wMTIuMDI3LjAxMmg4LjU4MWMuMDI1IDAgLjAzOC4wMTMuMDM4LjAzOWwtLjAwMyAyLjc5M2MwIC4wMi0uMDA4LjA0LS4wMjIuMDU0cy0uMDM0LjAyMi0uMDU0LjAyMmwtOC40ODktLjAwMWMtLjAyMSAwLS4wNDEuMDA4LS4wNTUuMDIzcy0uMDIzLjAzNS0uMDIzLjA1NXYxLjU4NnptMTguNTg2LS42NjZjLjAxNiAwIC4wMzEtLjAwNC4wNDQtLjAxMmEuMDguMDggMCAwIDAgLjAzMS0uMDM1bDMuNjgxLTguMTUyYS4yMi4yMiAwIDAgMSAuMjE2LS4xMzlsNC41MDktLjAwNGMuMDA4IDAgLjAxNS4wMDIuMDIxLjAwNnMuMDEzLjAwOS4wMTcuMDE1LjAwNi4wMTMuMDA2LjAyMSAwIC4wMTUtLjAwNC4wMjJMMTE3LjY2IDIxLjhjLS4wMy4wNjUtLjA4LjA5Ny0uMTUyLjA5N2wtNS44My4wMDFhLjI0LjI0IDAgMCAxLS4yMTQtLjEzMkwxMDUuNTEzIDkuOTRjLS4wMDQtLjAwOC0uMDA2LS4wMTYtLjAwNi0uMDI1cy4wMDMtLjAxNy4wMDgtLjAyNS4wMTEtLjAxNC4wMTktLjAxOC4wMTYtLjAwNi4wMjUtLjAwNmw0Ljg4NC0uMDA0Yy4xNzMtLjAwMS4yMzkuMDkzLjMwMy4yMjdsMy44NTkgOC4wNTNjLjAyMS4wNDIuMDUyLjA2My4wOTUuMDY0em0xMy42ODYtNS4zODRsLS4wMDggMS40MTRjMCAuMDE3LjAwNy4wMzMuMDE5LjA0NXMuMDI4LjAxOC4wNDUuMDE4bDguNDgxLjAwMmEuMDYuMDYgMCAwIDEgLjA0NC4wMThjLjAxMi4wMTIuMDE5LjAyOC4wMTkuMDQ0bC4wMTcgMi43ODNjMCAuMDA4LS4wMDEuMDE3LS4wMDQuMDI0YS4wNy4wNyAwIDAgMS0uMDE0LjAyMWMtLjAwNi4wMDYtLjAxMy4wMTEtLjAyMS4wMTRzLS4wMTYuMDA1LS4wMjQuMDA1bC04LjQ5NS0uMDA1Yy0uMDE2IDAtLjAzMy4wMDctLjA0NC4wMTlzLS4wMTkuMDI4LS4wMTkuMDQ1bC0uMDAzIDEuNTljMCAuMDE3LjAwNy4wMzMuMDE5LjA0NXMuMDI4LjAxOS4wNDQuMDE5aDguNzg2Yy4wMDggMCAuMDE2LjAwMi4wMjQuMDA1cy4wMTUuMDA4LjAyMS4wMTQuMDEuMDEzLjAxMy4wMjEuMDA1LjAxNi4wMDUuMDI0bC4wMDMgMi44NDhjMCAuMDA4LS4wMDIuMDE3LS4wMDUuMDI0YS4wNi4wNiAwIDAgMS0uMDE0LjAyMWMtLjAwNi4wMDYtLjAxMy4wMTEtLjAyMS4wMTRzLS4wMTYuMDA1LS4wMjQuMDA1bC0xMy4zMDEuMDAyYy0uMDE3IDAtLjAzMy0uMDA3LS4wNDUtLjAxOXMtLjAxOS0uMDI4LS4wMTktLjA0NWwuMDAyLTExLjkwMmMwLS4wMTcuMDA2LS4wMzMuMDE4LS4wNDVzLjAyOC0uMDE5LjA0NS0uMDE5bDEzLjIwNy4wMDJjLjAxNyAwIC4wMzMuMDA3LjA0NS4wMTlzLjAxOC4wMjguMDE4LjA0NWwtLjAxMiAyLjc1MWMwIC4wMTctLjAwNy4wMzMtLjAxOS4wNDVzLS4wMjguMDE5LS4wNDUuMDE5bC04LjY3NS4wMDljLS4wMTYgMC0uMDMyLjAwNy0uMDQ0LjAxOXMtLjAxOC4wMjctLjAxOS4wNDR6bTE0Ljg1OSAxLjg1NWEuOTYuOTYgMCAwIDAtLjAyNy4yMzFsLjAwMiA2LjkzNGMwIC4wMzktLjAyLjA1OS0uMDU5LjA1OWwtNC40NDgtLjAwOGMtLjAyNiAwLS4wNC0uMDEzLS4wNC0uMDRWOS45MzZjMC0uMDQ2LjAyNC0uMDY5LjA3LS4wNjlsNC43MjYtLjAwN2EuNzkuNzkgMCAwIDEgLjU4LjIzNWw2LjY1NiA2LjUyOWMuMDQ5LjA0OS4wODguMDQxLjExNy0uMDIzYS4zOS4zOSAwIDAgMCAuMDA0LS4wODRsLjAwMy02LjYwN2MwLS4wMS4wMDQtLjAxOS4wMTEtLjAyNnMuMDE2LS4wMTEuMDI2LS4wMTFsNC40OTctLjAwMWMuMDE5IDAgLjAyOS4wMDkuMDI5LjAyOGwtLjAwMyAxMS45MzVjMCAuMDM1LS4wMTguMDUyLS4wNTIuMDUzbC00LjMzNy4wMDhhLjQ3LjQ3IDAgMCAxLS4zMy0uMTI5bC0zLjQyNC0zLjMxOS0zLjkxMS0zLjc5NmMtLjAwNy0uMDA3LS4wMTUtLjAxMi0uMDI0LS4wMTRzLS4wMTktLjAwMi0uMDI5IDAtLjAxNy4wMDgtLjAyNC4wMTQtLjAxMS4wMTUtLjAxMy4wMjV6bTI1LjU4LTQuNzVjLS4wMDYtLjAxMi0uMDA3LS4wMjQtLjAwMy0uMDM0cy4wMTMtLjAxNy4wMjYtLjAxN2w0LjQ5NC0uMDFjLjA0IDAgLjA2LjAyLjA1OS4wNTlsLjAwMiA1LjcxM2MuMDAzIDEuOTAzLS42OCAzLjQ4My0yLjA1IDQuNzQtLjIyLjIwMS0uNTE0LjQwMi0uODg0LjYwMmE4LjQ2IDguNDYgMCAwIDEtMi42NjIuOTE0bC0uOTc3LjE0Ny0zLjI0Ny4wMDhhNS40NiA1LjQ2IDAgMCAxLS42NTctLjA3MWwtLjY2My0uMTEzYy0uODI2LS4xNDctMS42NC0uNDI3LTIuNDQxLS44NDEtMS40MjgtLjczNy0yLjQwMi0yLjEyNy0yLjc5MS0zLjY3M2E1LjMyIDUuMzIgMCAwIDEtLjExOS0uNzM5bC0uMDc5LTEuMDExLS4wMDEtNS43MDYgNC41MzUtLjAyNmMuMDI5IDAgLjA0My4wMTUuMDQzLjA0NGwtLjAwNiA0Ljk2OGMtLjAwMi42MTQuMDU0IDEuMTA1LjE2OSAxLjQ3NS4xNjUuNTMxLjQxNC45NjIuNzQ2IDEuMjkyLjU0Mi41MzggMS4zNDguNzQ5IDIuMTI2Ljg0Ni42ODguMDg1IDEuMzkxLjA0IDIuMTEtLjEzNCAxLjIzMS0uMjk5IDIuMDExLTEuMTM3IDIuMjItMi4zODcuMDQ2LS4yNzMuMDY1LS43MDEuMDU4LTEuMjgybC0uMDE2LTQuNjA2YzAtLjA1OC4wMDQtLjA5OC4wMTEtLjEyMS4wMDQtLjAxMy4wMDMtLjAyNS0uMDAzLS4wMzd6bTEwLjYgNC4zNzJsNy43NjYtLjAxLjc4NS4wMmMuMDI2LjAwMi4wMzkuMDE1LjAzOS4wNDJsLS4wMDIgMi43ODhjMCAuMDA4LS4wMDEuMDE3LS4wMDUuMDI1cy0uMDA4LjAxNS0uMDE0LjAyMS0uMDEzLjAxMS0uMDIuMDE0LS4wMTcuMDA1LS4wMjUuMDA1bC04LjQ4NS4wMDdjLS4wNTggMC0uMDg3LjAyOS0uMDg3LjA4N3YxLjU3YzAgLjAxNS4wMDYuMDMuMDE3LjA0MXMuMDI2LjAxNy4wNDEuMDE3bDguODA3LS4wMTFjLjA0NyAwIC4wNzEuMDI0LjA3Mi4wNzFsLjAwMiAyLjg0NWMwIC4wNDEtLjAyLjA2MS0uMDYuMDYxbC0xMy4yOTkuMDA5YS4wNy4wNyAwIDAgMS0uMDUtLjAyMWMtLjAxMy0uMDEzLS4wMjEtLjAzMS0uMDIxLS4wNWwuMDAxLTExLjg3MmEuMDkuMDkgMCAwIDEgLjAyNS0uMDYyYy4wMTYtLjAxNy4wMzktLjAyNi4wNjItLjAyNmwxMy4xODguMDA0Yy4wMjggMCAuMDQzLjAxNC4wNDMuMDQzbC4wMDMgMi43ODJjMCAuMDM1LS4wMjIuMDUyLS4wNjYuMDUybC04LjcwMi4wMDVjLS4wNDMgMC0uMDY0LjAyMS0uMDY1LjA2M2wtLjAwNCAxLjQyNWMwIC4wMzYuMDE4LjA1NC4wNTQuMDU0em0xNC42MTktMi4zNDljMCAuNTU4LS4yMjIgMS4wOTItLjYxNiAxLjQ4N2EyLjEgMi4xIDAgMCAxLTIuOTc0IDAgMi4xIDIuMSAwIDAgMS0uNjE2LTEuNDg3YzAtLjU1OC4yMjItMS4wOTIuNjE2LTEuNDg3YTIuMSAyLjEgMCAwIDEgMS40ODctLjYxNmMuNTU4IDAgMS4wOTIuMjIyIDEuNDg3LjYxNmEyLjEgMi4xIDAgMCAxIC42MTYgMS40ODd6bS0uMjA4LS4wMDFhMS44OSAxLjg5IDAgMSAwLTMuNzg0IDAgMS44OSAxLjg5IDAgMSAwIDMuNzg0IDB6Ii8+PHBhdGggZD0iTTE5Mi4zMDQgMTIuMjI4bC40NjguNzU3YS4wNS4wNSAwIDAgMS0uMDQxLjA5MWMtLjAyMS4wMDMtLjA0MS4wMDMtLjA2MS0uMDAxLS4wMzMtLjAwNy0uMDY1LS4wMi0uMDkzLS4wNGEuMjQuMjQgMCAwIDEtLjA2OC0uMDc0bC0uMzkyLS42NmMtLjExOS0uMjA0LS40MDctLjE3LS42MDItLjE0NS0uMDkuMDExLS4xMzcuMDYtLjE0LjE0NWwuMDAxLjcwNGMwIC4wMi0uMDA3LjAzOS0uMDIuMDUzcy0uMDMyLjAyMy0uMDUxLjAyNGwtLjAyNy4wMDFjLS4wNTUuMDAzLS4wODctLjAyMy0uMDk0LS4wNzdhMS4wNSAxLjA1IDAgMCAxLS4wMS0uMTQ3bC0uMDA1LTEuOTMzYzAtLjAyMy4wMDgtLjA0NS4wMjMtLjA2MnMuMDM3LS4wMjguMDYtLjAzMWMuMzM1LS4wNC42NTEtLjAzNS45NDcuMDE2LjMxNy4wNTUuNTA0LjIyNy41NjIuNTE2LjA3NC4zNjktLjEzMy41ODgtLjQzMy43NjVhLjA4LjA4IDAgMCAwLS4wMjEuMDE5Yy0uMDA1LjAwOC0uMDA5LjAxNi0uMDExLjAyNXMtLjAwMy4wMTktLjAwMS4wMjguMDA0LjAxOC4wMDkuMDI2em0tLjkyNi0xLjA5MWwtLjAwMi43MTVjMCAuMDMzLjAxMy4wNjQuMDM3LjA4OGEuMTIuMTIgMCAwIDAgLjA4Ny4wMzZsLjUyMS4wMDFhLjYyLjYyIDAgMCAwIC4yMDktLjAzNS41NS41NSAwIDAgMCAuMTc3LS4xMDIuNDguNDggMCAwIDAgLjExOS0uMTUyLjQyLjQyIDAgMCAwIC4wNDEtLjE4di0uMDIyYy4wMDEtLjEyNS0uMDU3LS4yNDQtLjE1OS0uMzMyYS41OS41OSAwIDAgMC0uMzg1LS4xMzhsLS41MjEtLjAwMWMtLjAzMyAwLS4wNjUuMDEzLS4wODguMDM2cy0uMDM2LjA1NS0uMDM2LjA4OHpNMjAuOTkxIDE2LjI0NmwtMi42NTQgNC4zMzhjLS4wMTMuMDExLS4wMTcuMDEyLS4wMjEuMDEyaC0yLjM2MmMtLjAxNi0uMDA2LS4wMTktLjAwOS0uMDIxLS4wMTItLjAwMy0uMDE3LS4wMDItLjAyMSAwLS4wMjVsNC45OTYtOC4xNDNjLjAxNy0uMDEzLjAyMy0uMDE0LjAyOC0uMDEyLjAxNy4wMTQuMDE4LjAxOS4wMTguMDI1bC4wMTkgMy44MDV6bS0xNC4wNzYgNS43Yy0uMDA1LjAyMi0uMDAzLjAyNyAwIC4wMzIuMDE3LjAxNS4wMjIuMDE2LjAyOC4wMTZsMTQuNTU3LS4wMDFjLjAyIDAgLjA0LjAwNS4wNTcuMDE1YS4xMy4xMyAwIDAgMSAuMDQzLjA0MWwxLjE5NiAxLjk1NmMuMDA0LjAyLjAwMy4wMjQuMDAxLjAyOS0uMDE1LjAxMy0uMDIuMDE0LS4wMjUuMDE0bC0xOS41MjIuMDAxYy0uMDE1LS4wMDUtLjAxOC0uMDA4LS4wMi0uMDEyLS4wMDMtLjAxNi0uMDAyLS4wMjEgMC0uMDI0bDYuNTQ3LTEwLjY5NGMuMDEyLS4wMTkuMDI5LS4wMTkuMDUyLjAwMS4wMTIuMDE4LjAxMy4wMjMuMDEzLjAyOWwtLjAwMSAzLjY5YS40MS40MSAwIDAgMS0uMDYuMjE0bC0yLjg2NSA0LjY5M3ptMTkuMTA0IDUuNTI0SC4wMjNjLS4wMTctLjAwNi0uMDItLjAwOS0uMDIyLS4wMTMtLjAwMy0uMDE4LS4wMDItLjAyMi4wMDEtLjAyNmwxLjIxNi0xLjk5Yy4wMTMtLjAxMS4wMTctLjAxMi4wMjItLjAxMmgyMy41NjVjLjAxNi4wMDUuMDE5LjAwOC4wMjIuMDEybDEuMjE0IDEuOTljLjAwNC4wMTcuMDAzLjAyMi4wMDEuMDI2LS4wMTMuMDEyLS4wMTguMDEzLS4wMjIuMDEzeiIvPjwvZz48ZGVmcz48Y2xpcFBhdGggaWQ9IkEiPjxwYXRoIGZpbGw9IiNmZmYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLjUpIiBkPSJNMCAwaDE5NC4wNzJ2MjdIMHoiLz48L2NsaXBQYXRoPjwvZGVmcz48L3N2Zz4=";
+
+/* ---- option sets: verbatim from src/pages/DtoApplyFS.tsx ---- */
+const INDUSTRY=[
+  ["A","Tax planning, accounting, or CPA firm"],
+  ["B","Law firm or legal services"],
+  ["C","Business funding services"],
+  ["D","Financial services, wealth management, or capital raising"],
+  ["E","B2B professional services, e-commerce, or agency"],
+  ["F","Info product, coaching, or consulting"],
+  ["G","Something else (I'll tell you below)"]];
+const REVENUE=[
+  ["A","$500K+/mo"],["B","$250K–$500K/mo"],["C","$150K–$250K/mo"],
+  ["D","$50K–$150K/mo"],["E","Under $50K/mo"]];
+const REVENUE_GOAL=[
+  ["A","$5M+/mo"],["B","$2.5M–$5M/mo"],["C","$1M–$2.5M/mo"],["D","$500K–$1M/mo"],
+  ["E","$250K–$500K/mo"],["F","$150K–$250K/mo"],["G","Under $150K/mo"]];
+const LEADS_VS_SALES=[
+  ["A","Sales: I have consistent lead flow, I need to close more of it"],
+  ["B","Leads: I need more people to talk to"],
+  ["C","Both: I need more leads and a better closing motion"],
+  ["D","Not sure: help me figure out where the bottleneck is"]];
+const LEADS_PER_MONTH=[
+  ["A","200+"],["B","150–200"],["C","100–150"],["D","50–100"],["E","Under 50"]];
+const CAN_GENERATE=[
+  ["A","Yes: I can get 100+ leads into booked calls in the next 30 days"],
+  ["B","No, not in the next 30 days"]];
+const SALES_SETUP=[
+  ["A","I'm running sales myself and need a team"],
+  ["B","I have a team but it's underperforming and I need a better one"],
+  ["C","I have a performing team and want to add more"],
+  ["D","I'm not sure, I need help deciding"]];
+const TIMING=[
+  ["A","Now / ASAP"],["B","1–3 months"],["C","3–6 months"],["D","6+ months"]];
+const SUBOFFER_CHOICE=[
+  ["A","Help me hire and build my own sales team"],
+  ["B","Coach me and put me in the room with other operators"]];
+const MASTERMIND_INVESTMENT=[
+  ["A","Under $2,500/mo"],["B","$2,500–$5,000/mo"],["C","$5,000+/mo"]];
+
+const Q={
+  industry:{q:"Which best describes what you do?",help:null,opts:INDUSTRY},
+  revenue:{q:"What's your current monthly revenue?",help:"Best estimate. Recurring + one-time combined.",opts:REVENUE},
+  goal:{q:"What's your revenue goal?",help:"Where you want the business to be.",opts:REVENUE_GOAL},
+  leads_vs_sales:{q:"What do you actually need help with right now?",help:"This tells us whether we're the right partner for you.",opts:LEADS_VS_SALES},
+  leads_per_month:{q:"How many leads are you generating per month?",help:"Roughly, new prospects entering your pipeline.",opts:LEADS_PER_MONTH},
+  can_generate:{q:"Could you get to 100+ leads a month that turn into booked calls in the next 30 days?",help:"Our sales teams need real deal flow underneath them. Be honest, it saves everyone time.",opts:CAN_GENERATE},
+  sales_setup:{q:"How are you handling sales right now?",help:null,opts:SALES_SETUP},
+  timing:{q:"When are you looking to have this in place?",help:null,opts:TIMING},
+  timeline_gap:{type:"text",q:"What has to change between now and then for you to move on this?",help:"A sentence or two. This helps us understand what you're waiting on.",placeholder:"Write a sentence or two."},
+  suboffer_choice:{q:"You're right around our sales-team threshold. Which fits your situation better?",help:"Pick the one that matches your biggest bottleneck right now.",opts:SUBOFFER_CHOICE},
+  mastermind_investment:{q:"What could you invest to fix this?",help:"For where you are, a hands-on program may fit better than a full sales team. This helps us point you to the right room.",opts:MASTERMIND_INVESTMENT},
+  contact:{type:"contact"}
+};
+
+/* branching — mirrors DtoApplyFS.tsx exactly */
+function stepsFor(a){
+  const s=["industry","revenue","goal","leads_vs_sales","leads_per_month"];
+  if(a.leads_per_month==="D"||a.leads_per_month==="E") s.push("can_generate");
+  s.push("sales_setup","timing");
+  if(a.timing==="C"||a.timing==="D") s.push("timeline_gap");
+  if(a.revenue==="D") s.push("suboffer_choice");
+  if(a.revenue==="E"||(a.revenue==="D"&&a.suboffer_choice==="B")) s.push("mastermind_investment");
+  s.push("contact");
+  return s;
+}
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ============================ engine ============================ */
+class Form{
+  constructor(variant,mount,readout){
+    this.v=variant; this.el=mount; this.ro=readout;
+    this.reset(false);
+  }
+  reset(render=true){
+    this.a={}; this.i=0; this.taps=0; this.dir="fwd"; this.other=""; this.gap="";
+    if(render) this.render();
+  }
+  steps(){return stepsFor(this.a);}
+  key(){const s=this.steps();return s[Math.min(this.i,s.length-1)];}
+
+  set(k,val){
+    this.taps++;
+    const prev=this.a[k];
+    this.a[k]=val;
+    if(this.v===1){ this.render(); return; }
+    // V2: auto-advance on single-choice, unless it opens a write-in
+    if(k==="industry"&&val==="G"){ this.render(); return; }
+    if(prev===val){ this.render(); return; }
+    this.render();
+    const at=this.i;
+    clearTimeout(this._t);
+    this._t=setTimeout(()=>{ if(this.i===at) this.next(); },260);
+  }
+  next(){ this.taps++; this.dir="fwd"; const s=this.steps(); this.i=Math.min(s.length-1,this.i+1); this.render(); }
+  back(){ this.taps++; this.dir="back"; this.i=Math.max(0,this.i-1); this.render(); }
+
+  render(){
+    const k=this.key(), s=this.steps();
+    this.el.innerHTML = this.v===1 ? this.v1(k,s) : this.v2(k,s);
+    this.bind(k);
+    this.el.scrollTop=0;
+    this.measure(k,s);
+  }
+
+  /* ---------------- V1: faithful reproduction of production ---------------- */
+  v1(k,s){
+    const d=Q[k]; const total=s.length; const pct=((this.i+1)/total)*100;
+    let inner="";
+    if(d.type==="contact") inner=this.contactV1();
+    else if(d.type==="text") inner=`
+      <div>
+        <label class="v1-q" style="font-size:15px;">${esc(d.q)}</label>
+        <p class="v1-help">${esc(d.help)}</p>
+        <textarea class="nr-ta" rows="4" style="min-height:120px;margin-top:12px;" placeholder="${esc(d.placeholder)}"></textarea>
+      </div>
+      <button class="v1-cta" data-act="next">Continue</button>`;
+    else{
+      const opts=d.opts.map(([v,l])=>`
+        <div>
+          <div class="v1-opt" role="radio" tabindex="0" data-v="${v}" aria-checked="${this.a[k]===v}">
+            <span class="v1-radio"></span><span>${esc(l)}</span>
+          </div>
+          ${k==="industry"&&v==="G"&&this.a[k]==="G"?`
+          <div class="nr-other">
+            <label>In one sentence, what does your business do?</label>
+            <textarea class="nr-ta" rows="2" style="min-height:56px;" placeholder='e.g., "SBA loan brokerage for franchise buyers"'></textarea>
+          </div>`:""}
+        </div>`).join("");
+      const dis=!this.a[k]||(k==="industry"&&this.a[k]==="G");
+      inner=`
+        <div>
+          <label class="v1-q">${esc(d.q)}</label>
+          ${d.help?`<p class="v1-help">${esc(d.help)}</p>`:""}
+          <div class="v1-opts" role="radiogroup">${opts}</div>
+        </div>
+        <button class="v1-cta" data-act="next" ${dis?"disabled":""}>Continue</button>`;
+    }
+    return `
+      <header class="nr-topbar"><img src="${LOGO}" alt="NetRevenue"></header>
+      <section class="nr-hero">
+        <div class="nr-hero-glow"></div>
+        <div class="nr-hero-in">
+          <span class="nr-pill">Application</span>
+          <h1 class="nr-h1">Let's find out if we're the right fit.</h1>
+          ${this.i===0?`<p class="nr-lede">A few quick questions, about 90 seconds. If we're a fit, you'll pick a time at the end. No one calls unless you book it yourself.</p>`:""}
+        </div>
+      </section>
+      <section class="nr-body">
+        <div class="nr-card">
+          <div class="v1-prog">
+            ${this.i>0?`<button class="v1-back" data-act="back">&#8592; Back</button>`:""}
+            <span class="v1-bar"><i style="width:${pct}%"></i></span>
+            <span class="v1-count">${this.i+1} / ${total}</span>
+          </div>
+          ${inner}
+        </div>
+      </section>
+      <footer class="nr-foot">&copy; 2026 NetRevenue. All rights reserved.<div style="margin-top:6px;"><a href="#">Privacy</a><a href="#">Terms</a></div></footer>`;
+  }
+
+  contactV1(){
+    return `
+      <div>
+        <div class="nr-eyebrow">Where do we reach you?</div>
+        <p style="margin:8px 0 0;font-size:14px;font-weight:600;">We'll send your next step on the following page.</p>
+        <div class="nr-grid2">
+          <div><span class="nr-fieldlabel">First name</span><input class="nr-in" placeholder="Alex"></div>
+          <div><span class="nr-fieldlabel">Last name</span><input class="nr-in" placeholder="Reyes"></div>
+        </div>
+        <div class="nr-field"><span class="nr-fieldlabel">Email</span><input class="nr-in" placeholder="you@company.com"></div>
+        <div class="nr-field"><span class="nr-fieldlabel">Phone</span><input class="nr-in" placeholder="(555) 123-4567">
+          <p class="nr-micro">US format. We'll text you the meeting details.</p></div>
+      </div>
+      <button class="v1-cta">Submit and see your next step</button>
+      <p class="nr-micro center">We only use this to reach you about the call.</p>`;
+  }
+
+  /* ---------------- V2: proposed ---------------- */
+  v2(k,s){
+    const d=Q[k]; const total=s.length;
+    const segs=Array.from({length:total},(_,n)=>
+      `<i class="${n<this.i?"done":n===this.i?"now":""}"></i>`).join("");
+    let inner="";
+    if(d.type==="contact") inner=this.contactV2();
+    else if(d.type==="text") inner=`
+      <label class="v2-q">${esc(d.q)}</label>
+      <p class="v2-help">${esc(d.help)}</p>
+      <div class="v2-narrow">
+        <textarea class="nr-ta" rows="4" style="min-height:120px;margin-top:18px;" placeholder="${esc(d.placeholder)}"></textarea>
+        <button class="v2-cta" data-act="next">Continue</button>
+      </div>`;
+    else{
+      const opts=d.opts.map(([v,l])=>`
+        <div>
+          <div class="v2-opt" role="radio" tabindex="0" data-v="${v}" aria-checked="${this.a[k]===v}">
+            <span class="v2-key"><span>${v}</span></span>
+            <span class="v2-opt-label">${esc(l)}</span>
+          </div>
+          ${k==="industry"&&v==="G"&&this.a[k]==="G"?`
+          <div class="nr-other">
+            <label>In one sentence, what does your business do?</label>
+            <textarea class="nr-ta" rows="2" style="min-height:56px;" placeholder='e.g., "SBA loan brokerage for franchise buyers"'></textarea>
+          </div>`:""}
+        </div>`).join("");
+      const needsBtn = k==="industry"&&this.a[k]==="G";
+      inner=`
+        <label class="v2-q">${esc(d.q)}</label>
+        ${d.help?`<p class="v2-help">${esc(d.help)}</p>`:""}
+        <div class="v2-opts" role="radiogroup" data-region="options">${opts}</div>
+        ${needsBtn?`<button class="v2-cta" data-act="next">Continue</button>`:""}`;
+    }
+
+    const hero = this.i===0 ? `
+      <section class="nr-hero">
+        <div class="nr-hero-glow"></div>
+        <div class="nr-hero-in" style="padding:20px 20px 4px;">
+          <span class="nr-pill">Application</span>
+          <h1 class="nr-h1">Let's find out if we're the right fit.</h1>
+          <p class="nr-lede">A few quick questions, about 90 seconds. If we're a fit, you'll pick a time at the end. No one calls unless you book it yourself.</p>
+        </div>
+      </section>` : "";
+
+    return `
+      <header class="v2-topbar" data-region="header">
+        <button class="v2-back" data-act="back" aria-label="Back" ${this.i===0?"hidden":""}>&#8592;</button>
+        <span class="v2-logo-wrap"><img src="${LOGO}" alt="NetRevenue"></span>
+        <div class="v2-seg" data-region="progress">${segs}</div>
+      </header>
+      ${hero}
+      <section class="v2-body">
+        <div class="v2-stepwrap">
+          <div class="v2-step ${this.dir==="back"?"back":""}" data-region="question">${inner}</div>
+        </div>
+      </section>
+      <footer class="nr-foot">&copy; 2026 NetRevenue. All rights reserved.<div style="margin-top:6px;"><a href="#">Privacy</a><a href="#">Terms</a></div></footer>`;
+  }
+
+  contactV2(){
+    return `
+      <label class="v2-q">Where do we reach you?</label>
+      <p class="v2-help">We'll send your next step on the following page.</p>
+      <div class="v2-narrow">
+        <div class="nr-grid2">
+          <div><span class="nr-fieldlabel">First name</span><input class="nr-in" placeholder="Alex"></div>
+          <div><span class="nr-fieldlabel">Last name</span><input class="nr-in" placeholder="Reyes"></div>
+        </div>
+        <div class="nr-field"><span class="nr-fieldlabel">Email</span><input class="nr-in" placeholder="you@company.com"></div>
+        <div class="nr-field"><span class="nr-fieldlabel">Phone</span><input class="nr-in" placeholder="(555) 123-4567">
+          <p class="nr-micro">US format. We'll text you the meeting details.</p></div>
+        <button class="v2-cta">Submit and see your next step</button>
+        <p class="nr-micro center">We only use this to reach you about the call.</p>
+      </div>`;
+  }
+
+  bind(k){
+    this.el.querySelectorAll("[data-act='next']").forEach(b=>b.onclick=()=>this.next());
+    this.el.querySelectorAll("[data-act='back']").forEach(b=>b.onclick=()=>this.back());
+    this.el.querySelectorAll("[data-v]").forEach(o=>{
+      const pick=()=>this.set(k,o.dataset.v);
+      o.onclick=pick;
+      o.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();pick();} };
+    });
+  }
+
+  measure(k,s){
+    const first=this.el.querySelector("[data-v]")||this.el.querySelector(".nr-in");
+    const top=first?Math.round(first.getBoundingClientRect().top-this.el.getBoundingClientRect().top):0;
+    const set=(kk,val,cls)=>{
+      const n=this.ro.querySelector(`[data-k="${kk}"]`);
+      if(!n) return; n.textContent=val; n.className=cls||"";
+    };
+    set("fold", top+" px", top>300?"warn":"good");
+    set("taps", String(this.taps));
+    if(this.v===1) set("prog", (this.i+1)+" / "+s.length, s.length>8?"warn":"");
+    else set("prog","segments","good");
+  }
+}
+
+/* ============================ wiring ============================ */
+const f1=new Form(1,document.getElementById("v1"),document.getElementById("ro1"));
+const f2=new Form(2,document.getElementById("v2"),document.getElementById("ro2"));
+f1.render(); f2.render();
+
+let sync=true;
+const syncBtn=document.getElementById("syncBtn");
+syncBtn.onclick=()=>{ sync=!sync; syncBtn.setAttribute("aria-pressed",String(sync));
+  syncBtn.textContent="Sync steps: "+(sync?"on":"off"); };
+
+/* mirror answers across both phones when sync is on */
+[[f1,f2],[f2,f1]].forEach(([src,dst])=>{
+  const origSet=src.set.bind(src);
+  src.set=(k,v)=>{ origSet(k,v); if(sync&&dst.a[k]!==v){ dst.a[k]=v; dst.i=src.i; dst.render(); } };
+  const origNext=src.next.bind(src);
+  src.next=()=>{ origNext(); if(sync){ dst.i=src.i; dst.dir="fwd"; dst.render(); } };
+  const origBack=src.back.bind(src);
+  src.back=()=>{ origBack(); if(sync){ dst.i=src.i; dst.dir="back"; dst.render(); } };
+});
+
+document.getElementById("resetBtn").onclick=()=>{ f1.reset(); f2.reset(); };
+
+/* auto-answer: walk a realistic sub-threshold path so the branching shows */
+document.getElementById("fillBtn").onclick=()=>{
+  const path={industry:"A",revenue:"D",goal:"D",leads_vs_sales:"C",leads_per_month:"D",
+              can_generate:"A",sales_setup:"A",timing:"C"};
+  [f1,f2].forEach(f=>{
+    f.reset(false);
+    Object.assign(f.a,path);
+    f.i=f.steps().indexOf("leads_per_month");
+    f.taps=5; f.dir="fwd"; f.render();
+  });
+};
+
+/* ledger hover -> flash the V2 region */
+document.querySelectorAll(".row[data-hl]").forEach(row=>{
+  const region=row.dataset.hl;
+  const targets=()=>{
+    const map={header:"[data-region='header']",progress:"[data-region='progress']",
+      question:"[data-region='question']",options:"[data-region='options']",
+      advance:"[data-region='options']",motion:"[data-region='question']"};
+    return document.querySelectorAll("#v2 "+(map[region]||"[data-region='question']"));
+  };
+  row.addEventListener("mouseenter",()=>targets().forEach(t=>{t.classList.add("hl-target","hl-on");}));
+  row.addEventListener("mouseleave",()=>targets().forEach(t=>{t.classList.remove("hl-on");}));
+});
+
+/* keyboard answering on the V2 phone (desktop reviewers) */
+document.addEventListener("keydown",e=>{
+  if(/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) return;
+  const k=f2.key(), d=Q[k];
+  if(e.key==="Backspace"){ e.preventDefault(); f2.back(); return; }
+  if(!d||!d.opts) return;
+  const ch=e.key.toUpperCase();
+  if(d.opts.some(([v])=>v===ch)){ e.preventDefault(); f2.set(k,ch); }
+});
+</script>
+</body>
+</html>
