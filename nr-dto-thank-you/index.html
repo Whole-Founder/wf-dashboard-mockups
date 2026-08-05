@@ -141,7 +141,7 @@ img{max-width:100%;display:block;}
   padding:22px;box-shadow:0 1px 0 rgba(20,24,32,0.02),0 14px 30px -24px rgba(20,24,32,0.25);
 }
 .step{display:flex;flex-direction:column;}
-.step .btn-orange{margin-top:auto;}
+.step .btn-orange{margin-top:28px;}
 .step .pill{
   align-self:flex-start;background:var(--orange-soft);color:var(--orange);
   font-weight:700;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
@@ -184,9 +184,12 @@ img{max-width:100%;display:block;}
 .v2 .v2-sub{text-align:center;color:var(--muted);font-size:14px;margin-top:16px;max-width:44ch;margin-inline:auto;}
 
 /* ---------- Trustpilot badge ---------- */
-.tp{display:flex;align-items:center;justify-content:center;gap:9px;margin:16px 0 26px;flex-wrap:wrap;}
+.tp{display:flex;justify-content:center;margin:18px 0 30px;}
+.tp-badge{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-wrap:nowrap;white-space:nowrap;
+  background:#fff;border:1px solid #E2E5EB;border-radius:999px;padding:9px 16px;
+  box-shadow:0 8px 20px -12px rgba(20,24,32,0.3);}
 .tp .stars{display:inline-flex;gap:3px;}
-.tp .sq{width:22px;height:22px;border-radius:3px;background:var(--tp-green);display:flex;align-items:center;justify-content:center;}
+.tp .sq{width:20px;height:20px;border-radius:3px;background:var(--tp-green);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
 .tp .txt{font-size:13px;color:var(--muted);}
 .tp .txt b{color:var(--ink);}
 .tp .brand-tp{display:inline-flex;align-items:center;gap:4px;font-weight:700;color:var(--ink);font-size:13px;}
@@ -204,7 +207,7 @@ img{max-width:100%;display:block;}
 .tstars{color:var(--orange);font-size:15px;letter-spacing:2px;margin-bottom:11px;}
 .tcard .result{font-family:var(--font-title);font-weight:700;font-size:18px;color:var(--orange);margin-bottom:9px;letter-spacing:-0.01em;}
 .tcard .quote{font-size:14px;color:#3A414B;font-style:italic;line-height:1.55;}
-.tcard .t-who{margin-top:16px;}
+.tcard .t-who{margin-top:16px;margin-bottom:24px;}
 .tcard .t-who .nm{font-weight:700;font-size:13.5px;color:var(--ink);line-height:1.2;}
 .tcard .t-who .org{font-size:12px;color:var(--muted);margin-top:2px;}
 .watch{
@@ -348,10 +351,10 @@ img{max-width:100%;display:block;}
 <!-- TESTIMONIALS -->
 <section class="section tgray">
   <div class="wrap-wide">
-    <span class="eyebrow">Optional, but worth a look</span>
     <h2>Real Results From Real Founders</h2>
 
     <div class="tp">
+     <div class="tp-badge">
       <span class="stars">
         <span class="sq"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
         <span class="sq"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
@@ -359,8 +362,9 @@ img{max-width:100%;display:block;}
         <span class="sq"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
         <span class="sq"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
       </span>
-      <span class="txt"><b>Excellent</b> · Rated on</span>
+      <span class="txt"><b>Excellent</b> ·</span>
       <span class="brand-tp"><svg width="15" height="15" viewBox="0 0 24 24" fill="#00B67A"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg>Trustpilot</span>
+     </div>
     </div>
 
     <div class="tgrid">
@@ -377,7 +381,7 @@ img{max-width:100%;display:block;}
       </article>
       <!-- T2 -->
       <article class="card tcard">
-        <div class="t-photo"><img src="t-colin.jpg" alt="Colin Yurcisin"></div>
+        <div class="t-photo"><img src="t-colin.jpg" alt="Colin Yurcisin" style="object-position:center 32%"></div>
         <div class="t-body">
           <div class="tstars">★★★★★</div>
           <div class="result">$64K in 24 hours</div>
@@ -388,7 +392,7 @@ img{max-width:100%;display:block;}
       </article>
       <!-- T3 -->
       <article class="card tcard">
-        <div class="t-photo"><img src="t-britt.png" alt="Brittany Arnason"></div>
+        <div class="t-photo"><img src="t-britt.png" alt="Brittany Arnason" style="object-position:center 14%"></div>
         <div class="t-body">
           <div class="tstars">★★★★★</div>
           <div class="result">$200K in 3 weeks</div>
