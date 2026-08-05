@@ -244,6 +244,28 @@ img{max-width:100%;display:block;}
 }
 .mocknote b{color:var(--violet);}
 
+/* ---------- Wistia video embeds ---------- */
+.wistia-wrap{border-radius:12px;overflow:hidden;background:#0E0F13;box-shadow:0 30px 60px -30px rgba(0,0,0,0.55);}
+.wistia-wrap wistia-player{display:block;width:100%;}
+wistia-player[media-id='w17q5oq2ux']:not(:defined){background:center / contain no-repeat url('https://fast.wistia.com/embed/medias/w17q5oq2ux/swatch');display:block;filter:blur(5px);padding-top:56.25%;}
+wistia-player[media-id='04zfrl7azh']:not(:defined){background:center / contain no-repeat url('https://fast.wistia.com/embed/medias/04zfrl7azh/swatch');display:block;filter:blur(5px);padding-top:58.13%;}
+.frame-stamp{text-align:center;color:rgba(255,255,255,0.6);font-size:12px;margin-top:12px;}
+.v2-label{text-align:center;font-weight:600;font-size:13.5px;color:var(--ink);margin-top:16px;}
+
+/* Steps section subtle tint so white cards stand out */
+.section.tsoft{background:#F2F4F7;}
+
+/* Testimonials one-line headline (no orphan) */
+.section h2.oneline{white-space:nowrap;max-width:none;font-size:clamp(13px,4.3vw,30px);}
+
+/* Trustpilot partial (4.7) star */
+.tp .sq.partial{background:linear-gradient(90deg,var(--tp-green) 0,var(--tp-green) 70%,#D6DAE1 70%,#D6DAE1 100%);}
+
+/* Step 3 clickable thumbnail → scrolls to video */
+a.media{cursor:pointer;text-decoration:none;}
+a.media .play-sm{transition:transform .18s ease;}
+a.media:hover .play-sm{transform:scale(1.1);}
+
 /* ---------- Desktop enhancements ---------- */
 @media (min-width:768px){
   .hero{padding:26px 0 56px;}
@@ -269,12 +291,10 @@ img{max-width:100%;display:block;}
 
     <div class="hero-video-frame">
       <span class="video-eyebrow">▶ Watch this 2-minute video for how to confirm your appointment</span>
-      <div class="video-frame">
-        <div class="play-btn" role="button" aria-label="Play video">
-          <svg width="24" height="26" viewBox="0 0 24 26" fill="none"><path d="M2 2.5v21L22 13 2 2.5z" fill="#fff"/></svg>
-        </div>
-        <div class="stamp">…and we'll see you on the call soon.</div>
+      <div class="wistia-wrap">
+        <wistia-player media-id="w17q5oq2ux" aspect="1.7777777777777777"></wistia-player>
       </div>
+      <p class="frame-stamp">…and we'll see you on the call soon.</p>
     </div>
 
     <p class="headphones">🎧 Headphones in and sound up for the best experience</p>
@@ -282,7 +302,7 @@ img{max-width:100%;display:block;}
 </header>
 
 <!-- STEPS -->
-<section class="section">
+<section class="section tsoft">
   <div class="wrap-wide">
     <div class="steps">
       <!-- Step 1 -->
@@ -297,7 +317,6 @@ img{max-width:100%;display:block;}
         </div>
         <h3>Add it to your calendar</h3>
         <p>Google doesn't always add these automatically. Lock it in below.</p>
-        <button class="btn-orange">📅 Add the Event</button>
       </article>
 
       <!-- Step 2 -->
@@ -317,7 +336,7 @@ img{max-width:100%;display:block;}
       <!-- Step 3 -->
       <article class="card step">
         <span class="pill">Step 3</span>
-        <div class="media" style="padding:0;background:#0E0F13;border-color:#0E0F13;">
+        <a class="media" href="#video2" aria-label="Jump to the agenda video" style="padding:0;background:#0E0F13;border-color:#0E0F13;">
           <div class="thumb">
             <div class="play-sm">
               <svg width="15" height="16" viewBox="0 0 24 26" fill="none"><path d="M2 2.5v21L22 13 2 2.5z" fill="#fff"/></svg>
@@ -325,7 +344,7 @@ img{max-width:100%;display:block;}
             <span class="tlabel">The Agenda</span>
             <span class="tdur">4:12</span>
           </div>
-        </div>
+        </a>
         <h3>Watch the agenda video</h3>
         <p>See who we are, how we work, and how we can help — right below.</p>
       </article>
@@ -334,16 +353,14 @@ img{max-width:100%;display:block;}
 </section>
 
 <!-- VIDEO 2 -->
-<section class="section tint v2">
+<section class="section v2" id="video2">
   <div class="wrap">
-    <h2>Your call is booked. Watch this before we talk.</h2>
+    <h2>Your call is booked.<br>Watch this before we talk.</h2>
     <div style="height:24px"></div>
-    <div class="video-frame light">
-      <div class="play-btn big" role="button" aria-label="Play video">
-        <svg width="30" height="32" viewBox="0 0 24 26" fill="none"><path d="M2 2.5v21L22 13 2 2.5z" fill="#fff"/></svg>
-      </div>
-      <div class="label">How NetRevenue Works — with Ambro</div>
+    <div class="wistia-wrap">
+      <wistia-player media-id="04zfrl7azh" aspect="1.7204301075268817"></wistia-player>
     </div>
+    <p class="v2-label">How NetRevenue Works — with Ambro</p>
     <p class="v2-sub">A few minutes on who we are, why we're worth listening to, and exactly how we work.</p>
   </div>
 </section>
@@ -351,7 +368,7 @@ img{max-width:100%;display:block;}
 <!-- TESTIMONIALS -->
 <section class="section tgray">
   <div class="wrap-wide">
-    <h2>Real Results From Real Founders</h2>
+    <h2 class="oneline">Real Results From Real Founders</h2>
 
     <div class="tp">
      <div class="tp-badge">
@@ -360,9 +377,9 @@ img{max-width:100%;display:block;}
         <span class="sq"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
         <span class="sq"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
         <span class="sq"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
-        <span class="sq"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
+        <span class="sq partial"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg></span>
       </span>
-      <span class="txt"><b>Excellent</b> ·</span>
+      <span class="txt"><b>4.7</b> Excellent ·</span>
       <span class="brand-tp"><svg width="15" height="15" viewBox="0 0 24 24" fill="#00B67A"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 21.2l1.6-6.9L2 9.6l7-.6z"/></svg>Trustpilot</span>
      </div>
     </div>
@@ -412,10 +429,10 @@ img{max-width:100%;display:block;}
     <div class="founders">
       <div class="founder"><img src="founder-tom-bilyeu.jpg" alt="Tom Bilyeu"><div class="fn">Tom Bilyeu</div></div>
       <div class="founder"><img src="founder-jeff-sekinger.jpg" alt="Jeff Sekinger"><div class="fn">Jeff Sekinger</div></div>
-      <div class="founder"><img src="founder-brandon-turner.png" alt="Brandon Turner"><div class="fn">Brandon Turner</div></div>
+      <div class="founder"><img src="founder-brandon-turner.webp" alt="Brandon Turner" style="object-position:center 16%"><div class="fn">Brandon Turner</div></div>
       <div class="founder"><img src="founder-tom-cruz.jpg" alt="Tom Cruz"><div class="fn">Tom Cruz</div></div>
       <div class="founder"><img src="founder-aj-osborne.jpg" alt="AJ Osborne"><div class="fn">AJ Osborne</div></div>
-      <div class="founder"><img src="founder-manny-khoshbin.png" alt="Manny Khoshbin"><div class="fn">Manny Khoshbin</div></div>
+      <div class="founder"><img src="founder-manny-khoshbin.jpg" alt="Manny Khoshbin" style="object-position:center 18%"><div class="fn">Manny Khoshbin</div></div>
     </div>
   </div>
 </section>
@@ -440,8 +457,13 @@ img{max-width:100%;display:block;}
 
 <!-- MOCKUP NOTE -->
 <div class="mocknote">
-  <b>Mockup only</b> — placeholder video thumbnails; real NR logo now in the footer. Colors and type match apply.netrevenue.io (dark hero, orange + violet accents, Poppins / Inter). Testimonial and founder photos are sourced placeholders — <b>confirm testimonial names/quotes/results and clear all photo likeness/usage rights before go-live</b>. Drop in the final video cuts and the live Trustpilot widget.
+  <b>Mockup for review</b> — real NR logo and the live Wistia videos (Thank-You + How-It-Works) are wired in. The Trustpilot rating shown (4.7) is illustrative — wire the live Trustpilot widget for production. Testimonial and founder photos are sourced placeholders — <b>confirm testimonial names/quotes/results and clear all photo likeness/usage rights before go-live.</b>
 </div>
+
+<!-- Wistia player + media embeds -->
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/w17q5oq2ux.js" async type="module"></script>
+<script src="https://fast.wistia.com/embed/04zfrl7azh.js" async type="module"></script>
 
 </body>
 </html>
