@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetRevenue | The 8-Figure Sales Engine (Free Guide)</title>
+<meta name="description" content="Free guide: the exact sales engine a $128M team builds inside 8-figure service businesses. Get the playbook.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iI0YyNjMyMiIvPjxwYXRoIGQ9Ik05IDIxIDkgMTQgMTMgMTQgMTMgMjF6TTE0IDIxIDE0IDEwIDE4IDEwIDE4IDIxek0xOSAyMSAxOSAxNiAyMyAxNiAyMyAyMXoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* NR brand tokens — same system as the /dto-vsl/thank-you build */
+  --orange:#F26322;
+  --orange-2:#FF7A38;
+  --orange-soft:#FEEDE3;
+  --violet:#7C74F5;
+  --ink:#15181D;
+  --muted:#5C6570;
+  --line:#E6E8EC;
+  --paper:#FFFFFF;
+  --paper-2:#F6F7F8;
+  --dark:#0E0F13;
+  --dark-2:#171A21;
+  --dark-line:rgba(255,255,255,0.10);
+  --white:#FFFFFF;
+  --tp-green:#00B67A;
+  --r-card:8px;
+  --r-sm:6px;
+  --font-title:"Poppins","Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --wrap:680px;
+  --wrap-wide:1040px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+h1,h2,h3{font-family:var(--font-title);margin:0;line-height:1.18;}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.wrap{width:min(var(--wrap),calc(100% - 40px));margin-inline:auto;}
+.wrap-wide{width:min(var(--wrap-wide),calc(100% - 40px));margin-inline:auto;}
+
+/* ---------- Top banner ---------- */
+.banner{
+  background:var(--orange);color:#fff;text-align:center;
+  font-size:12.5px;font-weight:600;letter-spacing:0.01em;
+  padding:9px 16px;
+}
+.banner strong{font-weight:800;}
+
+/* ---------- Dark hero ---------- */
+.hero{
+  background:
+    radial-gradient(120% 90% at 50% -10%, #23262F 0%, rgba(35,38,47,0) 60%),
+    linear-gradient(180deg,var(--dark) 0%, #0B0C10 100%);
+  color:#fff;padding:22px 0 44px;
+}
+.hero-head{display:flex;justify-content:center;align-items:center;padding:6px 0 30px;}
+.brand{display:inline-flex;align-items:center;gap:10px;}
+.brand .mark{width:30px;height:30px;border-radius:8px;flex:0 0 auto;}
+.brand .word{font-family:var(--font-title);font-weight:700;font-size:19px;letter-spacing:-0.01em;color:#fff;}
+.brand .word b{color:var(--orange);font-weight:700;}
+
+.hero-grid{display:grid;gap:30px;align-items:start;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  background:rgba(242,99,34,0.12);border:1px solid rgba(242,99,34,0.35);
+  color:var(--orange-2);font-weight:700;font-size:11.5px;letter-spacing:0.08em;
+  text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:16px;
+}
+.hero h1{
+  font-size:27px;font-weight:700;letter-spacing:-0.02em;max-width:16ch;
+}
+.hero h1 .hl{color:var(--orange);}
+.hero .lede{color:rgba(255,255,255,0.72);font-size:15px;margin-top:14px;max-width:42ch;}
+.hero-bullets{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:13px;}
+.hero-bullets li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:rgba(255,255,255,0.9);line-height:1.5;}
+.hero-bullets .ck{
+  flex:0 0 auto;width:21px;height:21px;border-radius:50%;margin-top:1px;
+  background:rgba(242,99,34,0.16);border:1px solid rgba(242,99,34,0.5);
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-bullets .ck svg{display:block;}
+.hero-bullets b{color:#fff;font-weight:700;}
+
+/* ---------- Opt-in card ---------- */
+.optin-card{
+  background:var(--paper);color:var(--ink);border-radius:14px;
+  border:1px solid rgba(255,255,255,0.14);
+  padding:24px 22px 26px;
+  box-shadow:0 30px 70px -34px rgba(0,0,0,0.75),0 0 0 6px rgba(242,99,34,0.06);
+}
+.optin-tag{
+  display:block;text-transform:uppercase;letter-spacing:0.12em;font-size:10.5px;
+  font-weight:800;color:var(--orange);margin-bottom:6px;
+}
+.optin-card h2{font-size:19px;font-weight:700;letter-spacing:-0.01em;}
+.optin-card .oc-sub{font-size:13px;color:var(--muted);margin-top:7px;}
+.form{margin-top:18px;display:grid;gap:12px;}
+.field label{display:block;font-size:11.5px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:0.01em;}
+.field input{
+  width:100%;font-family:var(--font-body);font-size:15px;color:var(--ink);
+  padding:12px 13px;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:var(--paper-2);outline:none;transition:border-color .15s ease,box-shadow .15s ease;
+}
+.field input::placeholder{color:#A6ADB6;}
+.field input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(242,99,34,0.14);background:#fff;}
+.btn-orange{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--orange);color:#fff;font-weight:700;font-size:14.5px;
+  padding:14px 18px;border-radius:var(--r-sm);border:0;cursor:pointer;
+  box-shadow:0 10px 24px -8px rgba(242,99,34,0.5);width:100%;justify-content:center;
+  transition:transform .16s ease;font-family:var(--font-body);
+}
+.btn-orange:hover{transform:translateY(-1px);}
+.form-fine{display:flex;align-items:center;gap:7px;justify-content:center;margin-top:13px;color:var(--muted);font-size:11.5px;text-align:center;}
+.form-fine svg{flex:0 0 auto;}
+
+/* ---------- Proof strip (made to stand out) ---------- */
+.proof{
+  background:linear-gradient(180deg,#0B0C10 0%, #101218 100%);
+  border-top:1px solid rgba(242,99,34,0.4);
+  padding:30px 0 34px;
+}
+.proof-inner{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+}
+.proof-item{
+  text-align:center;padding:18px 12px;border-radius:12px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(242,99,34,0.32);
+  box-shadow:0 16px 40px -30px rgba(242,99,34,0.9);
+}
+.proof-num{
+  font-family:var(--font-title);font-weight:800;letter-spacing:-0.02em;color:var(--orange);
+  font-size:clamp(24px,7vw,34px);line-height:1;
+}
+.proof-lab{color:rgba(255,255,255,0.72);font-size:12px;margin-top:9px;line-height:1.35;max-width:20ch;margin-inline:auto;}
+.proof-cap{text-align:center;color:rgba(255,255,255,0.4);font-size:11px;margin-top:20px;letter-spacing:0.02em;}
+
+/* ---------- Generic light section ---------- */
+.section{padding:46px 0;}
+.section.tint{background:var(--paper-2);}
+.section.tgray{background:#ECEEF2;}
+.eyebrow{
+  display:block;text-transform:uppercase;letter-spacing:0.14em;
+  font-size:11.5px;font-weight:700;color:var(--violet);margin-bottom:10px;
+}
+.eyebrow.center{text-align:center;}
+.section h2{
+  font-size:24px;font-weight:700;letter-spacing:-0.02em;
+}
+.section h2.center{text-align:center;max-width:20ch;margin-inline:auto;}
+.section .sub{
+  color:var(--muted);font-size:14.5px;margin:10px 0 0;
+}
+.section .sub.center{text-align:center;margin-inline:auto;max-width:48ch;}
+
+/* ---------- Split: text left / image right ---------- */
+.split{display:grid;gap:30px;align-items:center;}
+.split .s-copy .lead{color:var(--muted);font-size:15px;margin-top:14px;}
+.inside-list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:14px;}
+.inside-list li{display:flex;gap:12px;align-items:flex-start;}
+.inside-list .ic{
+  flex:0 0 auto;width:30px;height:30px;border-radius:8px;margin-top:1px;
+  background:var(--orange-soft);color:var(--orange);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--font-title);font-size:13px;
+}
+.inside-list .t b{display:block;font-weight:700;font-size:14.5px;color:var(--ink);margin-bottom:2px;}
+.inside-list .t span{font-size:13.5px;color:var(--muted);line-height:1.5;}
+
+/* Guide-cover mock (CSS only) */
+.cover-stage{display:flex;justify-content:center;}
+.guide-cover{
+  position:relative;width:236px;aspect-ratio:1/1.32;border-radius:6px 12px 12px 6px;
+  background:linear-gradient(180deg,#191C24 0%, #0C0D11 100%);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 40px 70px -34px rgba(20,24,32,0.65),-10px 0 0 -4px rgba(242,99,34,0.9);
+  padding:26px 24px;color:#fff;display:flex;flex-direction:column;
+  transform:rotate(-2.5deg);
+}
+.guide-cover .gc-brand{display:flex;align-items:center;gap:8px;margin-bottom:auto;}
+.guide-cover .gc-mark{width:22px;height:22px;border-radius:6px;}
+.guide-cover .gc-word{font-family:var(--font-title);font-weight:700;font-size:14px;}
+.guide-cover .gc-word b{color:var(--orange);}
+.guide-cover .gc-pill{
+  align-self:flex-start;background:var(--orange);color:#fff;font-weight:800;font-size:9.5px;
+  letter-spacing:0.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;margin-bottom:14px;
+}
+.guide-cover .gc-title{font-family:var(--font-title);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-0.02em;}
+.guide-cover .gc-title .o{color:var(--orange);}
+.guide-cover .gc-foot{font-size:11px;color:rgba(255,255,255,0.55);margin-top:14px;}
+
+/* ---------- Who this is for ---------- */
+.filter-grid{display:grid;gap:18px;margin-top:26px;}
+.filter-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-card);
+  padding:24px 22px;box-shadow:0 1px 0 rgba(20,24,32,0.02),0 14px 30px -24px rgba(20,24,32,0.25);
+}
+.filter-card.no{background:var(--paper-2);}
+.filter-card h3{font-size:16px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;gap:9px;margin-bottom:16px;}
+.filter-card .badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.filter-card.yes .badge{background:rgba(0,182,122,0.12);}
+.filter-card.no .badge{background:rgba(92,101,112,0.14);}
+.flist{list-style:none;padding:0;margin:0;display:grid;gap:12px;}
+.flist li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:#3A414B;line-height:1.5;}
+.flist .fi{flex:0 0 auto;margin-top:2px;}
+
+/* ---------- Trusted by ---------- */
+.founders{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 12px;margin-top:26px;}
+.founder{text-align:center;}
+.founder img{width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:center top;margin:0 auto 9px;filter:grayscale(1) contrast(1.02);border:1px solid var(--line);}
+.founder .fn{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.25;}
+
+/* ---------- About (Ambro) ---------- */
+.about{background:linear-gradient(180deg,#0E0F13 0%, #0B0C10 100%);color:#fff;padding:52px 0;}
+.about-grid{display:grid;gap:28px;align-items:center;}
+.portrait{
+  position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;max-width:320px;width:100%;margin-inline:auto;
+  background:radial-gradient(90% 80% at 50% 30%,#2A2E38 0%, #14161C 72%);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 40px 70px -34px rgba(0,0,0,0.7);
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.portrait .ph-silhouette{width:58%;opacity:0.32;margin-bottom:-2px;}
+.portrait .ph-note{position:absolute;left:0;right:0;bottom:12px;text-align:center;color:rgba(255,255,255,0.5);font-size:11px;padding:0 12px;}
+.about .a-eyebrow{color:var(--orange-2);text-transform:uppercase;letter-spacing:0.14em;font-size:11.5px;font-weight:700;margin-bottom:12px;display:block;}
+.about h2{font-size:24px;font-weight:700;letter-spacing:-0.02em;}
+.about .a-role{color:rgba(255,255,255,0.6);font-size:13.5px;margin-top:5px;font-weight:600;}
+.about .a-body{color:rgba(255,255,255,0.78);font-size:14.5px;margin-top:16px;line-height:1.6;}
+.cred{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:11px;}
+.cred li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,0.85);}
+.cred .cn{font-family:var(--font-title);font-weight:800;color:var(--orange);font-size:14px;flex:0 0 auto;min-width:64px;}
+.a-quote{margin-top:22px;padding:18px 20px;border-left:3px solid var(--orange);background:rgba(255,255,255,0.04);border-radius:0 10px 10px 0;font-size:14.5px;font-style:italic;color:#fff;line-height:1.55;}
+
+/* ---------- Final CTA ---------- */
+.final{background:var(--paper-2);border-top:1px solid var(--line);padding:48px 0;text-align:center;}
+.final h2{font-size:23px;font-weight:700;letter-spacing:-0.02em;max-width:20ch;margin:0 auto 8px;}
+.final p{color:var(--muted);font-size:14.5px;max-width:44ch;margin:0 auto 22px;}
+.final .btn-orange{max-width:340px;margin-inline:auto;}
+
+/* ---------- Disclaimer + footer ---------- */
+.disclaimer{padding:30px 0;background:var(--paper-2);border-top:1px solid var(--line);}
+.disclaimer p{font-size:11.5px;color:#8A929C;text-align:center;max-width:70ch;margin-inline:auto;}
+.disclaimer b{color:#6B7078;}
+.site-footer{background:var(--paper-2);border-top:1px solid var(--line);padding:32px 0 40px;text-align:center;}
+.footer-logo{height:24px;width:auto;display:inline-block;margin:0 auto 16px;}
+.footer-nav{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;font-size:13px;color:var(--muted);margin-bottom:12px;}
+.footer-nav a:hover{color:var(--ink);}
+.footer-legal{font-size:11px;color:#9AA1AA;}
+.footer-legal a:hover{color:var(--ink);}
+
+/* ---------- Mockup note ---------- */
+.mocknote{
+  width:min(720px,calc(100% - 40px));margin:26px auto 40px;
+  border:1px dashed rgba(124,116,245,0.5);border-radius:var(--r-card);
+  background:rgba(124,116,245,0.06);color:#5B5570;
+  font-size:12px;line-height:1.55;padding:14px 16px;text-align:center;
+}
+.mocknote b{color:var(--violet);}
+
+/* ---------- Desktop enhancements ---------- */
+@media (min-width:768px){
+  .hero{padding:26px 0 60px;}
+  .hero-grid{grid-template-columns:1.05fr 0.95fr;gap:44px;align-items:center;}
+  .hero h1{font-size:40px;}
+  .hero .lede{font-size:16px;}
+  .proof-item{padding:24px 16px;}
+  .proof-lab{font-size:13px;}
+  .section{padding:64px 0;}
+  .section h2{font-size:30px;}
+  .split{grid-template-columns:1.05fr 0.95fr;gap:48px;}
+  .filter-grid{grid-template-columns:1fr 1fr;gap:22px;}
+  .founders{grid-template-columns:repeat(6,1fr);gap:16px;}
+  .founder img{width:88px;height:88px;}
+  .about-grid{grid-template-columns:0.8fr 1.2fr;gap:44px;}
+  .about h2{font-size:30px;}
+  .final h2{font-size:28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Top banner (headline still placeholder — pending Gray's winning ad headline) -->
+<div class="banner" id="top">ATTN: High-Ticket Service Businesses at <strong>$200K+/Month</strong> Ready to Grow</div>
+
+<!-- DARK HERO -->
+<header class="hero">
+  <div class="wrap-wide">
+    <div class="hero-head">
+      <span class="brand">
+        <img class="mark" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iI0YyNjMyMiIvPjxwYXRoIGQ9Ik05IDIxIDkgMTQgMTMgMTQgMTMgMjF6TTE0IDIxIDE0IDEwIDE4IDEwIDE4IDIxek0xOSAyMSAxOSAxNiAyMyAxNiAyMyAyMXoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="NetRevenue" width="30" height="30">
+        <span class="word">Net<b>Revenue</b></span>
+      </span>
+    </div>
+
+    <div class="hero-grid">
+      <!-- Left: copy -->
+      <div class="hero-copy">
+        <span class="hero-eyebrow">Free · The 8-Figure Sales Engine</span>
+        <!-- PLACEHOLDER HEADLINE — swap for Gray's winning ad headline -->
+        <h1>How to Build an <span class="hl">8-Figure Sales Engine</span> Without Hiring the Wrong Reps or Living Inside Your CRM</h1>
+        <p class="lede">The exact system a $128M sales team installs inside high-ticket service businesses, distilled into one short, no-fluff playbook.</p>
+        <ul class="hero-bullets">
+          <li>
+            <span class="ck"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FF7A38" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span>The <b>3 hires that quietly cap your revenue</b>, and the order to actually build the team in.</span>
+          </li>
+          <li>
+            <span class="ck"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FF7A38" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span>Why most "sales problems" are really <b>offer and process problems</b>, and how to tell in 10 minutes.</span>
+          </li>
+          <li>
+            <span class="ck"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FF7A38" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span>The <b>comp plan that makes A-players chase quota</b> instead of a salary.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: opt-in card -->
+      <div class="optin-card">
+        <span class="optin-tag">Free · 12-page playbook</span>
+        <h2>Send me the guide</h2>
+        <p class="oc-sub">Enter your details and we'll email the playbook right away.</p>
+        <form class="form" onsubmit="return false;" aria-label="Lead magnet opt-in (preview — not wired)">
+          <div class="field">
+            <label for="fn">First name</label>
+            <input id="fn" type="text" name="first_name" placeholder="Your first name" autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label for="em">Email</label>
+            <input id="em" type="email" name="email" placeholder="you@company.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="ph">Phone</label>
+            <input id="ph" type="tel" name="phone" placeholder="(555) 000-0000" autocomplete="tel">
+          </div>
+          <button type="submit" class="btn-orange">Send me the guide →</button>
+        </form>
+        <div class="form-fine">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#5C6570" stroke-width="1.8"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#5C6570" stroke-width="1.8"/></svg>
+          <span>Free. No spam. Unsubscribe anytime.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROOF STRIP (made to stand out) -->
+<section class="proof">
+  <div class="wrap-wide">
+    <div class="proof-inner">
+      <div class="proof-item">
+        <div class="proof-num">$128M+</div>
+        <div class="proof-lab">in sales driven for clients</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">80+</div>
+        <div class="proof-lab">businesses scaled with our teams</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">48%</div>
+        <div class="proof-lab">peak close rate on booked calls</div>
+      </div>
+    </div>
+    <p class="proof-cap">Figures reflect NetRevenue client results. Placeholders for review — confirm before go-live.</p>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE — text left / image right -->
+<section class="section">
+  <div class="wrap-wide">
+    <div class="split">
+      <div class="s-copy">
+        <span class="eyebrow">What's inside</span>
+        <h2>The system behind an 8-figure sales team, on paper.</h2>
+        <p class="lead">No theory and no filler. This is the same three-part engine we build for clients, written so you can pressure-test your own sales operation this week.</p>
+        <ul class="inside-list">
+          <li>
+            <span class="ic">1</span>
+            <span class="t"><b>Diagnose the offer and pricing</b><span>Where deals really stall, and the pricing and positioning fixes that lift close rates before you add a single rep.</span></span>
+          </li>
+          <li>
+            <span class="ic">2</span>
+            <span class="t"><b>Build and ramp the team</b><span>Who to hire first, the scorecard we screen reps against, and the 30-day ramp that gets them to quota.</span></span>
+          </li>
+          <li>
+            <span class="ic">3</span>
+            <span class="t"><b>Run it on data, not vibes</b><span>The weekly operating cadence and the handful of numbers that tell you exactly where revenue is leaking.</span></span>
+          </li>
+        </ul>
+      </div>
+      <div class="cover-stage">
+        <!-- CSS guide-cover mock (no real asset yet) -->
+        <div class="guide-cover" role="img" aria-label="The 8-Figure Sales Engine guide cover">
+          <div class="gc-brand">
+            <img class="gc-mark" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iI0YyNjMyMiIvPjxwYXRoIGQ9Ik05IDIxIDkgMTQgMTMgMTQgMTMgMjF6TTE0IDIxIDE0IDEwIDE4IDEwIDE4IDIxek0xOSAyMSAxOSAxNiAyMyAxNiAyMyAyMXoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="" width="22" height="22">
+            <span class="gc-word">Net<b>Revenue</b></span>
+          </div>
+          <span class="gc-pill">Free Guide</span>
+          <div class="gc-title">The <span class="o">8-Figure</span> Sales Engine</div>
+          <div class="gc-foot">The playbook for $200K+/mo service businesses.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO THIS IS FOR -->
+<section class="section tint">
+  <div class="wrap-wide">
+    <span class="eyebrow center">The honest filter</span>
+    <h2 class="center">Who this guide is actually for.</h2>
+    <p class="sub center">This isn't for everyone. Here's the straight answer before you download it.</p>
+    <div class="filter-grid">
+      <div class="filter-card yes">
+        <h3><span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#00B67A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>This is for you if</h3>
+        <ul class="flist">
+          <li><span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#00B67A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>You run a high-ticket service, coaching, or consulting business doing $200K+/month.</li>
+          <li><span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#00B67A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>You have more demand than your current closers can handle.</li>
+          <li><span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#00B67A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>You're tired of being the best salesperson in your own company.</li>
+          <li><span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#00B67A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>You want a sales team you own, not another agency retainer.</li>
+          <li><span class="fi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#00B67A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>You're ready to install a real process, not just "hire a closer."</li>
+        </ul>
+      </div>
+      <div class="filter-card no">
+        <h3><span class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#8A929C" stroke-width="3" stroke-linecap="round"/></svg></span>Don't bother if</h3>
+        <ul class="flist">
+          <li><span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#A6ADB6" stroke-width="2.6" stroke-linecap="round"/></svg></span>You're pre-revenue or still under roughly $100K/month.</li>
+          <li><span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#A6ADB6" stroke-width="2.6" stroke-linecap="round"/></svg></span>You sell a low-ticket, one-call impulse offer.</li>
+          <li><span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#A6ADB6" stroke-width="2.6" stroke-linecap="round"/></svg></span>You want a magic script and no one to manage the team.</li>
+          <li><span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#A6ADB6" stroke-width="2.6" stroke-linecap="round"/></svg></span>You expect passive results without building anything.</li>
+          <li><span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#A6ADB6" stroke-width="2.6" stroke-linecap="round"/></svg></span>You're not willing to invest in ramping real salespeople.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUSTED BY -->
+<section class="section">
+  <div class="wrap-wide">
+    <span class="eyebrow center">In good company</span>
+    <h2 class="center">Trusted by operators building at scale.</h2>
+    <div class="founders">
+      <div class="founder"><img src="founder-tom-bilyeu.jpg" alt="Tom Bilyeu"><div class="fn">Tom Bilyeu</div></div>
+      <div class="founder"><img src="founder-jeff-sekinger.jpg" alt="Jeff Sekinger"><div class="fn">Jeff Sekinger</div></div>
+      <div class="founder"><img src="founder-brandon-turner.webp" alt="Brandon Turner" style="object-position:center 16%"><div class="fn">Brandon Turner</div></div>
+      <div class="founder"><img src="founder-tom-cruz.jpg" alt="Tom Cruz"><div class="fn">Tom Cruz</div></div>
+      <div class="founder"><img src="founder-aj-osborne.jpg" alt="AJ Osborne"><div class="fn">AJ Osborne</div></div>
+      <div class="founder"><img src="founder-manny-khoshbin.jpg" alt="Manny Khoshbin" style="object-position:center 18%"><div class="fn">Manny Khoshbin</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT — AMBRO DI PILATO -->
+<section class="about">
+  <div class="wrap-wide">
+    <div class="about-grid">
+      <!-- Portrait: PLACEHOLDER — provide Ambro photo to swap in (founder-ambro.jpg) -->
+      <div class="portrait">
+        <svg class="ph-silhouette" viewBox="0 0 100 100" fill="#fff" aria-hidden="true"><circle cx="50" cy="36" r="20"/><path d="M12 100c0-21 17-34 38-34s38 13 38 34z"/></svg>
+        <div class="ph-note">Photo: Ambro Di Pilato (placeholder — final photo pending)</div>
+      </div>
+      <div class="a-copy">
+        <span class="a-eyebrow">Who's behind this</span>
+        <h2>Ambro Di Pilato</h2>
+        <div class="a-role">Founder &amp; CEO, NetRevenue</div>
+        <p class="a-body">Ambro and the NetRevenue team build and run done-for-you sales departments for high-ticket founders, the offers, the hires, the process, and the day-to-day management. This guide is the distilled version of what they install inside 8-figure companies every day.</p>
+        <ul class="cred">
+          <li><span class="cn">$128M+</span><span>in sales driven across the client base.</span></li>
+          <li><span class="cn">80+</span><span>service businesses scaled with NetRevenue sales teams.</span></li>
+          <li><span class="cn">$800K→$1.1M</span><span>example client jump in monthly revenue within 90 days.</span></li>
+        </ul>
+        <div class="a-quote">"I don't hand you theory. This is the exact engine we build inside 8-figure companies, the same one my team runs every single day."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="wrap">
+    <h2>Get the 8-Figure Sales Engine guide.</h2>
+    <p>Free, instant, and built for founders at $200K+/month who are done leaving revenue on the table.</p>
+    <a href="#top" class="btn-orange">Send me the guide →</a>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<section class="disclaimer">
+  <div class="wrap-wide">
+    <p><b>Earnings disclaimer:</b> Results shown are examples from NetRevenue and its clients, shared with permission. They are not typical and are not a guarantee of any outcome. Individual results vary based on offer, effort, and market conditions. [Placeholder — replace with NetRevenue's real legal disclaimer before go-live.]</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <svg class="footer-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 195 28" fill="none" role="img" aria-label="NetRevenue"><g clip-path="url(#nrA)" fill="#1b1b1b"><path d="M20.912 9.593c.002.008.001.017-.004.025l-.984 1.6-.871 1.476-4.81 7.852c-.02.033-.05.05-.089.05h-2.296c-.019-.007-.023-.011-.025-.015-.004-.02-.002-.025 0-.03l6.919-11.305c.022-.037.027-.075.014-.116-1.138-3.426-4.034-5.888-7.576-6.515a4.94 4.94 0 0 0-.498-.063c-.023-.002-.035-.015-.035-.038l.007-2.018c.004-.015.006-.019.009-.021.014-.007.018-.008.022-.007 2.482.25 4.677 1.197 6.586 2.843 1.599 1.379 2.746 3.112 3.441 5.197.101.303.183.619.246.949.008.038-.005.069-.038.092-.014.01-.02.024-.016.042z"/><path d="M5.088 9.789l1.117 1.521c.023.031.054.041.092.029l2.64-.847a.09.09 0 0 1 .043-.003c.014.002.028.009.04.019a4.84 4.84 0 0 0 .481.366c1.093.726 2.587.392 3.266-.706.533-.861.465-1.862-.124-2.674-.009-.013-.013-.028-.011-.043s.01-.029.021-.039l1.481-1.203c.008-.007.018-.012.029-.015s.022-.004.033-.003.022.004.031.01.018.012.025.021a3.78 3.78 0 0 1 .504.811c.549 1.211.574 2.413.075 3.604-.554 1.324-1.71 2.272-3.121 2.581-1.043.228-2.054.084-3.031-.433-.018-.009-.038-.015-.058-.017s-.041 0-.06.007l-3.05.976a.06.06 0 0 1-.066-.021L2.238 9.435c-.014-.018-.012-.035.006-.049l8.385-6.814c.023-.001.026.002.027.005l.003 2.552c0 .04-.015.072-.046.098L5.096 9.721c-.024.02-.027.043-.008.068zm32.582 6.82l-.003-6.67c0-.047.023-.071.07-.071l4.408.002c.016.004.019.006.022.009.008.014.009.018.009.022l.001 11.915a.08.08 0 0 1-.023.056c-.015.015-.035.023-.056.023l-4.334.002a.38.38 0 0 1-.275-.113L34.55 18.93l-3.01-2.902-1.448-1.396a.04.04 0 0 0-.02-.01c-.007-.001-.015-.001-.022.002s-.013.007-.018.013-.008.013-.009.021a.78.78 0 0 0-.006.094l-.01 7.08c0 .04-.02.06-.059.06l-4.367.01a.08.08 0 0 1-.092-.093l.002-11.874c0-.05.025-.075.075-.075l4.868-.002c.124 0 .232.044.322.132l6.671 6.56a.3.3 0 0 0 .214.09c.021 0 .031-.01.031-.031zm10.636-3.819l-.004 1.481c0 .021.01.031.031.031l8.344.003a.87.87 0 0 1 .218.029c.013.01.014.014.014.018l-.007 2.766c0 .024-.01.047-.027.064s-.04.027-.065.027l-8.481-.002c-.01 0-.015.005-.016.014v1.651c.001.034.018.051.052.051h8.766c.011 0 .022.002.033.007s.02.011.028.019.014.018.018.028.006.022.006.033l.021 2.804c.002.057-.026.085-.083.085H43.887c-.063 0-.094-.031-.094-.093l.002-11.855c0-.055.027-.082.082-.082l13.142.003a.07.07 0 0 1 .081.08l-.004 2.741c0 .012-.004.025-.012.034s-.019.017-.031.019c-.04.009-.084.013-.13.013l-8.57-.016a.04.04 0 0 0-.046.046zm9.783.25l-.006-3.102c0-.017.007-.034.019-.046s.029-.019.046-.019l14.861-.003c.017 0 .034.007.046.019s.019.029.019.046l.001 3.105c0 .017-.007.034-.019.046s-.029.019-.046.019l-5.082.001c-.017 0-.034.007-.046.019s-.019.029-.019.046l-.002 8.661c0 .017-.007.034-.019.046s-.029.019-.046.019l-4.438-.002c-.017 0-.034-.007-.046-.019s-.019-.029-.019-.046l.002-8.661c0-.017-.007-.034-.019-.046s-.029-.019-.046-.019l-5.073.001c-.017 0-.034-.007-.046-.019s-.019-.029-.019-.046zm20.813 4.777v4.032c0 .029-.015.044-.045.044l-4.472.006c-.017 0-.033-.007-.044-.018s-.018-.028-.018-.044V9.901c0-.009.003-.017.01-.023s.014-.01.023-.01l11.56.01c.48.001.945.1 1.41.172.862.132 1.759.49 2.351 1.173.494.57.65 1.448.574 2.176-.07.663-.346 1.197-.828 1.6a3.79 3.79 0 0 1-1.398.746c-.163.047-.163.093.002.136 1.302.349 2.256 1.29 2.27 2.685l.006 1.782c-.002.482.046 1.018.208 1.45.026.069.002.104-.072.104l-4.547-.01c-.023-.001-.036-.012-.039-.035l-.052-.601-.01-1.518a2.56 2.56 0 0 0-.205-.924c-.333-.804-1.178-1.038-2.013-1.039a885.3 885.3 0 0 0-4.627.002c-.028 0-.042.014-.042.042zm-.002-5.042v2.088c0 .008.003.015.008.02s.013.008.02.008h5.441c.328 0 .643-.103.875-.287s.362-.433.362-.693v-.184c0-.26-.13-.51-.362-.694s-.547-.287-.875-.287h-5.441c-.008 0-.015.003-.02.008s-.008.012-.008.02zm17.214 6.097c0 .014.005.027.015.036a.05.05 0 0 0 .036.015h8.793c.074 0 .11.037.11.11l.002 2.816c0 .025-.012.038-.037.038l-1.618.014a4078.6 4078.6 0 0 0-11.047.002c-.248 0-.48-.004-.698-.013-.01 0-.02-.005-.027-.012s-.011-.017-.011-.027l-.001-11.919c0-.039.019-.059.058-.059l13.193-.001c.01 0 .021.004.029.012a.04.04 0 0 1 .012.029l.001 2.765c0 .05-.025.075-.076.075l-8.671.007c-.044 0-.067.022-.067.067l-.008 1.435a.04.04 0 0 0 .011.028c.007.007.017.012.027.012h8.581c.025 0 .038.013.038.039l-.003 2.793c0 .02-.008.04-.022.054s-.034.022-.054.022l-8.489-.001c-.021 0-.041.008-.055.023s-.023.035-.023.055v1.586zm18.586-.666c.016 0 .031-.004.044-.012a.08.08 0 0 0 .031-.035l3.681-8.152a.22.22 0 0 1 .216-.139l4.509-.004c.008 0 .015.002.021.006s.013.009.017.015.006.013.006.021 0 .015-.004.022L117.66 21.8c-.03.065-.08.097-.152.097l-5.83.001a.24.24 0 0 1-.214-.132L105.513 9.94c-.004-.008-.006-.016-.006-.025s.003-.017.008-.025.011-.014.019-.018.016-.006.025-.006l4.884-.004c.173-.001.239.093.303.227l3.859 8.053c.021.042.052.063.095.064zm13.686-5.384l-.008 1.414c0 .017.007.033.019.045s.028.018.045.018l8.481.002a.06.06 0 0 1 .044.018c.012.012.019.028.019.044l.017 2.783c0 .008-.001.017-.004.024a.07.07 0 0 1-.014.021c-.006.006-.013.011-.021.014s-.016.005-.024.005l-8.495-.005c-.016 0-.033.007-.044.019s-.019.028-.019.045l-.003 1.59c0 .017.007.033.019.045s.028.019.044.019h8.786c.008 0 .016.002.024.005s.015.008.021.014.01.013.013.021.005.016.005.024l.003 2.848c0 .008-.002.017-.005.024a.06.06 0 0 1-.014.021c-.006.006-.013.011-.021.014s-.016.005-.024.005l-13.301.002c-.017 0-.033-.007-.045-.019s-.019-.028-.019-.045l.002-11.902c0-.017.006-.033.018-.045s.028-.019.045-.019l13.207.002c.017 0 .033.007.045.019s.018.028.018.045l-.012 2.751c0 .017-.007.033-.019.045s-.028.019-.045.019l-8.675.009c-.016 0-.032.007-.044.019s-.018.027-.019.044zm14.859 1.855a.96.96 0 0 0-.027.231l.002 6.934c0 .039-.02.059-.059.059l-4.448-.008c-.026 0-.04-.013-.04-.04V9.936c0-.046.024-.069.07-.069l4.726-.007a.79.79 0 0 1 .58.235l6.656 6.529c.049.049.088.041.117-.023a.39.39 0 0 0 .004-.084l.003-6.607c0-.01.004-.019.011-.026s.016-.011.026-.011l4.497-.001c.019 0 .029.009.029.028l-.003 11.935c0 .035-.018.052-.052.053l-4.337.008a.47.47 0 0 1-.33-.129l-3.424-3.319-3.911-3.796c-.007-.007-.015-.012-.024-.014s-.019-.002-.029 0-.017.008-.024.014-.011.015-.013.025zm25.58-4.75c-.006-.012-.007-.024-.003-.034s.013-.017.026-.017l4.494-.01c.04 0 .06.02.059.059l.002 5.713c.003 1.903-.68 3.483-2.05 4.74-.22.201-.514.402-.884.602a8.46 8.46 0 0 1-2.662.914l-.977.147-3.247.008a5.46 5.46 0 0 1-.657-.071l-.663-.113c-.826-.147-1.64-.427-2.441-.841-1.428-.737-2.402-2.127-2.791-3.673a5.32 5.32 0 0 1-.119-.739l-.079-1.011-.001-5.706 4.535-.026c.029 0 .043.015.043.044l-.006 4.968c-.002.614.054 1.105.169 1.475.165.531.414.962.746 1.292.542.538 1.348.749 2.126.846.688.085 1.391.04 2.11-.134 1.231-.299 2.011-1.137 2.22-2.387.046-.273.065-.701.058-1.282l-.016-4.606c0-.058.004-.098.011-.121.004-.013.003-.025-.003-.037zm10.6 4.372l7.766-.01.785.02c.026.002.039.015.039.042l-.002 2.788c0 .008-.001.017-.005.025s-.008.015-.014.021-.013.011-.02.014-.017.005-.025.005l-8.485.007c-.058 0-.087.029-.087.087v1.57c0 .015.006.03.017.041s.026.017.041.017l8.807-.011c.047 0 .071.024.072.071l.002 2.845c0 .041-.02.061-.06.061l-13.299.009a.07.07 0 0 1-.05-.021c-.013-.013-.021-.031-.021-.05l.001-11.872a.09.09 0 0 1 .025-.062c.016-.017.039-.026.062-.026l13.188.004c.028 0 .043.014.043.043l.003 2.782c0 .035-.022.052-.066.052l-8.702.005c-.043 0-.064.021-.065.063l-.004 1.425c0 .036.018.054.054.054zm14.619-2.349c0 .558-.222 1.092-.616 1.487a2.1 2.1 0 0 1-2.974 0 2.1 2.1 0 0 1-.616-1.487c0-.558.222-1.092.616-1.487a2.1 2.1 0 0 1 1.487-.616c.558 0 1.092.222 1.487.616a2.1 2.1 0 0 1 .616 1.487zm-.208-.001a1.89 1.89 0 1 0-3.784 0 1.89 1.89 0 1 0 3.784 0z"/><path d="M192.304 12.228l.468.757a.05.05 0 0 1-.041.091c-.021.003-.041.003-.061-.001-.033-.007-.065-.02-.093-.04a.24.24 0 0 1-.068-.074l-.392-.66c-.119-.204-.407-.17-.602-.145-.09.011-.137.06-.14.145l.001.704c0 .02-.007.039-.02.053s-.032.023-.051.024l-.027.001c-.055.003-.087-.023-.094-.077a1.05 1.05 0 0 1-.01-.147l-.005-1.933c0-.023.008-.045.023-.062s.037-.028.06-.031c.335-.04.651-.035.947.016.317.055.504.227.562.516.074.369-.133.588-.433.765a.08.08 0 0 0-.021.019c-.005.008-.009.016-.011.025s-.003.019-.001.028.004.018.009.026zm-.926-1.091l-.002.715c0 .033.013.064.037.088a.12.12 0 0 0 .087.036l.521.001a.62.62 0 0 0 .209-.035.55.55 0 0 0 .177-.102.48.48 0 0 0 .119-.152.42.42 0 0 0 .041-.18v-.022c.001-.125-.057-.244-.159-.332a.59.59 0 0 0-.385-.138l-.521-.001c-.033 0-.065.013-.088.036s-.036.055-.036.088z"/><path d="M20.991 16.246l-2.654 4.338c-.013.011-.017.012-.021.012h-2.362c-.016-.006-.019-.009-.021-.012-.003-.017-.002-.021 0-.025l4.996-8.143c.017-.013.023-.014.028-.012.017.014.018.019.018.025l.019 3.805zm-14.076 5.7c-.005.022-.003.027 0 .032.017.015.022.016.028.016l14.557-.001c.02 0 .04.005.057.015a.13.13 0 0 1 .043.041l1.196 1.956c.004.02.003.024.001.029-.015.013-.02.014-.025.014l-19.522.001c-.015-.005-.018-.008-.02-.012-.003-.016-.002-.021 0-.024l6.547-10.694c.012-.019.029-.019.052.001.012.018.013.023.013.029l-.001 3.69a.41.41 0 0 1-.06.214l-2.865 4.693zm19.104 5.524H.023c-.017-.006-.02-.009-.022-.013-.003-.018-.002-.022.001-.026l1.216-1.99c.013-.011.017-.012.022-.012h23.565c.016.005.019.008.022.012l1.214 1.99c.004.017.003.022.001.026-.013.012-.018.013-.022.013z"/></g><defs><clipPath id="nrA"><path fill="#fff" transform="translate(0 .5)" d="M0 0h194.072v27H0z"/></clipPath></defs></svg>
+    <nav class="footer-nav">
+      <a href="https://netrevenue.io/" target="_blank" rel="noopener noreferrer">Home</a><a href="https://netrevenue.io/" target="_blank" rel="noopener noreferrer">Our Process</a><a href="https://netrevenue.io/#case-studies" target="_blank" rel="noopener noreferrer">Success Stories</a><a href="https://netrevenue.io/" target="_blank" rel="noopener noreferrer">Blog</a>
+    </nav>
+    <div class="footer-legal">© 2026 NetRevenue · <a href="https://netrevenue.io/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="https://netrevenue.io/terms-of-service" target="_blank" rel="noopener noreferrer">Terms</a> · <a href="https://netrevenue.io/" target="_blank" rel="noopener noreferrer">Guarantee</a></div>
+  </div>
+</footer>
+
+<!-- MOCKUP NOTE -->
+<div class="mocknote">
+  <b>Lead-magnet template for review.</b> Built on the NetRevenue design system from the /dto-vsl/thank-you page. <b>Headline + banner are placeholders</b> pending Gray's winning ad headline. The guide cover is a CSS mock (no real asset yet). Proof numbers are NetRevenue's stated figures used as placeholders. The opt-in form is static (no capture / PDF delivery / webhook wired). Ambro's About photo is a placeholder — <b>final photo pending.</b> "Trusted by" faces are sourced placeholders — clear likeness/usage rights before go-live.
+</div>
+
+</body>
+</html>
