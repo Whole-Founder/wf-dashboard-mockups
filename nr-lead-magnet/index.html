@@ -164,11 +164,11 @@ img{max-width:100%;display:block;}
 }
 .eyebrow.center{text-align:center;}
 .section h2{
-  font-size:24px;font-weight:700;letter-spacing:-0.02em;
+  font-size:24px;font-weight:700;letter-spacing:-0.02em;text-wrap:balance;
 }
 .section h2.center{text-align:center;max-width:20ch;margin-inline:auto;}
 .section .sub{
-  color:var(--muted);font-size:14.5px;margin:10px 0 0;
+  color:var(--muted);font-size:14.5px;margin:10px 0 0;text-wrap:pretty;
 }
 .section .sub.center{text-align:center;margin-inline:auto;max-width:48ch;}
 
@@ -253,13 +253,13 @@ img{max-width:100%;display:block;}
 .about h2{font-size:24px;font-weight:700;letter-spacing:-0.02em;}
 .about .a-role{color:rgba(255,255,255,0.6);font-size:13.5px;margin-top:5px;font-weight:600;}
 .about .a-body{color:rgba(255,255,255,0.78);font-size:14.5px;margin-top:16px;line-height:1.6;}
-.cred{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px;}
-.cred li{display:flex;gap:14px;align-items:center;justify-content:space-between;font-size:14px;color:rgba(255,255,255,0.85);}
-.cred li > span:last-child{text-align:right;text-wrap:pretty;}
+.cred{list-style:none;padding:0;margin:18px 0 0;display:grid;grid-template-columns:auto 1fr;gap:13px 14px;align-items:center;}
+.cred li{display:contents;}
+.cred li > span:last-child{font-size:14px;color:rgba(255,255,255,0.85);text-align:left;text-wrap:pretty;}
 .cred .cn{
   font-family:var(--font-title);font-weight:800;color:var(--orange);font-size:12.5px;letter-spacing:-0.01em;
   background:rgba(242,99,34,0.14);border:1px solid rgba(242,99,34,0.42);
-  padding:5px 12px;border-radius:999px;flex:0 0 auto;line-height:1.15;white-space:nowrap;
+  padding:5px 12px;border-radius:999px;justify-self:start;line-height:1.15;white-space:nowrap;
 }
 .a-quote{margin-top:22px;padding:18px 20px;border-left:3px solid var(--orange);background:rgba(0,0,0,0.22);border-radius:0 10px 10px 0;font-size:14.5px;font-style:italic;color:#fff;line-height:1.55;}
 
@@ -318,8 +318,6 @@ img{max-width:100%;display:block;}
   .founder img{width:88px;height:88px;}
   .about-grid{grid-template-columns:0.8fr 1.2fr;gap:44px;}
   .about h2{font-size:30px;}
-  .cred li{justify-content:flex-start;}
-  .cred li > span:last-child{text-align:left;}
   .m-br{display:none;}
   .final h2{font-size:28px;}
 }
@@ -342,8 +340,8 @@ img{max-width:100%;display:block;}
       <!-- Lead: eyebrow + headline -->
       <div class="hero-lead">
         <span class="hero-eyebrow">Free · The 8-Figure Sales Engine</span>
-        <!-- PLACEHOLDER HEADLINE — swap for Gray's winning ad headline -->
-        <h1>How to Build an <span class="hl">8-Figure Sales Engine</span> Without Hiring the Wrong Reps or Living Inside Your CRM</h1>
+        <!-- PLACEHOLDER HEADLINE — swap for Gray's winning ad headline. m-br = mobile-only line breaks (Gray's markup) -->
+        <h1>How to Build an <br class="m-br"><span class="hl">8‑Figure Sales Engine</span> <br class="m-br">Without Hiring <br class="m-br">the Wrong Reps <br class="m-br">or Living Inside Your CRM</h1>
       </div>
 
       <!-- Opt-in card -->
@@ -374,7 +372,7 @@ img{max-width:100%;display:block;}
 
       <!-- Detail: subtitle + bullets (rendered after the form on mobile) -->
       <div class="hero-detail">
-        <p class="lede">The exact system a $128M sales team installs inside high-ticket service businesses, distilled into one short, no-fluff playbook.</p>
+        <p class="lede">We're finally unveiling our internal documents after closing over $300M in sales, to help more founders unlock new levels in their business.</p>
         <ul class="hero-bullets">
           <li>
             <span class="ck"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#FF7A38" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -399,19 +397,19 @@ img{max-width:100%;display:block;}
   <div class="wrap-wide">
     <div class="proof-inner">
       <div class="proof-item">
-        <div class="proof-num">$128M+</div>
-        <div class="proof-lab">in sales driven for clients</div>
+        <div class="proof-num">$300M+</div>
+        <div class="proof-lab">in revenue closed for clients</div>
       </div>
       <div class="proof-item">
-        <div class="proof-num">80+</div>
-        <div class="proof-lab">businesses scaled with our teams</div>
+        <div class="proof-num">300+</div>
+        <div class="proof-lab">businesses served</div>
       </div>
       <div class="proof-item">
-        <div class="proof-num">48%</div>
-        <div class="proof-lab">peak close rate on booked calls</div>
+        <div class="proof-num">21</div>
+        <div class="proof-lab">days to first close</div>
       </div>
     </div>
-    <p class="proof-cap">Figures reflect NetRevenue client results. Placeholders for review — confirm before go-live.</p>
+    <p class="proof-cap">Figures reflect NetRevenue's verified client results.</p>
   </div>
 </section>
 
@@ -471,7 +469,7 @@ img{max-width:100%;display:block;}
         </ul>
       </div>
       <div class="filter-card no">
-        <h3><span class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#E5484D" stroke-width="3" stroke-linecap="round"/></svg></span>Don't bother if</h3>
+        <h3><span class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#E5484D" stroke-width="3" stroke-linecap="round"/></svg></span>Don't read this if…</h3>
         <ul class="flist">
           <li><span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#E5484D" stroke-width="2.6" stroke-linecap="round"/></svg></span>You're pre-revenue or still under roughly $100K/month.</li>
           <li><span class="fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#E5484D" stroke-width="2.6" stroke-linecap="round"/></svg></span>You sell a low-ticket, one-call impulse offer.</li>
@@ -514,9 +512,9 @@ img{max-width:100%;display:block;}
         <div class="a-role">Founder &amp; CEO, NetRevenue</div>
         <p class="a-body">Ambro and the NetRevenue team build and run done-for-you sales departments for high-ticket founders, the offers, the hires, the process, and the day-to-day management. This guide is the distilled version of what they install inside 8-figure companies every day.</p>
         <ul class="cred">
-          <li><span class="cn">$128M+</span><span>in sales driven across the&nbsp;client&nbsp;base.</span></li>
-          <li><span class="cn">80+</span><span>service businesses scaled with&nbsp;NetRevenue&nbsp;sales&nbsp;teams.</span></li>
-          <li><span class="cn">$800K→$1.1M</span><span>example client jump<br class="m-br">in monthly revenue<br class="m-br">within 90 days.</span></li>
+          <li><span class="cn">$300M+</span><span>in revenue closed for clients</span></li>
+          <li><span class="cn">300+</span><span>businesses served and scaled</span></li>
+          <li><span class="cn">21 days</span><span>to a client's first close</span></li>
         </ul>
         <div class="a-quote">"I don't hand you theory. This is the exact engine we build inside 8-figure companies, the same one my team runs every single day."</div>
       </div>
@@ -553,7 +551,7 @@ img{max-width:100%;display:block;}
 
 <!-- MOCKUP NOTE -->
 <div class="mocknote">
-  <b>Lead-magnet template for review.</b> Built on the NetRevenue design system from the /dto-vsl/thank-you page. <b>Headline + banner are placeholders</b> pending Gray's winning ad headline. The guide cover is a CSS mock (no real asset yet). Proof numbers are NetRevenue's stated figures used as placeholders. The opt-in form is static (no capture / PDF delivery / webhook wired). "Trusted by" faces are sourced placeholders — clear likeness/usage rights before go-live.
+  <b>Lead-magnet template for review.</b> Built on the NetRevenue design system from the /dto-vsl/thank-you page. <b>Headline + banner are placeholders</b> pending Gray's winning ad headline. The guide cover is a CSS mock (no real asset yet). Stats now use NetRevenue's approved verified figures ($300M+ revenue closed, 300+ businesses served, 21 days to first close). The opt-in form is static (no capture / PDF delivery / webhook wired). "Trusted by" faces are sourced placeholders, so clear likeness/usage rights before go-live.
 </div>
 
 </body>
