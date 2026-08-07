@@ -175,6 +175,7 @@ img{max-width:100%;display:block;}
 /* ---------- Split: text left / image right ---------- */
 .split{display:grid;gap:30px;align-items:center;}
 .split .s-copy .lead{color:var(--muted);font-size:15px;margin-top:14px;}
+.s-copy h2{text-wrap:pretty;} /* greedy fill keeps "8-figure" on line 1, still avoids a lonely last word */
 .inside-list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:14px;}
 .inside-list li{display:flex;gap:12px;align-items:flex-start;}
 .inside-list .ic{
@@ -419,7 +420,7 @@ img{max-width:100%;display:block;}
     <div class="split">
       <div class="s-copy">
         <span class="eyebrow">What's inside</span>
-        <h2>The system behind an 8-figure sales team, on paper.</h2>
+        <h2>The system behind an 8‑figure sales team, on paper.</h2>
         <p class="lead">No theory and no filler. This is the same three-part engine we build for clients, written so you can pressure-test your own sales operation this week.</p>
         <ul class="inside-list">
           <li>
