@@ -9,11 +9,11 @@
 <link rel="icon" type="image/png" href="NR%20-%20favicon.png">
 <!-- Social share preview -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Watch the $85K → $800K Sales-Team Rebuild — Free Client Teardown">
+<meta property="og:title" content="Watch the $85K → $800K Sales-Team Rebuild: Free Client Teardown">
 <meta property="og:description" content="The full behind-the-scenes rebuild that took this founder from $85K to $800K a month in 5 months.">
 <meta property="og:image" content="https://dashboard-preview.wholefounder.com/nr-teardown/scott-case-frame.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Watch the $85K → $800K Sales-Team Rebuild — Free Client Teardown">
+<meta name="twitter:title" content="Watch the $85K → $800K Sales-Team Rebuild: Free Client Teardown">
 <meta name="twitter:description" content="The full behind-the-scenes rebuild that took this founder from $85K to $800K a month in 5 months.">
 <meta name="twitter:image" content="https://dashboard-preview.wholefounder.com/nr-teardown/scott-case-frame.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,20 +70,13 @@ img{max-width:100%;display:block;}
   background:
     radial-gradient(120% 90% at 50% -10%, #23262F 0%, rgba(35,38,47,0) 60%),
     linear-gradient(180deg,var(--dark) 0%, #0B0C10 100%);
-  color:#fff;padding:12px 0 30px;
+  color:#fff;padding:10px 0 28px;
 }
-.hero-head{display:flex;justify-content:center;align-items:center;padding:2px 0 9px;}
-.hero-logo{height:24px;width:auto;display:block;}
+.hero-head{display:none;} /* top logo removed (per Gray) to lift the form button into the fold */
 
 .hero-stack{max-width:660px;margin-inline:auto;display:flex;flex-direction:column;align-items:center;text-align:center;}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(242,99,34,0.12);border:1px solid rgba(242,99,34,0.35);
-  color:var(--orange-2);font-weight:700;font-size:11px;letter-spacing:0.08em;
-  text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:14px;
-}
 .hero h1{
-  font-size:23px;font-weight:700;letter-spacing:-0.02em;line-height:1.16;
+  font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1.15;
   max-width:19ch;text-wrap:balance;
 }
 .hero h1 .hl{color:var(--orange);}
@@ -92,7 +85,7 @@ img{max-width:100%;display:block;}
 /* Video thumbnail (primary A/B variable — swappable image slot) */
 .thumb{
   position:relative;width:100%;max-width:620px;aspect-ratio:16/9;
-  margin:15px auto 16px;border-radius:12px;overflow:hidden;cursor:pointer;
+  margin:12px auto 10px;border-radius:12px;overflow:hidden;cursor:pointer;
   background:#0B0C10;border:1px solid rgba(255,255,255,0.12);
   box-shadow:0 34px 66px -34px rgba(0,0,0,0.75),0 0 0 6px rgba(242,99,34,0.05);
 }
@@ -119,7 +112,7 @@ img{max-width:100%;display:block;}
   width:100%;max-width:440px;margin-inline:auto;text-align:left;
   background:var(--paper);color:var(--ink);border-radius:14px;
   border:1px solid rgba(255,255,255,0.14);
-  padding:20px 20px 22px;
+  padding:18px 20px 20px;
   box-shadow:0 30px 70px -34px rgba(0,0,0,0.75),0 0 0 6px rgba(242,99,34,0.06);
 }
 .optin-tag{
@@ -128,11 +121,11 @@ img{max-width:100%;display:block;}
 }
 .optin-card h2{font-size:18px;font-weight:700;letter-spacing:-0.01em;}
 .optin-card .oc-sub{font-size:12.5px;color:var(--muted);margin-top:6px;}
-.form{margin-top:15px;display:grid;gap:10px;}
+.form{margin-top:13px;display:grid;gap:9px;}
 .field label{display:block;font-size:11px;font-weight:700;color:var(--ink);margin-bottom:4px;letter-spacing:0.01em;}
 .field input{
   width:100%;font-family:var(--font-body);font-size:15px;color:var(--ink);
-  padding:11px 13px;border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:10px 13px;border:1px solid var(--line);border-radius:var(--r-sm);
   background:var(--paper-2);outline:none;transition:border-color .15s ease,box-shadow .15s ease;
 }
 .field input::placeholder{color:#A6ADB6;}
@@ -271,10 +264,9 @@ img{max-width:100%;display:block;}
     </div>
 
     <div class="hero-stack">
-      <span class="hero-eyebrow">Free · 20-Min Client Teardown</span>
-      <!-- LOCKED HEADLINE (final — $85K is intentional; case doc/Loom say $50K) -->
+      <!-- LOCKED HEADLINE (final; $85K is intentional; case doc/Loom say $50K) -->
       <h1>Watch the Whole Sales-Team Rebuild That Took This Founder From <span class="hl">$85K to $800K</span> a Month in Just 5 Months.</h1>
-      <p class="hero-sub">The full behind-the-scenes breakdown — the offer, the hires, and the process — not another "here's what worked" summary.</p>
+      <p class="hero-sub">The full behind-the-scenes breakdown: the offer, the hires, and the process. Not another "here's what worked" summary.</p>
 
       <!-- VIDEO THUMBNAIL — primary A/B variable (frame from Scott's walkthrough). Static in preview. -->
       <div class="thumb" role="button" aria-label="Play the client teardown video">
@@ -290,7 +282,7 @@ img{max-width:100%;display:block;}
         <span class="optin-tag">Free · Instant access</span>
         <h2>Watch the full teardown</h2>
         <p class="oc-sub">Enter your details and we'll send the case-study video straight to your inbox.</p>
-        <form class="form" onsubmit="return false;" aria-label="Client teardown opt-in (preview — not wired)">
+        <form class="form" onsubmit="return false;" aria-label="Client teardown opt-in (preview, not wired)">
           <div class="field">
             <label for="fn">First name</label>
             <input id="fn" type="text" name="first_name" placeholder="Your first name" autocomplete="given-name">
@@ -347,7 +339,7 @@ img{max-width:100%;display:block;}
         <span class="a-eyebrow">Who's behind this</span>
         <h2>Ambro Di Pilato</h2>
         <div class="a-role">Founder &amp; CEO, NetRevenue</div>
-        <p class="a-body">Ambro and the NetRevenue team build and run done-for-you sales departments for high-ticket founders — the offer, the hires, the process, and the day-to-day management. This teardown is a real client rebuild, shown end to end, so you can see exactly how it's done.</p>
+        <p class="a-body">Ambro and the NetRevenue team build and run done-for-you sales departments for high-ticket founders: the offer, the hires, the process, and the day-to-day management. This teardown is a real client rebuild, shown end to end, so you can see exactly how it's done.</p>
         <ul class="cred">
           <li><span class="cn">$300M+</span><span>in revenue closed for clients</span></li>
           <li><span class="cn">300+</span><span>businesses served and scaled</span></li>
@@ -355,10 +347,10 @@ img{max-width:100%;display:block;}
         </ul>
         <!-- Scott added underneath — presenter of the teardown video (no bait-and-switch) -->
         <div class="a-featuring">
-          <img class="af-avatar" src="scott-rodriguez.png" alt="Scott Rodriguez">
+          <img class="af-avatar" src="scott-rodriguez.png" alt="Scott Rodrigues">
           <div class="af-txt">
             <span class="af-kick">In the teardown</span>
-            <span class="af-name">Scott Rodriguez</span>
+            <span class="af-name">Scott Rodrigues</span>
             <span class="af-role">Walks you through the full rebuild, step by step.</span>
           </div>
         </div>
@@ -371,7 +363,7 @@ img{max-width:100%;display:block;}
 <section class="final">
   <div class="wrap">
     <h2>Watch the whole sales-team rebuild.</h2>
-    <p>Free and instant — the exact steps that took this founder from $85K to $800K a month in five months.</p>
+    <p>Free and instant. The exact steps that took this founder from $85K to $800K a month in five months.</p>
     <a href="#top" class="btn-orange">Watch the teardown →</a>
   </div>
 </section>
@@ -379,7 +371,7 @@ img{max-width:100%;display:block;}
 <!-- DISCLAIMER -->
 <section class="disclaimer">
   <div class="wrap-wide">
-    <p><b>Earnings disclaimer:</b> Results shown are examples from NetRevenue and its clients, shared with permission. They are not typical and are not a guarantee of any outcome. Individual results vary based on offer, effort, and market conditions. [Placeholder — replace with NetRevenue's real legal disclaimer before go-live.]</p>
+    <p><b>Earnings disclaimer:</b> Results shown are examples from NetRevenue and its clients, shared with permission. They are not typical and are not a guarantee of any outcome. Individual results vary based on offer, effort, and market conditions. [Placeholder: replace with NetRevenue's real legal disclaimer before go-live.]</p>
   </div>
 </section>
 
@@ -396,7 +388,7 @@ img{max-width:100%;display:block;}
 
 <!-- MOCKUP NOTE -->
 <div class="mocknote">
-  <b>Client-teardown opt-in — new variant for review.</b> One-fold, Hormozi-style, built on the NetRevenue design system (sibling to the 8-Figure guide page). <b>Hero thumbnail is the primary A/B variable</b> — a frame from Scott's walkthrough, swappable. <b>Heads-up:</b> the frame currently shows "$50K→$800K" while the locked headline uses <b>$85K</b> — crop or reframe before go-live. Proof-strip figures are this case study's results (confirm case-specific vs. NetRevenue's approved verified figures with Gray). Name shown as "Scott Rodriguez" (per asset) — confirm spelling. The opt-in form is static (no capture / delivery / GHL webhook wired). Replace the placeholder disclaimer with real legal before go-live.
+  <b>Client-teardown opt-in, new variant for review.</b> One-fold, Hormozi-style, built on the NetRevenue design system (sibling to the 8-Figure guide page). <b>Hero thumbnail is the primary A/B variable</b>: a frame from Scott's walkthrough, swappable. <b>Heads-up:</b> the frame currently shows "$50K→$800K" while the locked headline uses <b>$85K</b>, so crop or reframe before go-live. Proof-strip figures are this case study's results (confirm case-specific vs. NetRevenue's approved verified figures with Gray). The opt-in form is static (no capture / delivery / GHL webhook wired). Replace the placeholder disclaimer with real legal before go-live.
 </div>
 
 </body>
