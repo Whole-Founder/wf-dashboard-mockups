@@ -80,7 +80,7 @@ img{max-width:100%;display:block;}
   max-width:19ch;text-wrap:balance;
 }
 .hero h1 .hl{color:var(--orange);}
-.hero-sub{display:none;color:rgba(255,255,255,0.66);font-size:13.5px;margin-top:11px;max-width:44ch;}
+.hero-sub{display:none;color:rgba(255,255,255,0.66);font-size:13.5px;margin-top:11px;max-width:44ch;text-wrap:balance;}
 
 /* Video thumbnail (primary A/B variable — swappable image slot) */
 .thumb{
@@ -109,7 +109,7 @@ img{max-width:100%;display:block;}
 
 /* ---------- Opt-in card ---------- */
 .optin-card{
-  width:100%;max-width:440px;margin-inline:auto;text-align:left;
+  width:100%;max-width:440px;margin-inline:auto;text-align:left;scroll-margin-top:16px;
   background:var(--paper);color:var(--ink);border-radius:14px;
   border:1px solid rgba(255,255,255,0.14);
   padding:18px 20px 20px;
@@ -269,7 +269,7 @@ img{max-width:100%;display:block;}
       <p class="hero-sub">The full behind-the-scenes breakdown: the offer, the hires, and the process. Not another "here's what worked" summary.</p>
 
       <!-- VIDEO THUMBNAIL — primary A/B variable (frame from Scott's walkthrough). Static in preview. -->
-      <div class="thumb" role="button" aria-label="Play the client teardown video">
+      <div class="thumb" role="button" tabindex="0" aria-label="Play the client teardown (opt in below to watch)">
         <img src="scott-case-frame.jpg" alt="Scott walking through the NetRevenue client teardown">
         <span class="thumb-tag"><span class="dot"></span>Client teardown · Case Study 07</span>
         <span class="play">
@@ -278,7 +278,7 @@ img{max-width:100%;display:block;}
       </div>
 
       <!-- Opt-in card -->
-      <div class="optin-card">
+      <div class="optin-card" id="optin">
         <span class="optin-tag">Free · Instant access</span>
         <h2>Watch the full teardown</h2>
         <p class="oc-sub">Enter your details and we'll send the case-study video straight to your inbox.</p>
@@ -390,6 +390,24 @@ img{max-width:100%;display:block;}
 <div class="mocknote">
   <b>Client-teardown opt-in, new variant for review.</b> One-fold, Hormozi-style, built on the NetRevenue design system (sibling to the 8-Figure guide page). <b>Hero thumbnail is the primary A/B variable</b>: a frame from Scott's walkthrough, swappable. <b>Heads-up:</b> the frame currently shows "$50K→$800K" while the locked headline uses <b>$85K</b>, so crop or reframe before go-live. Proof-strip figures are this case study's results (confirm case-specific vs. NetRevenue's approved verified figures with Gray). The opt-in form is static (no capture / delivery / GHL webhook wired). Replace the placeholder disclaimer with real legal before go-live.
 </div>
+
+<!-- Thumbnail click -> smooth-scroll to the opt-in form (the video is gated behind the opt-in) -->
+<script>
+(function(){
+  var thumb = document.querySelector('.thumb');
+  var card  = document.getElementById('optin');
+  var first = document.getElementById('fn');
+  if(!thumb || !card) return;
+  function goToForm(){
+    card.scrollIntoView({behavior:'smooth', block:'start'});
+    if(first){ setTimeout(function(){ try{ first.focus({preventScroll:true}); }catch(e){ first.focus(); } }, 500); }
+  }
+  thumb.addEventListener('click', goToForm);
+  thumb.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){ e.preventDefault(); goToForm(); }
+  });
+})();
+</script>
 
 </body>
 </html>
