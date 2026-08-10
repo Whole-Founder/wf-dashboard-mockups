@@ -308,11 +308,11 @@
   .bhead .bdid-list li:last-child{margin-bottom:0}
   .bhead .bdid-list li::before{content:"";position:absolute;left:4px;top:3px;width:6px;height:11px;border:solid var(--mint);border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
   .bcards{display:flex;flex-direction:column;gap:20px}
-  .rcard.wide{flex-direction:row;width:100%;max-width:none;margin:0;align-items:stretch}
+  .rcard.wide{flex-direction:row;width:100%;max-width:none;margin:0;align-items:stretch;flex:0 0 auto}
   .rcard.wide .rimg{flex:0 0 240px;width:240px;aspect-ratio:1/1;height:auto}
   .rcard.wide .rbody{flex:1;justify-content:center;padding:28px 36px}
   @media(max-width:860px){.bgroup{grid-template-columns:1fr;gap:26px;padding-top:44px}.bhead{position:static;text-align:center}.bhead .blogo{justify-content:center}.bhead .bdid-list{display:inline-block;text-align:left}.bcards{max-width:720px;margin:0 auto;width:100%}}
-  @media(max-width:600px){.rcard.wide{flex-direction:column}.rcard.wide .rimg{flex:0 0 auto;width:100%}}
+  @media(max-width:600px){.rcard.wide{flex-direction:column;align-items:center;text-align:center}.rcard.wide .rimg{flex:0 0 auto;width:170px;height:170px;aspect-ratio:auto;margin-top:26px;border-radius:20px}.rcard.wide .rbody{flex:0 0 auto;padding:16px 24px 28px;justify-content:flex-start}.rcard.wide .rname{justify-content:center}.rcard.wide .accolades{display:inline-block;text-align:left}}
 </style>
 </head>
 <body>
