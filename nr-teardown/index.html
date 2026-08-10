@@ -87,7 +87,7 @@ img{max-width:100%;display:block;}
 /* Video thumbnail (primary A/B variable — swappable image slot) */
 .thumb{
   position:relative;width:100%;max-width:380px;aspect-ratio:16/9;
-  margin:0 auto 12px;border-radius:12px;overflow:hidden;cursor:pointer;
+  margin:16px auto 0;border-radius:12px;overflow:hidden;cursor:pointer;
   background:#0B0C10;border:1px solid rgba(255,255,255,0.12);
 }
 .thumb img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
@@ -241,7 +241,7 @@ img{max-width:100%;display:block;}
   .hero h1{font-size:34px;max-width:16ch;}
   .hero-sub{display:block;font-size:15.5px;margin-top:14px;max-width:42ch;}
   .hero-form{margin:0;max-width:460px;}
-  .thumb{margin:0 auto 14px;}
+  .thumb{margin:18px 0 0;}
   .proof{padding:28px 0 30px;}
   .proof-inner{grid-template-columns:repeat(3,1fr);gap:16px;}
   .proof-item{flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:9px;padding:22px 18px;}
@@ -273,19 +273,19 @@ img{max-width:100%;display:block;}
         <!-- LOCKED HEADLINE (final; $85K is intentional; case doc/Loom say $50K) -->
         <h1>Watch the Whole Sales-Team Rebuild That Took This Founder From <span class="hl">$85K to $800K</span> a Month in Just 5 Months.</h1>
         <p class="hero-sub">The full behind-the-scenes breakdown: the offer, the hires, and the process. Not another "here's what worked" summary.</p>
-      </div>
 
-      <!-- RIGHT COLUMN: video thumbnail on top of the opt-in form -->
-      <div class="hero-form">
-        <!-- VIDEO THUMBNAIL — primary A/B variable (frame from Scott's walkthrough). Static in preview. -->
-      <div class="thumb" role="button" tabindex="0" aria-label="Play the client teardown (opt in below to watch)">
+        <!-- VIDEO THUMBNAIL — primary A/B variable (frame from Scott's walkthrough). Sits below the text in the left column. -->
+        <div class="thumb" role="button" tabindex="0" aria-label="Play the client teardown (opt in below to watch)">
         <img src="scott-case-frame.jpg" alt="Scott walking through the NetRevenue client teardown">
         <span class="thumb-tag"><span class="dot"></span>Client teardown · Case Study 07</span>
         <span class="play">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5.14v13.72a1 1 0 0 0 1.54.84l10.28-6.86a1 1 0 0 0 0-1.68L9.54 4.3A1 1 0 0 0 8 5.14z"/></svg>
         </span>
       </div>
+      </div>
 
+      <!-- RIGHT COLUMN: opt-in form -->
+      <div class="hero-form">
       <!-- Opt-in card -->
       <div class="optin-card" id="optin">
         <span class="optin-tag">Free · Instant access</span>
