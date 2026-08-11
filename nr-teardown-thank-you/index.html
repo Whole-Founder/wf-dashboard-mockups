@@ -75,10 +75,11 @@ img{max-width:100%;display:block;}
   color:#fff;padding:26px 0 40px;
 }
 .hero h1{
-  font-size:25px;font-weight:700;text-align:center;letter-spacing:-0.02em;
-  max-width:20ch;margin-inline:auto;text-wrap:balance;
+  font-size:22px;font-weight:700;text-align:center;letter-spacing:-0.02em;
+  max-width:none;margin-inline:auto;text-wrap:balance;
 }
 .hero h1 .hl{color:var(--orange);}
+.hero h1 .nb{white-space:nowrap;}
 .hero-sub{
   text-align:center;color:rgba(255,255,255,0.68);font-size:14px;
   margin:13px auto 0;max-width:48ch;text-wrap:balance;
@@ -146,10 +147,11 @@ img{max-width:100%;display:block;}
 /* ---------- Desktop enhancements ---------- */
 @media (min-width:768px){
   .hero{padding:34px 0 56px;}
-  .hero h1{font-size:38px;max-width:18ch;}
+  .hero h1{font-size:37px;max-width:none;}
   .hero-sub{font-size:15.5px;}
   .final{padding:64px 0;}
-  .final h2{font-size:30px;}
+  .final h2{font-size:30px;max-width:none;white-space:nowrap;}
+  .final p{max-width:none;white-space:nowrap;}
 }
 </style>
 </head>
@@ -161,7 +163,7 @@ img{max-width:100%;display:block;}
 <!-- DARK HERO: LM delivery -->
 <header class="hero">
   <div class="wrap">
-    <h1>Watch the Full Sales-Team Rebuild: <span class="hl">$50K → $800K</span> a Month in 5 Months</h1>
+    <h1>Watch the Full <span class="nb">Sales-Team</span> Rebuild: <span class="hl nb">$50K → $800K/mo</span> in 5 Months</h1>
 
     <div class="hero-video-frame">
       <div class="vturb-wrap">
@@ -180,7 +182,7 @@ img{max-width:100%;display:block;}
   <div class="wrap">
     <span class="eyebrow">Your next step</span>
     <h2>Want This Installed In Your Business?</h2>
-    <p>NetRevenue installs done-for-you sales teams for high-ticket founders. Book a call to see if it's a fit.</p>
+    <p>NetRevenue installs done-for-you sales teams for high-ticket founders.</p>
     <a href="https://apply.netrevenue.io/dto-vsl/" class="btn-orange">Book a call with our team →</a>
     <div class="cta-fine">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.86-5-4.87 7.1-1.01L12 2z" stroke="#5C6570" stroke-width="1.6" stroke-linejoin="round"/></svg>
@@ -192,7 +194,7 @@ img{max-width:100%;display:block;}
 <!-- DISCLAIMER -->
 <section class="disclaimer">
   <div class="wrap-wide">
-    <p><b>Earnings disclaimer:</b> Results shown are examples from NetRevenue and its clients, shared with permission. They are not typical and are not a guarantee of any outcome. Individual results vary based on offer, effort, and market conditions. [Placeholder: replace with NetRevenue's real legal disclaimer before go-live.]</p>
+    <p><b>Earnings disclaimer:</b> Results shown are examples from NetRevenue and its clients, shared with permission. They are not typical and are not a guarantee of any outcome. Individual results vary based on offer, effort, and market conditions.</p>
   </div>
 </section>
 
