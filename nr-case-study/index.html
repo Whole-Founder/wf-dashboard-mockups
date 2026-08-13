@@ -126,9 +126,11 @@ img{max-width:100%;display:block;}
 /* Widen past the 680px text column: GHL's booking form is ~760px wide and is
    responsive DOWN from there, so a 680px iframe cramps it (footer button spills to
    the edges + a horizontal scrollbar). ~820px gives the widget its native desktop
-   layout; capped to the viewport so narrow screens still fit. Break out of .wrap and
-   re-center with left/transform (margin:auto can't center a child wider than parent). */
-.final .booking-embed{width:min(820px,calc(100vw - 32px));position:relative;left:50%;transform:translateX(-50%);margin:6px 0 2px;background:#fff;border:1px solid var(--line);border-radius:var(--r-card);box-shadow:0 2px 4px rgba(20,24,32,0.05),0 24px 44px -30px rgba(20,24,32,0.5);overflow:hidden;}
+   layout; capped to the viewport so narrow screens still fit. As a direct child of
+   .final (full width) plain margin:auto centers it. Do NOT use position/transform
+   here: it makes the card a containing block for GHL's absolutely-positioned
+   measuring iframe and breaks form_embed.js's reveal (iframe stays hidden). */
+.final .booking-embed{width:min(820px,calc(100vw - 32px));margin:6px auto 2px;background:#fff;border:1px solid var(--line);border-radius:var(--r-card);box-shadow:0 2px 4px rgba(20,24,32,0.05),0 24px 44px -30px rgba(20,24,32,0.5);overflow:hidden;}
 /* height is a load-time placeholder only; GHL's form_embed.js sets the exact
    per-step height inline (do NOT use min-height here, it floors the script's value
    and pins the submit button below shorter steps). */
@@ -193,10 +195,13 @@ img{max-width:100%;display:block;}
     <span class="eyebrow">Your next step</span>
     <h2>Want This Installed In Your Business?</h2>
     <p>NetRevenue installs done-for-you sales teams for high-ticket founders.</p>
-    <!-- GHL booking calendar (replaces the outbound "Book a call" button) -->
-    <div class="booking-embed">
-      <iframe src="https://partnership.netrevenue.io/widget/booking/juVvg8LH2boxE3oju02e" allow="payment" scrolling="no" id="j6KL37MqkxG9BXnNu5Nj_1786641577082" title="Book a call with the NetRevenue team"></iframe>
-    </div>
+  </div>
+  <!-- GHL booking calendar. Direct child of .final (full width) so it can be wider
+       than the 680px text column above and still center with plain margin:auto. -->
+  <div class="booking-embed">
+    <iframe src="https://partnership.netrevenue.io/widget/booking/juVvg8LH2boxE3oju02e" allow="payment" scrolling="no" id="j6KL37MqkxG9BXnNu5Nj_1786641577082" title="Book a call with the NetRevenue team"></iframe>
+  </div>
+  <div class="wrap">
     <div class="cta-fine">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.86-5-4.87 7.1-1.01L12 2z" stroke="#5C6570" stroke-width="1.6" stroke-linejoin="round"/></svg>
       <span>No pressure. Just a quick call to see if we can help.</span>
