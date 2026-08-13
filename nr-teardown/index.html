@@ -291,7 +291,7 @@ img{max-width:100%;display:block;}
         <span class="optin-tag">Free · Instant access</span>
         <h2>Watch the full teardown</h2>
         <p class="oc-sub">Enter your details and we'll send the case-study video straight to your inbox.</p>
-        <form class="form" onsubmit="return false;" aria-label="Client teardown opt-in (preview, not wired)">
+        <form class="form" id="optin-form" aria-label="Client teardown opt-in">
           <div class="field">
             <label for="fn">First name</label>
             <input id="fn" type="text" name="first_name" placeholder="Your first name" autocomplete="given-name">
@@ -398,7 +398,7 @@ img{max-width:100%;display:block;}
 
 <!-- MOCKUP NOTE -->
 <div class="mocknote">
-  <b>Client-teardown opt-in, new variant for review.</b> One-fold, Hormozi-style, built on the NetRevenue design system (sibling to the 8-Figure guide page). <b>Hero thumbnail is the primary A/B variable</b>: a frame from Scott's walkthrough, swappable. Proof-strip figures are this case study's results (confirm case-specific vs. NetRevenue's approved verified figures with Gray). The opt-in form is static (no capture / delivery / GHL webhook wired). Replace the placeholder disclaimer with real legal before go-live.
+  <b>Client-teardown opt-in, new variant for review.</b> One-fold, Hormozi-style, built on the NetRevenue design system (sibling to the 8-Figure guide page). <b>Hero thumbnail is the primary A/B variable</b>: a frame from Scott's walkthrough, swappable. Proof-strip figures are this case study's results (confirm case-specific vs. NetRevenue's approved verified figures with Gray). The opt-in form <b>redirects to the delivery page</b> (/nr-case-study/) on submit; lead capture / GHL webhook is still to be wired upstream by Gray. Replace the placeholder disclaimer with real legal before go-live.
 </div>
 
 <!-- Thumbnail click -> smooth-scroll to the opt-in form (the video is gated behind the opt-in) -->
@@ -415,6 +415,17 @@ img{max-width:100%;display:block;}
   thumb.addEventListener('click', goToForm);
   thumb.addEventListener('keydown', function(e){
     if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){ e.preventDefault(); goToForm(); }
+  });
+})();
+
+// Opt-in submit -> redirect to the case-study delivery page.
+// (Lead capture / GHL webhook is wired separately upstream.)
+(function(){
+  var form = document.getElementById('optin-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    window.location.href = '/nr-case-study/';
   });
 })();
 </script>

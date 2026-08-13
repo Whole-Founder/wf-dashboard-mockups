@@ -123,6 +123,8 @@ img{max-width:100%;display:block;}
 .btn-orange:hover{transform:translateY(-1px);}
 .final .cta-fine{display:flex;align-items:center;gap:7px;justify-content:center;margin-top:14px;color:var(--muted);font-size:11.5px;}
 .final .cta-fine svg{flex:0 0 auto;}
+.final .booking-embed{margin:6px auto 2px;background:#fff;border:1px solid var(--line);border-radius:var(--r-card);box-shadow:0 2px 4px rgba(20,24,32,0.05),0 24px 44px -30px rgba(20,24,32,0.5);overflow:hidden;}
+.final .booking-embed iframe{display:block;width:100%;min-height:640px;border:0;}
 
 /* ---------- Disclaimer + footer ---------- */
 .disclaimer{padding:30px 0;background:var(--paper-2);border-top:1px solid var(--line);}
@@ -183,7 +185,10 @@ img{max-width:100%;display:block;}
     <span class="eyebrow">Your next step</span>
     <h2>Want This Installed In Your Business?</h2>
     <p>NetRevenue installs done-for-you sales teams for high-ticket founders.</p>
-    <a href="https://apply.netrevenue.io/dto-vsl/" class="btn-orange">Book a call with our team →</a>
+    <!-- GHL booking calendar (replaces the outbound "Book a call" button) -->
+    <div class="booking-embed">
+      <iframe src="https://partnership.netrevenue.io/widget/booking/juVvg8LH2boxE3oju02e" allow="payment" scrolling="no" id="j6KL37MqkxG9BXnNu5Nj_1786641577082" title="Book a call with the NetRevenue team"></iframe>
+    </div>
     <div class="cta-fine">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.86-5-4.87 7.1-1.01L12 2z" stroke="#5C6570" stroke-width="1.6" stroke-linejoin="round"/></svg>
       <span>No pressure. Just a quick call to see if we can help.</span>
@@ -211,7 +216,7 @@ img{max-width:100%;display:block;}
 
 <!-- MOCKUP NOTE -->
 <div class="mocknote">
-  <b>Thank-you / delivery page for the client-teardown opt-in. For review.</b> The lead-magnet video (Scott's full rebuild) is embedded live via <b>VTurb</b>. The CTA points to the live DTO application funnel (<b>apply.netrevenue.io/dto-vsl/</b>). Per current scope: no Ambro pitch video, no testimonials/proof strip, and no capture/email wiring on this page (delivery handled upstream). Replace the placeholder disclaimer with real legal before go-live.
+  <b>Thank-you / delivery page for the client-teardown opt-in. For review.</b> The lead-magnet video (Scott's full rebuild) is embedded live via <b>VTurb</b>. The next-step CTA is an embedded <b>GHL booking calendar</b> (partnership.netrevenue.io) so visitors book on-page. Per current scope: no Ambro pitch video, no testimonials/proof strip, and no capture/email wiring on this page (delivery handled upstream). Replace the placeholder disclaimer with real legal before go-live.
 </div>
 
 <!-- VTurb player loader -->
@@ -220,6 +225,9 @@ img{max-width:100%;display:block;}
   s.src="https://scripts.converteai.net/5c71167f-6207-4877-a807-116d14e1666a/players/6a7b32eb2660725c864286d8/v4/player.js";
   s.async=!0;document.head.appendChild(s);
 </script>
+
+<!-- GHL booking-widget auto-resize -->
+<script src="https://partnership.netrevenue.io/js/form_embed.js" type="text/javascript"></script>
 
 </body>
 </html>
