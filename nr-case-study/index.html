@@ -203,11 +203,10 @@ img{max-width:100%;display:block;}
        any utm_*/fbclid/gclid params on this page's URL into the form so
        first-touch attribution survives the hand-off. -->
   <div class="wrap">
-    <!-- REVIEW TARGET: points at the PR #8 Vercel preview so the opt-in → TY →
-         apply → book/DQ chain is clickable for review. Requires being logged in
-         to the Whole-Founder Vercel team. BEFORE GO-LIVE revert this href to
-         https://apply.netrevenue.io/dto-vsl/apply?source=vsl -->
-    <a class="btn-orange" id="apply-cta" href="https://nr-landing-page-git-nr-dto-vsl-apply-form-whole-founder.vercel.app/dto-vsl/apply?source=vsl">
+    <!-- Production target. The /dto-vsl routes go live on apply.netrevenue.io
+         when PR #8 (NR-Net-Revenue) merges. For pre-merge review the apply/
+         book/DQ pages are reachable directly on the PR #8 Vercel preview. -->
+    <a class="btn-orange" id="apply-cta" href="https://apply.netrevenue.io/dto-vsl/apply?source=vsl">
       Apply to Work With Us
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -250,7 +249,7 @@ img{max-width:100%;display:block;}
 
 <!-- MOCKUP NOTE -->
 <div class="mocknote">
-  <b>Thank-you page for the client-teardown opt-in. For review.</b> The thank-you video (Scott's rebuild) is embedded live via <b>VTurb</b>. The next-step CTA now <b>gates the calendar behind a qualification form</b> — it hands off to the application at <b>apply.netrevenue.io/dto-vsl/apply</b> (nr-dto-vsl funnel); only qualified applicants reach the booking calendar (on <code>/dto-vsl/book</code>). Per current scope: no Ambro pitch video, no testimonials/proof strip, and no capture/email wiring on this page (delivery handled upstream). <b>Review note:</b> the CTA currently points at the PR&nbsp;#8 Vercel preview (needs Whole-Founder Vercel login); revert it to <code>apply.netrevenue.io/dto-vsl/apply</code> before go-live. Replace the placeholder disclaimer with real legal before go-live.
+  <b>Thank-you page for the client-teardown opt-in. For review.</b> The thank-you video (Scott's rebuild) is embedded live via <b>VTurb</b>. The next-step CTA now <b>gates the calendar behind a qualification form</b> — it hands off to the application at <b>apply.netrevenue.io/dto-vsl/apply</b> (nr-dto-vsl funnel); only qualified applicants reach the booking calendar (on <code>/dto-vsl/book</code>). Per current scope: no Ambro pitch video, no testimonials/proof strip, and no capture/email wiring on this page (delivery handled upstream). <b>Review note:</b> the CTA points at production <code>apply.netrevenue.io/dto-vsl/apply</code>; those routes go live when PR&nbsp;#8 merges. Pre-merge, review the apply/book/DQ pages on the PR&nbsp;#8 Vercel preview. Replace the placeholder disclaimer with real legal before go-live.
 </div>
 
 <!-- VTurb player loader -->
