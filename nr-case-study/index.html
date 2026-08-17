@@ -196,18 +196,39 @@ img{max-width:100%;display:block;}
     <h2>Want This Installed In Your Business?</h2>
     <p>NetRevenue installs done-for-you sales teams for high-ticket founders.</p>
   </div>
-  <!-- GHL booking calendar. Direct child of .final (full width) so it can be wider
-       than the 680px text column above and still center with plain margin:auto. -->
-  <div class="booking-embed">
-    <iframe src="https://partnership.netrevenue.io/widget/booking/juVvg8LH2boxE3oju02e" allow="payment" scrolling="no" id="j6KL37MqkxG9BXnNu5Nj_1786641577082" title="Book a call with the NetRevenue team"></iframe>
-  </div>
+  <!-- NEXT STEP: gate the calendar behind the qualification form. Booking now
+       happens AFTER the application (apply.netrevenue.io/dto-vsl/apply) — only
+       qualified applicants reach the calendar. source=vsl → the nr-dto-vsl
+       funnel slug for per-funnel attribution. The inline script below forwards
+       any utm_*/fbclid/gclid params on this page's URL into the form so
+       first-touch attribution survives the hand-off. -->
   <div class="wrap">
+    <!-- REVIEW TARGET: points at the PR #8 Vercel preview so the opt-in → TY →
+         apply → book/DQ chain is clickable for review. Requires being logged in
+         to the Whole-Founder Vercel team. BEFORE GO-LIVE revert this href to
+         https://apply.netrevenue.io/dto-vsl/apply?source=vsl -->
+    <a class="btn-orange" id="apply-cta" href="https://nr-landing-page-git-nr-dto-vsl-apply-form-whole-founder.vercel.app/dto-vsl/apply?source=vsl">
+      Apply to Work With Us
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
     <div class="cta-fine">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.86-5-4.87 7.1-1.01L12 2z" stroke="#5C6570" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      <span>No pressure. Just a quick call to see if we can help.</span>
+      <span>Takes 60 seconds. If we're a fit, you'll pick a time on the next step.</span>
     </div>
   </div>
 </section>
+<script>
+  /* Forward this page's UTM / click-id params into the application form so the
+     form's first-touch capture attributes the lead to the right ad. */
+  (function () {
+    var cta = document.getElementById("apply-cta");
+    if (!cta) return;
+    var incoming = new URLSearchParams(location.search);
+    var target = new URL(cta.href);
+    incoming.forEach(function (v, k) { if (k !== "source") target.searchParams.set(k, v); });
+    cta.href = target.toString();
+  })();
+</script>
 
 <!-- DISCLAIMER -->
 <section class="disclaimer">
@@ -229,7 +250,7 @@ img{max-width:100%;display:block;}
 
 <!-- MOCKUP NOTE -->
 <div class="mocknote">
-  <b>Thank-you / delivery page for the client-teardown opt-in. For review.</b> The lead-magnet video (Scott's full rebuild) is embedded live via <b>VTurb</b>. The next-step CTA is an embedded <b>GHL booking calendar</b> (partnership.netrevenue.io) so visitors book on-page. Per current scope: no Ambro pitch video, no testimonials/proof strip, and no capture/email wiring on this page (delivery handled upstream). Replace the placeholder disclaimer with real legal before go-live.
+  <b>Thank-you page for the client-teardown opt-in. For review.</b> The thank-you video (Scott's rebuild) is embedded live via <b>VTurb</b>. The next-step CTA now <b>gates the calendar behind a qualification form</b> — it hands off to the application at <b>apply.netrevenue.io/dto-vsl/apply</b> (nr-dto-vsl funnel); only qualified applicants reach the booking calendar (on <code>/dto-vsl/book</code>). Per current scope: no Ambro pitch video, no testimonials/proof strip, and no capture/email wiring on this page (delivery handled upstream). <b>Review note:</b> the CTA currently points at the PR&nbsp;#8 Vercel preview (needs Whole-Founder Vercel login); revert it to <code>apply.netrevenue.io/dto-vsl/apply</code> before go-live. Replace the placeholder disclaimer with real legal before go-live.
 </div>
 
 <!-- VTurb player loader -->
@@ -238,9 +259,6 @@ img{max-width:100%;display:block;}
   s.src="https://scripts.converteai.net/5c71167f-6207-4877-a807-116d14e1666a/players/6a7b32eb2660725c864286d8/v4/player.js";
   s.async=!0;document.head.appendChild(s);
 </script>
-
-<!-- GHL booking-widget auto-resize -->
-<script src="https://partnership.netrevenue.io/js/form_embed.js" type="text/javascript"></script>
 
 </body>
 </html>
