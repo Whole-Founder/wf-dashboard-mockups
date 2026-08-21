@@ -208,16 +208,17 @@ img{max-width:100%;display:block;}
     <p>NetRevenue installs done-for-you sales teams for high-ticket founders.</p>
   </div>
   <!-- NEXT STEP: gate the calendar behind the qualification form. Booking now
-       happens AFTER the application (apply.netrevenue.io/dto-vsl/apply) — only
-       qualified applicants reach the calendar. source=vsl → the nr-dto-vsl
-       funnel slug for per-funnel attribution. The inline script below forwards
-       any utm_*/fbclid/gclid params on this page's URL into the form so
-       first-touch attribution survives the hand-off. -->
+       happens AFTER the application (apply.netrevenue.io/playbook/apply) — only
+       qualified applicants reach the calendar. The playbook funnel has its own
+       dedicated apply → book → booked / not-a-fit tail (nr-playbook slug), so
+       this lead-magnet traffic no longer crosses into the dto-vsl funnel. The
+       inline script below forwards any utm_*/fbclid/gclid params on this page's
+       URL into the form so first-touch attribution survives the hand-off. -->
   <div class="wrap">
-    <!-- Production target. The /dto-vsl routes go live on apply.netrevenue.io
-         when PR #8 (NR-Net-Revenue) merges. For pre-merge review the apply/
-         book/DQ pages are reachable directly on the PR #8 Vercel preview. -->
-    <a class="btn-orange" id="apply-cta" href="https://apply.netrevenue.io/dto-vsl/apply?source=vsl">
+    <!-- Production target: the /playbook routes on apply.netrevenue.io. The
+         nr-playbook funnel slug is forced by the /playbook/apply route itself,
+         so no ?source is needed here. -->
+    <a class="btn-orange" id="apply-cta" href="https://apply.netrevenue.io/playbook/apply">
       Apply to Work With Us
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
