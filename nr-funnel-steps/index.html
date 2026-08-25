@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>NR Funnel Steps — three options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#ffffff; --fg:#0b1633; --card:#ffffff; --border:#e6eaf3;
+    --muted:#f5f7fb; --muted-fg:#5b6786; --secondary:#f3f5fb;
+    --brand:#22e2a4; --brand-muted:#e7fbf3; --forest:#0e3323;
+    --indigo:#5b5bf5; --accent:#eef1fc; --danger:#e5484d; --danger-muted:#fdecec;
+    --amber:#d97706; --amber-muted:#fdf3e3;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--muted); color:var(--fg);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.h{font-family:"Space Grotesk",Inter,sans-serif; letter-spacing:-.02em}
+  .wrap{max-width:1160px; margin:0 auto; padding:40px 24px 96px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-variant-numeric:tabular-nums}
+
+  .pagehead{margin-bottom:8px}
+  .eyebrow{display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.18em; color:var(--muted-fg); margin-bottom:14px}
+  .eyebrow::before{content:""; width:26px; height:2px; background:var(--brand); border-radius:2px}
+  .pagehead h1{font-size:34px; margin:0 0 12px; font-weight:600}
+  .lede{max-width:680px; font-size:15px; line-height:1.65; color:var(--muted-fg); margin:0}
+  .lede b{color:var(--fg); font-weight:600}
+
+  .finding{margin:26px 0 40px; padding:18px 22px; border-radius:16px;
+    background:var(--danger-muted); border:1px solid #f6d5d6}
+  .finding .t{font-size:15px; font-weight:600; color:#8f2226; margin-bottom:4px}
+  .finding .s{font-size:13.5px; color:#a04347; line-height:1.6}
+
+  .opt{background:var(--card); border:1px solid var(--border); border-radius:22px;
+    padding:30px 32px 34px; margin-bottom:34px; box-shadow:0 1px 2px rgba(11,22,51,.04)}
+  .opthead{display:flex; flex-wrap:wrap; align-items:flex-start; gap:14px;
+    justify-content:space-between; margin-bottom:6px}
+  .tag{display:inline-block; padding:5px 11px; border-radius:999px; background:var(--fg);
+    color:#fff; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase}
+  .opt h2{font-size:23px; margin:12px 0 8px; font-weight:600}
+  .why{font-size:13.5px; line-height:1.65; color:var(--muted-fg); max-width:660px; margin:0 0 26px}
+  .fits{font-size:11px; font-weight:600; color:var(--muted-fg); background:var(--secondary);
+    padding:5px 11px; border-radius:999px; white-space:nowrap}
+
+  /* ---------- shared demo chrome ---------- */
+  .demo{border:1px solid var(--border); border-radius:16px; padding:24px; background:var(--card)}
+  .demo-h{font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.16em;
+    color:var(--muted-fg); margin-bottom:18px}
+
+  /* ---------- Option A ---------- */
+  .a-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:26px}
+  @media(max-width:900px){.a-grid{grid-template-columns:1fr}}
+  .steprow{display:grid; grid-template-columns:1fr auto; gap:4px 14px; align-items:center;
+    padding:9px 0; border-bottom:1px solid var(--border)}
+  .steprow:last-child{border-bottom:0}
+  .steprow .nm{font-size:13.5px; font-weight:500}
+  .steprow .vals{display:flex; align-items:baseline; gap:10px}
+  .steprow .n{font-size:17px; font-weight:600}
+  .steprow .pc{font-size:11.5px; color:var(--muted-fg); min-width:44px; text-align:right}
+  .track{grid-column:1/-1; height:9px; border-radius:6px; background:var(--secondary); overflow:hidden}
+  .fill{height:100%; border-radius:6px; background:var(--fg); opacity:.82}
+  .fill.b{background:var(--brand); opacity:1}
+  .fill.dim{background:var(--muted-fg); opacity:.4}
+
+  .leak{padding:13px 0; border-bottom:1px solid var(--border)}
+  .leak:last-child{border-bottom:0}
+  .leak-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px}
+  .leak-nm{font-size:12.5px; font-weight:500}
+  .leak-n{font-size:15px; font-weight:700; color:var(--danger)}
+  .leak-sub{font-size:11px; color:var(--muted-fg); margin-top:3px}
+  .leak-bar{height:5px; border-radius:4px; background:var(--secondary); margin-top:8px; overflow:hidden}
+  .leak-bar i{display:block; height:100%; border-radius:4px; background:var(--danger); opacity:.75}
+  .worst{background:var(--danger-muted); margin:0 -12px; padding:13px 12px; border-radius:12px}
+  .worst .leak-bar{background:#f7dadb}
+
+  /* ---------- Option C ---------- */
+  table{width:100%; border-collapse:collapse}
+  th{font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.12em;
+    color:var(--muted-fg); text-align:right; padding:0 0 12px; border-bottom:1px solid var(--border)}
+  th:first-child{text-align:left}
+  td{padding:13px 0; border-bottom:1px solid var(--border); font-size:13.5px; text-align:right}
+  td:first-child{text-align:left}
+  tr:last-child td{border-bottom:0}
+  .cstep{display:flex; align-items:center; gap:12px}
+  .cbar{width:110px; height:8px; border-radius:5px; background:var(--secondary); overflow:hidden; flex:none}
+  .cbar i{display:block; height:100%; background:var(--fg); opacity:.8; border-radius:5px}
+  .cost{font-weight:700}
+  .jump{display:inline-block; padding:2px 7px; border-radius:6px; background:var(--danger-muted);
+    color:#a02c30; font-size:11px; font-weight:700}
+  .flat{color:var(--muted-fg); font-size:11px}
+  .navail{color:var(--muted-fg); font-style:italic}
+
+  .foot{font-size:12px; color:var(--muted-fg); line-height:1.6; margin-top:18px; max-width:700px}
+  .note{margin-top:44px; padding:20px 24px; border-radius:16px; background:var(--accent);
+    border:1px solid #dbe2f8; font-size:13.5px; line-height:1.7; color:#2c3e8c}
+  .note b{color:#1e2c66}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="pagehead">
+    <div class="eyebrow">NetRevenue · Funnel steps · redesign options</div>
+    <h1>Three ways to read the funnel</h1>
+    <p class="lede">
+      All three use the <b>real Aug 14–24 numbers</b> and the live dashboard's type and colour.
+      Each one is built to answer the funnel question <b>without scrolling</b> — the current page
+      spends a full-width card on every step, so the shape of the funnel is the one thing you
+      can never actually see.
+    </p>
+  </div>
+
+  <div class="finding">
+    <div class="t">What every option has to surface: the leak is the first step.</div>
+    <div class="s">
+      848 of 998 landing page views never start an application — 85% of the traffic, and roughly
+      $8,562 of the $10,076 spent. Every step after it is comparatively healthy. Today that fact
+      is 11px grey text reading &ldquo;15.0% of prior step&rdquo; in the second of six identical cards.
+    </div>
+  </div>
+
+  <!-- ============================ OPTION A ============================ -->
+  <section class="opt">
+    <div class="opthead">
+      <span class="tag">Option A</span>
+      <span class="fits">Fits in ~440px — no scroll</span>
+    </div>
+    <h2>The Leak Report</h2>
+    <p class="why">
+      Diagnosis first. The funnel compresses to five thin rows on the left — enough to see the
+      shape — and the right half ranks <b>where you are losing people and money</b>, worst first.
+      You read the answer before you read the data. Best if this page's job is to tell you what
+      to go fix on Monday.
+    </p>
+
+    <div class="demo">
+      <div class="demo-h">Funnel steps · Aug 14 – Aug 24</div>
+      <div class="a-grid">
+        <div>
+          <div class="steprow">
+            <div class="nm">Landing page views</div>
+            <div class="vals"><span class="n mono">998</span><span class="pc mono">100%</span></div>
+            <div class="track"><div class="fill" style="width:100%"></div></div>
+          </div>
+          <div class="steprow">
+            <div class="nm">Application starts</div>
+            <div class="vals"><span class="n mono">150</span><span class="pc mono">15.0%</span></div>
+            <div class="track"><div class="fill" style="width:15%"></div></div>
+          </div>
+          <div class="steprow">
+            <div class="nm">Contact step</div>
+            <div class="vals"><span class="n mono">94</span><span class="pc mono">9.4%</span></div>
+            <div class="track"><div class="fill" style="width:9.4%"></div></div>
+          </div>
+          <div class="steprow">
+            <div class="nm">Applications</div>
+            <div class="vals"><span class="n mono">82</span><span class="pc mono">8.2%</span></div>
+            <div class="track"><div class="fill" style="width:8.2%"></div></div>
+          </div>
+          <div class="steprow">
+            <div class="nm">Qualified applications</div>
+            <div class="vals"><span class="n mono">30</span><span class="pc mono">3.0%</span></div>
+            <div class="track"><div class="fill b" style="width:3%"></div></div>
+          </div>
+          <div class="steprow">
+            <div class="nm navail">Booked calls</div>
+            <div class="vals"><span class="n mono navail">—</span><span class="pc">not wired</span></div>
+            <div class="track"><div class="fill dim" style="width:0%"></div></div>
+          </div>
+          <p class="foot">Bars are share of landing page views, so every row is comparable to the top.</p>
+        </div>
+
+        <div>
+          <div class="demo-h" style="margin-bottom:12px">Where it is leaking</div>
+
+          <div class="leak worst">
+            <div class="leak-top">
+              <span class="leak-nm">Views &rarr; Application starts</span>
+              <span class="leak-n mono">&minus;848</span>
+            </div>
+            <div class="leak-sub">85% lost &middot; ≈$8,562 of spend attributed</div>
+            <div class="leak-bar"><i style="width:100%"></i></div>
+          </div>
+
+          <div class="leak">
+            <div class="leak-top">
+              <span class="leak-nm">Applications &rarr; Qualified</span>
+              <span class="leak-n mono">&minus;52</span>
+            </div>
+            <div class="leak-sub">63% lost &middot; a quality problem, not a volume one</div>
+            <div class="leak-bar"><i style="width:63%"></i></div>
+          </div>
+
+          <div class="leak">
+            <div class="leak-top">
+              <span class="leak-nm">Starts &rarr; Contact step</span>
+              <span class="leak-n mono">&minus;56</span>
+            </div>
+            <div class="leak-sub">37% lost &middot; mid-form drop</div>
+            <div class="leak-bar"><i style="width:37%"></i></div>
+          </div>
+
+          <div class="leak">
+            <div class="leak-top">
+              <span class="leak-nm">Contact &rarr; Applications</span>
+              <span class="leak-n mono">&minus;12</span>
+            </div>
+            <div class="leak-sub">13% lost &middot; healthy</div>
+            <div class="leak-bar"><i style="width:13%"></i></div>
+          </div>
+
+          <p class="foot" style="margin-top:14px">
+            Ranked by <b>rate</b>, not headcount — otherwise every small step looks fine next to
+            the top of the funnel. Spend is attributed pro-rata to the traffic lost, so treat it
+            as an order of magnitude, not an invoice.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ OPTION B ============================ -->
+  <section class="opt">
+    <div class="opthead">
+      <span class="tag">Option B</span>
+      <span class="fits">Fits in ~480px — no scroll</span>
+    </div>
+    <h2>True Funnel</h2>
+    <p class="why">
+      An actual funnel. Each band's width is its real share of traffic, so the cliff between view
+      and application start is <b>physically visible</b> instead of stated — and the red wedges
+      are the people falling out at each junction. The taper is brutal on purpose: that is what a
+      85% first-step loss genuinely looks like. Best if this page is shown to NetRevenue.
+    </p>
+
+    <div class="demo">
+      <div class="demo-h">From view to booked call · Aug 14 – Aug 24</div>
+      <svg viewBox="0 0 900 430" style="width:100%;height:auto" role="img"
+           aria-label="Funnel from 998 landing page views to 30 qualified applications">
+        <defs>
+          <linearGradient id="fg1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0b1633" stop-opacity=".88"/>
+            <stop offset="100%" stop-color="#0b1633" stop-opacity=".62"/>
+          </linearGradient>
+        </defs>
+
+        <!-- stage bands: width proportional to volume (centre x=330, max 500px) -->
+        <!-- 998 -> 500px | 150 -> 75 | 94 -> 47 | 82 -> 41 | 30 -> 15 -->
+        <path d="M 80 30 H 580 L 367.5 92 H 292.5 Z" fill="url(#fg1)"/>
+        <path d="M 292.5 92 H 367.5 L 353.5 154 H 306.5 Z" fill="url(#fg1)"/>
+        <path d="M 306.5 154 H 353.5 L 350.5 216 H 309.5 Z" fill="url(#fg1)"/>
+        <path d="M 309.5 216 H 350.5 L 337.5 278 H 322.5 Z" fill="#22e2a4" opacity=".9"/>
+        <rect x="322.5" y="278" width="15" height="34" fill="#22e2a4" opacity=".9"/>
+
+        <!-- loss wedges -->
+        <path d="M 580 30 L 367.5 92 L 367.5 30 Z" fill="#e5484d" opacity=".16"/>
+        <path d="M 80 30 L 292.5 92 L 292.5 30 Z" fill="#e5484d" opacity=".16"/>
+
+        <!-- stage labels (left) -->
+        <g font-family="Inter" font-size="13">
+          <text x="612" y="52" fill="#0b1633" font-weight="600">Landing page views</text>
+          <text x="612" y="70" fill="#5b6786" font-size="11.5">100% &middot; $10 per view</text>
+          <text x="612" y="114" fill="#0b1633" font-weight="600">Application starts</text>
+          <text x="612" y="132" fill="#5b6786" font-size="11.5">15.0% of views &middot; $67 each</text>
+          <text x="612" y="176" fill="#0b1633" font-weight="600">Contact step</text>
+          <text x="612" y="194" fill="#5b6786" font-size="11.5">9.4% of views &middot; $107 each</text>
+          <text x="612" y="238" fill="#0b1633" font-weight="600">Applications</text>
+          <text x="612" y="256" fill="#5b6786" font-size="11.5">8.2% of views &middot; $123 each</text>
+          <text x="612" y="300" fill="#0b1633" font-weight="600">Qualified applications</text>
+          <text x="612" y="318" fill="#5b6786" font-size="11.5">3.0% of views &middot; $336 each</text>
+        </g>
+
+        <!-- counts, right-aligned in a column -->
+        <g font-family="ui-monospace,Menlo,monospace" font-size="19" font-weight="700" text-anchor="end" fill="#0b1633">
+          <text x="880" y="58">998</text>
+          <text x="880" y="120">150</text>
+          <text x="880" y="182">94</text>
+          <text x="880" y="244">82</text>
+          <text x="880" y="306" fill="#0e3323">30</text>
+        </g>
+
+        <!-- loss annotations in the gaps, left side -->
+        <g font-family="Inter" font-size="11.5" text-anchor="end">
+          <text x="60" y="70" fill="#e5484d" font-weight="700">&minus;848 lost (85%)</text>
+          <text x="60" y="86" fill="#a04347" font-size="10.5">≈$8,562 attributed</text>
+          <text x="60" y="132" fill="#5b6786">&minus;56 (37%)</text>
+          <text x="60" y="194" fill="#5b6786">&minus;12 (13%)</text>
+          <text x="60" y="256" fill="#e5484d" font-weight="600">&minus;52 (63%)</text>
+        </g>
+
+        <!-- booked, unwired -->
+        <g font-family="Inter" font-size="13">
+          <rect x="322.5" y="330" width="15" height="26" fill="#5b6786" opacity=".16"/>
+          <text x="612" y="350" fill="#5b6786" font-style="italic">Booked calls — not wired</text>
+          <text x="880" y="350" fill="#5b6786" text-anchor="end" font-style="italic">—</text>
+        </g>
+      </svg>
+      <p class="foot">
+        Band width is the true share of traffic, which is why the qualified band is a sliver —
+        30 people out of 998. Nothing is scaled up to look better.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================ OPTION C ============================ -->
+  <section class="opt">
+    <div class="opthead">
+      <span class="tag">Option C</span>
+      <span class="fits">Fits in ~400px — no scroll</span>
+    </div>
+    <h2>Unit Economics Ladder</h2>
+    <p class="why">
+      The same funnel priced. One dense table, one row per step, and the column that matters is
+      the last one: <b>what each step costs you</b>. $10 a view becomes $336 a qualified
+      application, and the jump from $10 to $67 is the whole story in a single number. Best if
+      this page's job is to feed budget and CAC decisions.
+    </p>
+
+    <div class="demo">
+      <div class="demo-h">Cost to reach each step · Aug 14 – Aug 24 · $10,076 spend</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Step</th><th>Count</th><th>Of views</th><th>Of prior</th><th>Lost</th><th>Cost each</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="cstep"><span class="cbar"><i style="width:100%"></i></span> Landing page views</div></td>
+            <td class="mono">998</td><td class="mono">100%</td><td class="flat">—</td>
+            <td class="flat">—</td><td class="mono cost">$10</td>
+          </tr>
+          <tr>
+            <td><div class="cstep"><span class="cbar"><i style="width:15%"></i></span> Application starts</div></td>
+            <td class="mono">150</td><td class="mono">15.0%</td><td class="mono">15.0%</td>
+            <td class="mono" style="color:#e5484d">&minus;848</td>
+            <td class="mono cost"><span class="jump">$67</span></td>
+          </tr>
+          <tr>
+            <td><div class="cstep"><span class="cbar"><i style="width:9.4%"></i></span> Contact step</div></td>
+            <td class="mono">94</td><td class="mono">9.4%</td><td class="mono">62.7%</td>
+            <td class="mono" style="color:#5b6786">&minus;56</td>
+            <td class="mono cost">$107</td>
+          </tr>
+          <tr>
+            <td><div class="cstep"><span class="cbar"><i style="width:8.2%"></i></span> Applications</div></td>
+            <td class="mono">82</td><td class="mono">8.2%</td><td class="mono">87.2%</td>
+            <td class="mono" style="color:#5b6786">&minus;12</td>
+            <td class="mono cost">$123</td>
+          </tr>
+          <tr>
+            <td><div class="cstep"><span class="cbar"><i style="width:3%;background:#22e2a4;opacity:1"></i></span> Qualified applications</div></td>
+            <td class="mono">30</td><td class="mono">3.0%</td><td class="mono">36.6%</td>
+            <td class="mono" style="color:#e5484d">&minus;52</td>
+            <td class="mono cost">$336</td>
+          </tr>
+          <tr>
+            <td><div class="cstep"><span class="cbar"></span> <span class="navail">Booked calls</span></div></td>
+            <td class="navail">—</td><td class="navail">—</td><td class="navail">—</td>
+            <td class="navail">—</td><td class="navail">not wired</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="foot">
+        &ldquo;Of views&rdquo; is the absolute survival rate; &ldquo;of prior&rdquo; is the step-to-step rate the
+        current page shows. Both matter, and only showing the second is what makes 87.2% look
+        like good news when it is 8% of the people who arrived.
+      </p>
+    </div>
+  </section>
+
+  <div class="note">
+    <b>Two things worth deciding alongside the layout.</b><br />
+    <b>1. Booked calls is not wired.</b> The page is titled &ldquo;From view to booked call&rdquo; but
+    <code>booked</code> is NULL on every NR row, so the funnel stops at qualified. Either wire it
+    from the call log or retitle the page — right now it promises a step it cannot show.<br />
+    <b>2. Ranking by rate vs by headcount tells different stories.</b> By headcount the second
+    worst leak is Starts&nbsp;&rarr;&nbsp;Contact (&minus;56). By rate it is
+    Applications&nbsp;&rarr;&nbsp;Qualified (63%) — a lead-quality problem that headcount hides.
+    Option A ranks by rate. Say the word if you would rather it ranked by people or by dollars.
+  </div>
+
+</div>
+</body>
+</html>
