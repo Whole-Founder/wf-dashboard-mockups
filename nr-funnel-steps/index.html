@@ -98,6 +98,13 @@
   .flat{color:var(--muted-fg); font-size:11px}
   .navail{color:var(--muted-fg); font-style:italic}
 
+  .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:24px}
+  @media(max-width:760px){.kpis{grid-template-columns:1fr}}
+  .kpi{border:1px solid var(--border); border-radius:14px; padding:14px 16px; background:var(--card)}
+  .kpi .k{font-size:11px; color:var(--muted-fg); font-weight:500}
+  .kpi .v{font-family:"Space Grotesk",Inter,sans-serif; font-size:30px; font-weight:600; margin:4px 0 3px}
+  .kpi .d{font-size:11px; font-weight:600}
+  .kpi .d.up{color:#0e7a55}
   .foot{font-size:12px; color:var(--muted-fg); line-height:1.6; margin-top:18px; max-width:700px}
   .note{margin-top:44px; padding:20px 24px; border-radius:16px; background:var(--accent);
     border:1px solid #dbe2f8; font-size:13.5px; line-height:1.7; color:#2c3e8c}
@@ -108,23 +115,137 @@
 <div class="wrap">
 
   <div class="pagehead">
-    <div class="eyebrow">NetRevenue · Funnel steps · redesign options</div>
-    <h1>Three ways to read the funnel</h1>
+    <div class="eyebrow">NetRevenue · Funnel steps · v2, external framing</div>
+    <h1>The funnel as the client reads it</h1>
     <p class="lede">
-      All three use the <b>real Aug 14–24 numbers</b> and the live dashboard's type and colour.
-      Each one is built to answer the funnel question <b>without scrolling</b> — the current page
-      spends a full-width card on every step, so the shape of the funnel is the one thing you
-      can never actually see.
+      Rebuilt on the brief that this page is <b>mostly external</b> — NetRevenue looking at how
+      their funnel is performing, not us deciding what to fix. That is not a coat of paint on
+      the three options below; it changes what the page is <b>made of</b>. Same real numbers,
+      Aug 14&ndash;24 against the prior 11 days.
     </p>
   </div>
 
-  <div class="finding">
-    <div class="t">What every option has to surface: the leak is the first step.</div>
-    <div class="s">
-      848 of 998 landing page views never start an application — 85% of the traffic, and roughly
-      $8,562 of the $10,076 spent. Every step after it is comparatively healthy. Today that fact
-      is 11px grey text reading &ldquo;15.0% of prior step&rdquo; in the second of six identical cards.
+  <div class="finding" style="background:var(--brand-muted); border-color:#bdf0dd">
+    <div class="t" style="color:#0e5c40">The comparison is the whole thing. Without it, a funnel can only ever read as loss.</div>
+    <div class="s" style="color:#126b4b">
+      A client shown &ldquo;998 &rarr; 30&rdquo; concludes one thing: we lose 97% of their traffic.
+      The same data against the prior period says something completely different and equally
+      true &mdash; <b>traffic up 52%, qualified applications up 58%, and the end-to-end rate held
+      at 3.0%</b> while it scaled. Three of the four stages converted <b>better</b> than last
+      period. None of that is visible on the current page, or on any of my three options, because
+      all of them are snapshots. For an internal tool a snapshot is fine; you already know the
+      baseline. An external reader has no baseline, so a snapshot hands them the worst reading by
+      default.
     </div>
+  </div>
+
+  <section class="opt" style="border-color:#22e2a4; border-width:2px">
+    <div class="opthead">
+      <span class="tag" style="background:var(--brand); color:var(--forest)">Recommended</span>
+      <span class="fits">Fits in ~470px — no scroll</span>
+    </div>
+    <h2>Performance Funnel</h2>
+    <p class="why">
+      Option B&rsquo;s shape, rebuilt for an outside reader. Every stage carries <b>its own
+      movement against the prior period</b>, and the number in each taper is the one that
+      actually describes funnel health: <b>the share that continued</b>. Drop-off is drawn in
+      neutral grey, not red &mdash; in a high-ticket application funnel most visitors are supposed
+      to stop, and colouring that as failure is both alarming and wrong.
+    </p>
+
+    <div class="demo">
+      <div class="demo-h">From visit to qualified · Aug 14 – Aug 24 vs Aug 3 – Aug 13</div>
+      <div class="kpis">
+        <div class="kpi"><div class="k">Qualified applications</div><div class="v">30</div><div class="d up">▲ 58% vs prior period</div></div>
+        <div class="kpi"><div class="k">Visit → qualified rate</div><div class="v">3.0%</div><div class="d up">▲ held while traffic grew 52%</div></div>
+        <div class="kpi"><div class="k">Stages improving</div><div class="v">3 of 4</div><div class="d up">▲ vs prior period</div></div>
+      </div>
+      <svg viewBox="0 0 1000 356" style="width:100%;height:auto" role="img"
+           aria-label="Funnel from 998 landing page visits to 30 qualified, versus the prior period">
+        <defs><linearGradient id="band" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#2c3e8c" stop-opacity=".78"/>
+          <stop offset="50%" stop-color="#0b1633" stop-opacity=".92"/>
+          <stop offset="100%" stop-color="#2c3e8c" stop-opacity=".78"/>
+        </linearGradient></defs>
+        <rect x="170.0" y="26" width="420.0" height="36" rx="3" fill="url(#band)"/>
+        <path d="M 170.0 62 H 590.0 L 411.6 92 H 348.4 Z" fill="#0b1633" opacity=".13"/>
+        <rect x="348.4" y="92" width="63.1" height="36" rx="3" fill="url(#band)"/>
+        <path d="M 348.4 128 H 411.6 L 399.8 158 H 360.2 Z" fill="#0b1633" opacity=".13"/>
+        <rect x="360.2" y="158" width="39.6" height="36" rx="3" fill="url(#band)"/>
+        <path d="M 360.2 194 H 399.8 L 397.3 224 H 362.7 Z" fill="#0b1633" opacity=".13"/>
+        <rect x="362.7" y="224" width="34.5" height="36" rx="3" fill="url(#band)"/>
+        <path d="M 362.7 260 H 397.3 L 386.3 290 H 373.7 Z" fill="#0b1633" opacity=".13"/>
+        <rect x="373.7" y="290" width="12.6" height="36" rx="3" fill="#22e2a4" opacity=".95"/>
+        <g font-family="Inter" text-anchor="end">
+          <text x="150" y="79" fill="#0b1633" font-size="14" font-weight="700">15.0%</text>
+          <text x="150" y="94" fill="#b45309" font-size="10.5" font-weight="600">-5.9pt vs prior</text>
+          <text x="150" y="145" fill="#0b1633" font-size="14" font-weight="700">62.7%</text>
+          <text x="150" y="160" fill="#0e7a55" font-size="10.5" font-weight="600">+11.9pt vs prior</text>
+          <text x="150" y="211" fill="#0b1633" font-size="14" font-weight="700">87.2%</text>
+          <text x="150" y="226" fill="#0e7a55" font-size="10.5" font-weight="600">+7.2pt vs prior</text>
+          <text x="150" y="277" fill="#0b1633" font-size="14" font-weight="700">36.6%</text>
+          <text x="150" y="292" fill="#0e7a55" font-size="10.5" font-weight="600">+2.7pt vs prior</text>
+        </g>
+        <text x="150" y="16" font-family="Inter" font-size="9.5" fill="#5b6786" text-anchor="end" letter-spacing=".1em">CONTINUED TO NEXT STEP</text>
+        <g font-family="Inter" font-size="13.5">
+          <text x="640" y="43" fill="#0b1633" font-weight="600">Landing page visits</text>
+          <text x="640" y="60" fill="#0e7a55" font-size="11" font-weight="600">+52% vs prior period</text>
+          <text x="640" y="109" fill="#0b1633" font-weight="600">Started an application</text>
+          <text x="640" y="126" fill="#0e7a55" font-size="11" font-weight="600">+9% vs prior period</text>
+          <text x="640" y="175" fill="#0b1633" font-weight="600">Reached contact details</text>
+          <text x="640" y="192" fill="#0e7a55" font-size="11" font-weight="600">+34% vs prior period</text>
+          <text x="640" y="241" fill="#0b1633" font-weight="600">Completed an application</text>
+          <text x="640" y="258" fill="#0e7a55" font-size="11" font-weight="600">+46% vs prior period</text>
+          <text x="640" y="307" fill="#0b1633" font-weight="600">Qualified for a call</text>
+          <text x="640" y="324" fill="#0e7a55" font-size="11" font-weight="600">+58% vs prior period</text>
+        </g>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="21" font-weight="700" text-anchor="end">
+          <text x="980" y="51" fill="#0b1633">998</text>
+          <text x="980" y="117" fill="#0b1633">150</text>
+          <text x="980" y="183" fill="#0b1633">94</text>
+          <text x="980" y="249" fill="#0b1633">82</text>
+          <text x="980" y="315" fill="#0e3323">30</text>
+        </g>
+      </svg>
+      <p class="foot">
+        Band width is the true share of traffic — nothing is scaled up to look better. The one
+        stage that softened is the first click into the application (15.0%, down 5.9pt), which is
+        what usually happens when traffic grows this fast; it is stated plainly rather than
+        buried, and it is the stage we are working on.
+      </p>
+    </div>
+  </section>
+
+  <div class="note" style="background:#fff8ec; border-color:#f4dfba; color:#7c4a03">
+    <b>What I would change on each of the three, given an external reader.</b><br />
+    <b>Option A — The Leak Report:</b> retire it externally. A panel headed &ldquo;where it is
+    leaking&rdquo; with red minus-signs and &ldquo;$8,562 of spend attributed&rdquo; reads to a
+    client as either <i>we are wasting your money</i> or <i>your offer is broken</i>. It is the
+    right page for you and the wrong page for them &mdash; see the split below.<br />
+    <b>Option B — True Funnel:</b> promote it, with three changes, which is what the recommended
+    design above is. Red &rarr; neutral, because expected drop-off is not a failure. Add the
+    prior-period delta to every stage. Rename the steps into their language
+    (&ldquo;contact step&rdquo; &rarr; &ldquo;reached contact details&rdquo;).<br />
+    <b>Option C — Unit Economics:</b> keep it, but this is <b>your call, not a design
+    question</b>. Showing a client $336 per qualified application is either your strongest trust
+    move or your weakest moment, depending entirely on what a qualified application is worth to
+    NetRevenue. If it is worth thousands, this table sells the account by itself. If the maths is
+    tight, it is ammunition. I would not put it in front of them without you deciding that.
+  </div>
+
+  <div class="note">
+    <b>The page can already tell who is reading it — so it should show them different things.</b><br />
+    The dashboard sets a different cookie for you (<code>wf_gate</code>, the operator master) than
+    for NetRevenue (<code>wf_c_nr</code>, their own link password), and
+    <code>app/[client]/layout.tsx</code> already reads both to authorise the page. So the audience
+    is <b>known server-side today</b>, with no new plumbing: render the performance funnel for
+    everyone, and append the leak ranking and the cost-per-step table only when the operator
+    cookie is present. One page, one URL, two readings — and no risk of a diagnostic panel
+    reaching a client because you sent the wrong link.<br /><br />
+    <b>Still outstanding either way:</b> the page is titled &ldquo;From view to booked call&rdquo;
+    and <code>booked</code> is NULL on every NR row. Externally that is worse than internally
+    &mdash; the client counts calls, so a funnel that stops before the call is the step they most
+    want to see missing. Wire it from the call log, or retitle the page.
   </div>
 
   <!-- ============================ OPTION A ============================ -->
