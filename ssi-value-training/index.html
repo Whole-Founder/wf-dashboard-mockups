@@ -1955,11 +1955,24 @@ p, li, .hero-copy, .button-note, .story-detail, .disclaimer-inline { text-wrap: 
   .site-header .button-small span:first-of-type{display:inline;}
   /* Center the legal block on mobile */
   .footer-legal{text-align:center;}
-  /* Testimonial cards: drop the desktop fixed row heights so stacked content sits tight */
-  .story-card h3{height:auto;min-height:0;margin-top:18px;}
-  .story-person{height:auto;min-height:0;}
-  .story-metrics{margin-top:16px;}
 }
+
+/* Reusable orange highlight */
+.accent-orange{color:var(--orange);}
+
+/* Valuation snapshot: red = asking / overpay / walk, green = NOI / your number / offer */
+.deal-result-no{border-color:rgba(239,68,68,.5);background:rgba(239,68,68,.12);}
+.deal-result-no strong{color:#ff6b5e;}
+.deal-result-yes{border-color:rgba(74,222,128,.5);background:rgba(74,222,128,.12);}
+.deal-result-yes strong{color:#4ade80;}
+
+/* Testimonial cards: natural heights (no fixed rows) so content sits tight; grid still equalizes card height per row */
+.story-card{min-height:0;}
+.story-card h3{height:auto;min-height:0;margin-top:20px;}
+.story-metrics{margin-top:18px;}
+
+/* Fit list items: fill the line before wrapping (balance was breaking them early); widow script still prevents orphans */
+.fit-card li{text-wrap:wrap;}
 </style>
 </head>
 <body class="antialiased">
@@ -2035,7 +2048,7 @@ p, li, .hero-copy, .button-note, .story-detail, .disclaimer-inline { text-wrap: 
       <div class="mechanism-intro">
         <p class="eyebrow">The SSI acquisition system</p>
         <h2 class="mechanism-title">
-          Valuation Is One Domino. Here Is the Whole System.
+          Valuation Is One Domino. Here Is the <span class="accent-orange">Whole System</span>.
         </h2>
         <p>
           The training shows you how to price a facility so you never overpay.
@@ -2250,7 +2263,7 @@ p, li, .hero-copy, .button-note, .story-detail, .disclaimer-inline { text-wrap: 
           </div>
           <ul>
             <li>Are actively looking at facilities or analyzing deals right now.</li>
-            <li>Have $50K or more in capital ready to deploy, or clear access to it.</li>
+            <li>Have $100K or more in capital ready to deploy, or clear access to it.</li>
             <li>Are sitting on a deal and unsure whether the numbers really work.</li>
             <li>Plan to buy within the next 3 to 6 months.</li>
             <li>Want to own and operate the asset yourself, hands on.</li>
@@ -2264,7 +2277,7 @@ p, li, .hero-copy, .button-note, .story-detail, .disclaimer-inline { text-wrap: 
           <ul>
             <li>Want a broker to find and hand you a finished deal.</li>
             <li>Are looking for a fully done-for-you facility you never touch.</li>
-            <li>Want purely passive, hands-off income.</li>
+            <li>Prefer hands-off, purely passive returns.</li>
             <li>Have no capital to deploy and no timeline to buy.</li>
             <li>Are still deciding whether self storage is even for you.</li>
           </ul>
@@ -2287,7 +2300,7 @@ p, li, .hero-copy, .button-note, .story-detail, .disclaimer-inline { text-wrap: 
         <p class="eyebrow">Who is teaching this</p>
         <h2 class="two-line-title guide-title">
           <span>He overpaid early.</span>
-          <span>Then he built the system.</span>
+          <span>Then he built <span class="accent-orange">the system</span>.</span>
         </h2>
       </div>
       <div class="guides single">
@@ -2446,7 +2459,7 @@ p, li, .hero-copy, .button-note, .story-detail, .disclaimer-inline { text-wrap: 
   <strong>Internal preview</strong>
   <ul>
     <li>CTA "See If You Qualify" is a draft label. Booking link TBD.</li>
-    <li>$50K capital bar in the fit section: confirm the number.</li>
+    <li>$100K capital bar in the fit section: confirm the number.</li>
     <li>Proof figures pulled from AJ's verified proof wall.</li>
     <li>Disclaimer copy is placeholder.</li>
   </ul>
