@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>WF Funnel Registry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #f2f0ec;
+    --surface: #ffffff;
+    --surface-2: #faf9f6;
+    --ink: #17212c;
+    --ink-soft: #46535f;
+    --ink-faint: #7c8792;
+    --line: #e2ded6;
+    --line-strong: #d3cec4;
+    --accent: #0C447C;
+    --accent-soft: #e7eef6;
+    --rail-wf: #0C447C;
+    --rail-client: #9c5b4e;
+    --rail-uncertain: #b7791f;
+    --live: #1f8a53;
+    --live-bg: #e6f2ea;
+    --amber: #a86e12;
+    --amber-bg: #f6eddc;
+    --slate: #4d6070;
+    --slate-bg: #e9edf1;
+    --indigo: #4b4d9e;
+    --indigo-bg: #eaeaf5;
+    --muted: #7c8792;
+    --muted-bg: #ecebe7;
+    --shadow: 0 1px 2px rgba(23,33,44,.04), 0 4px 14px rgba(23,33,44,.05);
+    --radius: 12px;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --ground: #12181f;
+      --surface: #1a2029;
+      --surface-2: #202834;
+      --ink: #eef2f6;
+      --ink-soft: #b3bfca;
+      --ink-faint: #7f8b97;
+      --line: #2b333f;
+      --line-strong: #38424f;
+      --accent: #6aa6e0;
+      --accent-soft: #21303f;
+      --rail-wf: #6aa6e0;
+      --rail-client: #d08a7c;
+      --rail-uncertain: #d8a94e;
+      --live: #57c187;
+      --live-bg: #172a20;
+      --amber: #d8a94e;
+      --amber-bg: #2c2415;
+      --slate: #9fb2c2;
+      --slate-bg: #212c37;
+      --indigo: #9fa0e0;
+      --indigo-bg: #21223a;
+      --muted: #8b96a1;
+      --muted-bg: #232a33;
+      --shadow: 0 1px 2px rgba(0,0,0,.2), 0 4px 16px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #12181f;
+    --surface: #1a2029;
+    --surface-2: #202834;
+    --ink: #eef2f6;
+    --ink-soft: #b3bfca;
+    --ink-faint: #7f8b97;
+    --line: #2b333f;
+    --line-strong: #38424f;
+    --accent: #6aa6e0;
+    --accent-soft: #21303f;
+    --rail-wf: #6aa6e0;
+    --rail-client: #d08a7c;
+    --rail-uncertain: #d8a94e;
+    --live: #57c187;
+    --live-bg: #172a20;
+    --amber: #d8a94e;
+    --amber-bg: #2c2415;
+    --slate: #9fb2c2;
+    --slate-bg: #212c37;
+    --indigo: #9fa0e0;
+    --indigo-bg: #21223a;
+    --muted: #8b96a1;
+    --muted-bg: #232a33;
+    --shadow: 0 1px 2px rgba(0,0,0,.2), 0 4px 16px rgba(0,0,0,.28);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 40px 24px 96px; }
+
+  /* Masthead */
+  .masthead { border-bottom: 1px solid var(--line-strong); padding-bottom: 28px; margin-bottom: 28px; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin: 0 0 10px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 3px var(--live-bg); }
+  h1 {
+    font-family: "Archivo", sans-serif; font-weight: 800;
+    font-size: clamp(30px, 5vw, 46px); line-height: 1.02; letter-spacing: -.02em;
+    margin: 0 0 12px; text-wrap: balance;
+  }
+  .lede { font-size: 16px; color: var(--ink-soft); max-width: 68ch; margin: 0; }
+  .lede b { color: var(--ink); font-weight: 600; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 26px 0 0; }
+  .stat {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .stat .num { font-family: "Archivo", sans-serif; font-weight: 700; font-size: 30px; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .stat .lbl { font-size: 12px; color: var(--ink-faint); margin-top: 6px; letter-spacing: .01em; }
+  .stat.accent .num { color: var(--accent); }
+  .stat.live .num { color: var(--live); }
+
+  /* Controls */
+  .controls { position: sticky; top: 0; z-index: 20; background: var(--ground); padding: 18px 0 14px; margin: 30px 0 6px; border-bottom: 1px solid var(--line); }
+  .filter-row { display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: flex-end; }
+  .fgroup { display: flex; flex-direction: column; gap: 7px; }
+  .fgroup > .glabel { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font: inherit; font-size: 13px; cursor: pointer;
+    background: var(--surface); color: var(--ink-soft);
+    border: 1px solid var(--line-strong); border-radius: 999px;
+    padding: 5px 12px; transition: all .12s ease; white-space: nowrap;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--ink); }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  :root[data-theme="dark"] .chip[aria-pressed="true"], :root:not([data-theme="light"]) .chip[aria-pressed="true"] { color: #0e1620; }
+  .chip .c { font-variant-numeric: tabular-nums; opacity: .7; margin-left: 4px; font-size: 11px; }
+  .search { flex: 1 1 200px; min-width: 180px; }
+  .search input {
+    width: 100%; font: inherit; font-size: 14px; padding: 8px 12px;
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+  }
+  .search input:focus-visible, .chip:focus-visible, .toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .resultline { font-size: 13px; color: var(--ink-faint); margin: 14px 2px 0; font-variant-numeric: tabular-nums; }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-top: 16px; align-items: start; }
+  .funnel {
+    display: flex; background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .funnel.hidden { display: none; }
+  .rail { width: 5px; flex: 0 0 5px; background: var(--muted); }
+  .rail-wf { background: var(--rail-wf); }
+  .rail-client { background: var(--rail-client); }
+  .rail-uncertain { background: var(--rail-uncertain); }
+  .body { padding: 15px 17px 16px; flex: 1; min-width: 0; }
+
+  .fhead { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 9px; }
+  .client-badge {
+    font-family: "Archivo", sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .03em;
+    padding: 3px 7px; border-radius: 6px; flex: 0 0 auto; margin-top: 1px;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .fhead h3 { font-family: "Archivo", sans-serif; font-weight: 600; font-size: 15.5px; line-height: 1.25; margin: 0; flex: 1; letter-spacing: -.01em; }
+  .status-pill {
+    font-family: "IBM Plex Mono", monospace; font-size: 10.5px; font-weight: 500; letter-spacing: .03em;
+    padding: 3px 8px; border-radius: 999px; white-space: nowrap; flex: 0 0 auto; margin-top: 1px;
+    text-transform: uppercase;
+  }
+  .status-pill::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: currentColor; margin-right: 5px; vertical-align: middle; }
+  .s-live { color: var(--live); background: var(--live-bg); }
+  .s-gated, .s-stale { color: var(--amber); background: var(--amber-bg); }
+  .s-preview { color: var(--slate); background: var(--slate-bg); }
+  .s-built { color: var(--indigo); background: var(--indigo-bg); }
+  .s-legacy, .s-planning, .s-none { color: var(--muted); background: var(--muted-bg); }
+
+  .metarow { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .tag { font-size: 11.5px; padding: 2px 8px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-soft); }
+  .tag.owner-wf { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); background: var(--accent-soft); font-weight: 500; }
+  .tag.owner-client { color: var(--rail-client); border-color: color-mix(in srgb, var(--rail-client) 30%, var(--line)); font-weight: 500; }
+  .tag.owner-uncertain { color: var(--rail-uncertain); border-color: color-mix(in srgb, var(--rail-uncertain) 34%, var(--line)); font-weight: 500; }
+
+  .url { display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--accent); text-decoration: none; word-break: break-all; margin-bottom: 9px; }
+  .url:hover { text-decoration: underline; }
+  .url.none { color: var(--ink-faint); }
+  .notes { font-size: 13px; color: var(--ink-soft); margin: 0 0 10px; line-height: 1.5; }
+
+  details.routes { margin: 0 0 10px; }
+  details.routes summary { cursor: pointer; font-size: 12px; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; letter-spacing: .02em; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+  details.routes summary::-webkit-details-marker { display: none; }
+  details.routes summary::before { content: "▸"; font-size: 9px; transition: transform .15s; }
+  details.routes[open] summary::before { transform: rotate(90deg); }
+  details.routes ul { margin: 8px 0 2px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 3px; }
+  details.routes li { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-soft); background: var(--surface-2); border-radius: 5px; padding: 3px 8px; word-break: break-all; }
+
+  .foot { display: flex; flex-wrap: wrap; gap: 5px; padding-top: 10px; border-top: 1px dashed var(--line); }
+  .foot .kv { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--ink-faint); }
+  .foot .kv b { color: var(--ink-soft); font-weight: 500; }
+  .track { display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 10px; padding: 1px 5px; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-faint); }
+
+  .empty { text-align: center; color: var(--ink-faint); padding: 60px 20px; font-size: 15px; display: none; }
+  .empty.show { display: block; }
+
+  /* Section divider label */
+  .grouphdr { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 12px; margin: 22px 2px 2px; }
+  .grouphdr:first-child { margin-top: 4px; }
+  .grouphdr h2 { font-family: "Archivo", sans-serif; font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
+  .grouphdr .rule { flex: 1; height: 1px; background: var(--line); }
+  .grouphdr .gc { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+  .grouphdr.hidden { display: none; }
+
+  footer.page { margin-top: 46px; padding-top: 20px; border-top: 1px solid var(--line-strong); font-size: 12.5px; color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between; }
+  footer.page code { font-family: "IBM Plex Mono", monospace; color: var(--ink-soft); }
+
+  .toggle { position: fixed; top: 14px; right: 14px; z-index: 40; background: var(--surface); border: 1px solid var(--line-strong); color: var(--ink-soft); border-radius: 8px; width: 34px; height: 34px; cursor: pointer; font-size: 15px; box-shadow: var(--shadow); }
+
+  @media (max-width: 600px) {
+    .wrap { padding: 28px 16px 72px; }
+    .grid { grid-template-columns: 1fr; }
+    .controls { position: static; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<button class="toggle" id="themeToggle" aria-label="Toggle light/dark theme" title="Toggle theme">◐</button>
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow"><span class="dot"></span> Whole Founder · Funnel Registry <span style="color:var(--ink-faint)">· verified 2026-08-26</span></p>
+    <h1>Every funnel we run, in one place</h1>
+    <p class="lede">The single source of truth for Whole Founder's funnels across all clients. <b>WF-built</b> funnels (blue rail) are separated from the clients' <b>own</b> funnels (clay rail). Live status was verified by probing each production URL. Generated from <code style="font-family:'IBM Plex Mono',monospace;font-size:13px">registry/funnels.json</code> — edit the source, re-run the generator, and this page, the doc, and the matrix all update together.</p>
+    <div class="stats"><div class="stat accent"><div class="num">47</div><div class="lbl">Funnels tracked</div></div><div class="stat live"><div class="num">34</div><div class="lbl">Live now</div></div><div class="stat "><div class="num">25</div><div class="lbl">WF-built</div></div><div class="stat "><div class="num">22</div><div class="lbl">Client-owned</div></div><div class="stat "><div class="num">6</div><div class="lbl">Clients</div></div><div class="stat "><div class="num">9</div><div class="lbl">In preview</div></div></div>
+  </header>
+
+  <div class="controls">
+    <div class="filter-row">
+      <div class="fgroup">
+        <span class="glabel">Owner</span>
+        <div class="chips" data-filter="owner">
+          <button class="chip" aria-pressed="true" data-val="all">All</button>
+          <button class="chip" aria-pressed="false" data-val="wf">WF-built</button>
+          <button class="chip" aria-pressed="false" data-val="client">Client-owned</button>
+          <button class="chip" aria-pressed="false" data-val="uncertain">Uncertain</button>
+        </div>
+      </div>
+      <div class="fgroup">
+        <span class="glabel">Client</span>
+        <div class="chips" data-filter="client"><button class="chip" aria-pressed="true" data-val="all">All</button><button class="chip" aria-pressed="false" data-val="NR">NR<span class="c">13</span></button><button class="chip" aria-pressed="false" data-val="SSI">SSI<span class="c">12</span></button><button class="chip" aria-pressed="false" data-val="FSN">FSN<span class="c">7</span></button><button class="chip" aria-pressed="false" data-val="HB">HB<span class="c">8</span></button><button class="chip" aria-pressed="false" data-val="EW">EW<span class="c">3</span></button><button class="chip" aria-pressed="false" data-val="LE">LE<span class="c">4</span></button></div>
+      </div>
+      <div class="fgroup">
+        <span class="glabel">Status</span>
+        <div class="chips" data-filter="statusgroup">
+          <button class="chip" aria-pressed="true" data-val="all">All</button>
+          <button class="chip" aria-pressed="false" data-val="live">Live</button>
+          <button class="chip" aria-pressed="false" data-val="preview">Preview</button>
+          <button class="chip" aria-pressed="false" data-val="other">Other</button>
+        </div>
+      </div>
+      <div class="fgroup search">
+        <span class="glabel">Search</span>
+        <input type="search" id="search" placeholder="name, url, platform, notes…" autocomplete="off">
+      </div>
+    </div>
+    <p class="resultline" id="resultline"></p>
+  </div>
+
+  <div class="grid" id="grid"><div class="grouphdr" data-group="NR"><h2>NR — NetRevenue</h2><span class="rule"></span><span class="gc"></span></div>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="live" data-type="DTO" data-search="netrevenue dto (champion) https://apply.netrevenue.io/dto vite-react / vercel primary nr funnel. root does a client-side navigate to /dto. live headline: &#39;stop hiring sales reps. install a sales department. in 21 days.&#39; /dto/book-2 is the tier-2 calendar for $50-100k qualified leads. local clone is on branch nr/playbook-funnel; the deployed branch is main. nr netrevenue dto whole-founder/netrevenue-apply-buddy / (navigate→/dto) /dto /dto/apply /dto/book /dto/book-2 /dto/thank-you /not-right-fit">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NetRevenue DTO (champion)</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">DTO</span>
+        <span class="tag">Vite-React / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.netrevenue.io/dto" target="_blank" rel="noopener">apply.netrevenue.io/dto ↗</a>
+      <p class="notes">Primary NR funnel. Root does a client-side Navigate to /dto. Live headline: &#39;Stop Hiring Sales Reps. Install a Sales Department. In 21 Days.&#39; /dto/book-2 is the Tier-2 calendar for $50-100K qualified leads. Local clone is on branch nr/playbook-funnel; the deployed branch is main.</p>
+      <details class="routes"><summary>Routes (7)</summary><ul><li>/ (Navigate→/dto)</li><li>/dto</li><li>/dto/apply</li><li>/dto/book</li><li>/dto/book-2</li><li>/dto/thank-you</li><li>/not-right-fit</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> netrevenue-apply-buddy</span><span class="kv"><b>vercel</b> nr-landing-page</span><span class="kv"><b>key</b> nr-dto</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span><span class="track">meta-capi</span><span class="track">hyros</span><span class="track">clarity</span><span class="track">cro-tracker-v2</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="live" data-type="DTO" data-search="netrevenue flex-space dto https://apply.netrevenue.io/dto-fs vite-react / vercel a flex-space-branded dto funnel that lives inside the nr repo (separate from the standalone fsn-flex-space-network repo/funnel). distinct data_key nr-dto-fs. deployed on the nr project; not separately live-probed. nr netrevenue dto whole-founder/netrevenue-apply-buddy /dto-fs /dto-fs/apply /dto-fs/thank-you /dto-fs/{setter,recruiting,mastermind,leads,received} /dto-fs/not-right-fit">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NetRevenue Flex-Space DTO</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">DTO</span>
+        <span class="tag">Vite-React / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.netrevenue.io/dto-fs" target="_blank" rel="noopener">apply.netrevenue.io/dto-fs ↗</a>
+      <p class="notes">A Flex-Space-branded DTO funnel that lives INSIDE the NR repo (separate from the standalone FSN-Flex-Space-Network repo/funnel). Distinct data_key nr-dto-fs. Deployed on the NR project; not separately live-probed.</p>
+      <details class="routes"><summary>Routes (5)</summary><ul><li>/dto-fs</li><li>/dto-fs/apply</li><li>/dto-fs/thank-you</li><li>/dto-fs/{setter,recruiting,mastermind,leads,received}</li><li>/dto-fs/not-right-fit</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> netrevenue-apply-buddy</span><span class="kv"><b>vercel</b> nr-landing-page</span><span class="kv"><b>key</b> nr-dto-fs</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span><span class="track">meta-capi</span><span class="track">hyros</span><span class="track">clarity</span><span class="track">cro-tracker-v2</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="live" data-type="VSL" data-search="netrevenue vsl funnel https://apply.netrevenue.io/dto-vsl vite-react / vercel vsl variant of the nr funnel (base path /dto-vsl, not /vsl). the nr-case-study delivery mockup books calls into /dto-vsl/. deployed on the nr project. nr netrevenue vsl whole-founder/netrevenue-apply-buddy /dto-vsl /dto-vsl/apply /dto-vsl/book /dto-vsl/thank-you /dto-vsl/not-right-fit">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NetRevenue VSL funnel</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">VSL</span>
+        <span class="tag">Vite-React / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.netrevenue.io/dto-vsl" target="_blank" rel="noopener">apply.netrevenue.io/dto-vsl ↗</a>
+      <p class="notes">VSL variant of the NR funnel (base path /dto-vsl, not /vsl). The nr-case-study delivery mockup books calls into /dto-vsl/. Deployed on the NR project.</p>
+      <details class="routes"><summary>Routes (5)</summary><ul><li>/dto-vsl</li><li>/dto-vsl/apply</li><li>/dto-vsl/book</li><li>/dto-vsl/thank-you</li><li>/dto-vsl/not-right-fit</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> netrevenue-apply-buddy</span><span class="kv"><b>vercel</b> nr-landing-page</span><span class="kv"><b>key</b> nr-dto-vsl</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span><span class="track">meta-capi</span><span class="track">hyros</span><span class="track">clarity</span><span class="track">cro-tracker-v2</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="built-unmerged" data-type="Application" data-search="netrevenue playbook apply-tail https://apply.netrevenue.io/playbook/apply vite-react / vercel dedicated apply→book→booked tail for the nr lead-magnet/playbook funnel, on feature branch nr/playbook-funnel (not merged to main). no /playbook landing route yet. no dedicated nr-playbook data_key — it reports under nr-dto. nr netrevenue application whole-founder/netrevenue-apply-buddy /playbook/apply /playbook/book /playbook/booked /playbook/not-a-fit">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NetRevenue Playbook apply-tail</h3>
+        <span class="status-pill s-built">Built · Unmerged</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Application</span>
+        <span class="tag">Vite-React / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.netrevenue.io/playbook/apply" target="_blank" rel="noopener">apply.netrevenue.io/playbook/apply ↗</a>
+      <p class="notes">Dedicated apply→book→booked tail for the NR lead-magnet/playbook funnel, on feature branch nr/playbook-funnel (NOT merged to main). No /playbook landing route yet. No dedicated nr-playbook data_key — it reports under nr-dto.</p>
+      <details class="routes"><summary>Routes (4)</summary><ul><li>/playbook/apply</li><li>/playbook/book</li><li>/playbook/booked</li><li>/playbook/not-a-fit</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> netrevenue-apply-buddy @nr/playbook-funnel</span><span class="kv"><b>vercel</b> nr-landing-page</span><span class="kv"><b>key</b> nr-dto</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span><span class="track">meta-capi</span><span class="track">hyros</span><span class="track">clarity</span><span class="track">cro-tracker-v2</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="preview" data-type="Mockup" data-search="nr lead magnet — client teardown (mockup) https://dashboard-preview.wholefounder.com/nr-teardown/ static / vercel one-fold hormozi-style client-teardown opt-in mockup (lewis mudrich direction). swappable case-study video thumbnail + inline opt-in. stakeholder review only. nr netrevenue mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NR Lead Magnet — Client Teardown (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/nr-teardown/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/nr-teardown/ ↗</a>
+      <p class="notes">One-fold Hormozi-style client-teardown opt-in mockup (Lewis Mudrich direction). Swappable case-study video thumbnail + inline opt-in. Stakeholder review only.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="preview" data-type="Mockup" data-search="nr lead magnet — 8-figure sales engine (mockup) https://dashboard-preview.wholefounder.com/nr-lead-magnet/ static / vercel reusable lead-magnet opt-in template (&#39;the 8-figure sales engine&#39;), fsn funnel structure re-skinned to nr. placeholders flagged. stakeholder review only. nr netrevenue mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NR Lead Magnet — 8-Figure Sales Engine (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/nr-lead-magnet/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/nr-lead-magnet/ ↗</a>
+      <p class="notes">Reusable lead-magnet opt-in template (&#39;The 8-Figure Sales Engine&#39;), FSN funnel structure re-skinned to NR. Placeholders flagged. Stakeholder review only.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="preview" data-type="Mockup" data-search="nr lead magnet — teardown case study delivery (mockup) https://dashboard-preview.wholefounder.com/nr-case-study/ static / vercel thank-you / delivery page mockup for the teardown opt-in; vturb video + one soft cta that books into apply.netrevenue.io/dto-vsl/. stakeholder review only. nr netrevenue mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NR Lead Magnet — Teardown Case Study delivery (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/nr-case-study/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/nr-case-study/ ↗</a>
+      <p class="notes">Thank-you / delivery page mockup for the teardown opt-in; VTurb video + one soft CTA that books into apply.netrevenue.io/dto-vsl/. Stakeholder review only.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="preview" data-type="Mockup" data-search="nr dto-vsl thank-you (mockup) https://dashboard-preview.wholefounder.com/nr-dto-thank-you/ static / vercel appointment-confirmation page mockup for /dto-vsl/thank-you (closers.io structure re-skinned to nr). stakeholder review only. nr netrevenue mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NR DTO-VSL Thank-You (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/nr-dto-thank-you/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/nr-dto-thank-you/ ↗</a>
+      <p class="notes">Appointment-confirmation page mockup for /dto-vsl/thank-you (Closers.io structure re-skinned to NR). Stakeholder review only.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="preview" data-type="Mockup" data-search="nr apply — question formatting v1 vs v2 (mockup) https://dashboard-preview.wholefounder.com/nr-apply-questions/ static / vercel side-by-side clickable mockup of the /dto/fs application form at 375px (current vs proposed layout). stakeholder review only. nr netrevenue mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NR Apply — Question Formatting V1 vs V2 (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/nr-apply-questions/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/nr-apply-questions/ ↗</a>
+      <p class="notes">Side-by-side clickable mockup of the /dto/fs application form at 375px (current vs proposed layout). Stakeholder review only.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="preview" data-type="Mockup" data-search="nr funnel steps — dashboard redesign (mockup) https://dashboard-preview.wholefounder.com/nr-funnel-steps/ static / vercel three redesign options for the ad-reporting &#39;funnel steps&#39; page (dashboard artifact, not a funnel page). stakeholder review only. nr netrevenue mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NR Funnel Steps — dashboard redesign (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/nr-funnel-steps/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/nr-funnel-steps/ ↗</a>
+      <p class="notes">Three redesign options for the ad-reporting &#39;Funnel steps&#39; page (dashboard artifact, not a funnel page). Stakeholder review only.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="wf" data-status="legacy" data-type="DTO" data-search="netrevenue flex-space (legacy /dto/fs) https://apply.netrevenue.io/dto/fs vite-react / vercel older flex-space set nested under /dto/fs/*, superseded by the standalone /dto-fs funnel. still routed. reports under nr-dto (not nr-dto-fs). nr netrevenue dto whole-founder/netrevenue-apply-buddy /dto/fs /dto/fs/book /dto/fs/{setter,recruiting,mastermind,leads,received}">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NetRevenue Flex-Space (legacy /dto/fs)</h3>
+        <span class="status-pill s-legacy">Legacy</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">DTO</span>
+        <span class="tag">Vite-React / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.netrevenue.io/dto/fs" target="_blank" rel="noopener">apply.netrevenue.io/dto/fs ↗</a>
+      <p class="notes">Older Flex-Space set nested under /dto/fs/*, superseded by the standalone /dto-fs funnel. Still routed. Reports under nr-dto (not nr-dto-fs).</p>
+      <details class="routes"><summary>Routes (3)</summary><ul><li>/dto/fs</li><li>/dto/fs/book</li><li>/dto/fs/{setter,recruiting,mastermind,leads,received}</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> netrevenue-apply-buddy</span><span class="kv"><b>vercel</b> nr-landing-page</span><span class="kv"><b>key</b> nr-dto</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span><span class="track">meta-capi</span><span class="track">hyros</span><span class="track">clarity</span><span class="track">cro-tracker-v2</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="client" data-status="live" data-type="Homepage" data-search="netrevenue brand homepage https://www.netrevenue.io webflow client-owned webflow homepage. headline: &#39;scale the real potential of your sales team.&#39; separate stack from the wf apply subdomain. nr netrevenue homepage">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NetRevenue brand homepage</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Homepage</span>
+        <span class="tag">Webflow</span>
+      </div>
+      <a class="url" href="https://www.netrevenue.io" target="_blank" rel="noopener">www.netrevenue.io ↗</a>
+      <p class="notes">Client-owned Webflow homepage. Headline: &#39;Scale The Real Potential of Your Sales Team.&#39; Separate stack from the WF apply subdomain.</p>
+      
+      
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="NR" data-client="NR" data-owner="client" data-status="live" data-type="Lead-Magnet" data-search="netrevenue case-study / teardown pages https://www.netrevenue.io/#case-studies webflow multiple client-owned webflow case-study pages (e.g. &#39;50k to 800k per month in five months&#39;). ctas point to become-a-partner / affiliate, not a wf booking calendar. this is the client&#39;s own teardown content, distinct from the wf nr-teardown mockup. nr netrevenue lead-magnet /case-studies/*">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">NR</span>
+        <h3>NetRevenue case-study / teardown pages</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Lead-Magnet</span>
+        <span class="tag">Webflow</span>
+      </div>
+      <a class="url" href="https://www.netrevenue.io/#case-studies" target="_blank" rel="noopener">www.netrevenue.io/#case-studies ↗</a>
+      <p class="notes">Multiple client-owned Webflow case-study pages (e.g. &#39;50k to 800k per month in five months&#39;). CTAs point to become-a-partner / affiliate, not a WF booking calendar. This is the client&#39;s OWN teardown content, distinct from the WF nr-teardown mockup.</p>
+      <details class="routes"><summary>Routes (1)</summary><ul><li>/case-studies/*</li></ul></details>
+      
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span></div>
+    </div>
+  </article><div class="grouphdr" data-group="SSI"><h2>SSI — Self Storage Income</h2><span class="rule"></span><span class="gc"></span></div>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="wf" data-status="live" data-type="VSL" data-search="ssi aj vsl (paid champion + v2 challenger) https://apply.selfstorageincome.com/aj-vsl next.js / vercel primary ssi funnel. live headline: &#39;how experienced rental investors are deploying their next $100k into storage facilities.&#39; champion/challenger split-test runs server-side (cro-edge) on the exact /aj-vsl path (rewrites /aj-vsl↔/aj-vsl/v2). apply is an inline form; booking is an embedded ghl widget; thank-you is static /thank-you. note: the apply-root (/) is a gated internal client dashboard, not this funnel. ssi self storage income vsl whole-founder/ssi-self-storage-income /aj-vsl (champion) /aj-vsl/v2 (challenger) inline apply form embedded ghl booking widget /thank-you (static)">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI AJ VSL (paid champion + v2 challenger)</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">VSL</span>
+        <span class="tag">Next.js / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.selfstorageincome.com/aj-vsl" target="_blank" rel="noopener">apply.selfstorageincome.com/aj-vsl ↗</a>
+      <p class="notes">Primary SSI funnel. Live headline: &#39;How Experienced Rental Investors Are Deploying Their Next $100K Into Storage Facilities.&#39; Champion/challenger split-test runs server-side (cro-edge) on the exact /aj-vsl path (rewrites /aj-vsl↔/aj-vsl/v2). Apply is an inline form; booking is an embedded GHL widget; thank-you is static /thank-you. NOTE: the apply-root (/) is a gated internal client dashboard, not this funnel.</p>
+      <details class="routes"><summary>Routes (5)</summary><ul><li>/aj-vsl (champion)</li><li>/aj-vsl/v2 (challenger)</li><li>inline apply form</li><li>embedded GHL booking widget</li><li>/thank-you (static)</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> SSI-Self-Storage-Income</span><span class="kv"><b>vercel</b> ssi-landing-page</span><span class="kv"><b>key</b> aj-vsl</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span><span class="track">meta-capi</span><span class="track">hyros</span><span class="track">clarity</span><span class="track">cro-platform</span><span class="track">cro-tracker-v2</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="wf" data-status="live" data-type="VSL" data-search="ssi aj vsl — organic https://apply.selfstorageincome.com/aj-vsl/org next.js / vercel organic-traffic variant (wistia player instead of vturb). clarity + both cro trackers are deliberately off here; only meta pixel + hyros fire (audience building). same vsl headline as the paid variant. ssi self storage income vsl whole-founder/ssi-self-storage-income /aj-vsl/org /aj-vsl/org-thank-you (static)">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI AJ VSL — organic</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">VSL</span>
+        <span class="tag">Next.js / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.selfstorageincome.com/aj-vsl/org" target="_blank" rel="noopener">apply.selfstorageincome.com/aj-vsl/org ↗</a>
+      <p class="notes">Organic-traffic variant (Wistia player instead of vTurb). Clarity + BOTH CRO trackers are deliberately OFF here; only Meta Pixel + Hyros fire (audience building). Same VSL headline as the paid variant.</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/aj-vsl/org</li><li>/aj-vsl/org-thank-you (static)</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> SSI-Self-Storage-Income</span><span class="kv"><b>vercel</b> ssi-landing-page</span><span class="kv"><b>key</b> aj-vsl</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span><span class="track">hyros</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="wf" data-status="live" data-type="VSL" data-search="ssi britt vsl https://apply.selfstorageincome.com/britt-vsl next.js / vercel britt-hosted vsl funnel route in the ssi repo (own funnelkey britt-vsl). deployed on main; not separately live-probed. a stakeholder mockup of this also exists (britt-vsl-mockup). ssi self storage income vsl whole-founder/ssi-self-storage-income /britt-vsl /britt/* (static assets)">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI Britt VSL</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">VSL</span>
+        <span class="tag">Next.js / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.selfstorageincome.com/britt-vsl" target="_blank" rel="noopener">apply.selfstorageincome.com/britt-vsl ↗</a>
+      <p class="notes">Britt-hosted VSL funnel route in the SSI repo (own funnelKey britt-vsl). Deployed on main; not separately live-probed. A stakeholder mockup of this also exists (britt-vsl-mockup).</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/britt-vsl</li><li>/britt/* (static assets)</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> SSI-Self-Storage-Income</span><span class="kv"><b>vercel</b> ssi-landing-page</span><span class="kv"><b>key</b> britt-vsl</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span><span class="track">meta-capi</span><span class="track">hyros</span><span class="track">clarity</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="wf" data-status="live" data-type="Challenge" data-search="ssi 5-day sprint (/5dc) https://apply.selfstorageincome.com/5dc vite-react / vercel (swift-deal-lens) a separate wf vite spa (&#39;5-day sprint&#39;) proxied under the ssi domain via next.config rewrites (/5dc → swift-deal-lens.vercel.app). distinct app; repo name assumed from the vercel host. confirm repo + live status. ssi self storage income challenge whole-founder/swift-deal-lens (assumed) /5dc (proxied → swift-deal-lens.vercel.app/5dc/*)">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI 5-Day Sprint (/5dc)</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Challenge</span>
+        <span class="tag">Vite-React / Vercel (swift-deal-lens)</span>
+      </div>
+      <a class="url" href="https://apply.selfstorageincome.com/5dc" target="_blank" rel="noopener">apply.selfstorageincome.com/5dc ↗</a>
+      <p class="notes">A separate WF Vite SPA (&#39;5-Day Sprint&#39;) proxied under the SSI domain via next.config rewrites (/5dc → swift-deal-lens.vercel.app). Distinct app; repo name assumed from the Vercel host. Confirm repo + live status.</p>
+      <details class="routes"><summary>Routes (1)</summary><ul><li>/5dc (proxied → swift-deal-lens.vercel.app/5dc/*)</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> swift-deal-lens (assumed)</span><span class="kv"><b>vercel</b> swift-deal-lens</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="wf" data-status="live-gated" data-type="Internal" data-search="ssi client dashboard (apply-root + ssi.wholefounder.com) https://apply.selfstorageincome.com/ next.js / vercel not a marketing funnel — an internal applications dashboard behind a password wall (&#39;ssi x whole founder — client dashboard&#39;). both apply.selfstorageincome.com/ and ssi.wholefounder.com/ serve it. included so nobody mistakes the apply-root for a funnel. ssi self storage income internal whole-founder/ssi-self-storage-income / (password login) /dashboard ssi.wholefounder.com (mirror)">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI Client Dashboard (apply-root + ssi.wholefounder.com)</h3>
+        <span class="status-pill s-gated">Live · Gated</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Internal</span>
+        <span class="tag">Next.js / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.selfstorageincome.com/" target="_blank" rel="noopener">apply.selfstorageincome.com/ ↗</a>
+      <p class="notes">NOT a marketing funnel — an internal applications dashboard behind a password wall (&#39;SSI X WHOLE FOUNDER — Client Dashboard&#39;). Both apply.selfstorageincome.com/ and ssi.wholefounder.com/ serve it. Included so nobody mistakes the apply-root for a funnel.</p>
+      <details class="routes"><summary>Routes (3)</summary><ul><li>/ (password login)</li><li>/dashboard</li><li>ssi.wholefounder.com (mirror)</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> SSI-Self-Storage-Income</span><span class="kv"><b>vercel</b> ssi-landing-page</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="wf" data-status="preview" data-type="Mockup" data-search="ssi email funnel — facility valuation training (mockup) https://dashboard-preview.wholefounder.com/ssi-value-training/ static / vercel warm-traffic email-funnel template: aj&#39;s &#39;how to value a self storage facility&#39; youtube training in the hero + ssi mechanism + member proof wall + book-a-call. cta is a placeholder pending the real ghl link. stakeholder review only. ssi self storage income mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI Email Funnel — Facility Valuation Training (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/ssi-value-training/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/ssi-value-training/ ↗</a>
+      <p class="notes">Warm-traffic email-funnel template: AJ&#39;s &#39;How to Value a Self Storage Facility&#39; YouTube training in the hero + SSI mechanism + member proof wall + book-a-call. CTA is a placeholder pending the real GHL link. Stakeholder review only.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="wf" data-status="preview" data-type="Mockup" data-search="ssi britt meta vsl landing (mockup) https://dashboard-preview.wholefounder.com/britt-vsl/ static / vercel static markup.io review build of the britt-hosted vsl landing page. precursor to the in-repo /britt-vsl route. ssi self storage income mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI Britt Meta VSL Landing (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/britt-vsl/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/britt-vsl/ ↗</a>
+      <p class="notes">Static markup.io review build of the Britt-hosted VSL landing page. Precursor to the in-repo /britt-vsl route.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="client" data-status="live" data-type="Homepage" data-search="selfstorageincome.com hub https://www.selfstorageincome.com kajabi client-owned kajabi hub. nav: community, services, success, book, podcast, invest, log in. ssi self storage income homepage / /services /success /about">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SelfStorageIncome.com hub</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Homepage</span>
+        <span class="tag">Kajabi</span>
+      </div>
+      <a class="url" href="https://www.selfstorageincome.com" target="_blank" rel="noopener">www.selfstorageincome.com ↗</a>
+      <p class="notes">Client-owned Kajabi hub. Nav: Community, Services, Success, Book, Podcast, Invest, Log In.</p>
+      <details class="routes"><summary>Routes (4)</summary><ul><li>/</li><li>/services</li><li>/success</li><li>/about</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="client" data-status="live" data-type="Lead-Magnet" data-search="ssi free starter pack opt-in (/learn) https://www.selfstorageincome.com/learn kajabi client-owned kajabi lead magnet: 3-part video series + deal-analyzer + playbooks. &#39;how dozens of students are replacing their w2 income by investing in storage.&#39; ssi self storage income lead-magnet">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI Free Starter Pack opt-in (/learn)</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Lead-Magnet</span>
+        <span class="tag">Kajabi</span>
+      </div>
+      <a class="url" href="https://www.selfstorageincome.com/learn" target="_blank" rel="noopener">www.selfstorageincome.com/learn ↗</a>
+      <p class="notes">Client-owned Kajabi lead magnet: 3-part video series + deal-analyzer + playbooks. &#39;How dozens of students are replacing their W2 income by investing in storage.&#39;</p>
+      
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="client" data-status="live" data-type="Application" data-search="ssi membership apply page (/ssi-membership) https://www.selfstorageincome.com/ssi-membership kajabi client-owned kajabi application/sales page for the 12-month membership. application-first; no price / no direct checkout url. &#39;#1 self storage community on the planet.&#39; ssi self storage income application">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI Membership apply page (/ssi-membership)</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Application</span>
+        <span class="tag">Kajabi</span>
+      </div>
+      <a class="url" href="https://www.selfstorageincome.com/ssi-membership" target="_blank" rel="noopener">www.selfstorageincome.com/ssi-membership ↗</a>
+      <p class="notes">Client-owned Kajabi application/sales page for the 12-month membership. Application-first; no price / no direct checkout URL. &#39;#1 Self Storage Community on the planet.&#39;</p>
+      
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="client" data-status="live" data-type="Lead-Magnet" data-search="ssi book + podcast top-of-funnel https://www.selfstorageincome.com/book kajabi client-owned attention/lead assets: the book funnel (→ amazon &#39;growing wealth in self-storage 2.0&#39;) and the podcast. ssi self storage income lead-magnet /book (→ amazon) /podcast (kajabi + podbean)">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>SSI Book + Podcast top-of-funnel</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Lead-Magnet</span>
+        <span class="tag">Kajabi</span>
+      </div>
+      <a class="url" href="https://www.selfstorageincome.com/book" target="_blank" rel="noopener">www.selfstorageincome.com/book ↗</a>
+      <p class="notes">Client-owned attention/lead assets: the book funnel (→ Amazon &#39;Growing Wealth in Self-Storage 2.0&#39;) and the podcast.</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/book (→ Amazon)</li><li>/podcast (Kajabi + Podbean)</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="SSI" data-client="SSI" data-owner="client" data-status="live" data-type="Application" data-search="cedar creek capital — invest funnel https://cedar.cc/invest unknown aj&#39;s separate capital-raise / fund business (cedar creek capital). distinct from the ssi education business. client-owned; listed for completeness. ssi self storage income application">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">SSI</span>
+        <h3>Cedar Creek Capital — invest funnel</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Application</span>
+        <span class="tag">unknown</span>
+      </div>
+      <a class="url" href="https://cedar.cc/invest" target="_blank" rel="noopener">cedar.cc/invest ↗</a>
+      <p class="notes">AJ&#39;s separate capital-raise / fund business (Cedar Creek Capital). Distinct from the SSI education business. Client-owned; listed for completeness.</p>
+      
+      
+      
+    </div>
+  </article><div class="grouphdr" data-group="FSN"><h2>FSN — Flex Space Network</h2><span class="rule"></span><span class="gc"></span></div>
+  <article class="funnel" data-group="FSN" data-client="FSN" data-owner="wf" data-status="live" data-type="DTO" data-search="flex space network dto https://apply.flexspace.network vite-react / vercel wf-built vite dto, live. headline: &#39;you&#39;ve outgrown multifamily. flex space is the next chapter.&#39; repo is not cloned on this machine — confirmed live only via probe + registry. hyros is not enabled for fsn (per registry). note the apex flexspace.network is a separate client-owned godaddy site. fsn flex space network dto whole-founder/fsn-flex-space-network /">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">FSN</span>
+        <h3>Flex Space Network DTO</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">DTO</span>
+        <span class="tag">Vite-React / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.flexspace.network" target="_blank" rel="noopener">apply.flexspace.network ↗</a>
+      <p class="notes">WF-built Vite DTO, LIVE. Headline: &#39;You&#39;ve outgrown multifamily. Flex space is the next chapter.&#39; Repo is NOT cloned on this machine — confirmed live only via probe + registry. Hyros is NOT enabled for FSN (per registry). Note the apex flexspace.network is a SEPARATE client-owned GoDaddy site.</p>
+      <details class="routes"><summary>Routes (1)</summary><ul><li>/</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> FSN-Flex-Space-Network</span><span class="kv"><b>vercel</b> fsn-landing-page</span><span class="kv"><b>key</b> fsn-dto</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">cro-tracker-v2</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="FSN" data-client="FSN" data-owner="wf" data-status="planning" data-type="Lead-Magnet" data-search="fsn landing variants + lead magnets (assets only) design/planning material only, no deployable code locally: &#39;fsn - landing iteration a&#39; variant, lead magnets, ad images, gtm strategy doc, fsn funnel-map.png, funnel-audit draft, avatar intelligence report, brand system. under whole founder/fsn - flexspace network/. fsn flex space network lead-magnet">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">FSN</span>
+        <h3>FSN landing variants + lead magnets (assets only)</h3>
+        <span class="status-pill s-planning">Planning</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Lead-Magnet</span>
+        
+      </div>
+      <span class="url none">— not deployed —</span>
+      <p class="notes">Design/planning material only, no deployable code locally: &#39;FSN - Landing iteration A&#39; variant, lead magnets, ad images, GTM strategy doc, FSN funnel-map.png, funnel-audit draft, Avatar Intelligence Report, brand system. Under Whole Founder/FSN - FlexSpace Network/.</p>
+      
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="FSN" data-client="FSN" data-owner="client" data-status="live" data-type="Homepage" data-search="flexspace.network brand homepage https://flexspace.network godaddy website builder client-owned apex homepage on godaddy website builder (not wf). &#39;build, own, and sell flex space — america&#39;s most in-demand asset class.&#39; different stack from the wf apply.flexspace.network subdomain. fsn flex space network homepage">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">FSN</span>
+        <h3>flexspace.network brand homepage</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Homepage</span>
+        <span class="tag">GoDaddy Website Builder</span>
+      </div>
+      <a class="url" href="https://flexspace.network" target="_blank" rel="noopener">flexspace.network ↗</a>
+      <p class="notes">Client-owned apex homepage on GoDaddy Website Builder (NOT WF). &#39;Build, own, and sell flex space — America&#39;s most in-demand asset class.&#39; Different stack from the WF apply.flexspace.network subdomain.</p>
+      
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="FSN" data-client="FSN" data-owner="client" data-status="live" data-type="Membership" data-search="fsn deal/membership portal (deal.*) https://deal.flexspace.network gohighlevel client-owned ghl membership/enrollment portal. &#39;build a flexible future.&#39; thin opt-in funneling to /app. fsn flex space network membership /home2 /app">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">FSN</span>
+        <h3>FSN deal/membership portal (deal.*)</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Membership</span>
+        <span class="tag">GoHighLevel</span>
+      </div>
+      <a class="url" href="https://deal.flexspace.network" target="_blank" rel="noopener">deal.flexspace.network ↗</a>
+      <p class="notes">Client-owned GHL membership/enrollment portal. &#39;Build a FLEXible Future.&#39; Thin opt-in funneling to /app.</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/home2</li><li>/app</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="FSN" data-client="FSN" data-owner="client" data-status="live" data-type="Community" data-search="flex space connect conference + skool community https://flexspaceconnect.com skool / event site client-owned: the flex space connect conference site + the &#39;flex space untapped&#39; skool community (free/low-tier top-of-funnel). note: flexspacenation.com is an unrelated entity — excluded. fsn flex space network community skool.com/flex-space-untapped-2810">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">FSN</span>
+        <h3>Flex Space Connect conference + Skool community</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Community</span>
+        <span class="tag">Skool / event site</span>
+      </div>
+      <a class="url" href="https://flexspaceconnect.com" target="_blank" rel="noopener">flexspaceconnect.com ↗</a>
+      <p class="notes">Client-owned: the Flex Space Connect conference site + the &#39;Flex Space Untapped&#39; Skool community (free/low-tier top-of-funnel). NOTE: flexspacenation.com is an UNRELATED entity — excluded.</p>
+      <details class="routes"><summary>Routes (1)</summary><ul><li>skool.com/flex-space-untapped-2810</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="FSN" data-client="FSN" data-owner="client" data-status="live-gated" data-type="Community" data-search="fsn member lms (learn.*) https://learn.flexspace.network circle.so / member login client-owned member lms/community behind a login wall. fsn flex space network community /users/sign_in">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">FSN</span>
+        <h3>FSN member LMS (learn.*)</h3>
+        <span class="status-pill s-gated">Live · Gated</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Community</span>
+        <span class="tag">Circle.so / member login</span>
+      </div>
+      <a class="url" href="https://learn.flexspace.network" target="_blank" rel="noopener">learn.flexspace.network ↗</a>
+      <p class="notes">Client-owned member LMS/community behind a login wall.</p>
+      <details class="routes"><summary>Routes (1)</summary><ul><li>/users/sign_in</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="FSN" data-client="FSN" data-owner="client" data-status="live-stale" data-type="Event" data-search="fsn bootcamp registration (bootcamp.*) https://bootcamp.flexspace.network gohighlevel client-owned gohighlevel 2-day bootcamp funnel — still showing a 2024 (sept 19) houston event. stale. includes &#39;the flex manual.&#39; fsn flex space network event / /checkout">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">FSN</span>
+        <h3>FSN Bootcamp registration (bootcamp.*)</h3>
+        <span class="status-pill s-stale">Live · Stale</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Event</span>
+        <span class="tag">GoHighLevel</span>
+      </div>
+      <a class="url" href="https://bootcamp.flexspace.network" target="_blank" rel="noopener">bootcamp.flexspace.network ↗</a>
+      <p class="notes">Client-owned GoHighLevel 2-day bootcamp funnel — still showing a 2024 (Sept 19) Houston event. Stale. Includes &#39;The Flex Manual.&#39;</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/</li><li>/checkout</li></ul></details>
+      
+      
+    </div>
+  </article><div class="grouphdr" data-group="HB"><h2>HB — Heather Blankenship / The Society</h2><span class="rule"></span><span class="gc"></span></div>
+  <article class="funnel" data-group="HB" data-client="HB" data-owner="wf" data-status="live" data-type="DTO" data-search="the society dto https://apply.heatherblankenship.com/dto vite-react / vercel root / redirects to /dto (definitive — resolves the old provisioning drift that said /society). live /dto serves &#39;the society&#39; women-only advisory. a distinct static /society page also exists (&#39;build the portfolio that gives you the option to leave your w-2&#39;). society is legacy/parallel to the active challenge funnel. bare /intensive and /apply render blank (non-routes). tracking: wf cro platform via /wfx/* proxy; no data-page-key found for /dto (confirm). hb heather blankenship / the society dto whole-founder/hb-funnels / (redirect→/dto) /dto /dto/apply /dto/book /dto/thank-you /dto/not-a-fit /dto/v3 /dto/deck /society (static) /society/apply (static) /society-thank-you (static) /partner-pack (static)">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">HB</span>
+        <h3>The Society DTO</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">DTO</span>
+        <span class="tag">Vite-React / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.heatherblankenship.com/dto" target="_blank" rel="noopener">apply.heatherblankenship.com/dto ↗</a>
+      <p class="notes">Root / redirects to /dto (definitive — resolves the old provisioning drift that said /society). Live /dto serves &#39;The Society&#39; women-only advisory. A DISTINCT static /society page also exists (&#39;Build the portfolio that gives you the option to leave your W-2&#39;). Society is legacy/parallel to the active Challenge funnel. Bare /intensive and /apply render blank (non-routes). Tracking: WF CRO Platform via /wfx/* proxy; no data-page-key found for /dto (confirm).</p>
+      <details class="routes"><summary>Routes (12)</summary><ul><li>/ (redirect→/dto)</li><li>/dto</li><li>/dto/apply</li><li>/dto/book</li><li>/dto/thank-you</li><li>/dto/not-a-fit</li><li>/dto/v3</li><li>/dto/deck</li><li>/society (static)</li><li>/society/apply (static)</li><li>/society-thank-you (static)</li><li>/partner-pack (static)</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> hb-funnels</span><span class="kv"><b>vercel</b> hb-funnels</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">cro-platform</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="HB" data-client="HB" data-owner="wf" data-status="live" data-type="Challenge" data-search="the next deal intensive / &#39;one next move&#39; 3-day bootcamp https://apply.heatherblankenship.com/challenge vite-react / vercel the active hb funnel (challenge pivot after dto underconverted). lives at /challenge/* (not /intensive — that&#39;s just an image folder). champion/challenger buckets v1/v2 via /api/cro/bucket. og meta swapped to &#39;one next move&#39; for social crawlers via middleware. goal event = clicks on data-cro-id &#39;intensive-submit&#39;. ~40 iteration branches on this repo. hb heather blankenship / the society challenge whole-founder/hb-funnels /challenge (v1/v2 bucketed) /challenge/v1 /challenge/v2 /challenge/a /challenge/b /challenge/c /challenge/checkout /challenge/vip /challenge/vip2 /challenge/thanks /challenge/thanks2 /challenge/call-booked">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">HB</span>
+        <h3>The Next Deal Intensive / &#39;One Next Move&#39; 3-Day Bootcamp</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Challenge</span>
+        <span class="tag">Vite-React / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.heatherblankenship.com/challenge" target="_blank" rel="noopener">apply.heatherblankenship.com/challenge ↗</a>
+      <p class="notes">The ACTIVE HB funnel (Challenge pivot after DTO underconverted). Lives at /challenge/* (NOT /intensive — that&#39;s just an image folder). Champion/challenger buckets v1/v2 via /api/cro/bucket. OG meta swapped to &#39;One Next Move&#39; for social crawlers via middleware. Goal event = clicks on data-cro-id &#39;intensive-submit&#39;. ~40 iteration branches on this repo.</p>
+      <details class="routes"><summary>Routes (12)</summary><ul><li>/challenge (v1/v2 bucketed)</li><li>/challenge/v1</li><li>/challenge/v2</li><li>/challenge/a</li><li>/challenge/b</li><li>/challenge/c</li><li>/challenge/checkout</li><li>/challenge/vip</li><li>/challenge/vip2</li><li>/challenge/thanks</li><li>/challenge/thanks2</li><li>/challenge/call-booked</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> hb-funnels</span><span class="kv"><b>vercel</b> hb-funnels</span><span class="kv"><b>key</b> hb-challenge</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">cro-platform</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="HB" data-client="HB" data-owner="wf" data-status="preview" data-type="Mockup" data-search="hb dto dashboard v1 (mockup) https://dashboard-preview.wholefounder.com/hb-dto/ static / vercel 6-tab clickable mockup of the hb dto reporting dashboard (wf × madsheets brief). dashboard artifact, not a funnel page. stakeholder review only. hb heather blankenship / the society mockup whole-founder/wf-dashboard-mockups">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">HB</span>
+        <h3>HB DTO Dashboard V1 (mockup)</h3>
+        <span class="status-pill s-preview">Preview</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">Mockup</span>
+        <span class="tag">Static / Vercel</span>
+      </div>
+      <a class="url" href="https://dashboard-preview.wholefounder.com/hb-dto/" target="_blank" rel="noopener">dashboard-preview.wholefounder.com/hb-dto/ ↗</a>
+      <p class="notes">6-tab clickable mockup of the HB DTO reporting dashboard (WF × MadSheets brief). Dashboard artifact, not a funnel page. Stakeholder review only.</p>
+      
+      <div class="foot"><span class="kv"><b>repo</b> wf-dashboard-mockups</span><span class="kv"><b>vercel</b> wf-dashboard-mockups</span></div>
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="HB" data-client="HB" data-owner="client" data-status="live" data-type="Homepage" data-search="heatherblankenship.com homepage https://www.heatherblankenship.com webflow client-owned webflow brand homepage. nav: courses, masterminds (rv park mastermind, the society), freebies, login. hb heather blankenship / the society homepage">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">HB</span>
+        <h3>HeatherBlankenship.com homepage</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Homepage</span>
+        <span class="tag">Webflow</span>
+      </div>
+      <a class="url" href="https://www.heatherblankenship.com" target="_blank" rel="noopener">www.heatherblankenship.com ↗</a>
+      <p class="notes">Client-owned Webflow brand homepage. Nav: Courses, Masterminds (RV Park Mastermind, The Society), Freebies, Login.</p>
+      
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="HB" data-client="HB" data-owner="client" data-status="live" data-type="Lead-Magnet" data-search="hb &#39;90 days to your first/next rental&#39; opt-in https://woman.heatherblankenship.com/90 kajabi client-owned kajabi free 6-video opt-in feeding the society of entrepreneurial women. captures name/email/phone + liquid-capital selector. hb heather blankenship / the society lead-magnet /90 /90p">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">HB</span>
+        <h3>HB &#39;90 Days to Your First/Next Rental&#39; opt-in</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Lead-Magnet</span>
+        <span class="tag">Kajabi</span>
+      </div>
+      <a class="url" href="https://woman.heatherblankenship.com/90" target="_blank" rel="noopener">woman.heatherblankenship.com/90 ↗</a>
+      <p class="notes">Client-owned Kajabi free 6-video opt-in feeding The Society of Entrepreneurial Women. Captures name/email/phone + liquid-capital selector.</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/90</li><li>/90p</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="HB" data-client="HB" data-owner="client" data-status="live" data-type="Checkout" data-search="hb &#39;first deal boot camp&#39; checkout https://woman.heatherblankenship.com/firstdeal kajabi client-owned kajabi 6-week bootcamp sales + checkout. price shown: $1,197. consult booking via hubspot meetings. hb heather blankenship / the society checkout">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">HB</span>
+        <h3>HB &#39;First Deal Boot Camp&#39; checkout</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Checkout</span>
+        <span class="tag">Kajabi</span>
+      </div>
+      <a class="url" href="https://woman.heatherblankenship.com/firstdeal" target="_blank" rel="noopener">woman.heatherblankenship.com/firstdeal ↗</a>
+      <p class="notes">Client-owned Kajabi 6-week bootcamp sales + checkout. Price shown: $1,197. Consult booking via HubSpot Meetings.</p>
+      
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="HB" data-client="HB" data-owner="client" data-status="live" data-type="Application" data-search="hb society of entrepreneurial women application https://woman.heatherblankenship.com/apply kajabi client-owned kajabi application for &#39;the society of entrepreneurial women&#39; (rv-park/real-estate themed) + the /thereset retreat funnel. related brand name to the wf &#39;the society&#39; page but a different stack (kajabi vs wf vite). hb heather blankenship / the society application /apply /thereset (retreat) /podcast">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">HB</span>
+        <h3>HB Society of Entrepreneurial Women application</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Application</span>
+        <span class="tag">Kajabi</span>
+      </div>
+      <a class="url" href="https://woman.heatherblankenship.com/apply" target="_blank" rel="noopener">woman.heatherblankenship.com/apply ↗</a>
+      <p class="notes">Client-owned Kajabi application for &#39;The Society of Entrepreneurial Women&#39; (RV-park/real-estate themed) + the /thereset retreat funnel. Related brand name to the WF &#39;The Society&#39; page but a DIFFERENT stack (Kajabi vs WF Vite).</p>
+      <details class="routes"><summary>Routes (3)</summary><ul><li>/apply</li><li>/thereset (retreat)</li><li>/podcast</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="HB" data-client="HB" data-owner="client" data-status="live" data-type="Membership" data-search="courses.heatherblankenship.com (kajabi host) https://courses.heatherblankenship.com kajabi client-owned kajabi course/membership host (rv park bootcamp etc.). hb heather blankenship / the society membership /bootcamp (rv park) /book">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">HB</span>
+        <h3>courses.heatherblankenship.com (Kajabi host)</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Membership</span>
+        <span class="tag">Kajabi</span>
+      </div>
+      <a class="url" href="https://courses.heatherblankenship.com" target="_blank" rel="noopener">courses.heatherblankenship.com ↗</a>
+      <p class="notes">Client-owned Kajabi course/membership host (RV Park Bootcamp etc.).</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/bootcamp (RV Park)</li><li>/book</li></ul></details>
+      
+      
+    </div>
+  </article><div class="grouphdr" data-group="EW"><h2>EW — EcomWarts</h2><span class="rule"></span><span class="gc"></span></div>
+  <article class="funnel" data-group="EW" data-client="EW" data-owner="wf" data-status="none-yet" data-type="DTO" data-search="wf-built ecomwarts funnel nothing built yet — ew is not onboarded. no repo, folder, vercel project, or apply.* subdomain exists. placeholder so ew appears in the registry with an explicit &#39;none-yet&#39; state. ew ecomwarts dto">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">EW</span>
+        <h3>WF-built EcomWarts funnel</h3>
+        <span class="status-pill s-none">None yet</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">DTO</span>
+        
+      </div>
+      <span class="url none">— not deployed —</span>
+      <p class="notes">Nothing built yet — EW is not onboarded. No repo, folder, Vercel project, or apply.* subdomain exists. Placeholder so EW appears in the registry with an explicit &#39;none-yet&#39; state.</p>
+      
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="EW" data-client="EW" data-owner="uncertain" data-status="live" data-type="Lead-Magnet" data-search="ecomwarts elite landing + typeform application https://www.ecomwarts.vip vite-react + typeform client&#39;s current (pre-onboarding) funnel: a vite/react landing → typeform application (54m5eva4wxu.typeform.com/to/fqdgll0e). headline: &#39;learn how 16 year olds and 46 year olds are making $100k a month in their first 90 days.&#39; owner uncertain — the vite hashed-asset build is the same fingerprint family as wf pages; verify whether wf (or a prior dev) built it before assuming a from-scratch rebuild. founder: rayston. ew ecomwarts lead-magnet / (typeform application) /old-home (legacy)">
+    <div class="rail rail-uncertain"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">EW</span>
+        <h3>EcomWarts Elite landing + Typeform application</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-uncertain">Uncertain</span>
+        <span class="tag">Lead-Magnet</span>
+        <span class="tag">Vite-React + Typeform</span>
+      </div>
+      <a class="url" href="https://www.ecomwarts.vip" target="_blank" rel="noopener">www.ecomwarts.vip ↗</a>
+      <p class="notes">Client&#39;s CURRENT (pre-onboarding) funnel: a Vite/React landing → Typeform application (54m5eva4wxu.typeform.com/to/FqdgLl0e). Headline: &#39;Learn How 16 Year Olds And 46 Year Olds Are Making $100k A Month In Their First 90 Days.&#39; OWNER UNCERTAIN — the Vite hashed-asset build is the same fingerprint family as WF pages; verify whether WF (or a prior dev) built it before assuming a from-scratch rebuild. Founder: Rayston.</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/ (Typeform application)</li><li>/old-home (legacy)</li></ul></details>
+      
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">meta-pixel</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="EW" data-client="EW" data-owner="client" data-status="live" data-type="Checkout" data-search="ecomwarts whop checkout/community https://whop.com/vip-access-7d whop client-owned whop storefront / monetization layer (&#39;vip access&#39;, 4.7 / 113 reviews). fed by tiktok organic (@raystonclips69). ew ecomwarts checkout">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">EW</span>
+        <h3>EcomWarts Whop checkout/community</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Checkout</span>
+        <span class="tag">Whop</span>
+      </div>
+      <a class="url" href="https://whop.com/vip-access-7d" target="_blank" rel="noopener">whop.com/vip-access-7d ↗</a>
+      <p class="notes">Client-owned Whop storefront / monetization layer (&#39;VIP Access&#39;, 4.7 / 113 reviews). Fed by TikTok organic (@raystonclips69).</p>
+      
+      
+      
+    </div>
+  </article><div class="grouphdr" data-group="LE"><h2>LE — Limitless Expo</h2><span class="rule"></span><span class="gc"></span></div>
+  <article class="funnel" data-group="LE" data-client="LE" data-owner="wf" data-status="live" data-type="DTO" data-search="limitless expo dto (&#39;3-day wealth strategy event&#39;) https://apply.limitlessexpo.com tailwind-static / vercel wf-built dto page, live. title &#39;limitless 2026 · the 3-day wealth strategy event&#39;; h1 &#39;the 3-day wealth strategy event for investors who refuse to enter the next cycle unprepared.&#39; hand-coded tailwind-cdn static (not vite). tracker id limitless-dto ties it to wf&#39;s system + the internal &#39;lmx&#39; slug. repo + vercel project not yet confirmed (need gh/vercel). le limitless expo dto whole-founder/limitless-* (unconfirmed) /">
+    <div class="rail rail-wf"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">LE</span>
+        <h3>Limitless Expo DTO (&#39;3-Day Wealth Strategy Event&#39;)</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-wf">WF-built</span>
+        <span class="tag">DTO</span>
+        <span class="tag">Tailwind-static / Vercel</span>
+      </div>
+      <a class="url" href="https://apply.limitlessexpo.com" target="_blank" rel="noopener">apply.limitlessexpo.com ↗</a>
+      <p class="notes">WF-built DTO page, LIVE. Title &#39;Limitless 2026 · The 3-Day Wealth Strategy Event&#39;; h1 &#39;The 3-Day Wealth Strategy Event for Investors Who Refuse to Enter the Next Cycle Unprepared.&#39; Hand-coded Tailwind-CDN static (not Vite). Tracker id limitless-dto ties it to WF&#39;s system + the internal &#39;lmx&#39; slug. Repo + Vercel project not yet confirmed (need gh/Vercel).</p>
+      <details class="routes"><summary>Routes (1)</summary><ul><li>/</li></ul></details>
+      <div class="foot"><span class="kv"><b>repo</b> limitless-* (unconfirmed)</span><span class="kv"><b>key</b> limitless-dto</span></div>
+      <div class="foot" style="border-top:none;padding-top:2px"><span class="track">hyros</span><span class="track">cro-tracker-v2</span></div>
+    </div>
+  </article>
+  <article class="funnel" data-group="LE" data-client="LE" data-owner="client" data-status="live" data-type="Homepage" data-search="limitlessexpo.com event site https://www.limitlessexpo.com wordpress / elementor / fluentform client-owned wordpress/elementor event site. co-hosts ken mcelroy &amp; tarl yarber. as of 2026-08-26 it promotes &#39;register 2027&#39;; the 2026 event (aug 14-16) has passed. registration page embeds the bizzabo widget. le limitless expo homepage /register-2026 → /register (bizzabo embed) /past-recordings">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">LE</span>
+        <h3>LimitlessExpo.com event site</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Homepage</span>
+        <span class="tag">WordPress / Elementor / FluentForm</span>
+      </div>
+      <a class="url" href="https://www.limitlessexpo.com" target="_blank" rel="noopener">www.limitlessexpo.com ↗</a>
+      <p class="notes">Client-owned WordPress/Elementor event site. Co-hosts Ken McElroy &amp; Tarl Yarber. As of 2026-08-26 it promotes &#39;Register 2027&#39;; the 2026 event (Aug 14-16) has passed. Registration page embeds the Bizzabo widget.</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/register-2026 → /register (Bizzabo embed)</li><li>/past-recordings</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="LE" data-client="LE" data-owner="client" data-status="live" data-type="Event" data-search="le bizzabo registration/ticketing https://events.bizzabo.com/748581 bizzabo client&#39;s native event/ticketing platform (bizzabo event id 748581 for 2026; one event per year). confirms the internal &#39;uses bizzabo&#39; note. not wf. le limitless expo event /748581 (2026) yearly: 2023/2024/2025 pages">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">LE</span>
+        <h3>LE Bizzabo registration/ticketing</h3>
+        <span class="status-pill s-live">Live</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Event</span>
+        <span class="tag">Bizzabo</span>
+      </div>
+      <a class="url" href="https://events.bizzabo.com/748581" target="_blank" rel="noopener">events.bizzabo.com/748581 ↗</a>
+      <p class="notes">Client&#39;s native event/ticketing platform (Bizzabo event id 748581 for 2026; one event per year). Confirms the internal &#39;uses Bizzabo&#39; note. Not WF.</p>
+      <details class="routes"><summary>Routes (2)</summary><ul><li>/748581 (2026)</li><li>yearly: 2023/2024/2025 pages</li></ul></details>
+      
+      
+    </div>
+  </article>
+  <article class="funnel" data-group="LE" data-client="LE" data-owner="client" data-status="live-stale" data-type="Event" data-search="le paid-traffic registration lander (go.*) https://go.limitlessexpo.com wishpond + bizzabo popup client-owned wishpond lander hosting a bizzabo registration popup. stale — still shows &#39;2025 early bird&#39; / title &#39;limitlessexpo25&#39; while the main site is on 2026/2027. le limitless expo event /register-now-b">
+    <div class="rail rail-client"></div>
+    <div class="body">
+      <div class="fhead">
+        <span class="client-badge">LE</span>
+        <h3>LE paid-traffic registration lander (go.*)</h3>
+        <span class="status-pill s-stale">Live · Stale</span>
+      </div>
+      <div class="metarow">
+        <span class="tag owner-client">Client-owned</span>
+        <span class="tag">Event</span>
+        <span class="tag">Wishpond + Bizzabo popup</span>
+      </div>
+      <a class="url" href="https://go.limitlessexpo.com" target="_blank" rel="noopener">go.limitlessexpo.com ↗</a>
+      <p class="notes">Client-owned Wishpond lander hosting a Bizzabo registration popup. STALE — still shows &#39;2025 Early Bird&#39; / title &#39;LIMITLESSEXPO25&#39; while the main site is on 2026/2027.</p>
+      <details class="routes"><summary>Routes (1)</summary><ul><li>/register-now-b</li></ul></details>
+      
+      
+    </div>
+  </article></div>
+  <div class="empty" id="empty">No funnels match these filters.</div>
+
+  <footer class="page">
+    <span>Whole Founder — internal funnel registry · <span id="totalfoot"></span></span>
+    <span>Source: <code>wf-os/registry/funnels.json</code> · Regenerate: <code>node registry/tools/build-funnel-registry.mjs</code></span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  // Theme toggle (persists per-viewer)
+  var root = document.documentElement, tk = "wf-registry-theme";
+  try { var saved = localStorage.getItem(tk); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : cur === "light" ? "dark"
+      : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem(tk, next); } catch (e) {}
+  });
+
+  var state = { owner: "all", client: "all", statusgroup: "all", q: "" };
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".funnel"));
+  var groups = Array.prototype.slice.call(document.querySelectorAll(".grouphdr"));
+  var resultline = document.getElementById("resultline");
+  var empty = document.getElementById("empty");
+
+  function statusBucket(s) {
+    if (s === "live" || s === "live-gated" || s === "live-stale") return "live";
+    if (s === "preview") return "preview";
+    return "other";
+  }
+  function matches(card) {
+    if (state.owner !== "all" && card.dataset.owner !== state.owner) return false;
+    if (state.client !== "all" && card.dataset.client !== state.client) return false;
+    if (state.statusgroup !== "all" && statusBucket(card.dataset.status) !== state.statusgroup) return false;
+    if (state.q && card.dataset.search.indexOf(state.q) === -1) return false;
+    return true;
+  }
+  function apply() {
+    var shown = 0;
+    cards.forEach(function (c) {
+      var ok = matches(c);
+      c.classList.toggle("hidden", !ok);
+      if (ok) shown++;
+    });
+    // group headers hide when their group has no visible cards
+    groups.forEach(function (g) {
+      var grp = g.dataset.group, any = false;
+      cards.forEach(function (c) { if (c.dataset.group === grp && !c.classList.contains("hidden")) any = true; });
+      g.classList.toggle("hidden", !any);
+      var cnt = g.querySelector(".gc"); if (cnt) {
+        var n = 0; cards.forEach(function (c) { if (c.dataset.group === grp && !c.classList.contains("hidden")) n++; });
+        cnt.textContent = n + (n === 1 ? " funnel" : " funnels");
+      }
+    });
+    resultline.textContent = "Showing " + shown + " of " + cards.length + " funnels";
+    empty.classList.toggle("show", shown === 0);
+  }
+  document.querySelectorAll(".chips").forEach(function (group) {
+    var dim = group.dataset.filter;
+    group.addEventListener("click", function (e) {
+      var btn = e.target.closest(".chip"); if (!btn) return;
+      group.querySelectorAll(".chip").forEach(function (c) { c.setAttribute("aria-pressed", c === btn ? "true" : "false"); });
+      state[dim] = btn.dataset.val;
+      apply();
+    });
+  });
+  document.getElementById("search").addEventListener("input", function (e) {
+    state.q = e.target.value.trim().toLowerCase(); apply();
+  });
+  document.getElementById("totalfoot").textContent = cards.length + " funnels tracked";
+  apply();
+})();
+</script>
+</body>
+</html>
