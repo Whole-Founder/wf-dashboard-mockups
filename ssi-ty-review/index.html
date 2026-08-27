@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Call is Confirmed - Self Storage Income</title>
+  <meta name="description" content="Your call with the SSI team is confirmed. Watch AJ's video and prepare for your conversation about self storage investing.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/sites/2147548671/images/e6885c7-502d-e55a-242-da2b152a3ff_SSI_Logo_Favicon_1_.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Schedule dedup decision (booking-confirmation redirect target).
+       One shared event_id for browser + server CAPI so Meta dedupes the pair,
+       and a sessionStorage guard (shared with the funnel iframe listener) so a
+       refresh / iframe double-path can't re-fire Schedule. -->
+
+  <!-- Wistia Player -->
+  <script src="https://fast.wistia.com/player.js" async></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0D1B33;
+      --navy-light: #142240;
+      --navy-lighter: #1A2D4F;
+      --orange: #F5A623;
+      --orange-hover: #E09515;
+      --green: #22C55E;
+      --green-bg: rgba(34, 197, 94, 0.15);
+      --white: #FFFFFF;
+      --white-70: rgba(255, 255, 255, 0.7);
+      --white-50: rgba(255, 255, 255, 0.5);
+      --white-30: rgba(255, 255, 255, 0.3);
+      --white-15: rgba(255, 255, 255, 0.15);
+      --white-08: rgba(255, 255, 255, 0.08);
+      --white-05: rgba(255, 255, 255, 0.05);
+    }
+
+    html { scroll-behavior: smooth; }
+    h1, h2, h3, .step-title, .subtitle { text-wrap: balance; }
+    p { text-wrap: pretty; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+    }
+
+    /* ─── UTILITY ─── */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+    .container-wide { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+    .text-center { text-align: center; }
+    .section { padding: 64px 0; }
+    .section-lg { padding: 80px 0; }
+
+    /* ─── HEADER ─── */
+    .header {
+      padding: 24px 0;
+      border-bottom: none;
+    }
+    .logo { height: 40px; width: auto; filter: none; }
+
+    /* ─── HERO / CONFIRMATION ─── */
+    .hero { padding: 40px 0 24px; }
+    .confirm-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .check-circle {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--green-bg);
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      animation: scaleIn 0.5s ease-out;
+    }
+    @keyframes scaleIn {
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .check-icon { width: 24px; height: 24px; color: var(--green); }
+
+    .hero h1 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .hero .subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--white-70);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ─── URGENCY NOTICE ─── */
+    .urgency-banner {
+      background: transparent;
+      border: 1px solid var(--white-15);
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin: 24px auto 0;
+      max-width: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--white-70);
+    }
+    .urgency-banner svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--orange); }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      height: 1px;
+      background: var(--white-08);
+      border: none;
+    }
+
+    /* ─── STEP SECTIONS ─── */
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .step-number {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .step-desc {
+      color: var(--white-70);
+      font-size: 16px;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+
+    /* ─── VIDEO CONTAINER ─── */
+    .video-wrapper {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--white-15);
+    }
+    .video-wrapper iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+      border: none;
+    }
+
+    /* ─── CALL EXPECTATIONS ─── */
+    .expect-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .expect-card {
+      background: var(--white-05);
+      border: 1px solid var(--white-08);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .expect-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .expect-icon svg { width: 22px; height: 22px; color: var(--navy); }
+    .expect-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .expect-card p {
+      color: var(--white-70);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ─── AUTHORITY STRIP ─── */
+    .authority-strip {
+      background: var(--navy-light);
+      border-top: 1px solid var(--white-08);
+      border-bottom: none;
+      padding: 40px 0;
+    }
+    .authority-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .authority-number {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      color: var(--orange);
+      line-height: 1.2;
+    }
+    .authority-label {
+      font-size: 13px;
+      color: var(--white-50);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    @media (min-width: 768px) {
+      .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .testimonial-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* ─── FAQ CARDS ─── */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    @media (min-width: 768px) {
+      .faq-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .faq-card {
+      background: var(--white-05);
+      border: 1px solid var(--white-08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .faq-video {
+      aspect-ratio: 16/9;
+      background: var(--navy-lighter);
+    }
+    .faq-label {
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      color: var(--orange);
+      margin-top: 1px;
+    }
+    .faq-label span {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    .testimonial-card {
+      background: var(--white-05);
+      border: 1px solid var(--white-08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .testimonial-video {
+      aspect-ratio: 16/9;
+      background: var(--navy-lighter);
+    }
+    .testimonial-info {
+      padding: 16px 20px;
+    }
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .testimonial-result {
+      color: var(--white-70);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* ─── PARTNER SECTION ─── */
+    .partner-section {
+      background: var(--navy-light);
+      border: 1px solid var(--white-08);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+    }
+    .partner-section h2 {
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .partner-section p {
+      color: var(--white-70);
+      font-size: 16px;
+      max-width: 560px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .share-btn:hover {
+      background: var(--orange-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(245, 166, 35, 0.3);
+    }
+    .share-btn svg { width: 18px; height: 18px; }
+
+    /* ─── HOMEWORK / PREP ─── */
+    .homework-list {
+      list-style: none;
+      counter-reset: hw;
+    }
+    .homework-item {
+      counter-increment: hw;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px 0;
+      border-bottom: none;
+    }
+    .homework-item:last-child { border-bottom: none; }
+    .homework-item::before {
+      content: counter(hw);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--white-08);
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .homework-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .homework-desc {
+      color: var(--white-70);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      border-top: 1px solid var(--white-08);
+      padding: 48px 0 32px;
+      text-align: center;
+    }
+    .footer-logo { height: 32px; width: auto; filter: none; opacity: 0.5; margin-bottom: 20px; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .footer-links a {
+      color: var(--white-30);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white-70); }
+    .footer-copy {
+      color: var(--white-30);
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+    .footer-disclaimer {
+      color: var(--white-30);
+      font-size: 11px;
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .footer-disclaimer p { margin-bottom: 12px; }
+
+    /* ─── DESKTOP: tighten above-the-fold ─── */
+    @media (min-width: 768px) {
+      .header { padding: 14px 0; }
+      .logo { height: 32px; }
+      .hero { padding: 16px 0 12px; }
+      .confirm-line { gap: 10px; }
+      .check-circle { width: 34px; height: 34px; }
+      .check-icon { width: 18px; height: 18px; }
+      .hero h1 { font-size: clamp(22px, 3.5vw, 30px); margin-bottom: 8px; }
+      .hero .subtitle { font-size: clamp(14px, 2vw, 17px); line-height: 1.5; }
+      .video-wrapper { margin-top: 16px !important; }
+      .urgency-banner { margin-top: 16px; padding: 10px 16px; font-size: 13px; }
+    }
+
+    /* ─── RESPONSIVE: mobile ─── */
+    @media (max-width: 767px) {
+      .section { padding: 48px 0; }
+      .section-lg { padding: 56px 0; }
+      .hero { padding: 40px 0 36px; }
+      .authority-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .partner-section { padding: 28px 20px; }
+      .expect-card { padding: 18px; }
+      .urgency-banner { flex-direction: column; text-align: center; gap: 6px; padding: 12px 16px; font-size: 14px; }
+    }
+
+    /* ─── SCROLL TRACKING HELPER ─── */
+    [data-track-section] { position: relative; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════ -->
+  <header class="header">
+    <div class="container text-center">
+      <img src="https://apply.selfstorageincome.com/logo-option-3.png" alt="Self Storage Income" class="logo" style="filter:none;">
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 1: CONFIRMATION HERO
+       Score target: 10/10 - Instant clarity + anxiety reduction
+       ═══════════════════════════════════════ -->
+  <section class="hero text-center" data-track-section="hero">
+    <div class="container">
+      <h1>
+        <span class="confirm-line">
+          <span class="check-circle">
+            <svg class="check-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </span>
+          You're confirmed.
+        </span><br>
+        AJ recorded this for you before your call.
+      </h1>
+      <p class="subtitle">
+        Press play first. Our team goes through your application and tells you exactly how to walk into this call ready instead of cold.
+      </p>
+
+      <!-- Video directly in hero -->
+      <div class="video-wrapper" style="margin-top: 32px;">
+        <script src="https://fast.wistia.com/embed/jntxrcy3n8.js" async type="module"></script>
+        <style>wistia-player[media-id='jntxrcy3n8']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/jntxrcy3n8/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+        <wistia-player media-id="jntxrcy3n8" aspect="1.7777777777777777"></wistia-player>
+      </div>
+
+      <div class="urgency-banner">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/>
+        </svg>
+        Don't get on this call cold &mdash; press play above. And if you decide with a spouse or partner, watch it with them.
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════
+       AUTHORITY STRIP - Credibility numbers
+       ═══════════════════════════════════════ -->
+  <section class="authority-strip" data-track-section="authority">
+    <div class="container-wide">
+      <div class="authority-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div>
+          <div class="authority-number">$400M+</div>
+          <div class="authority-label">In Storage Transactions</div>
+        </div>
+        <div>
+          <div class="authority-number">1,000+</div>
+          <div class="authority-label">Community Members</div>
+        </div>
+        <div>
+          <div class="authority-number">Forbes</div>
+          <div class="authority-label">Featured Contributor</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 3: WHAT TO EXPECT ON YOUR CALL
+       Score target: 10/10 - Show rate optimization
+       ═══════════════════════════════════════ -->
+  <section class="section-lg" data-track-section="expectations">
+    <div class="container">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <h2 class="step-title">What to Expect on Your Call</h2>
+      </div>
+      <p class="step-desc">
+        This is a real conversation about whether SSI is the right fit for your situation. Here's exactly what we'll cover:
+      </p>
+
+      <div class="expect-grid">
+        <div class="expect-card">
+          <div class="expect-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Your Current Situation</h3>
+            <p>We'll review where you are today: your capital, experience, timeline, and what kind of returns you're targeting with storage.</p>
+          </div>
+        </div>
+
+        <div class="expect-card">
+          <div class="expect-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/>
+            </svg>
+          </div>
+          <div>
+            <h3>The Opportunity in Storage Right Now</h3>
+            <p>We'll walk through the specific market conditions, deal flow, and why experienced investors are moving capital into storage facilities today.</p>
+          </div>
+        </div>
+
+        <div class="expect-card">
+          <div class="expect-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Your Personalized Path Forward</h3>
+            <p>If SSI is the right fit, we'll map out a clear action plan for evaluating and closing your first (or next) storage deal with support from the entire community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════
+       SECTION 4: HOMEWORK / PREP BEFORE CALL
+       Score target: 10/10 - Micro-commitment
+       ═══════════════════════════════════════ -->
+  <section class="section" data-track-section="homework">
+    <div class="container">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <h2 class="step-title">Prepare for Your Call</h2>
+      </div>
+      <p class="step-desc">
+        The more prepared you are, the more valuable our conversation will be. Take 5 minutes to think through these before your call:
+      </p>
+
+      <ul class="homework-list">
+        <li class="homework-item">
+          <div>
+            <div class="homework-title">Know your available capital</div>
+            <div class="homework-desc">How much are you looking to deploy into your first (or next) storage deal? We'll want to discuss realistic deal sizes for your budget.</div>
+          </div>
+        </li>
+        <li class="homework-item">
+          <div>
+            <div class="homework-title">Define your timeline</div>
+            <div class="homework-desc">Are you looking to move in the next 30 days, 90 days, or 6+ months? This helps us tailor the conversation to where you are.</div>
+          </div>
+        </li>
+        <li class="homework-item">
+          <div>
+            <div class="homework-title">Write down your top 2 questions</div>
+            <div class="homework-desc">What's the biggest thing holding you back from pulling the trigger on a storage deal? Bring those questions to the call.</div>
+          </div>
+        </li>
+        <li class="homework-item">
+          <div>
+            <div class="homework-title">Watch AJ's video above</div>
+            <div class="homework-desc">It covers the fundamentals so we can skip the basics and focus entirely on your specific situation during the call.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════
+       SECTION 5: TESTIMONIALS - Social Proof
+       Score target: 10/10 - Buyer's remorse prevention
+       ═══════════════════════════════════════ -->
+  <section class="section-lg" data-track-section="testimonials">
+    <div class="container-wide">
+      <h2 class="step-title text-center" style="margin-bottom: 8px;">Hear From Members Who Started Where You Are</h2>
+      <p class="step-desc text-center" style="max-width: 600px; margin: 0 auto 32px;">
+        These are real SSI community members sharing their real results. They were in your exact position before their first call.
+      </p>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-video">
+            <script src="https://fast.wistia.com/embed/ycfpp4jr5b.js" async type="module"></script>
+            <wistia-player media-id="ycfpp4jr5b" aspect="1.7777777777777777"></wistia-player>
+          </div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Jyoti</div>
+            <div class="testimonial-result">Owner-operator in Georgia. Owns 4 facilities. Used SSI training and community to take over management herself, build repeatable systems, and stop relying on third-party property managers. Now expanding.</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-video">
+            <script src="https://fast.wistia.com/embed/qycbrchykw.js" async type="module"></script>
+            <wistia-player media-id="qycbrchykw" aspect="1.7777777777777777"></wistia-player>
+          </div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Jacob</div>
+            <div class="testimonial-result">Joined SSI as an insurance policy to make smart decisions. Learned to analyze markets, underwrite deals, submit LOIs, and build broker networks. Purchased 3 facilities and got them operating in just 5 months.</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-video">
+            <script src="https://fast.wistia.com/embed/n2r1p3su6z.js" async type="module"></script>
+            <wistia-player media-id="n2r1p3su6z" aspect="1.7777777777777777"></wistia-player>
+          </div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Arunav (AC)</div>
+            <div class="testimonial-result">Tech professional from Austin, TX. Zero storage experience before joining in Nov 2023. Closed a 120-unit seller-financed deal outside Houston at 4% interest-only for $1.1M within his first 4 months. Used SSI's underwriting spreadsheet to find a deal he would have otherwise passed on.</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-video">
+            <iframe src="https://www.youtube.com/embed/lKKzkMdqftE" title="Bill &amp; Korbin testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;display:block;"></iframe>
+          </div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Bill &amp; Korbin</div>
+            <div class="testimonial-result">Partners from Utah. 19 locations. Started in 2017 with zero resources, no podcasts, no community. Bought their first portfolio for $1.1M, sold for $3.2M in 5 years. Took a $240K facility from $1,500/mo to $5,000/mo revenue. Now expanding nationwide.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PARTNER/SPOUSE SECTION hidden until PDF is built -->
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════
+       SECTION: FAQ VIDEOS
+       ═══════════════════════════════════════ -->
+  <section class="section-lg" data-track-section="faq">
+    <div class="container-wide">
+      <h2 class="step-title text-center" style="margin-bottom: 8px;">Common Questions, Answered</h2>
+      <p class="step-desc text-center" style="max-width: 600px; margin: 0 auto 32px;">
+        Hear George, SSI co-founder, answer the most common questions before your call.
+      </p>
+
+      <div class="faq-grid">
+        <div class="faq-card">
+          <div class="faq-video">
+            <script src="https://fast.wistia.com/embed/ca24u8khx2.js" async type="module"></script>
+            <wistia-player media-id="ca24u8khx2" aspect="1.7777777777777777"></wistia-player>
+          </div>
+          <div class="faq-label">
+            <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"/></svg>
+            <span>Do I need experience in real estate investing?</span>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-video">
+            <script src="https://fast.wistia.com/embed/mgqn75575s.js" async type="module"></script>
+            <wistia-player media-id="mgqn75575s" aspect="1.7777777777777777"></wistia-player>
+          </div>
+          <div class="faq-label">
+            <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"/></svg>
+            <span>How much does a storage facility cost?</span>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-video">
+            <script src="https://fast.wistia.com/embed/7bz6lup4fn.js" async type="module"></script>
+            <wistia-player media-id="7bz6lup4fn" aspect="1.7777777777777777"></wistia-player>
+          </div>
+          <div class="faq-label">
+            <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"/></svg>
+            <span>I have a full-time job &mdash; can I still do this?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <img src="https://apply.selfstorageincome.com/logo-option-3.png" alt="Self Storage Income" class="footer-logo">
+      <div class="footer-links">
+        <a href="https://selfstorageincome.com/terms" target="_blank" rel="noopener">Terms</a>
+        <a href="https://selfstorageincome.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="https://selfstorageincome.com" target="_blank" rel="noopener">selfstorageincome.com</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 Self Storage Income. All rights reserved.</p>
+      <div class="footer-disclaimer">
+        <p>
+          This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.
+        </p>
+        <p>
+          DISCLAIMER: The sales figures and results stated on this page are personal results of our members. These results are not typical. We are not implying you will duplicate them. The average person who buys any "how to" information gets little to no results. We are using these references for example purposes only. Your results will vary and depend on many factors including but not limited to your background, experience, and work ethic. All business entails risk as well as massive and consistent effort and action.
+        </p>
+        <p>
+          All investments involve risk, including loss of principal. Past performance does not guarantee future results. Self storage investing carries risks specific to real estate and should be considered carefully. Consult a qualified financial advisor before making investment decisions.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════ -->
+  <script>
+    // Share / Copy link
+    function copyPageLink(btn) {
+      var url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function() {
+          showCopied(btn);
+        });
+      } else {
+        // Fallback
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showCopied(btn);
+      }
+    }
+    function showCopied(btn) {
+      var span = btn.querySelector('span');
+      var orig = span.textContent;
+      span.textContent = 'Link Copied!';
+      setTimeout(function() { span.textContent = orig; }, 2500);
+    }
+
+    // Scroll depth tracking (fires at 25%, 50%, 75%, 100%)
+    (function() {
+      var fired = {};
+      var thresholds = [25, 50, 75, 100];
+      function getScrollPercent() {
+        var h = document.documentElement;
+        var b = document.body;
+        var st = 'scrollTop';
+        var sh = 'scrollHeight';
+        return Math.round((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100);
+      }
+      window.addEventListener('scroll', function() {
+        var pct = getScrollPercent();
+        for (var i = 0; i < thresholds.length; i++) {
+          var t = thresholds[i];
+          if (pct >= t && !fired[t]) {
+            fired[t] = true;
+            // Clarity custom tag
+            if (window.clarity) { window.clarity('set', 'scroll_depth', t + '%'); }
+            // Could add additional tracking here
+          }
+        }
+      }, { passive: true });
+    })();
+
+    // Section visibility tracking
+    (function() {
+      if (!('IntersectionObserver' in window)) return;
+      var sections = document.querySelectorAll('[data-track-section]');
+      var viewed = {};
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var name = entry.target.getAttribute('data-track-section');
+            if (!viewed[name]) {
+              viewed[name] = true;
+              if (window.clarity) { window.clarity('set', 'section_viewed', name); }
+            }
+          }
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(function(s) { observer.observe(s); });
+    })();
+  </script>
+
+</body>
+</html>
