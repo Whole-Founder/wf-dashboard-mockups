@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSI Warm Asset-Delivery Page · Wireframe v1 (F1)</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+/* ============================================================================
+   WF WIREFRAME KIT · tokens v2 (annotated / copyless)
+   Canonical copy will live at wf-funnel-wiki/wireframe-kit/starter/tokens.css
+   Inlined here so the deployed preview is one self-contained file.
+
+   What v2 adds over v1: the ANNOTATED SLOT (.slot / .slot-type / .budget /
+   .job / .fill) and the SECTION SPEC RAIL (.spec). A wireframe carries no
+   finished copy; it carries labelled slots with a word budget and a job, so
+   the page IS the copy brief.
+
+   Colour discipline: grayscale + ONE amber signal (annotation / open question).
+   ============================================================================ */
+:root{
+  --wf-ink:#111827; --wf-body:#374151; --wf-muted:#6b7280; --wf-line:#d1d5db;
+  --wf-bg:#ffffff; --wf-bg-alt:#f9fafb; --wf-slate:#94a3b8; --wf-slate-d:#475569;
+  --wf-amber-bg:#fffbeb; --wf-amber-ink:#92400e; --wf-amber-line:#f59e0b;
+  --wf-mono: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{ font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background:#e5e7eb; color:var(--wf-ink); -webkit-text-size-adjust:100%; }
+img{ max-width:100%; }
+
+/* ---- page shell ---------------------------------------------------------- */
+.page{ max-width:1280px; margin:0 auto; background:var(--wf-bg); }
+.sec{ padding:1.25rem 1rem 1.5rem; border-top:1px solid var(--wf-line); }
+@media(min-width:768px){ .sec{ padding:1.75rem 3rem 2.25rem; } }
+.sec--alt{ background:var(--wf-bg-alt); }
+.wrap{ max-width:760px; margin:0 auto; }
+.wrap-wide{ max-width:1040px; margin:0 auto; }
+.center{ text-align:center; }
+
+/* ---- section badge ------------------------------------------------------- */
+.secbadge{ font-family:var(--wf-mono); font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--wf-muted); display:flex; flex-wrap:wrap;
+  align-items:center; gap:.4rem; margin-bottom:.15rem; }
+.secbadge .n{ background:var(--wf-ink); color:#fff; border-radius:4px; padding:.1rem .35rem; font-weight:700; }
+.tag{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; border:1px solid var(--wf-line);
+  border-radius:99px; padding:.05rem .4rem; color:var(--wf-slate-d); background:#fff; }
+.tag--swap{ border-color:var(--wf-ink); color:var(--wf-ink); font-weight:700; }
+.secwhy{ font-size:11px; color:var(--wf-slate); margin:0 0 .75rem; line-height:1.4; }
+
+/* ---- SECTION SPEC RAIL · .spec -------------------------------------------
+   Answers, per section: layout, fold budget, media, element form + count,
+   and the reference we are building against. This is the half of the
+   wireframe a DESIGNER and a BUILDER read.                                   */
+.spec{ display:grid; grid-template-columns:5.5rem 1fr; gap:.2rem .7rem; margin:0 0 1rem;
+  background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:.6rem .7rem; }
+.spec dt{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--wf-slate); padding-top:.12rem; }
+.spec dd{ margin:0; font-size:11px; line-height:1.45; color:var(--wf-slate-d); }
+
+/* ---- ANNOTATED SLOT · .slot ----------------------------------------------
+   The atom of a next-level wireframe. Type + budget + job + a fill rendered
+   at the real size, so hierarchy is legible with no words on the page.
+   This is the half of the wireframe a COPYWRITER reads.                      */
+.slot{ border:1px dashed #cbd5e1; border-radius:6px; background:#fff; padding:.55rem .65rem; }
+.slot + .slot, .slot + .g2, .slot + .g3, .g2 + .slot, .g3 + .slot{ margin-top:.55rem; }
+/* wraps deliberately: in a narrow grid column the type label and the budget
+   chip together exceed the column, and a nowrap chip would push the grid wider
+   than the viewport. Wrapping keeps the annotation legible at 375px. */
+.slot-hd{ display:flex; align-items:center; justify-content:space-between;
+  gap:.25rem .5rem; margin-bottom:.4rem; flex-wrap:wrap; }
+.slot-type{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--wf-slate); font-weight:700; }
+.budget{ font-family:var(--wf-mono); font-size:9px; color:var(--wf-slate-d); background:#f1f5f9;
+  border:1px solid #e2e8f0; border-radius:99px; padding:.1rem .45rem; white-space:nowrap; }
+.job{ font-size:10.5px; line-height:1.4; color:var(--wf-slate); margin-top:.4rem; }
+.job::before{ content:"Job: "; font-weight:700; color:var(--wf-slate-d); }
+
+/* fills · the label IS the placeholder, set at the real type size */
+.fill{ color:var(--wf-ink); line-height:1.15; margin:0; }
+.fill-h1{ font-size:1.55rem; font-weight:800; letter-spacing:-.01em; }
+.fill-h2{ font-size:1.25rem; font-weight:800; letter-spacing:-.01em; }
+.fill-h3{ font-size:1rem; font-weight:700; }
+.fill-sub{ font-size:.9rem; font-weight:500; color:var(--wf-body); line-height:1.35; }
+.fill-body{ font-size:.8rem; font-weight:400; color:var(--wf-body); }
+.fill-stat{ font-size:1.5rem; font-weight:800; }
+@media(min-width:768px){
+  .fill-h1{ font-size:2.6rem; } .fill-h2{ font-size:1.75rem; } .fill-h3{ font-size:1.1rem; }
+  .fill-sub{ font-size:1.05rem; } .fill-body{ font-size:.9rem; } .fill-stat{ font-size:2rem; }
+}
+/* line fills · N grey bars at body size, so length is visible without words */
+.lines{ display:block; }
+.lines i{ display:block; height:.55rem; background:#e5e7eb; border-radius:3px; margin-bottom:.3rem; }
+.lines i:last-child{ width:62%; margin-bottom:0; }
+
+/* ---- IMAGE / MEDIA PLACEHOLDER · .ph ------------------------------------- */
+.ph{ background-image:repeating-linear-gradient(45deg,#e5e7eb 0 12px,#eef1f4 12px 24px);
+  border:1px dashed #9ca3af; color:var(--wf-muted); display:flex; align-items:center;
+  justify-content:center; text-align:center; font-size:11px; letter-spacing:.02em;
+  padding:1rem; border-radius:6px; font-family:var(--wf-mono); }
+.ph-video{ aspect-ratio:16/9; }
+.ph-sq{ aspect-ratio:1/1; }
+.ph-port{ aspect-ratio:3/4; }
+
+/* ---- BUTTON · one label family, repeated -------------------------------- */
+.wirebtn-solid{ background:var(--wf-ink); color:#fff; display:inline-block; border-radius:99px;
+  padding:.7rem 1.6rem; font-size:.85rem; font-weight:700; text-decoration:none; }
+.wirebtn{ border:1.5px solid var(--wf-ink); color:var(--wf-ink); display:inline-block;
+  border-radius:99px; padding:.6rem 1.3rem; font-size:.8rem; font-weight:700; text-decoration:none; }
+
+/* ---- CARD / FIELD -------------------------------------------------------- */
+.card{ border:1px solid var(--wf-line); border-radius:8px; padding:.75rem; background:#fff; }
+.field{ border:1px solid #cbd5e1; background:#f8fafc; border-radius:6px; padding:.6rem .7rem;
+  font-size:.8rem; color:var(--wf-muted); font-family:var(--wf-mono); }
+
+/* ---- ANNOTATION + OPEN QUESTION · amber, the only non-grey signal -------- */
+.note{ background:var(--wf-amber-bg); border-left:3px solid var(--wf-amber-line);
+  color:var(--wf-amber-ink); font-size:11px; line-height:1.45; padding:.5rem .65rem;
+  border-radius:0 6px 6px 0; margin:.9rem 0 0; }
+.delta{ background:var(--wf-amber-bg); border:1px dashed var(--wf-amber-line);
+  color:var(--wf-amber-ink); font-size:11px; line-height:1.5; padding:.6rem .7rem;
+  border-radius:6px; margin:.9rem 0 0; }
+.delta b{ font-family:var(--wf-mono); letter-spacing:.06em; }
+.pending{ background:#fef3c7; color:var(--wf-amber-ink); border:1px dashed #d97706;
+  border-radius:5px; padding:.3rem .5rem; font-size:10.5px; display:inline-block; }
+
+/* ---- GRIDS --------------------------------------------------------------- */
+.g2,.g3{ display:grid; gap:.7rem; }
+.g2{ grid-template-columns:1fr; } .g3{ grid-template-columns:1fr; }
+@media(min-width:768px){
+  .g2{ grid-template-columns:1fr 1fr; }
+  .g3{ grid-template-columns:repeat(3,1fr); }
+  .g2--split{ grid-template-columns:1.15fr .85fr; }
+  .g2--port{ grid-template-columns:.4fr 1fr; }
+}
+.g3-tight{ display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
+/* grid children default to min-width:auto, which lets a nowrap child blow the
+   track out past the viewport. Pin them to 0 so the track governs. */
+.g2 > *, .g3 > *, .g3-tight > *{ min-width:0; }
+.g3-tight .slot{ padding:.45rem .4rem; }
+.g3-tight .budget{ font-size:8.5px; padding:.08rem .35rem; }
+.job, .fill, .spec dd{ overflow-wrap:anywhere; }
+
+/* ---- WIREFRAME CHROME (strip before F2) ---------------------------------- */
+.chrome{ position:sticky; top:0; z-index:60; background:#111827; color:#e5e7eb;
+  font-size:10.5px; padding:.5rem .75rem; display:flex; flex-wrap:wrap; gap:.35rem .9rem;
+  align-items:center; justify-content:center; font-family:var(--wf-mono); }
+.chrome .ttl{ font-weight:700; letter-spacing:.08em; }
+.chrome .dim{ color:#9ca3af; }
+.chrome .amb{ color:#fcd34d; }
+.legend{ max-width:1280px; margin:0 auto; background:#f8fafc; border-bottom:1px solid var(--wf-line);
+  padding:.9rem 1rem; font-size:11px; line-height:1.5; color:var(--wf-slate-d); }
+@media(min-width:768px){ .legend{ padding:1rem 3rem; } }
+.legend h3{ font-family:var(--wf-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--wf-muted); margin:0 0 .5rem; }
+.legend ul{ margin:.35rem 0 0; padding-left:1.1rem; }
+.legend li{ margin-bottom:.25rem; }
+.legend code{ font-family:var(--wf-mono); background:#e2e8f0; border-radius:3px; padding:0 .25rem; font-size:10px; }
+
+/* ---- STICKY MOBILE CTA --------------------------------------------------- */
+.stickycta{ position:sticky; bottom:0; z-index:50; background:#fff; border-top:1px solid var(--wf-line);
+  padding:.5rem .75rem; text-align:center; }
+@media(min-width:768px){ .stickycta{ display:none; } }
+
+/* ---- COPY BRIEF TABLE ---------------------------------------------------- */
+.brief{ max-width:1280px; margin:0 auto; background:#fff; padding:1.5rem 1rem 3rem;
+  border-top:6px solid var(--wf-ink); }
+@media(min-width:768px){ .brief{ padding:2rem 3rem 4rem; } }
+.tablewrap{ overflow-x:auto; border:1px solid var(--wf-line); border-radius:8px; }
+table.cb{ border-collapse:collapse; width:100%; min-width:720px; font-size:11px; }
+table.cb th,table.cb td{ text-align:left; padding:.45rem .6rem; border-bottom:1px solid #e5e7eb;
+  vertical-align:top; line-height:1.4; }
+table.cb th{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--wf-muted); background:#f8fafc; }
+table.cb tr.grp td{ background:#f1f5f9; font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--wf-slate-d); font-weight:700; }
+table.cb td.t{ font-family:var(--wf-mono); font-size:9.5px; color:var(--wf-slate-d); white-space:nowrap; }
+table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; }
+</style>
+</head>
+<body>
+
+<!-- ===== WIREFRAME CHROME · not part of the page. Strip before F2. ===== -->
+<div class="chrome">
+  <span class="ttl">SSI · WARM ASSET-DELIVERY PAGE · WIREFRAME v1</span>
+  <span class="dim">F1 · structure + slots, no copy, no brand</span>
+  <span class="dim">Review at 375px and 1440px</span>
+  <span class="amb">amber = open question</span>
+</div>
+
+<div class="legend">
+  <h3>How to read this wireframe</h3>
+  <p style="margin:0">A wireframe locks <b>structure</b>, not words. Every content slot below is a labelled box carrying three things, so the page doubles as the copy brief. Full table at the bottom.</p>
+  <ul>
+    <li><code>SLOT TYPE</code> what goes in the box: H1, subhead, body, bullet, CTA, stat, image, video.</li>
+    <li><code>WORD BUDGET</code> the length the layout is built for. Writing outside it breaks the fold.</li>
+    <li><code>JOB</code> the one thing that slot has to accomplish. Write to the job, not to the box.</li>
+    <li><code>SPEC</code> the grey rail above each section: layout, fold budget, media, element counts, reference.</li>
+    <li><code>DELTA</code> amber blocks are genuine open questions for the Gero and Natalya sync. There are four.</li>
+  </ul>
+</div>
+
+<div class="page">
+
+<!-- ============================================================= -->
+<!-- CHROME · AUDIENCE TOP BANNER + STICKY HEADER -->
+<!-- ============================================================= -->
+<section id="chrome" class="sec sec--alt">
+  <div class="secbadge"><span class="n">C</span> Chrome · audience banner + header <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">Earns its pixels by doing two jobs in under two seconds: tell the visitor they are in the right place, and give exactly one way forward.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>Full-bleed banner strip above a sticky header. Header: logo left, one button right. No nav links.</dd>
+    <dt>Folds</dt><dd>0.1 desktop / 0.15 mobile. Banner is one line at 375px, never two.</dd>
+    <dt>Media</dt><dd>Logo lockup only. Banner is text, unbranded.</dd>
+    <dt>Elements</dt><dd>1 banner line · 1 logo · 1 button. No secondary button anywhere on this page.</dd>
+    <dt>Reference</dt><dd>Funnel Thesis board: "audience top banner" leads LM-A, EVNT-A and DTO-A. Live SSI page uses a callout strip in the same slot.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Banner line</span><span class="budget">6 to 12 words</span></div>
+      <p class="fill fill-body center">AUDIENCE BANNER</p>
+      <p class="job">Name the audience so the right person self-identifies instantly. States who the page is for, not what the offer is.</p>
+    </div>
+    <div class="g2" style="margin-top:.55rem; align-items:start">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Logo</span><span class="budget">image</span></div>
+        <div class="ph" style="height:44px">LOGO · client mark, horizontal lockup</div>
+        <p class="job">Legitimacy in one glance. Sized so it never competes with the H1.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Header CTA</span><span class="budget">2 to 4 words</span></div>
+        <div class="center"><a href="#cta" class="wirebtn">CTA LABEL</a></div>
+        <p class="job">The only ask in the chrome. This exact label repeats at every CTA on the page. One label family, no variants.</p>
+      </div>
+    </div>
+    <div class="note"><b>Label discipline.</b> The live SSI page uses a qualify-style label rather than a book-a-call label, because the first booking is a setter call, not the strategy call. Whatever label is chosen, it repeats unchanged at the header, mid-page CTA, final CTA and sticky mobile bar.</div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S1 · ASSET DELIVERY (the SWAP section) -->
+<!-- ============================================================= -->
+<section id="s1" class="sec">
+  <div class="secbadge"><span class="n">S1</span> Asset delivery <span class="tag tag--swap">SWAP</span></div>
+  <p class="secwhy">The visitor clicked an email to watch a video. This section delivers exactly that and nothing else. It is the only section that changes between page variants.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>1 column, centred, max 760px. Headline above the video on both breakpoints.</dd>
+    <dt>Folds</dt><dd>1.0 desktop / 1.5 mobile. Video must be at least half visible at 375px without scrolling.</dd>
+    <dt>Media</dt><dd>VIDEO 16:9, click-to-play, poster frame. Source for variant 1: the valuation training on the authority's own channel.</dd>
+    <dt>Elements</dt><dd>H1 (2 lines) · subhead (1 to 2 lines) · video · scroll cue. No form. No hard CTA.</dd>
+    <dt>Reference</dt><dd>Live SSI page S1. Variants 2 to 5 swap the video and H1 only, everything below stays identical.</dd>
+  </dl>
+  <div class="wrap center">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H1 · headline</span><span class="budget">8 to 14 words</span></div>
+      <p class="fill fill-h1">HEADLINE<br>SECOND LINE ACCENTED</p>
+      <p class="job">Deliver the promise the email made. This is the asset's own promise, what the video teaches, not what the program sells. Set to break across two lines with the payoff on line two.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">12 to 20 words</span></div>
+      <p class="fill fill-sub">SUBHEAD · one line of context, who this is for</p>
+      <p class="job">Pass the five-second relevance test. Say who the video is for and why it matters now.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Video</span><span class="budget">media · 16:9</span></div>
+      <div class="ph ph-video">VIDEO · the delivered asset<br>click-to-play, poster frame, no autoplay</div>
+      <p class="job">The hero of this section. Everything above it exists to get the play click.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Scroll cue</span><span class="budget">2 to 5 words</span></div>
+      <p class="fill fill-body">SCROLL CUE</p>
+      <p class="job">Move the visitor down without asking for anything. They have no offer context yet, so there is nothing to say yes to.</p>
+    </div>
+    <div class="delta"><b>DELTA A · open</b><br>The live SSI page carries a hard CTA button inside the hero. The standard says S1 delivers the asset with no hard ask, because the visitor arrives with zero offer context. This wireframe shows the soft version. <b>Decision needed:</b> soft scroll cue, or hero CTA. Recommendation: ship soft, then A/B the hero CTA as test one.</div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- PROOF STRIP -->
+<!-- ============================================================= -->
+<section id="proofstrip" class="sec sec--alt">
+  <div class="secbadge"><span class="n">P</span> Proof strip <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">Aggregate credibility in one glance, immediately after the video, before any claim is made.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>3 columns at every breakpoint. Stays 3-up at 375px, so numbers stay compact rather than stacking into a wall.</dd>
+    <dt>Folds</dt><dd>0.15 desktop / 0.2 mobile.</dd>
+    <dt>Media</dt><dd>None. Numbers only, no logos.</dd>
+    <dt>Elements</dt><dd>3 stat pairs. Number plus label. Never more than 3.</dd>
+    <dt>Reference</dt><dd>Live SSI page: member count, total transacted, fastest deal. Cleared figures only.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="g3-tight">
+      <div class="slot center">
+        <div class="slot-hd"><span class="slot-type">Stat 1</span><span class="budget">num + 2-4w</span></div>
+        <p class="fill fill-stat">STAT</p>
+        <p class="fill fill-body">LABEL</p>
+        <p class="job">Scale. How big is this room.</p>
+      </div>
+      <div class="slot center">
+        <div class="slot-hd"><span class="slot-type">Stat 2</span><span class="budget">num + 2-4w</span></div>
+        <p class="fill fill-stat">STAT</p>
+        <p class="fill fill-body">LABEL</p>
+        <p class="job">Money. The scoreboard number.</p>
+      </div>
+      <div class="slot center">
+        <div class="slot-hd"><span class="slot-type">Stat 3</span><span class="budget">num + 2-4w</span></div>
+        <p class="fill fill-stat">STAT</p>
+        <p class="fill fill-body">LABEL</p>
+        <p class="job">Speed. How fast this can work.</p>
+      </div>
+    </div>
+    <div class="note"><b>Proof honesty.</b> Only cleared, source-verified figures appear here. Anything not cleared stays out of the wireframe entirely rather than being filled with a placeholder number.</div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S2 · BRIDGE -->
+<!-- ============================================================= -->
+<section id="s2" class="sec">
+  <div class="secbadge"><span class="n">S2</span> Bridge · asset to system <span class="tag">CONSTANT</span> <span class="tag">CUSTOMIZE in V2</span></div>
+  <p class="secwhy">The seam an indirect funnel lives or dies on. It reframes the video from an answer into a first step, which is the only reason the visitor keeps reading.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>1 column, centred, max 680px. Deliberately narrow and short so it reads as a turn, not a section.</dd>
+    <dt>Folds</dt><dd>0.5 desktop / 0.7 mobile.</dd>
+    <dt>Media</dt><dd>Optional simple diagram, asset to system. Cut it if the copy carries the turn alone.</dd>
+    <dt>Elements</dt><dd>H2 · 2 lines of body · optional diagram. No CTA.</dd>
+    <dt>Reference</dt><dd>On the live SSI page this line is fused into the section below. Pulling it out as its own beat is the V1 to V2 upgrade.</dd>
+  </dl>
+  <div class="wrap center">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H2 · the reframe</span><span class="budget">6 to 12 words</span></div>
+      <p class="fill fill-h2">THE REFRAME</p>
+      <p class="job">State that the asset was the beginning, not the answer. The turn from teaching to offering happens in this one line.</p>
+    </div>
+    <div class="slot" style="text-align:left">
+      <div class="slot-hd"><span class="slot-type">Body</span><span class="budget">25 to 40 words</span></div>
+      <div class="lines"><i></i><i></i><i></i></div>
+      <p class="job">Name that a system exists behind the asset, without naming the program yet. Two lines maximum.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Diagram (optional)</span><span class="budget">image</span></div>
+      <div class="ph" style="height:80px">DIAGRAM · asset leads to system · optional, cut if copy carries it</div>
+      <p class="job">Make the turn visual for scanners who will not read the body.</p>
+    </div>
+    <div class="note"><b>V2 upgrade.</b> In V1 this bridge is written once and reused across every video variant. In V2 it is rewritten per video, picking up exactly where that specific video left off.</div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S3 · PROGRAM + MECHANISM + VALUE PROP -->
+<!-- ============================================================= -->
+<section id="s3" class="sec sec--alt">
+  <div class="secbadge"><span class="n">S3</span> The program · mechanism · value prop <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">The first real introduction of the offer. This is the page's spine, and everything below it is proof of what is claimed here.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>2 columns on desktop: numbered steps left, data panel right. Single column at 375px, steps first.</dd>
+    <dt>Folds</dt><dd>1.8 desktop / 3.0 mobile. The longest section on the page, and the only one allowed past one fold.</dd>
+    <dt>Media</dt><dd>One data panel or figure. Not a photo. It shows the mechanism working on real numbers.</dd>
+    <dt>Elements</dt><dd>Eyebrow · H2 · subhead · 5 numbered steps · 1 data panel · 1 outcome card with 3 bullets · 1 objection-reversal line.</dd>
+    <dt>Reference</dt><dd>Live SSI page: 5 mechanism steps plus the valuation snapshot panel and the outcome card.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Eyebrow</span><span class="budget">2 to 4 words</span></div>
+      <p class="fill fill-body">EYEBROW</p>
+      <p class="job">Signal the section change. Small, uppercase, never a sentence.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H2 · program + value prop</span><span class="budget">8 to 14 words</span></div>
+      <p class="fill fill-h2">PROGRAM NAME + VALUE PROP</p>
+      <p class="job">Name the program for the first time and state the value prop in one breath. Assume the visitor has never heard the name before.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">15 to 25 words</span></div>
+      <p class="fill fill-sub">SUBHEAD · built by the same person whose video you just watched</p>
+      <p class="job">Tie the program back to the authority in the video. This is the congruence link that makes the bridge hold.</p>
+    </div>
+
+    <div class="g2 g2--split" style="margin-top:.9rem">
+      <div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Mechanism · 5 numbered steps</span><span class="budget">step name 2-4 w · body 12-20 w</span></div>
+          <div style="display:grid; gap:.5rem">
+            <div class="card"><p class="fill fill-h3">1 · STEP NAME</p><div class="lines" style="margin-top:.35rem"><i></i><i></i></div></div>
+            <div class="card"><p class="fill fill-h3">2 · STEP NAME</p><div class="lines" style="margin-top:.35rem"><i></i><i></i></div></div>
+            <div class="card"><p class="fill fill-h3">3 · STEP NAME</p><div class="lines" style="margin-top:.35rem"><i></i><i></i></div></div>
+            <div class="card"><p class="fill fill-h3">4 · STEP NAME</p><div class="lines" style="margin-top:.35rem"><i></i><i></i></div></div>
+            <div class="card"><p class="fill fill-h3">5 · STEP NAME</p><div class="lines" style="margin-top:.35rem"><i></i><i></i></div></div>
+          </div>
+          <p class="job">Name the mechanism as a verb sequence a person can repeat back. Different, not better. Five steps is the ceiling, not the target.</p>
+        </div>
+      </div>
+      <div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Data panel</span><span class="budget">figure + 3 labels</span></div>
+          <div class="ph" style="height:170px">DATA PANEL · the mechanism run on real numbers</div>
+          <p class="job">Show the mechanism producing an answer, not describe it. A number the visitor can check beats a claim they have to trust.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Outcome card</span><span class="budget">H3 4-8 w · 3 bullets 6-12 w</span></div>
+          <div class="card">
+            <p class="fill fill-h3">WHAT YOU WALK AWAY WITH</p>
+            <div class="lines" style="margin-top:.45rem"><i></i><i></i><i></i></div>
+          </div>
+          <p class="job">Convert the mechanism into a possession. What the buyer has at the end that they do not have now.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slot" style="margin-top:.55rem">
+      <div class="slot-hd"><span class="slot-type">Objection reversal</span><span class="budget">10 to 18 words</span></div>
+      <p class="fill fill-body">OBJECTION REVERSAL · state plainly what this is not</p>
+      <p class="job">Kill the biggest misread of the mechanism before proof, in one sentence, without hedging.</p>
+    </div>
+    <div class="delta"><b>DELTA D · open</b><br>The live SSI page gives the authority its own section further down. The client-agnostic standard folds authority lightly into this section instead. This wireframe keeps it as its own section at S6, because the list already follows this authority. <b>Decision needed:</b> keep S6 as a standalone About section, or fold it into S3 and shorten the page by roughly half a fold.</div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S4 · PROOF WALL -->
+<!-- ============================================================= -->
+<section id="s4" class="sec">
+  <div class="secbadge"><span class="n">S4</span> Proof it works <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">The x-ray section. Third-party results carry more weight here than the authority's own numbers, because the authority is already the reason the visitor is on the page.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>3 columns desktop, 2 rows. 1 column at 375px. Cards equal height, no card taller than its neighbours.</dd>
+    <dt>Folds</dt><dd>1.2 desktop / 3.5 mobile.</dd>
+    <dt>Media</dt><dd>6 real screenshots or portraits, one per card. Cleared cases only. No stock.</dd>
+    <dt>Elements</dt><dd>H2 · subhead · 6 proof cards. Each card: image, name, headline result, detail.</dd>
+    <dt>Reference</dt><dd>Live SSI page proof wall, 6 source-verified member deals, assets already in the repo.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="slot center">
+      <div class="slot-hd"><span class="slot-type">H2 · states the finding</span><span class="budget">6 to 12 words</span></div>
+      <p class="fill fill-h2">THE FINDING, NOT THE TOPIC</p>
+      <p class="job">Say what the proof proves. A header that names the topic wastes the strongest section on the page.</p>
+    </div>
+    <div class="slot center">
+      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">10 to 18 words</span></div>
+      <p class="fill fill-sub">SUBHEAD · frame what these people had in common before</p>
+      <p class="job">Make the results feel reachable by naming the starting point, not the finish line.</p>
+    </div>
+    <div class="g3" style="margin-top:.7rem">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Proof card 1</span><span class="budget">see card spec</span></div>
+        <div class="ph ph-sq" style="max-height:130px">PROOF IMAGE · real member</div>
+        <p class="fill fill-h3" style="margin-top:.45rem">NAME</p>
+        <p class="fill fill-body">HEADLINE RESULT · 4 to 8 words</p>
+        <div class="lines" style="margin-top:.35rem"><i></i><i></i></div>
+        <p class="job">One member, one number. A testimonial without a number is decoration.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Proof card 2</span><span class="budget">see card spec</span></div>
+        <div class="ph ph-sq" style="max-height:130px">PROOF IMAGE · real member</div>
+        <p class="fill fill-h3" style="margin-top:.45rem">NAME</p>
+        <p class="fill fill-body">HEADLINE RESULT · 4 to 8 words</p>
+        <div class="lines" style="margin-top:.35rem"><i></i><i></i></div>
+        <p class="job">Vary the shape of the win across the six, so the wall does not read as one repeated story.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Proof card 3</span><span class="budget">see card spec</span></div>
+        <div class="ph ph-sq" style="max-height:130px">PROOF IMAGE · real member</div>
+        <p class="fill fill-h3" style="margin-top:.45rem">NAME</p>
+        <p class="fill fill-body">HEADLINE RESULT · 4 to 8 words</p>
+        <div class="lines" style="margin-top:.35rem"><i></i><i></i></div>
+        <p class="job">Speed proof. Someone who got there fast.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Proof card 4</span><span class="budget">see card spec</span></div>
+        <div class="ph ph-sq" style="max-height:130px">PROOF IMAGE · real member</div>
+        <p class="fill fill-h3" style="margin-top:.45rem">NAME</p>
+        <p class="fill fill-body">HEADLINE RESULT · 4 to 8 words</p>
+        <div class="lines" style="margin-top:.35rem"><i></i><i></i></div>
+        <p class="job">Negotiation or price proof. Money saved, not only money made.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Proof card 5</span><span class="budget">see card spec</span></div>
+        <div class="ph ph-sq" style="max-height:130px">PROOF IMAGE · real member</div>
+        <p class="fill fill-h3" style="margin-top:.45rem">NAME</p>
+        <p class="fill fill-body">HEADLINE RESULT · 4 to 8 words</p>
+        <div class="lines" style="margin-top:.35rem"><i></i><i></i></div>
+        <p class="job">Couple or partnership proof, if the avatar buys as a pair.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Proof card 6</span><span class="budget">see card spec</span></div>
+        <div class="ph ph-sq" style="max-height:130px">PROOF IMAGE · real member</div>
+        <p class="fill fill-h3" style="margin-top:.45rem">NAME</p>
+        <p class="fill fill-body">HEADLINE RESULT · 4 to 8 words</p>
+        <div class="lines" style="margin-top:.35rem"><i></i><i></i></div>
+        <p class="job">Most recent win. Recency answers "does this still work".</p>
+      </div>
+    </div>
+    <div class="note"><b>Card spec.</b> Each card: 1 image, name 1 to 3 words, headline result 4 to 8 words, detail 15 to 25 words. Detail follows before, after, method. Cards must be visually identical; the only variable is the story.</div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S5 · WHO IT IS FOR -->
+<!-- ============================================================= -->
+<section id="s5" class="sec sec--alt">
+  <div class="secbadge"><span class="n">S5</span> Who it is for <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">A warm list is not a cold audience. This block reassures on timing rather than disqualifying hard, and it is the last thing before the first ask.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>2 equal cards side by side on desktop, stacked at 375px. Neither card is visually dominant.</dd>
+    <dt>Folds</dt><dd>0.8 desktop / 1.3 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>H2 · 2 list cards, 3 to 4 bullets each. The second card uses a neutral bullet, never a cross.</dd>
+    <dt>Reference</dt><dd>Live SSI page fit block, including the capital bar. Soft, timing-based, not a hard filter.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="slot center">
+      <div class="slot-hd"><span class="slot-type">H2</span><span class="budget">5 to 10 words</span></div>
+      <p class="fill fill-h2">WHO THIS IS FOR</p>
+      <p class="job">Frame the section as fit, not as a gate. The visitor should read it looking for themselves, not bracing to be rejected.</p>
+    </div>
+    <div class="g2" style="margin-top:.7rem">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Fit card · a fit if</span><span class="budget">title 3-6 w · 4 bullets 8-14 w</span></div>
+        <div class="card">
+          <p class="fill fill-h3">A FIT IF</p>
+          <div class="lines" style="margin-top:.45rem"><i></i><i></i><i></i><i></i></div>
+        </div>
+        <p class="job">Describe the person who should book, in their situation, not in their job title. One bullet carries the capital or readiness bar.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Fit card · no rush if</span><span class="budget">title 3-6 w · 3 bullets 8-14 w</span></div>
+        <div class="card">
+          <p class="fill fill-h3">NO RUSH IF</p>
+          <div class="lines" style="margin-top:.45rem"><i></i><i></i><i></i></div>
+        </div>
+        <p class="job">Give the not-yet person a graceful exit that keeps them on the list. Neutral language, no rejection.</p>
+      </div>
+    </div>
+    <div class="delta"><b>DELTA B · open</b><br>This fit block is in the client-agnostic standard and on the live page, but not in the v1 structure map on the Miro board. <b>Decision needed:</b> keep it, or cut it and move straight from proof to the first ask. Recommendation: keep. On a warm list the objection is timing, and this is the only section that answers timing.</div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- CTA #1 (mid-page) -->
+<!-- ============================================================= -->
+<section id="cta1" class="sec">
+  <div class="secbadge"><span class="n">CTA</span> First ask, mid-page <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">The first ask on the page, placed after belief is built and after fit is settled. Never before.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>1 column, centred, max 680px. Sits inline in the page flow, not in a coloured band.</dd>
+    <dt>Folds</dt><dd>0.35 desktop / 0.5 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>H3 · 1 button · 1 microline. Same button label as the header.</dd>
+    <dt>Reference</dt><dd>Standard: first ask after proof and fit.</dd>
+  </dl>
+  <div class="wrap center">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H3 · restate outcome</span><span class="budget">6 to 12 words</span></div>
+      <p class="fill fill-h3">RESTATE THE OUTCOME</p>
+      <p class="job">Restate what the visitor gets, in their words, immediately above the button.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">CTA button</span><span class="budget">2 to 4 words</span></div>
+      <div><a href="#cta" class="wirebtn-solid">CTA LABEL</a></div>
+      <p class="job">Identical label to the header and the final CTA. One label family, no variants, no secondary button.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Microline</span><span class="budget">6 to 12 words</span></div>
+      <p class="fill fill-body">MICROLINE · what happens after the click</p>
+      <p class="job">Remove effort by telling them exactly what happens next. Length of call, who they speak to, what to bring.</p>
+    </div>
+    <div class="delta"><b>DELTA C · open</b><br>One reviewed structure places a soft CTA earlier, before the proof wall. This wireframe places the first ask after proof and fit. <b>Decision needed:</b> one ask here, or a soft ask before proof plus this one. Recommendation: one ask here for v1, and test an earlier soft ask as a variant rather than adding both at launch.</div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S6 · ABOUT THE AUTHORITY -->
+<!-- ============================================================= -->
+<section id="s6" class="sec sec--alt">
+  <div class="secbadge"><span class="n">S6</span> About the authority <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">Justified as its own section only because this list already follows this person. For a less known authority it folds into S3. See Delta D.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>2 columns desktop: portrait left at roughly one third, copy right. Stacked at 375px, portrait first.</dd>
+    <dt>Folds</dt><dd>0.7 desktop / 1.1 mobile.</dd>
+    <dt>Media</dt><dd>1 portrait, 3:4. Real photograph of the authority, not a logo.</dd>
+    <dt>Elements</dt><dd>H2 · portrait · body · 3 credential lines.</dd>
+    <dt>Reference</dt><dd>Live SSI page guide card.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="g2 g2--port">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Portrait</span><span class="budget">image · 3:4</span></div>
+        <div class="ph ph-port" style="max-height:210px">PORTRAIT · the authority</div>
+        <p class="job">Put a face on the claim. Real photo, not a brand mark.</p>
+      </div>
+      <div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">H2</span><span class="budget">4 to 8 words</span></div>
+          <p class="fill fill-h2">ABOUT THE AUTHORITY</p>
+          <p class="job">Name who is behind the program, in one line.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Body</span><span class="budget">50 to 80 words</span></div>
+          <div class="lines"><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="job">Credibility through what they have done, not what they believe. Ends on why they teach this.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Credentials</span><span class="budget">3 lines · 4 to 8 w each</span></div>
+          <div class="lines"><i style="width:70%"></i><i style="width:64%"></i><i style="width:58%"></i></div>
+          <p class="job">Three checkable facts. Numbers and named things only, no adjectives.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S7 · FAQ -->
+<!-- ============================================================= -->
+<section id="s7" class="sec">
+  <div class="secbadge"><span class="n">S7</span> Objection FAQ <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">Removes the last confusion and anxiety before the close. Ordered by real objection frequency, not by what is easiest to answer.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>1 column accordion, max 760px. First item open by default, rest closed.</dd>
+    <dt>Folds</dt><dd>0.8 desktop closed / 1.0 mobile closed.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>H2 · 5 question and answer pairs. Five, not eight, on a warm page.</dd>
+    <dt>Reference</dt><dd>Live SSI page: 5 objection FAQs. Pull the actual five from setter call recordings, not from imagination.</dd>
+  </dl>
+  <div class="wrap">
+    <div class="slot center">
+      <div class="slot-hd"><span class="slot-type">H2</span><span class="budget">2 to 5 words</span></div>
+      <p class="fill fill-h2">FAQ HEADER</p>
+      <p class="job">Signal the section without selling. This is the one header on the page allowed to be plain.</p>
+    </div>
+    <div class="slot" style="margin-top:.7rem">
+      <div class="slot-hd"><span class="slot-type">FAQ 1 · price or cost</span><span class="budget">Q 6-12 w · A 30-50 w</span></div>
+      <div class="card"><p class="fill fill-h3">QUESTION</p><div class="lines" style="margin-top:.4rem"><i></i><i></i><i></i></div></div>
+      <p class="job">Answer the money objection directly. Warm lists will not ask twice.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">FAQ 2 · time</span><span class="budget">Q 6-12 w · A 30-50 w</span></div>
+      <div class="card"><p class="fill fill-h3">QUESTION</p><div class="lines" style="margin-top:.4rem"><i></i><i></i><i></i></div></div>
+      <p class="job">How much of their week this takes, stated as a number.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">FAQ 3 · is this for me</span><span class="budget">Q 6-12 w · A 30-50 w</span></div>
+      <div class="card"><p class="fill fill-h3">QUESTION</p><div class="lines" style="margin-top:.4rem"><i></i><i></i><i></i></div></div>
+      <p class="job">The fit objection restated as a question they would actually type.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">FAQ 4 · does it work in my situation</span><span class="budget">Q 6-12 w · A 30-50 w</span></div>
+      <div class="card"><p class="fill fill-h3">QUESTION</p><div class="lines" style="margin-top:.4rem"><i></i><i></i><i></i></div></div>
+      <p class="job">Market, geography or experience objection. Answer with a proof case, not a promise.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">FAQ 5 · what happens on the call</span><span class="budget">Q 6-12 w · A 30-50 w</span></div>
+      <div class="card"><p class="fill fill-h3">QUESTION</p><div class="lines" style="margin-top:.4rem"><i></i><i></i><i></i></div></div>
+      <p class="job">Remove the last friction by describing the call itself. This is the highest-leverage FAQ on a booking page.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- FINAL CTA -->
+<!-- ============================================================= -->
+<section id="cta" class="sec sec--alt">
+  <div class="secbadge"><span class="n">CTA</span> Final ask <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">Desire plus effort removal. Same ask, restated for the reader who scrolled the whole page.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>1 column centred inside a bordered card, max 680px.</dd>
+    <dt>Folds</dt><dd>0.6 desktop / 0.8 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>H2 · subhead · 1 button · 1 reassurance line. Identical button label.</dd>
+    <dt>Reference</dt><dd>Live SSI page final CTA card.</dd>
+  </dl>
+  <div class="wrap center">
+    <div class="card">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">H2 · close line</span><span class="budget">6 to 12 words</span></div>
+        <p class="fill fill-h2">THE CLOSE LINE</p>
+        <p class="job">Restate the outcome as an invitation with a concrete first move, not a slogan.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">12 to 20 words</span></div>
+        <p class="fill fill-sub">SUBHEAD · what the call actually is</p>
+        <p class="job">Name the call for what it is. Mis-set expectations here cost show rate, not click rate.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">CTA button</span><span class="budget">2 to 4 words</span></div>
+        <div><a href="#cta" class="wirebtn-solid">CTA LABEL</a></div>
+        <p class="job">Third and final appearance of the one label.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Reassurance</span><span class="budget">8 to 15 words</span></div>
+        <p class="fill fill-body">REASSURANCE · no pressure, what happens if it is not a fit</p>
+        <p class="job">Lower the cost of saying yes. One line, no guarantee language that is not cleared.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- FOOTER -->
+<!-- ============================================================= -->
+<section id="footer" class="sec">
+  <div class="secbadge"><span class="n">F</span> Footer + disclaimer <span class="tag">CONSTANT</span></div>
+  <p class="secwhy">Legitimacy, not navigation. A footer menu on a funnel page is a set of exits.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>1 column, centred, small type. No columns, no link grid.</dd>
+    <dt>Folds</dt><dd>0.3 desktop / 0.4 mobile.</dd>
+    <dt>Media</dt><dd>Logo mark only.</dd>
+    <dt>Elements</dt><dd>Logo · 2 to 3 legal links · earnings or results disclaimer.</dd>
+    <dt>Reference</dt><dd>Live SSI page footer. Disclaimer wording is a legal input, not a copy decision.</dd>
+  </dl>
+  <div class="wrap center">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Legal links</span><span class="budget">2 to 3 links</span></div>
+      <p class="fill fill-body">PRIVACY · TERMS · CONTACT</p>
+      <p class="job">Legitimacy signals. Not a navigation menu.</p>
+    </div>
+    <div class="slot" style="text-align:left">
+      <div class="slot-hd"><span class="slot-type">Disclaimer</span><span class="budget">30 to 60 words</span></div>
+      <div class="lines"><i></i><i></i><i></i></div>
+      <p class="job">Results disclaimer. Supplied by the client, not written by the copywriter.</p>
+    </div>
+    <div class="note"><b>Blocked.</b> <span class="pending">Disclaimer wording pending from client legal</span> This stays amber until supplied. It is never filled with drafted text.</div>
+  </div>
+</section>
+
+</div><!-- /.page -->
+
+<!-- sticky mobile CTA · fourth appearance of the one label -->
+<div class="stickycta">
+  <a href="#cta" class="wirebtn-solid" style="display:block">CTA LABEL</a>
+</div>
+
+<!-- ============================================================================
+     COPY BRIEF · the same slot data as a table. This is the handoff to the
+     copy stage. Every row is a box on the page above.
+     ============================================================================ -->
+<div class="brief" id="brief">
+  <p style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6b7280;margin:0 0 .3rem">Copy brief · derived from the wireframe above</p>
+  <h2 style="margin:0 0 .4rem;font-size:1.3rem">Every slot on this page, in order</h2>
+  <p style="margin:0 0 1rem;font-size:12px;color:#475569;line-height:1.55;max-width:70ch">One row per box. Write to the <b>job</b>, inside the <b>budget</b>. If a slot cannot be written inside its budget, that is a structure problem, not a copy problem: flag it rather than overrunning, because the fold budgets in the section specs assume these lengths.</p>
+  <div class="tablewrap">
+  <table class="cb">
+    <thead><tr><th style="width:9rem">Slot</th><th style="width:6rem">Type</th><th style="width:7rem">Budget</th><th>Job</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td colspan="4">Chrome · audience banner + header</td></tr>
+      <tr><td>Banner line</td><td class="t">Text</td><td class="b">6 to 12 w</td><td>Name the audience so the right person self-identifies instantly. Who the page is for, not what the offer is.</td></tr>
+      <tr><td>Header CTA</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>The only ask in the chrome. This exact label repeats at every CTA on the page.</td></tr>
+      <tr class="grp"><td colspan="4">S1 · Asset delivery (SWAP)</td></tr>
+      <tr><td>H1 headline</td><td class="t">H1</td><td class="b">8 to 14 w</td><td>Deliver the promise the email made. The asset's own promise, not the program's. Breaks over two lines, payoff on line two.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">12 to 20 w</td><td>Pass the five-second relevance test. Who the video is for and why it matters now.</td></tr>
+      <tr><td>Scroll cue</td><td class="t">Micro</td><td class="b">2 to 5 w</td><td>Move the visitor down without asking for anything.</td></tr>
+      <tr class="grp"><td colspan="4">Proof strip</td></tr>
+      <tr><td>Stat 1 label</td><td class="t">Stat</td><td class="b">2 to 4 w</td><td>Scale. How big is this room.</td></tr>
+      <tr><td>Stat 2 label</td><td class="t">Stat</td><td class="b">2 to 4 w</td><td>Money. The scoreboard number.</td></tr>
+      <tr><td>Stat 3 label</td><td class="t">Stat</td><td class="b">2 to 4 w</td><td>Speed. How fast this can work.</td></tr>
+      <tr class="grp"><td colspan="4">S2 · Bridge</td></tr>
+      <tr><td>H2 reframe</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>The asset was the beginning, not the answer. The turn from teaching to offering.</td></tr>
+      <tr><td>Body</td><td class="t">Body</td><td class="b">25 to 40 w</td><td>Name that a system exists behind the asset, without naming the program yet.</td></tr>
+      <tr class="grp"><td colspan="4">S3 · Program, mechanism, value prop</td></tr>
+      <tr><td>Eyebrow</td><td class="t">Micro</td><td class="b">2 to 4 w</td><td>Signal the section change.</td></tr>
+      <tr><td>H2 program + VP</td><td class="t">H2</td><td class="b">8 to 14 w</td><td>Name the program for the first time and state the value prop in one breath.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">15 to 25 w</td><td>Tie the program back to the authority in the video. The congruence link.</td></tr>
+      <tr><td>Step name x5</td><td class="t">H3</td><td class="b">2 to 4 w each</td><td>The mechanism as a verb sequence a person can repeat back.</td></tr>
+      <tr><td>Step body x5</td><td class="t">Body</td><td class="b">12 to 20 w each</td><td>What happens in that step, in the buyer's language.</td></tr>
+      <tr><td>Outcome card title</td><td class="t">H3</td><td class="b">4 to 8 w</td><td>What the buyer walks away with.</td></tr>
+      <tr><td>Outcome bullets x3</td><td class="t">Bullet</td><td class="b">6 to 12 w each</td><td>Convert the mechanism into a possession.</td></tr>
+      <tr><td>Objection reversal</td><td class="t">Body</td><td class="b">10 to 18 w</td><td>Kill the biggest misread of the mechanism before proof, in one sentence.</td></tr>
+      <tr class="grp"><td colspan="4">S4 · Proof wall</td></tr>
+      <tr><td>H2 finding</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>Say what the proof proves. Not the topic.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">10 to 18 w</td><td>Make results reachable by naming the starting point.</td></tr>
+      <tr><td>Card name x6</td><td class="t">H3</td><td class="b">1 to 3 w each</td><td>The member's name. Real and cleared.</td></tr>
+      <tr><td>Card result x6</td><td class="t">Body</td><td class="b">4 to 8 w each</td><td>One member, one number.</td></tr>
+      <tr><td>Card detail x6</td><td class="t">Body</td><td class="b">15 to 25 w each</td><td>Before, after, method. Vary the shape of the win across the six.</td></tr>
+      <tr class="grp"><td colspan="4">S5 · Who it is for</td></tr>
+      <tr><td>H2</td><td class="t">H2</td><td class="b">5 to 10 w</td><td>Frame as fit, not as a gate.</td></tr>
+      <tr><td>Fit card title x2</td><td class="t">H3</td><td class="b">3 to 6 w each</td><td>A fit if. No rush if.</td></tr>
+      <tr><td>Fit bullets</td><td class="t">Bullet</td><td class="b">8 to 14 w each</td><td>4 bullets in card one including the readiness bar, 3 in card two. Neutral language in card two.</td></tr>
+      <tr class="grp"><td colspan="4">CTA #1 · mid-page</td></tr>
+      <tr><td>H3 outcome</td><td class="t">H3</td><td class="b">6 to 12 w</td><td>Restate what they get, in their words, above the button.</td></tr>
+      <tr><td>CTA button</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>Identical to header and final CTA. One label family.</td></tr>
+      <tr><td>Microline</td><td class="t">Micro</td><td class="b">6 to 12 w</td><td>What happens after the click. Length, who they speak to, what to bring.</td></tr>
+      <tr class="grp"><td colspan="4">S6 · About the authority</td></tr>
+      <tr><td>H2</td><td class="t">H2</td><td class="b">4 to 8 w</td><td>Name who is behind the program.</td></tr>
+      <tr><td>Body</td><td class="t">Body</td><td class="b">50 to 80 w</td><td>Credibility through what they have done. Ends on why they teach this.</td></tr>
+      <tr><td>Credentials x3</td><td class="t">Bullet</td><td class="b">4 to 8 w each</td><td>Three checkable facts. Numbers and named things, no adjectives.</td></tr>
+      <tr class="grp"><td colspan="4">S7 · FAQ</td></tr>
+      <tr><td>H2</td><td class="t">H2</td><td class="b">2 to 5 w</td><td>Plain header. The one header allowed not to sell.</td></tr>
+      <tr><td>Q x5</td><td class="t">H3</td><td class="b">6 to 12 w each</td><td>Price, time, is this for me, does it work in my situation, what happens on the call. Pull the real five from setter calls.</td></tr>
+      <tr><td>A x5</td><td class="t">Body</td><td class="b">30 to 50 w each</td><td>Answer directly. Use a proof case rather than a promise where possible.</td></tr>
+      <tr class="grp"><td colspan="4">Final CTA + footer</td></tr>
+      <tr><td>H2 close line</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>Restate the outcome as an invitation with a concrete first move.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">12 to 20 w</td><td>Name the call for what it is. Mis-set expectations cost show rate.</td></tr>
+      <tr><td>CTA button</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>Third appearance of the one label. Fourth is the sticky mobile bar.</td></tr>
+      <tr><td>Reassurance</td><td class="t">Micro</td><td class="b">8 to 15 w</td><td>Lower the cost of yes. No uncleared guarantee language.</td></tr>
+      <tr><td>Disclaimer</td><td class="t">Legal</td><td class="b">30 to 60 w</td><td>Client legal input. Not written by the copywriter.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="margin:1.6rem 0 .4rem;font-size:1rem">Rules that apply to every slot</h3>
+  <ul style="margin:0;padding-left:1.1rem;font-size:12px;color:#475569;line-height:1.6;max-width:74ch">
+    <li><b>One CTA label family.</b> The same words at header, mid-page CTA, final CTA and sticky mobile bar. No secondary button anywhere.</li>
+    <li><b>Cleared proof only.</b> Any name, quote or number that is not cleared stays out. It is never replaced with a plausible substitute.</li>
+    <li><b>No em dashes.</b> House rule, applies to every line on the page.</li>
+    <li><b>Budgets are structural.</b> They come from the fold budgets in each section spec. Overrunning a budget moves the first fold, which is the one thing this wireframe exists to protect.</li>
+    <li><b>Four open questions.</b> Deltas A to D above are unresolved. Copy for the affected slots should wait until they are settled.</li>
+  </ul>
+</div>
+
+<!-- ============================================================================
+     SELF-CHECK · open the console at 375px and run wfCheck()
+     ============================================================================ -->
+<script>
+function wfCheck(){
+  var de=document.documentElement, over=[];
+  // An element inside a deliberate horizontal-scroll container (the copy-brief
+  // table) is not an overflow bug. Ignore those; count everything else.
+  function inScroller(el){
+    for(var p=el.parentElement; p; p=p.parentElement){
+      var ov=getComputedStyle(p).overflowX;
+      if(ov==='auto'||ov==='scroll') return true;
+    }
+    return false;
+  }
+  document.querySelectorAll('*').forEach(function(el){
+    if(el.getBoundingClientRect().width>window.innerWidth+1 && !inScroller(el))
+      over.push(el.tagName+(el.id?'#'+el.id:'.'+(el.className||'').toString().split(' ')[0]));
+  });
+  // The blind spot in the v1 check: it only flagged elements wider than the
+  // VIEWPORT. A 3-up grid whose columns each hold a nowrap chip overflows its
+  // own track by 47px while every element stays under 375px wide, so the page
+  // scrolled sideways and the check reported clean. Catch the real culprit:
+  // any non-scrolling box whose content is wider than the box.
+  var burst=[];
+  document.querySelectorAll('*').forEach(function(el){
+    var ov=getComputedStyle(el).overflowX;
+    if(ov==='auto'||ov==='scroll'||ov==='hidden') return;
+    if(el.clientWidth>0 && el.scrollWidth>el.clientWidth+1 && el!==de && el!==document.body)
+      burst.push(el.tagName+(el.id?'#'+el.id:'.'+(el.className||'').toString().split(' ')[0])
+                 +' ('+el.scrollWidth+' in '+el.clientWidth+')');
+  });
+  var r={ viewport:window.innerWidth,
+    horizontalOverflow: de.scrollWidth>window.innerWidth+1,
+    scrollWidth: de.scrollWidth,
+    overflowCount: over.length, overflowers: over.slice(0,10),
+    burstContainers: burst.slice(0,10),
+    sectionOrder:[].slice.call(document.querySelectorAll('section')).map(function(s){return s.id;}),
+    slotCount: document.querySelectorAll('.slot').length,
+    slotsMissingBudget: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.budget');}).length,
+    slotsMissingJob: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.job');}).length,
+    sectionsMissingSpec: [].slice.call(document.querySelectorAll('section')).filter(function(s){return !s.querySelector('.spec');}).map(function(s){return s.id;}),
+    briefRows: document.querySelectorAll('#brief table.cb tbody tr:not(.grp)').length };
+  console.log('%cWF SELF-CHECK','font-weight:bold', r);
+  return r;
+}
+// Headless hook: load with #selfcheck and read the <title> (or #wfresult) to
+// get the same report without a console. Used by the 375 / 1440 check run.
+if(location.hash==='#selfcheck'){
+  window.addEventListener('load', function(){
+    var r=wfCheck(), s=JSON.stringify(r);
+    document.title='WFCHECK '+s;
+    var d=document.createElement('pre'); d.id='wfresult'; d.textContent='WFCHECK '+s;
+    document.body.appendChild(d);
+  });
+}
+</script>
+
+</body>
+</html>
