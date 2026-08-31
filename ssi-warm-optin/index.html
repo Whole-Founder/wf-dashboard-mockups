@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SSI Warm Asset-Delivery Page · Wireframe v1 (F1)</title>
 <meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
    WF WIREFRAME KIT · tokens v2 (annotated / copyless)
@@ -16,18 +19,33 @@
    finished copy; it carries labelled slots with a word budget and a job, so
    the page IS the copy brief.
 
-   Colour discipline: grayscale + ONE amber signal (annotation / open question).
+   Type: Inter for anything a human READS (headings, body, jobs, notes).
+   IBM Plex Mono for anything the system LABELS (slot types, budgets, spec
+   keys, section badges, tags). That split is the whole visual language: mono
+   means "this is scaffolding", Inter means "this is content".
+
+   Colour discipline: grayscale for structure, amber for a genuine blocker,
+   and exactly one coded pair for variant behaviour (SWAP vs CONSTANT).
    ============================================================================ */
 :root{
   --wf-ink:#111827; --wf-body:#374151; --wf-muted:#6b7280; --wf-line:#d1d5db;
   --wf-bg:#ffffff; --wf-bg-alt:#f9fafb; --wf-slate:#94a3b8; --wf-slate-d:#475569;
   --wf-amber-bg:#fffbeb; --wf-amber-ink:#92400e; --wf-amber-line:#f59e0b;
-  --wf-mono: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  /* variant behaviour, the one coded pair */
+  /* SWAP carries the most weight on purpose: it is the one thing that changes
+     per variant, so it should be the tag the eye lands on. CONSTANT is coded
+     but deliberately quieter, because it appears nine times. */
+  --wf-swap-bg:#e0e7ff; --wf-swap-ink:#312e81; --wf-swap-line:#6366f1;
+  --wf-const-bg:#f6fdf9; --wf-const-ink:#3f7a56; --wf-const-line:#c3ead2;
+  --wf-v2-bg:#ecfeff; --wf-v2-ink:#155e75; --wf-v2-line:#7dd3fc;
+  --wf-mono:'IBM Plex Mono', ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --wf-sans:'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 *{ box-sizing:border-box; }
 html,body{ margin:0; padding:0; }
-body{ font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  background:#e5e7eb; color:var(--wf-ink); -webkit-text-size-adjust:100%; }
+body{ font-family:var(--wf-sans);
+  background:#e5e7eb; color:var(--wf-ink); -webkit-text-size-adjust:100%;
+  font-feature-settings:"cv05" 1,"ss01" 1; }
 img{ max-width:100%; }
 
 /* ---- page shell ---------------------------------------------------------- */
@@ -39,15 +57,28 @@ img{ max-width:100%; }
 .wrap-wide{ max-width:1040px; margin:0 auto; }
 .center{ text-align:center; }
 
-/* ---- section badge ------------------------------------------------------- */
-.secbadge{ font-family:var(--wf-mono); font-size:10.5px; letter-spacing:.09em;
-  text-transform:uppercase; color:var(--wf-muted); display:flex; flex-wrap:wrap;
-  align-items:center; gap:.4rem; margin-bottom:.15rem; }
-.secbadge .n{ background:var(--wf-ink); color:#fff; border-radius:4px; padding:.1rem .35rem; font-weight:700; }
-.tag{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; border:1px solid var(--wf-line);
-  border-radius:99px; padding:.05rem .4rem; color:var(--wf-slate-d); background:#fff; }
-.tag--swap{ border-color:var(--wf-ink); color:var(--wf-ink); font-weight:700; }
-.secwhy{ font-size:11px; color:var(--wf-slate); margin:0 0 .75rem; line-height:1.4; }
+/* ---- SECTION HEADER · loud enough to navigate by, quiet enough to stay a
+   wireframe. A single ink rule + a numbered chip + the name in mono caps.    */
+.secbadge{ display:flex; flex-wrap:wrap; align-items:center; gap:.45rem;
+  margin:0 0 .55rem; padding-bottom:.5rem; border-bottom:2px solid var(--wf-ink); }
+.secbadge .n{ font-family:var(--wf-mono); font-size:11.5px; font-weight:700; letter-spacing:.04em;
+  background:var(--wf-ink); color:#fff; border-radius:4px; padding:.18rem .45rem; }
+.secbadge .name{ font-family:var(--wf-mono); font-size:14.5px; font-weight:600; letter-spacing:.03em;
+  text-transform:uppercase; color:var(--wf-ink); }
+@media(min-width:768px){
+  .secbadge .n{ font-size:12.5px; }
+  .secbadge .name{ font-size:17px; }
+}
+/* ---- VARIANT TAGS · the one place colour carries meaning ------------------
+   SWAP     = changes per variant. CONSTANT = written once, reused everywhere.
+   V2       = constant in V1, hand-tuned per asset in V2.                     */
+.tag{ font-family:var(--wf-mono); font-size:9.5px; font-weight:600; letter-spacing:.08em;
+  border:1px solid var(--wf-line); border-radius:99px; padding:.15rem .5rem;
+  color:var(--wf-slate-d); background:#fff; white-space:nowrap; }
+.tag--swap{ background:var(--wf-swap-bg); border-color:var(--wf-swap-line); color:var(--wf-swap-ink); }
+.tag--const{ background:var(--wf-const-bg); border-color:var(--wf-const-line); color:var(--wf-const-ink); }
+.tag--v2{ background:var(--wf-v2-bg); border-color:var(--wf-v2-line); color:var(--wf-v2-ink); }
+.secwhy{ font-size:11.5px; color:var(--wf-slate); margin:0 0 .75rem; line-height:1.45; }
 
 /* ---- SECTION SPEC RAIL · .spec -------------------------------------------
    Answers, per section: layout, fold budget, media, element form + count,
@@ -122,6 +153,43 @@ img{ max-width:100%; }
   color:var(--wf-amber-ink); font-size:11px; line-height:1.5; padding:.6rem .7rem;
   border-radius:6px; margin:.9rem 0 0; }
 .delta b{ font-family:var(--wf-mono); letter-spacing:.06em; }
+/* ---- RESOLVED DECISION · was an open question, now settled. Kept on the page
+   so the reasoning travels with the wireframe instead of dying in a thread.  */
+.decided{ background:#f8fafc; border:1px solid var(--wf-line);
+  border-left:3px solid var(--wf-const-line); color:var(--wf-slate-d);
+  font-size:11.5px; line-height:1.55; padding:.6rem .7rem;
+  border-radius:0 6px 6px 0; margin:.9rem 0 0; }
+.decided b{ font-family:var(--wf-mono); font-size:10px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--wf-const-ink); }
+.decided .verdict{ color:var(--wf-ink); font-weight:600; }
+
+/* ---- SECTION LIST · the map you read before you start scrolling ---------- */
+.toc{ max-width:1280px; margin:0 auto; background:var(--wf-bg);
+  border-bottom:1px solid var(--wf-line); padding:1.2rem 1rem 1.4rem; }
+@media(min-width:768px){ .toc{ padding:1.5rem 3rem 1.7rem; } }
+.toc h3{ font-family:var(--wf-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--wf-muted); margin:0 0 .2rem; }
+.toc .lede{ font-size:12px; color:var(--wf-slate-d); margin:0 0 .9rem; line-height:1.5; max-width:70ch; }
+.toc ol{ list-style:none; margin:0; padding:0; display:grid; gap:.35rem; }
+.toc li{ display:flex; align-items:center; gap:.55rem; font-family:var(--wf-mono); font-size:12px;
+  color:var(--wf-ink); }
+.toc li.chrome-row{ color:var(--wf-slate); }
+.toc .num{ flex:0 0 2.6rem; font-weight:700; font-size:11px; color:var(--wf-slate); letter-spacing:.04em; }
+.toc a{ color:inherit; text-decoration:none; border-bottom:1px solid transparent; }
+.toc a:hover{ border-bottom-color:var(--wf-ink); }
+.toc .dots{ flex:1 1 auto; border-bottom:1px dotted #cbd5e1; min-width:.75rem; transform:translateY(-3px); }
+@media(max-width:600px){ .toc .dots{ display:none; } .toc li{ flex-wrap:wrap; } }
+
+/* ---- INTERNAL FEEDBACK CTA (strip before F2) ---------------------------- */
+.slackcta{ max-width:1280px; margin:0 auto; background:var(--wf-ink); color:#e5e7eb;
+  padding:1.8rem 1rem 2.2rem; text-align:center; }
+@media(min-width:768px){ .slackcta{ padding:2.2rem 3rem 2.6rem; } }
+.slackcta .kicker{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:#9ca3af; margin:0 0 .5rem; }
+.slackcta h3{ font-size:1.05rem; font-weight:700; margin:0 0 .9rem; color:#fff; }
+.slackbtn{ display:inline-block; background:#fff; color:var(--wf-ink); border-radius:99px;
+  padding:.7rem 1.5rem; font-weight:700; font-size:.85rem; text-decoration:none; }
+.slackcta .sub{ font-size:11px; color:#9ca3af; margin:.8rem 0 0; line-height:1.5; }
 .pending{ background:#fef3c7; color:var(--wf-amber-ink); border:1px dashed #d97706;
   border-radius:5px; padding:.3rem .5rem; font-size:10.5px; display:inline-block; }
 
@@ -186,19 +254,38 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <span class="ttl">SSI · WARM ASSET-DELIVERY PAGE · WIREFRAME v1</span>
   <span class="dim">F1 · structure + slots, no copy, no brand</span>
   <span class="dim">Review at 375px and 1440px</span>
-  <span class="amb">amber = open question</span>
+  <span class="amb">amber = blocked input</span>
 </div>
 
 <div class="legend">
   <h3>How to read this wireframe</h3>
   <p style="margin:0">A wireframe locks <b>structure</b>, not words. Every content slot below is a labelled box carrying three things, so the page doubles as the copy brief. Full table at the bottom.</p>
   <ul>
-    <li><code>SLOT TYPE</code> what goes in the box: H1, subhead, body, bullet, CTA, stat, image, video.</li>
-    <li><code>WORD BUDGET</code> the length the layout is built for. Writing outside it breaks the fold.</li>
+    <li><code>SLOT TYPE</code> what goes in the box: H1, subhead, body, bullet, CTA, stat, image, video. Set in mono, top left of every box.</li>
+    <li><code>WORD BUDGET</code> the pill on the top right of every box is a <b>word budget</b>: the length the layout is built for. Writing outside it breaks the fold.</li>
     <li><code>JOB</code> the one thing that slot has to accomplish. Write to the job, not to the box.</li>
-    <li><code>SPEC</code> the grey rail above each section: layout, fold budget, media, element counts, reference.</li>
-    <li><code>DELTA</code> amber blocks are genuine open questions for the Gero and Natalya sync. There are four.</li>
+    <li><code>SPEC</code> the grey rail under each section header: layout, fold budget, media, element counts, reference.</li>
+    <li><span class="tag tag--swap">SWAP</span> <span class="tag tag--const">CONSTANT</span> <span class="tag tag--v2">CUSTOMIZE V2</span> variant behaviour. <b>SWAP</b> changes per page variant, <b>CONSTANT</b> is written once and reused, <b>CUSTOMIZE V2</b> is constant now and hand-tuned per asset later.</li>
+    <li><code>DECIDED</code> the four structural questions this wireframe raised are settled. Each is recorded in place, with the reasoning, so it does not get re-litigated.</li>
   </ul>
+</div>
+
+<div class="toc">
+  <h3>Sections, in order</h3>
+  <p class="lede">The whole page at a glance before you start scrolling. Eleven blocks. One ask, repeated four times, one label. Jump to any section.</p>
+  <ol>
+    <li class="chrome-row"><span class="num">C</span><a href="#chrome">Audience banner + sticky header</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S1</span><a href="#s1">Asset delivery &middot; the video they came for</a><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
+    <li class="chrome-row"><span class="num">P</span><a href="#proofstrip">Proof strip &middot; three stats</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S2</span><a href="#s2">Bridge &middot; the asset was step one</a><span class="dots"></span><span class="tag tag--v2">CUSTOMIZE V2</span></li>
+    <li><span class="num">S3</span><a href="#s3">The program, mechanism, value prop, authority</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S4</span><a href="#s4">Proof wall &middot; six member results</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S5</span><a href="#s5">Who it is for &middot; soft fit</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="chrome-row"><span class="num">CTA</span><a href="#cta1">First ask, mid-page</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S6</span><a href="#s6">Objection FAQ &middot; five</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="chrome-row"><span class="num">CTA</span><a href="#cta">Final ask</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="chrome-row"><span class="num">F</span><a href="#footer">Footer + disclaimer</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+  </ol>
 </div>
 
 <div class="page">
@@ -207,7 +294,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- CHROME · AUDIENCE TOP BANNER + STICKY HEADER -->
 <!-- ============================================================= -->
 <section id="chrome" class="sec sec--alt">
-  <div class="secbadge"><span class="n">C</span> Chrome · audience banner + header <span class="tag">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">C</span><span class="name">Audience banner + header</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">Earns its pixels by doing two jobs in under two seconds: tell the visitor they are in the right place, and give exactly one way forward.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>Full-bleed banner strip above a sticky header. Header: logo left, one button right. No nav links.</dd>
@@ -242,7 +329,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S1 · ASSET DELIVERY (the SWAP section) -->
 <!-- ============================================================= -->
 <section id="s1" class="sec">
-  <div class="secbadge"><span class="n">S1</span> Asset delivery <span class="tag tag--swap">SWAP</span></div>
+  <div class="secbadge"><span class="n">S1</span><span class="name">Asset delivery</span> <span class="tag tag--swap">SWAP</span></div>
   <p class="secwhy">The visitor clicked an email to watch a video. This section delivers exactly that and nothing else. It is the only section that changes between page variants.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred, max 760px. Headline above the video on both breakpoints.</dd>
@@ -272,7 +359,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       <p class="fill fill-body">SCROLL CUE</p>
       <p class="job">Move the visitor down without asking for anything. They have no offer context yet, so there is nothing to say yes to.</p>
     </div>
-    <div class="delta"><b>DELTA A · open</b><br>The live SSI page carries a hard CTA button inside the hero. The standard says S1 delivers the asset with no hard ask, because the visitor arrives with zero offer context. This wireframe shows the soft version. <b>Decision needed:</b> soft scroll cue, or hero CTA. Recommendation: ship soft, then A/B the hero CTA as test one.</div>
+    <div class="decided"><b>Decision A · settled</b><br><span class="verdict">Ship soft. No hard CTA in the hero.</span> The live page carries a hero button; this page carries a scroll cue instead. The visitor arrives from an email with zero offer context, so a hard ask here is asking them to say yes to something they have not been told about yet. The hero CTA becomes test one once the page has a baseline.</div>
   </div>
 </section>
 
@@ -280,7 +367,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- PROOF STRIP -->
 <!-- ============================================================= -->
 <section id="proofstrip" class="sec sec--alt">
-  <div class="secbadge"><span class="n">P</span> Proof strip <span class="tag">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">P</span><span class="name">Proof strip</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">Aggregate credibility in one glance, immediately after the video, before any claim is made.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>3 columns at every breakpoint. Stays 3-up at 375px, so numbers stay compact rather than stacking into a wall.</dd>
@@ -318,7 +405,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S2 · BRIDGE -->
 <!-- ============================================================= -->
 <section id="s2" class="sec">
-  <div class="secbadge"><span class="n">S2</span> Bridge · asset to system <span class="tag">CONSTANT</span> <span class="tag">CUSTOMIZE in V2</span></div>
+  <div class="secbadge"><span class="n">S2</span><span class="name">Bridge · asset to system</span> <span class="tag tag--v2">CUSTOMIZE V2</span></div>
   <p class="secwhy">The seam an indirect funnel lives or dies on. It reframes the video from an answer into a first step, which is the only reason the visitor keeps reading.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred, max 680px. Deliberately narrow and short so it reads as a turn, not a section.</dd>
@@ -351,14 +438,14 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S3 · PROGRAM + MECHANISM + VALUE PROP -->
 <!-- ============================================================= -->
 <section id="s3" class="sec sec--alt">
-  <div class="secbadge"><span class="n">S3</span> The program · mechanism · value prop <span class="tag">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">S3</span><span class="name">The program · mechanism · value prop</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">The first real introduction of the offer. This is the page's spine, and everything below it is proof of what is claimed here.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>2 columns on desktop: numbered steps left, data panel right. Single column at 375px, steps first.</dd>
-    <dt>Folds</dt><dd>1.8 desktop / 3.0 mobile. The longest section on the page, and the only one allowed past one fold.</dd>
-    <dt>Media</dt><dd>One data panel or figure. Not a photo. It shows the mechanism working on real numbers.</dd>
-    <dt>Elements</dt><dd>Eyebrow · H2 · subhead · 5 numbered steps · 1 data panel · 1 outcome card with 3 bullets · 1 objection-reversal line.</dd>
-    <dt>Reference</dt><dd>Live SSI page: 5 mechanism steps plus the valuation snapshot panel and the outcome card.</dd>
+    <dt>Layout</dt><dd>2 columns on desktop: numbered steps left, data panel right. Authority folds in below as a portrait-plus-copy row. Single column at 375px, steps first.</dd>
+    <dt>Folds</dt><dd>2.3 desktop / 3.8 mobile. The longest section on the page, and the only one allowed past one fold.</dd>
+    <dt>Media</dt><dd>One data panel or figure (not a photo), plus one authority portrait at 1:1.</dd>
+    <dt>Elements</dt><dd>Eyebrow · H2 · subhead · 5 numbered steps · 1 data panel · 1 outcome card with 3 bullets · authority portrait, line, body and 3 credentials · 1 objection-reversal line.</dd>
+    <dt>Reference</dt><dd>Live SSI page: 5 mechanism steps plus the valuation snapshot panel and the outcome card. Authority is folded in here per Decision D instead of getting its own section.</dd>
   </dl>
   <div class="wrap-wide">
     <div class="slot">
@@ -408,12 +495,39 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       </div>
     </div>
 
+    <!-- Authority, folded in here per Decision D. Deliberately lighter than a
+         standalone About section: it supports the mechanism, it is not a stop. -->
+    <div class="g2 g2--port" style="margin-top:.9rem">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Authority portrait</span><span class="budget">image · 1:1</span></div>
+        <div class="ph ph-sq" style="max-height:150px">PORTRAIT · the authority</div>
+        <p class="job">Put a face on the mechanism. Real photograph, not a brand mark. Sized to sit beside the copy, not to open a new chapter.</p>
+      </div>
+      <div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Authority line</span><span class="budget">8 to 14 words</span></div>
+          <p class="fill fill-h3">BUILT BY THE PERSON IN THE VIDEO</p>
+          <p class="job">Close the loop with S1. The same person whose video they just watched built this system.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Authority body</span><span class="budget">35 to 55 words</span></div>
+          <div class="lines"><i></i><i></i><i></i><i></i></div>
+          <p class="job">Credibility through what he has done, not what he believes. Shorter than a standalone About section, because this is a supporting beat inside the mechanism.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Credentials</span><span class="budget">3 lines · 4 to 8w each</span></div>
+          <div class="lines"><i style="width:70%"></i><i style="width:64%"></i><i style="width:58%"></i></div>
+          <p class="job">Three checkable facts. Numbers and named things only, no adjectives.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="slot" style="margin-top:.55rem">
       <div class="slot-hd"><span class="slot-type">Objection reversal</span><span class="budget">10 to 18 words</span></div>
       <p class="fill fill-body">OBJECTION REVERSAL · state plainly what this is not</p>
       <p class="job">Kill the biggest misread of the mechanism before proof, in one sentence, without hedging.</p>
     </div>
-    <div class="delta"><b>DELTA D · open</b><br>The live SSI page gives the authority its own section further down. The client-agnostic standard folds authority lightly into this section instead. This wireframe keeps it as its own section at S6, because the list already follows this authority. <b>Decision needed:</b> keep S6 as a standalone About section, or fold it into S3 and shorten the page by roughly half a fold.</div>
+    <div class="decided"><b>Decision D · settled</b><br><span class="verdict">Fold the authority into S3.</span> The live page gave it its own section; the client-agnostic standard folds it in lightly. Folded wins here: the visitor met this person in the video sixty seconds ago, so a full About section re-introduces someone they already know and costs roughly half a fold before the proof wall. It stays a supporting beat inside the mechanism rather than a stop of its own.</div>
   </div>
 </section>
 
@@ -421,7 +535,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S4 · PROOF WALL -->
 <!-- ============================================================= -->
 <section id="s4" class="sec">
-  <div class="secbadge"><span class="n">S4</span> Proof it works <span class="tag">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">S4</span><span class="name">Proof it works</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">The x-ray section. Third-party results carry more weight here than the authority's own numbers, because the authority is already the reason the visitor is on the page.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>3 columns desktop, 2 rows. 1 column at 375px. Cards equal height, no card taller than its neighbours.</dd>
@@ -499,7 +613,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S5 · WHO IT IS FOR -->
 <!-- ============================================================= -->
 <section id="s5" class="sec sec--alt">
-  <div class="secbadge"><span class="n">S5</span> Who it is for <span class="tag">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">S5</span><span class="name">Who it is for</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">A warm list is not a cold audience. This block reassures on timing rather than disqualifying hard, and it is the last thing before the first ask.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>2 equal cards side by side on desktop, stacked at 375px. Neither card is visually dominant.</dd>
@@ -532,7 +646,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
         <p class="job">Give the not-yet person a graceful exit that keeps them on the list. Neutral language, no rejection.</p>
       </div>
     </div>
-    <div class="delta"><b>DELTA B · open</b><br>This fit block is in the client-agnostic standard and on the live page, but not in the v1 structure map on the Miro board. <b>Decision needed:</b> keep it, or cut it and move straight from proof to the first ask. Recommendation: keep. On a warm list the objection is timing, and this is the only section that answers timing.</div>
+    <div class="decided"><b>Decision B · settled</b><br><span class="verdict">Keep the fit block.</span> It is in the client-agnostic standard and on the live page, but was absent from the v1 structure map. It stays: on a warm list the real objection is timing, not suitability, and this is the only section that answers timing. Cutting it would send the visitor from proof straight to an ask with nothing addressing "not right now".</div>
   </div>
 </section>
 
@@ -540,7 +654,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- CTA #1 (mid-page) -->
 <!-- ============================================================= -->
 <section id="cta1" class="sec">
-  <div class="secbadge"><span class="n">CTA</span> First ask, mid-page <span class="tag">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">CTA</span><span class="name">First ask, mid-page</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">The first ask on the page, placed after belief is built and after fit is settled. Never before.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred, max 680px. Sits inline in the page flow, not in a coloured band.</dd>
@@ -565,56 +679,15 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       <p class="fill fill-body">MICROLINE · what happens after the click</p>
       <p class="job">Remove effort by telling them exactly what happens next. Length of call, who they speak to, what to bring.</p>
     </div>
-    <div class="delta"><b>DELTA C · open</b><br>One reviewed structure places a soft CTA earlier, before the proof wall. This wireframe places the first ask after proof and fit. <b>Decision needed:</b> one ask here, or a soft ask before proof plus this one. Recommendation: one ask here for v1, and test an earlier soft ask as a variant rather than adding both at launch.</div>
+    <div class="decided"><b>Decision C · settled</b><br><span class="verdict">One ask, here.</span> A reviewed alternative placed a soft CTA earlier, before the proof wall. v1 ships a single mid-page ask after proof and fit, so there is one clean baseline to measure. An earlier soft ask is a variant to test, not a second button to add at launch.</div>
   </div>
 </section>
 
 <!-- ============================================================= -->
-<!-- S6 · ABOUT THE AUTHORITY -->
+<!-- S6 · FAQ -->
 <!-- ============================================================= -->
-<section id="s6" class="sec sec--alt">
-  <div class="secbadge"><span class="n">S6</span> About the authority <span class="tag">CONSTANT</span></div>
-  <p class="secwhy">Justified as its own section only because this list already follows this person. For a less known authority it folds into S3. See Delta D.</p>
-  <dl class="spec">
-    <dt>Layout</dt><dd>2 columns desktop: portrait left at roughly one third, copy right. Stacked at 375px, portrait first.</dd>
-    <dt>Folds</dt><dd>0.7 desktop / 1.1 mobile.</dd>
-    <dt>Media</dt><dd>1 portrait, 3:4. Real photograph of the authority, not a logo.</dd>
-    <dt>Elements</dt><dd>H2 · portrait · body · 3 credential lines.</dd>
-    <dt>Reference</dt><dd>Live SSI page guide card.</dd>
-  </dl>
-  <div class="wrap-wide">
-    <div class="g2 g2--port">
-      <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Portrait</span><span class="budget">image · 3:4</span></div>
-        <div class="ph ph-port" style="max-height:210px">PORTRAIT · the authority</div>
-        <p class="job">Put a face on the claim. Real photo, not a brand mark.</p>
-      </div>
-      <div>
-        <div class="slot">
-          <div class="slot-hd"><span class="slot-type">H2</span><span class="budget">4 to 8 words</span></div>
-          <p class="fill fill-h2">ABOUT THE AUTHORITY</p>
-          <p class="job">Name who is behind the program, in one line.</p>
-        </div>
-        <div class="slot">
-          <div class="slot-hd"><span class="slot-type">Body</span><span class="budget">50 to 80 words</span></div>
-          <div class="lines"><i></i><i></i><i></i><i></i><i></i></div>
-          <p class="job">Credibility through what they have done, not what they believe. Ends on why they teach this.</p>
-        </div>
-        <div class="slot">
-          <div class="slot-hd"><span class="slot-type">Credentials</span><span class="budget">3 lines · 4 to 8 w each</span></div>
-          <div class="lines"><i style="width:70%"></i><i style="width:64%"></i><i style="width:58%"></i></div>
-          <p class="job">Three checkable facts. Numbers and named things only, no adjectives.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================= -->
-<!-- S7 · FAQ -->
-<!-- ============================================================= -->
-<section id="s7" class="sec">
-  <div class="secbadge"><span class="n">S7</span> Objection FAQ <span class="tag">CONSTANT</span></div>
+<section id="s6" class="sec">
+  <div class="secbadge"><span class="n">S6</span><span class="name">Objection FAQ</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">Removes the last confusion and anxiety before the close. Ordered by real objection frequency, not by what is easiest to answer.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column accordion, max 760px. First item open by default, rest closed.</dd>
@@ -661,7 +734,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- FINAL CTA -->
 <!-- ============================================================= -->
 <section id="cta" class="sec sec--alt">
-  <div class="secbadge"><span class="n">CTA</span> Final ask <span class="tag">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">CTA</span><span class="name">Final ask</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">Desire plus effort removal. Same ask, restated for the reader who scrolled the whole page.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column centred inside a bordered card, max 680px.</dd>
@@ -700,7 +773,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- FOOTER -->
 <!-- ============================================================= -->
 <section id="footer" class="sec">
-  <div class="secbadge"><span class="n">F</span> Footer + disclaimer <span class="tag">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">F</span><span class="name">Footer + disclaimer</span> <span class="tag tag--const">CONSTANT</span></div>
   <p class="secwhy">Legitimacy, not navigation. A footer menu on a funnel page is a set of exits.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred, small type. No columns, no link grid.</dd>
@@ -738,10 +811,10 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <div class="brief" id="brief">
   <p style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6b7280;margin:0 0 .3rem">Copy brief · derived from the wireframe above</p>
   <h2 style="margin:0 0 .4rem;font-size:1.3rem">Every slot on this page, in order</h2>
-  <p style="margin:0 0 1rem;font-size:12px;color:#475569;line-height:1.55;max-width:70ch">One row per box. Write to the <b>job</b>, inside the <b>budget</b>. If a slot cannot be written inside its budget, that is a structure problem, not a copy problem: flag it rather than overrunning, because the fold budgets in the section specs assume these lengths.</p>
+  <p style="margin:0 0 1rem;font-size:12px;color:#475569;line-height:1.55;max-width:70ch">One row per box. Write to the <b>job</b>, inside the <b>word budget</b>. If a slot cannot be written inside its budget, that is a structure problem, not a copy problem: flag it rather than overrunning, because the fold budgets in the section specs assume these lengths.</p>
   <div class="tablewrap">
   <table class="cb">
-    <thead><tr><th style="width:9rem">Slot</th><th style="width:6rem">Type</th><th style="width:7rem">Budget</th><th>Job</th></tr></thead>
+    <thead><tr><th style="width:9rem">Slot</th><th style="width:6rem">Type</th><th style="width:7rem">Word budget</th><th>Job</th></tr></thead>
     <tbody>
       <tr class="grp"><td colspan="4">Chrome · audience banner + header</td></tr>
       <tr><td>Banner line</td><td class="t">Text</td><td class="b">6 to 12 w</td><td>Name the audience so the right person self-identifies instantly. Who the page is for, not what the offer is.</td></tr>
@@ -757,7 +830,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       <tr class="grp"><td colspan="4">S2 · Bridge</td></tr>
       <tr><td>H2 reframe</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>The asset was the beginning, not the answer. The turn from teaching to offering.</td></tr>
       <tr><td>Body</td><td class="t">Body</td><td class="b">25 to 40 w</td><td>Name that a system exists behind the asset, without naming the program yet.</td></tr>
-      <tr class="grp"><td colspan="4">S3 · Program, mechanism, value prop</td></tr>
+      <tr class="grp"><td colspan="4">S3 · Program, mechanism, value prop, authority</td></tr>
       <tr><td>Eyebrow</td><td class="t">Micro</td><td class="b">2 to 4 w</td><td>Signal the section change.</td></tr>
       <tr><td>H2 program + VP</td><td class="t">H2</td><td class="b">8 to 14 w</td><td>Name the program for the first time and state the value prop in one breath.</td></tr>
       <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">15 to 25 w</td><td>Tie the program back to the authority in the video. The congruence link.</td></tr>
@@ -765,6 +838,9 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       <tr><td>Step body x5</td><td class="t">Body</td><td class="b">12 to 20 w each</td><td>What happens in that step, in the buyer's language.</td></tr>
       <tr><td>Outcome card title</td><td class="t">H3</td><td class="b">4 to 8 w</td><td>What the buyer walks away with.</td></tr>
       <tr><td>Outcome bullets x3</td><td class="t">Bullet</td><td class="b">6 to 12 w each</td><td>Convert the mechanism into a possession.</td></tr>
+      <tr><td>Authority line</td><td class="t">H3</td><td class="b">8 to 14 w</td><td>Close the loop with S1. The same person whose video they just watched built this system.</td></tr>
+      <tr><td>Authority body</td><td class="t">Body</td><td class="b">35 to 55 w</td><td>Credibility through what he has done, not what he believes. Shorter than a standalone About, because this supports the mechanism.</td></tr>
+      <tr><td>Credentials x3</td><td class="t">Bullet</td><td class="b">4 to 8 w each</td><td>Three checkable facts. Numbers and named things only, no adjectives.</td></tr>
       <tr><td>Objection reversal</td><td class="t">Body</td><td class="b">10 to 18 w</td><td>Kill the biggest misread of the mechanism before proof, in one sentence.</td></tr>
       <tr class="grp"><td colspan="4">S4 · Proof wall</td></tr>
       <tr><td>H2 finding</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>Say what the proof proves. Not the topic.</td></tr>
@@ -780,11 +856,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       <tr><td>H3 outcome</td><td class="t">H3</td><td class="b">6 to 12 w</td><td>Restate what they get, in their words, above the button.</td></tr>
       <tr><td>CTA button</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>Identical to header and final CTA. One label family.</td></tr>
       <tr><td>Microline</td><td class="t">Micro</td><td class="b">6 to 12 w</td><td>What happens after the click. Length, who they speak to, what to bring.</td></tr>
-      <tr class="grp"><td colspan="4">S6 · About the authority</td></tr>
-      <tr><td>H2</td><td class="t">H2</td><td class="b">4 to 8 w</td><td>Name who is behind the program.</td></tr>
-      <tr><td>Body</td><td class="t">Body</td><td class="b">50 to 80 w</td><td>Credibility through what they have done. Ends on why they teach this.</td></tr>
-      <tr><td>Credentials x3</td><td class="t">Bullet</td><td class="b">4 to 8 w each</td><td>Three checkable facts. Numbers and named things, no adjectives.</td></tr>
-      <tr class="grp"><td colspan="4">S7 · FAQ</td></tr>
+      <tr class="grp"><td colspan="4">S6 · FAQ</td></tr>
       <tr><td>H2</td><td class="t">H2</td><td class="b">2 to 5 w</td><td>Plain header. The one header allowed not to sell.</td></tr>
       <tr><td>Q x5</td><td class="t">H3</td><td class="b">6 to 12 w each</td><td>Price, time, is this for me, does it work in my situation, what happens on the call. Pull the real five from setter calls.</td></tr>
       <tr><td>A x5</td><td class="t">Body</td><td class="b">30 to 50 w each</td><td>Answer directly. Use a proof case rather than a promise where possible.</td></tr>
@@ -804,8 +876,16 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
     <li><b>Cleared proof only.</b> Any name, quote or number that is not cleared stays out. It is never replaced with a plausible substitute.</li>
     <li><b>No em dashes.</b> House rule, applies to every line on the page.</li>
     <li><b>Budgets are structural.</b> They come from the fold budgets in each section spec. Overrunning a budget moves the first fold, which is the one thing this wireframe exists to protect.</li>
-    <li><b>Four open questions.</b> Deltas A to D above are unresolved. Copy for the affected slots should wait until they are settled.</li>
+    <li><b>The four structural questions are settled.</b> Decisions A to D are recorded in place on the page above, with the reasoning. Nothing is blocking copy except the client disclaimer.</li>
   </ul>
+</div>
+
+<!-- ===== INTERNAL FEEDBACK · not part of the page. Strip before F2. ===== -->
+<div class="slackcta">
+  <p class="kicker">Internal only</p>
+  <h3>Got suggestions for this funnel?</h3>
+  <a class="slackbtn" href="https://wholefounder.slack.com/archives/C0BGAUZAN6S" target="_blank" rel="noopener">Leave them here</a>
+  <p class="sub">Opens #wf-funnel-cro in Slack. Structural feedback (section order, emphasis, what is missing) is most useful now, while it is still a wireframe. Copy notes go on the slot they belong to.</p>
 </div>
 
 <!-- ============================================================================
@@ -846,11 +926,17 @@ function wfCheck(){
     overflowCount: over.length, overflowers: over.slice(0,10),
     burstContainers: burst.slice(0,10),
     sectionOrder:[].slice.call(document.querySelectorAll('section')).map(function(s){return s.id;}),
+    tocOrder:[].slice.call(document.querySelectorAll('.toc a')).map(function(a){return a.getAttribute('href').slice(1);}),
+    openDeltas: document.querySelectorAll('.delta').length,
+    settledDecisions: document.querySelectorAll('.decided').length,
     slotCount: document.querySelectorAll('.slot').length,
     slotsMissingBudget: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.budget');}).length,
     slotsMissingJob: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.job');}).length,
     sectionsMissingSpec: [].slice.call(document.querySelectorAll('section')).filter(function(s){return !s.querySelector('.spec');}).map(function(s){return s.id;}),
     briefRows: document.querySelectorAll('#brief table.cb tbody tr:not(.grp)').length };
+  // The section list at the top is a promise about the page. If it drifts out
+  // of sync with the actual sections it is worse than not being there.
+  r.tocMatchesSections = r.tocOrder.join('|')===r.sectionOrder.join('|');
   console.log('%cWF SELF-CHECK','font-weight:bold', r);
   return r;
 }
