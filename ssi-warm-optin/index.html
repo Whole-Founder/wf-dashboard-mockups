@@ -250,7 +250,7 @@ body.specs .specbtn{ display:none; }
    left a reading column pinned to the left of a 1280px card, which read as an
    oversized box with the content shoved into one corner. */
 .howto details{ border:1px solid var(--wf-line); border-radius:8px; background:var(--wf-bg-alt);
-  max-width:760px; margin:0 auto; }
+  max-width:820px; margin:0 auto; }
 .howto summary{ cursor:pointer; list-style:none; padding:.9rem 1.25rem; font-weight:700; font-size:.95rem;
   color:var(--wf-ink); display:flex; align-items:center; gap:.5rem; }
 .howto summary::-webkit-details-marker{ display:none; }
@@ -295,6 +295,15 @@ body.specs .specbtn{ display:none; }
 .g3-tight .slot{ padding:.45rem .4rem; }
 .g3-tight .budget{ font-size:8.5px; padding:.08rem .35rem; }
 .job, .fill, .spec dd{ overflow-wrap:anywhere; }
+
+/* ---- ORPHAN CONTROL ------------------------------------------------------
+   `pretty` asks the browser to avoid leaving a single word on the last line.
+   Chrome and Safari honour it; Firefox does not yet, and it gives up on long
+   paragraphs. The widow script at the bottom of this file is the guarantee.
+   Note: the greedy value is `wrap`, NOT `normal` (which is invalid here and
+   silently falls back to an inherited `balance`).                           */
+.howto .body p, .howto .body li, .secwhy, .job, .spec dd, .toc .lede, .toc .desc,
+.brief p, .brief li, .slackcta .sub, .note, .decided, .delta{ text-wrap:pretty; }
 
 /* ---- WIREFRAME CHROME (strip before F2) ---------------------------------- */
 .chrome{ z-index:60; background:#111827; color:#e5e7eb;
@@ -1036,6 +1045,77 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   });
 })();
 
+/* ---- ORPHANS · no single word alone on a last line ------------------------
+   text-wrap:pretty is the first line of defence but is unsupported in Firefox
+   and gives up on long paragraphs, so this binds the last two words of every
+   prose block with a real non-breaking space.
+
+   Two gotchas this encodes, both learned the hard way on SSI pages:
+   1. The nbsp must be built with String.fromCharCode(160). A literal byte in the
+      source renders as mojibake under some encodings and in headless.
+   2. A hyphenated word still breaks at its OWN hyphen, so an nbsp in front of
+      it does nothing. When the second-to-last word is hyphenated, bind three.
+   Rewrites only the element's LAST text node, so inline markup survives.     */
+var WF_PROSE = '.howto .body p, .howto .body li, .secwhy, .job, .spec dd, .toc .lede,'
+             + '.toc .desc, .brief p, .brief li, .slackcta .sub, .note, .decided, .delta';
+(function(){
+  var NB=String.fromCharCode(160);   // never a literal nbsp byte in source
+  function lastTextNode(el){
+    var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),n,last=null;
+    while((n=w.nextNode())){ if(n.nodeValue && n.nodeValue.trim()) last=n; }
+    return last;
+  }
+  function bindWidows(){
+    document.querySelectorAll(WF_PROSE).forEach(function(el){
+      var n=lastTextNode(el); if(!n) return;
+      var t=n.nodeValue.split(NB).join(' ');            // idempotent: undo first
+      var lead=(t.match(/^\s+/)||[''])[0], trail=(t.match(/\s+$/)||[''])[0];
+      var words=t.trim().split(/\s+/);
+      if(words.length<2){ n.nodeValue=t; return; }
+      var count=(words.length>=3 && words[words.length-2].indexOf('-')>-1)?3:2;
+      var head=words.slice(0,words.length-count).join(' ');
+      var tail=words.slice(words.length-count).join(NB);
+      n.nodeValue=lead+(head?head+' ':'')+tail+trail;
+    });
+  }
+  window.wfBindWidows=bindWidows;
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindWidows);
+  else bindWidows();
+  var t; window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(bindWidows,150); });
+})();
+
+/* Detector: measure every word, cluster into visual lines, flag any block
+   whose last line holds one word. nbsp-joined pairs measure as one word,
+   which is exactly the point. */
+function wfOrphans(){
+  var out=[];
+  document.querySelectorAll(WF_PROSE).forEach(function(el){
+    var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),n,words=[];
+    while((n=w.nextNode())){
+      var re=/\S+/g,m;
+      while((m=re.exec(n.nodeValue))){
+        var r=document.createRange();
+        r.setStart(n,m.index); r.setEnd(n,m.index+m[0].length);
+        var rect=r.getBoundingClientRect();
+        if(rect.width>0) words.push({top:rect.top,txt:m[0]});
+      }
+    }
+    if(words.length<2) return;
+    words.sort(function(a,b){return a.top-b.top;});
+    var lines=[[words[0]]];                     // cluster with tolerance: inline
+    for(var i=1;i<words.length;i++){            // tags sit a few px off baseline
+      if(Math.abs(words[i].top-lines[lines.length-1][0].top)<8) lines[lines.length-1].push(words[i]);
+      else lines.push([words[i]]);
+    }
+    if(lines.length<2) return;
+    var last=lines[lines.length-1];
+    if(last.length===1){
+      out.push((el.getAttribute('class')||el.tagName)+' :: "'+last[0].txt+'"');
+    }
+  });
+  return out;
+}
+
 function wfCheck(){
   var de=document.documentElement, over=[];
   // An element inside a deliberate horizontal-scroll container (the copy-brief
@@ -1078,7 +1158,9 @@ function wfCheck(){
     slotsMissingBudget: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.budget');}).length,
     slotsMissingJob: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.job');}).length,
     sectionsMissingSpec: [].slice.call(document.querySelectorAll('section')).filter(function(s){return !s.querySelector('.spec');}).map(function(s){return s.id;}),
-    briefRows: document.querySelectorAll('#brief table.cb tbody tr:not(.grp)').length };
+    briefRows: document.querySelectorAll('#brief table.cb tbody tr:not(.grp)').length,
+    orphans: wfOrphans() };
+  r.orphanCount = r.orphans.length;
   // The section list at the top is a promise about the page. If it drifts out
   // of sync with the actual sections it is worse than not being there.
   r.tocMatchesSections = r.tocOrder.join('|')===r.sectionOrder.join('|');
