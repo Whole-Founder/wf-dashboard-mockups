@@ -78,7 +78,7 @@ img{ max-width:100%; }
 .tag--swap{ background:var(--wf-swap-bg); border-color:var(--wf-swap-line); color:var(--wf-swap-ink); }
 .tag--const{ background:var(--wf-const-bg); border-color:var(--wf-const-line); color:var(--wf-const-ink); }
 .tag--v2{ background:var(--wf-v2-bg); border-color:var(--wf-v2-line); color:var(--wf-v2-ink); }
-.secwhy{ font-size:11.5px; color:var(--wf-slate); margin:0 0 .75rem; line-height:1.45; }
+.secwhy{ font-size:12.5px; color:#475569; margin:0 0 .9rem; line-height:1.5; max-width:82ch; }
 
 /* ---- SECTION SPEC RAIL · .spec -------------------------------------------
    Answers, per section: layout, fold budget, media, element form + count,
@@ -105,8 +105,58 @@ img{ max-width:100%; }
   color:var(--wf-slate); font-weight:700; }
 .budget{ font-family:var(--wf-mono); font-size:9px; color:var(--wf-slate-d); background:#f1f5f9;
   border:1px solid #e2e8f0; border-radius:99px; padding:.1rem .45rem; white-space:nowrap; }
-.job{ font-size:10.5px; line-height:1.4; color:var(--wf-slate); margin-top:.4rem; }
-.job::before{ content:"Job: "; font-weight:700; color:var(--wf-slate-d); }
+.job{ font-size:11px; line-height:1.45; color:#64748b; margin-top:.4rem; }
+.job::before{ content:"Job: "; font-weight:700; color:var(--wf-ink); }
+
+/* ============================================================================
+   VIEW MODES · the answer to "I can't actually visualise the page"
+   PREVIEW (default) shows the wireframe and nothing else: section header, one
+   line on why it exists, and the labelled boxes at their real size.
+   SPECS shows the annotation layer on top: spec rails, jobs, word budgets,
+   decisions. Same document, two audiences. A human reviews in Preview; a
+   copywriter or a builder works in Specs. Any single section can also be
+   opened on its own without leaving Preview.
+   ============================================================================ */
+body.preview .spec,
+body.preview .job,
+body.preview .budget,
+body.preview .decided,
+body.preview .note{ display:none; }
+body.preview section.show-specs .spec{ display:grid; }
+body.preview section.show-specs .job,
+body.preview section.show-specs .budget,
+body.preview section.show-specs .decided,
+body.preview section.show-specs .note{ display:block; }
+body.preview section.show-specs .budget{ display:inline-block; }
+/* leaner boxes when the annotation is off */
+body.preview .slot{ padding:.45rem .6rem; }
+body.preview .slot + .slot{ margin-top:.4rem; }
+body.preview section.show-specs .slot{ padding:.55rem .65rem; }
+
+/* the switch */
+.viewbar{ position:sticky; top:0; z-index:55; max-width:1280px; margin:0 auto;
+  background:rgba(255,255,255,.94); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--wf-line); padding:.55rem 1rem;
+  display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; }
+@media(min-width:768px){ .viewbar{ padding:.6rem 3rem; } }
+.viewbar .lbl{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--wf-muted); }
+.switch{ display:inline-flex; border:1px solid var(--wf-line); border-radius:99px; padding:2px; background:#f1f5f9; }
+.switch button{ font-family:var(--wf-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+  font-weight:600; border:0; background:transparent; color:var(--wf-slate-d);
+  padding:.3rem .8rem; border-radius:99px; cursor:pointer; }
+.switch button[aria-pressed="true"]{ background:var(--wf-ink); color:#fff; }
+.viewbar .hint{ font-size:11px; color:#64748b; }
+@media(max-width:600px){ .viewbar .hint{ display:none; } }
+
+/* per-section peek */
+.specbtn{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+  border:1px solid var(--wf-line); background:#fff; color:var(--wf-slate-d);
+  border-radius:99px; padding:.15rem .5rem; cursor:pointer; margin-left:auto; }
+.specbtn:hover{ border-color:var(--wf-ink); color:var(--wf-ink); }
+.specbtn::after{ content:" +"; }
+section.show-specs .specbtn::after{ content:" \2212"; }
+body.specs .specbtn{ display:none; }
 
 /* fills · the label IS the placeholder, set at the real type size */
 .fill{ color:var(--wf-ink); line-height:1.15; margin:0; }
@@ -163,22 +213,53 @@ img{ max-width:100%; }
   text-transform:uppercase; color:var(--wf-const-ink); }
 .decided .verdict{ color:var(--wf-ink); font-weight:600; }
 
-/* ---- SECTION LIST · the map you read before you start scrolling ---------- */
-.toc{ max-width:1280px; margin:0 auto; background:var(--wf-bg);
-  border-bottom:1px solid var(--wf-line); padding:1.2rem 1rem 1.4rem; }
-@media(min-width:768px){ .toc{ padding:1.5rem 3rem 1.7rem; } }
-.toc h3{ font-family:var(--wf-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--wf-muted); margin:0 0 .2rem; }
-.toc .lede{ font-size:12px; color:var(--wf-slate-d); margin:0 0 .9rem; line-height:1.5; max-width:70ch; }
-.toc ol{ list-style:none; margin:0; padding:0; display:grid; gap:.35rem; }
-.toc li{ display:flex; align-items:center; gap:.55rem; font-family:var(--wf-mono); font-size:12px;
-  color:var(--wf-ink); }
-.toc li.chrome-row{ color:var(--wf-slate); }
-.toc .num{ flex:0 0 2.6rem; font-weight:700; font-size:11px; color:var(--wf-slate); letter-spacing:.04em; }
-.toc a{ color:inherit; text-decoration:none; border-bottom:1px solid transparent; }
+/* ---- PAGE OVERVIEW · the summary you read before you scroll anything ------
+   Deliberately the loudest thing on the document after the page itself. Bold
+   section names, quiet descriptors, tag on the right.                        */
+.toc{ max-width:1280px; margin:0 auto; background:var(--wf-bg-alt);
+  border-bottom:1px solid var(--wf-line); padding:1.6rem 1rem 1.7rem; }
+@media(min-width:768px){ .toc{ padding:2rem 3rem 2.1rem; } }
+.toc .kicker{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--wf-muted); margin:0 0 .3rem; }
+.toc h2{ font-size:1.35rem; font-weight:800; letter-spacing:-.01em; margin:0 0 .35rem; color:var(--wf-ink); }
+@media(min-width:768px){ .toc h2{ font-size:1.6rem; } }
+.toc .lede{ font-size:13px; color:#475569; margin:0 0 1.1rem; line-height:1.55; max-width:68ch; }
+.toc ol{ list-style:none; margin:0; padding:0; display:grid; gap:0;
+  border-top:1px solid #e2e8f0; }
+.toc li{ display:flex; align-items:center; gap:.7rem; padding:.55rem 0;
+  border-bottom:1px solid #e2e8f0; }
+.toc .num{ flex:0 0 2.9rem; font-family:var(--wf-mono); font-weight:700; font-size:10.5px;
+  letter-spacing:.05em; color:#fff; background:var(--wf-slate); border-radius:4px;
+  padding:.2rem 0; text-align:center; }
+.toc li.key .num{ background:var(--wf-ink); }
+.toc a{ color:var(--wf-ink); text-decoration:none; font-weight:700; font-size:13.5px;
+  border-bottom:1px solid transparent; }
 .toc a:hover{ border-bottom-color:var(--wf-ink); }
+.toc .desc{ font-size:12.5px; color:#64748b; font-weight:400; }
 .toc .dots{ flex:1 1 auto; border-bottom:1px dotted #cbd5e1; min-width:.75rem; transform:translateY(-3px); }
-@media(max-width:600px){ .toc .dots{ display:none; } .toc li{ flex-wrap:wrap; } }
+@media(max-width:640px){
+  .toc .dots{ display:none; }
+  .toc li{ flex-wrap:wrap; row-gap:.15rem; }
+  .toc .desc{ flex:1 0 100%; padding-left:3.6rem; }
+}
+
+/* ---- HOW TO READ · collapsed by default, at the END, not the top --------- */
+.howto{ max-width:1280px; margin:0 auto; background:var(--wf-bg); padding:0 1rem 2.5rem; }
+@media(min-width:768px){ .howto{ padding:0 3rem 3rem; } }
+.howto details{ border:1px solid var(--wf-line); border-radius:8px; background:var(--wf-bg-alt); }
+.howto summary{ cursor:pointer; list-style:none; padding:.9rem 1rem; font-weight:700; font-size:.95rem;
+  color:var(--wf-ink); display:flex; align-items:center; gap:.5rem; }
+.howto summary::-webkit-details-marker{ display:none; }
+.howto summary::after{ content:"+"; margin-left:auto; font-family:var(--wf-mono); font-size:1rem; color:var(--wf-muted); }
+.howto details[open] summary::after{ content:"\2212"; }
+.howto summary span{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--wf-muted); font-weight:600; }
+.howto .body{ padding:0 1rem 1.2rem; font-size:13px; line-height:1.65; color:#475569; max-width:76ch; }
+.howto .body h4{ font-size:12.5px; margin:1.2rem 0 .4rem; color:var(--wf-ink); }
+.howto .body p{ margin:.5rem 0; }
+.howto .body ul{ margin:.4rem 0; padding-left:1.15rem; }
+.howto .body li{ margin-bottom:.35rem; }
+.howto .body code{ font-family:var(--wf-mono); background:#e2e8f0; border-radius:3px; padding:0 .28rem; font-size:11.5px; }
 
 /* ---- INTERNAL FEEDBACK CTA (strip before F2) ---------------------------- */
 .slackcta{ max-width:1280px; margin:0 auto; background:var(--wf-ink); color:#e5e7eb;
@@ -211,7 +292,7 @@ img{ max-width:100%; }
 .job, .fill, .spec dd{ overflow-wrap:anywhere; }
 
 /* ---- WIREFRAME CHROME (strip before F2) ---------------------------------- */
-.chrome{ position:sticky; top:0; z-index:60; background:#111827; color:#e5e7eb;
+.chrome{ z-index:60; background:#111827; color:#e5e7eb;
   font-size:10.5px; padding:.5rem .75rem; display:flex; flex-wrap:wrap; gap:.35rem .9rem;
   align-items:center; justify-content:center; font-family:var(--wf-mono); }
 .chrome .ttl{ font-weight:700; letter-spacing:.08em; }
@@ -247,45 +328,41 @@ table.cb td.t{ font-family:var(--wf-mono); font-size:9.5px; color:var(--wf-slate
 table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; }
 </style>
 </head>
-<body>
+<body class="preview">
 
 <!-- ===== WIREFRAME CHROME · not part of the page. Strip before F2. ===== -->
 <div class="chrome">
   <span class="ttl">SSI · WARM ASSET-DELIVERY PAGE · WIREFRAME v1</span>
-  <span class="dim">F1 · structure + slots, no copy, no brand</span>
+  <span class="dim">F1 · structure only, no copy, no brand</span>
   <span class="dim">Review at 375px and 1440px</span>
-  <span class="amb">amber = blocked input</span>
-</div>
-
-<div class="legend">
-  <h3>How to read this wireframe</h3>
-  <p style="margin:0">A wireframe locks <b>structure</b>, not words. Every content slot below is a labelled box carrying three things, so the page doubles as the copy brief. Full table at the bottom.</p>
-  <ul>
-    <li><code>SLOT TYPE</code> what goes in the box: H1, subhead, body, bullet, CTA, stat, image, video. Set in mono, top left of every box.</li>
-    <li><code>WORD BUDGET</code> the pill on the top right of every box is a <b>word budget</b>: the length the layout is built for. Writing outside it breaks the fold.</li>
-    <li><code>JOB</code> the one thing that slot has to accomplish. Write to the job, not to the box.</li>
-    <li><code>SPEC</code> the grey rail under each section header: layout, fold budget, media, element counts, reference.</li>
-    <li><span class="tag tag--swap">SWAP</span> <span class="tag tag--const">CONSTANT</span> <span class="tag tag--v2">CUSTOMIZE V2</span> variant behaviour. <b>SWAP</b> changes per page variant, <b>CONSTANT</b> is written once and reused, <b>CUSTOMIZE V2</b> is constant now and hand-tuned per asset later.</li>
-    <li><code>DECIDED</code> the four structural questions this wireframe raised are settled. Each is recorded in place, with the reasoning, so it does not get re-litigated.</li>
-  </ul>
 </div>
 
 <div class="toc">
-  <h3>Sections, in order</h3>
-  <p class="lede">The whole page at a glance before you start scrolling. Eleven blocks. One ask, repeated four times, one label. Jump to any section.</p>
+  <p class="kicker">SSI &middot; warm asset-delivery page &middot; F1 wireframe</p>
+  <h2>Page overview</h2>
+  <p class="lede">Eleven blocks. One ask, repeated four times, with one label. <b>S1 is the only block that changes between variants.</b> Everything below it is written once and reused across the top five videos. Jump to any section.</p>
   <ol>
-    <li class="chrome-row"><span class="num">C</span><a href="#chrome">Audience banner + sticky header</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">S1</span><a href="#s1">Asset delivery &middot; the video they came for</a><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
-    <li class="chrome-row"><span class="num">P</span><a href="#proofstrip">Proof strip &middot; three stats</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">S2</span><a href="#s2">Bridge &middot; the asset was step one</a><span class="dots"></span><span class="tag tag--v2">CUSTOMIZE V2</span></li>
-    <li><span class="num">S3</span><a href="#s3">The program, mechanism, value prop, authority</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">S4</span><a href="#s4">Proof wall &middot; six member results</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">S5</span><a href="#s5">Who it is for &middot; soft fit</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="chrome-row"><span class="num">CTA</span><a href="#cta1">First ask, mid-page</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">S6</span><a href="#s6">Objection FAQ &middot; five</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="chrome-row"><span class="num">CTA</span><a href="#cta">Final ask</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="chrome-row"><span class="num">F</span><a href="#footer">Footer + disclaimer</a><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">C</span><a href="#chrome">Audience banner + header</a><span class="desc">who this is for, and one way forward</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S1</span><a href="#s1">Asset delivery</a><span class="desc">the video they came for</span><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
+    <li><span class="num">P</span><a href="#proofstrip">Proof strip</a><span class="desc">three stats, one glance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S2</span><a href="#s2">Bridge</a><span class="desc">the asset was step one, not the answer</span><span class="dots"></span><span class="tag tag--v2">CUSTOMIZE V2</span></li>
+    <li class="key"><span class="num">S3</span><a href="#s3">The program</a><span class="desc">mechanism, value prop, authority</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S4</span><a href="#s4">Proof wall</a><span class="desc">six real member results</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S5</span><a href="#s5">Who it is for</a><span class="desc">soft fit, based on timing</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">CTA</span><a href="#cta1">First ask</a><span class="desc">mid-page, after proof and fit</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S6</span><a href="#s6">Objection FAQ</a><span class="desc">the five that actually come up</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">CTA</span><a href="#cta">Final ask</a><span class="desc">same label, last chance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">F</span><a href="#footer">Footer</a><span class="desc">legal and disclaimer</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
   </ol>
+</div>
+
+<div class="viewbar">
+  <span class="lbl">View</span>
+  <span class="switch">
+    <button type="button" data-mode="preview" aria-pressed="true">Preview</button>
+    <button type="button" data-mode="specs" aria-pressed="false">Specs</button>
+  </span>
+  <span class="hint">Preview is the page. Specs layers on the build detail: layout rails, word budgets, and the job each box has to do. Open one section at a time with the button on its header.</span>
 </div>
 
 <div class="page">
@@ -294,7 +371,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- CHROME · AUDIENCE TOP BANNER + STICKY HEADER -->
 <!-- ============================================================= -->
 <section id="chrome" class="sec sec--alt">
-  <div class="secbadge"><span class="n">C</span><span class="name">Audience banner + header</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">C</span><span class="name">Audience banner + header</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">Earns its pixels by doing two jobs in under two seconds: tell the visitor they are in the right place, and give exactly one way forward.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>Full-bleed banner strip above a sticky header. Header: logo left, one button right. No nav links.</dd>
@@ -329,7 +406,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S1 · ASSET DELIVERY (the SWAP section) -->
 <!-- ============================================================= -->
 <section id="s1" class="sec">
-  <div class="secbadge"><span class="n">S1</span><span class="name">Asset delivery</span> <span class="tag tag--swap">SWAP</span></div>
+  <div class="secbadge"><span class="n">S1</span><span class="name">Asset delivery</span> <span class="tag tag--swap">SWAP</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The visitor clicked an email to watch a video. This section delivers exactly that and nothing else. It is the only section that changes between page variants.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred, max 760px. Headline above the video on both breakpoints.</dd>
@@ -367,7 +444,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- PROOF STRIP -->
 <!-- ============================================================= -->
 <section id="proofstrip" class="sec sec--alt">
-  <div class="secbadge"><span class="n">P</span><span class="name">Proof strip</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">P</span><span class="name">Proof strip</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">Aggregate credibility in one glance, immediately after the video, before any claim is made.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>3 columns at every breakpoint. Stays 3-up at 375px, so numbers stay compact rather than stacking into a wall.</dd>
@@ -405,7 +482,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S2 · BRIDGE -->
 <!-- ============================================================= -->
 <section id="s2" class="sec">
-  <div class="secbadge"><span class="n">S2</span><span class="name">Bridge · asset to system</span> <span class="tag tag--v2">CUSTOMIZE V2</span></div>
+  <div class="secbadge"><span class="n">S2</span><span class="name">Bridge · asset to system</span> <span class="tag tag--v2">CUSTOMIZE V2</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The seam an indirect funnel lives or dies on. It reframes the video from an answer into a first step, which is the only reason the visitor keeps reading.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred, max 680px. Deliberately narrow and short so it reads as a turn, not a section.</dd>
@@ -438,7 +515,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S3 · PROGRAM + MECHANISM + VALUE PROP -->
 <!-- ============================================================= -->
 <section id="s3" class="sec sec--alt">
-  <div class="secbadge"><span class="n">S3</span><span class="name">The program · mechanism · value prop</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">S3</span><span class="name">The program · mechanism · value prop</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The first real introduction of the offer. This is the page's spine, and everything below it is proof of what is claimed here.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>2 columns on desktop: numbered steps left, data panel right. Authority folds in below as a portrait-plus-copy row. Single column at 375px, steps first.</dd>
@@ -535,7 +612,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S4 · PROOF WALL -->
 <!-- ============================================================= -->
 <section id="s4" class="sec">
-  <div class="secbadge"><span class="n">S4</span><span class="name">Proof it works</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">S4</span><span class="name">Proof it works</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The x-ray section. Third-party results carry more weight here than the authority's own numbers, because the authority is already the reason the visitor is on the page.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>3 columns desktop, 2 rows. 1 column at 375px. Cards equal height, no card taller than its neighbours.</dd>
@@ -613,7 +690,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S5 · WHO IT IS FOR -->
 <!-- ============================================================= -->
 <section id="s5" class="sec sec--alt">
-  <div class="secbadge"><span class="n">S5</span><span class="name">Who it is for</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">S5</span><span class="name">Who it is for</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">A warm list is not a cold audience. This block reassures on timing rather than disqualifying hard, and it is the last thing before the first ask.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>2 equal cards side by side on desktop, stacked at 375px. Neither card is visually dominant.</dd>
@@ -654,7 +731,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- CTA #1 (mid-page) -->
 <!-- ============================================================= -->
 <section id="cta1" class="sec">
-  <div class="secbadge"><span class="n">CTA</span><span class="name">First ask, mid-page</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">CTA</span><span class="name">First ask, mid-page</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The first ask on the page, placed after belief is built and after fit is settled. Never before.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred, max 680px. Sits inline in the page flow, not in a coloured band.</dd>
@@ -687,7 +764,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S6 · FAQ -->
 <!-- ============================================================= -->
 <section id="s6" class="sec">
-  <div class="secbadge"><span class="n">S6</span><span class="name">Objection FAQ</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">S6</span><span class="name">Objection FAQ</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">Removes the last confusion and anxiety before the close. Ordered by real objection frequency, not by what is easiest to answer.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column accordion, max 760px. First item open by default, rest closed.</dd>
@@ -734,7 +811,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- FINAL CTA -->
 <!-- ============================================================= -->
 <section id="cta" class="sec sec--alt">
-  <div class="secbadge"><span class="n">CTA</span><span class="name">Final ask</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">CTA</span><span class="name">Final ask</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">Desire plus effort removal. Same ask, restated for the reader who scrolled the whole page.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column centred inside a bordered card, max 680px.</dd>
@@ -773,7 +850,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- FOOTER -->
 <!-- ============================================================= -->
 <section id="footer" class="sec">
-  <div class="secbadge"><span class="n">F</span><span class="name">Footer + disclaimer</span> <span class="tag tag--const">CONSTANT</span></div>
+  <div class="secbadge"><span class="n">F</span><span class="name">Footer + disclaimer</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">Legitimacy, not navigation. A footer menu on a funnel page is a set of exits.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred, small type. No columns, no link grid.</dd>
@@ -880,6 +957,42 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   </ul>
 </div>
 
+<!-- ===== HOW TO READ · collapsed, at the end, on purpose ===== -->
+<div class="howto">
+  <details>
+    <summary>How to read and use this wireframe <span>optional</span></summary>
+    <div class="body">
+      <p>A wireframe locks <b>structure</b>, not words. It answers one question: is this laid out in the right order, with the right emphasis, to move this visitor to action? Copy, brand and real images are deliberately stripped out, because reordering a box is free and rewriting finished copy is not.</p>
+
+      <h4>Two views</h4>
+      <p><b>Preview</b> is the page: section headers, and the labelled boxes at the size and weight they will really have. This is the view for judging structure. <b>Specs</b> layers the build detail on top. Switch at the top, or open one section at a time with the button on its header.</p>
+
+      <h4>What Specs adds</h4>
+      <ul>
+        <li>A <b>spec rail</b> per section: layout, how many folds it costs, media, element counts, and the reference it was built against.</li>
+        <li>A <b>word budget</b> on every box: the length the layout is built for.</li>
+        <li>A <b>job</b> on every box: the one thing that piece of copy has to accomplish.</li>
+        <li>The <b>decisions</b> behind the four places our sources disagreed, recorded where they apply.</li>
+      </ul>
+
+      <h4>Who uses which view</h4>
+      <ul>
+        <li><b>Reviewer</b> (Gray, the client): Preview. Sign off on section order and emphasis before money goes to copy or design.</li>
+        <li><b>Copywriter</b>: Specs. Every box states its job and its budget, so the page can be written without asking a question. The same content is in the copy brief below and in the <code>.md</code> shipped alongside.</li>
+        <li><b>Designer and developer</b>: Specs. Layout, counts and fold budgets are the build contract.</li>
+      </ul>
+
+      <h4>Two conventions worth knowing</h4>
+      <ul>
+        <li><b>Tags.</b> <span class="tag tag--swap">SWAP</span> changes per variant, <span class="tag tag--const">CONSTANT</span> is written once and reused, <span class="tag tag--v2">CUSTOMIZE V2</span> is constant now and hand-tuned per video later.</li>
+        <li><b>Amber means blocked.</b> Something we genuinely do not have yet, like the legal disclaimer. It is never filled with a plausible substitute.</li>
+      </ul>
+
+      <p>The dark bar at the very top and this block are wireframe scaffolding. Neither exists on the real page.</p>
+    </div>
+  </details>
+</div>
+
 <!-- ===== INTERNAL FEEDBACK · not part of the page. Strip before F2. ===== -->
 <div class="slackcta">
   <p class="kicker">Internal only</p>
@@ -892,6 +1005,32 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
      SELF-CHECK · open the console at 375px and run wfCheck()
      ============================================================================ -->
 <script>
+/* ---- VIEW SWITCH ---------------------------------------------------------
+   Preview by default. The choice is remembered per reader, so a copywriter
+   who works in Specs does not have to re-select it on every visit. Wrapped in
+   try/catch because storage throws in some embedded contexts.               */
+(function(){
+  var body=document.body, KEY='wf-view-mode';
+  function setMode(m){
+    body.classList.toggle('preview', m!=='specs');
+    body.classList.toggle('specs',  m==='specs');
+    [].forEach.call(document.querySelectorAll('[data-mode]'), function(b){
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-mode')===m));
+    });
+    try{ localStorage.setItem(KEY,m); }catch(e){}
+  }
+  var saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
+  setMode(saved==='specs' ? 'specs' : 'preview');
+
+  document.addEventListener('click', function(e){
+    var t=e.target;
+    var mode=t.closest && t.closest('[data-mode]');
+    if(mode){ setMode(mode.getAttribute('data-mode')); return; }
+    var peek=t.closest && t.closest('.specbtn');
+    if(peek){ peek.closest('section').classList.toggle('show-specs'); }
+  });
+})();
+
 function wfCheck(){
   var de=document.documentElement, over=[];
   // An element inside a deliberate horizontal-scroll container (the copy-brief
@@ -920,7 +1059,8 @@ function wfCheck(){
       burst.push(el.tagName+(el.id?'#'+el.id:'.'+(el.className||'').toString().split(' ')[0])
                  +' ('+el.scrollWidth+' in '+el.clientWidth+')');
   });
-  var r={ viewport:window.innerWidth,
+  var r={ mode: document.body.classList.contains('specs')?'specs':'preview',
+    viewport:window.innerWidth,
     horizontalOverflow: de.scrollWidth>window.innerWidth+1,
     scrollWidth: de.scrollWidth,
     overflowCount: over.length, overflowers: over.slice(0,10),
