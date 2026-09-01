@@ -117,21 +117,62 @@ img{ max-width:100%; }
    copywriter or a builder works in Specs. Any single section can also be
    opened on its own without leaving Preview.
    ============================================================================ */
+/* FULL PREVIEW · this is the page, not a document about the page. Everything
+   that says "wireframe" comes off: section badges, the why-line, spec rails,
+   jobs, budgets, decisions, notes, and the boxes around each slot. What is
+   left is the real type at the real size, on real page spacing, scrolling
+   without interruption. */
+body.preview .secbadge,
+body.preview .secwhy,
 body.preview .spec,
 body.preview .job,
 body.preview .budget,
+body.preview .slot-hd,
 body.preview .decided,
 body.preview .note{ display:none; }
+
+/* the slot stops being a box and becomes page content */
+body.preview .slot{ border:0; padding:0; background:transparent; }
+body.preview .slot + .slot{ margin-top:1.1rem; }
+/* but not between GRID siblings: the grid gap already spaces those, and a
+   top margin on items 2..n drops them below item 1 instead of aligning them */
+body.preview .g2 > .slot + .slot,
+body.preview .g3 > .slot + .slot,
+body.preview .g3-tight > .slot + .slot{ margin-top:0; }
+/* except where the real page genuinely uses cards: the proof wall */
+body.preview #s4 .g3 > .slot{ border:1px solid var(--wf-line); border-radius:8px; padding:1rem; }
+/* the card image fills the card, as it would on the real page, rather than
+   sitting as a small square with dead space beside it */
+body.preview #s4 .ph-sq{ aspect-ratio:auto; height:150px; max-height:none; width:100%; }
+
+/* real page rhythm, not document padding */
+body.preview .sec{ border-top:0; padding:2.75rem 1rem; }
+@media(min-width:768px){ body.preview .sec{ padding:4.5rem 3rem; } }
+body.preview #chrome{ padding:.85rem 1rem; border-bottom:1px solid var(--wf-line); }
+body.preview #chrome .g2{ align-items:center; margin-top:.5rem; }
+/* a logo is a logo, not a half-width band */
+body.preview #chrome .ph{ max-width:190px; height:38px; padding:.4rem; font-size:9.5px; }
+body.preview #footer{ padding:2rem 1rem; border-top:1px solid var(--wf-line); }
+
+/* peek at one section without leaving the clean view */
+body.preview section.show-specs{ padding-top:1.25rem; }
+body.preview section.show-specs .secbadge{ display:flex; }
+body.preview section.show-specs .secwhy{ display:block; }
 body.preview section.show-specs .spec{ display:grid; }
+body.preview section.show-specs .slot-hd{ display:flex; }
 body.preview section.show-specs .job,
-body.preview section.show-specs .budget,
 body.preview section.show-specs .decided,
 body.preview section.show-specs .note{ display:block; }
 body.preview section.show-specs .budget{ display:inline-block; }
-/* leaner boxes when the annotation is off */
-body.preview .slot{ padding:.45rem .6rem; }
-body.preview .slot + .slot{ margin-top:.4rem; }
-body.preview section.show-specs .slot{ padding:.55rem .65rem; }
+body.preview section.show-specs .slot{ border:1px dashed #cbd5e1; padding:.55rem .65rem; }
+body.preview section.show-specs .slot + .slot{ margin-top:.55rem; }
+
+/* the spec button is the only wireframe furniture Preview keeps, and it sits
+   out of the way until you look for it */
+body.preview .specbtn{ position:absolute; top:.5rem; right:1rem; opacity:.25; }
+body.preview .specbtn:hover{ opacity:1; }
+body.preview section.show-specs .specbtn{ position:static; opacity:1; }
+body.preview section{ position:relative; }
 
 /* the switch */
 .viewbar{ position:sticky; top:0; z-index:55; max-width:1280px; margin:0 auto;
@@ -147,7 +188,12 @@ body.preview section.show-specs .slot{ padding:.55rem .65rem; }
   padding:.3rem .8rem; border-radius:99px; cursor:pointer; }
 .switch button[aria-pressed="true"]{ background:var(--wf-ink); color:#fff; }
 .viewbar .hint{ font-size:11px; color:#64748b; }
-@media(max-width:600px){ .viewbar .hint{ display:none; } }
+@media(max-width:900px){ .viewbar .hint{ display:none; } }
+.viewbar .jump{ font-family:var(--wf-mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+  font-weight:600; color:var(--wf-slate-d); text-decoration:none;
+  border:1px solid var(--wf-line); border-radius:99px; padding:.3rem .7rem; white-space:nowrap; }
+.viewbar .jump::after{ content:" \2193"; }
+.viewbar .jump:hover{ border-color:var(--wf-ink); color:var(--wf-ink); }
 
 /* per-section peek */
 .specbtn{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
@@ -217,7 +263,8 @@ body.specs .specbtn{ display:none; }
    Deliberately the loudest thing on the document after the page itself. Bold
    section names, quiet descriptors, tag on the right.                        */
 .toc{ max-width:1280px; margin:0 auto; background:var(--wf-bg-alt);
-  border-bottom:1px solid var(--wf-line); padding:1.6rem 1rem 1.7rem; }
+  border-top:6px solid var(--wf-ink); border-bottom:1px solid var(--wf-line);
+  padding:1.6rem 1rem 1.7rem; scroll-margin-top:60px; }
 @media(min-width:768px){ .toc{ padding:2rem 3rem 2.1rem; } }
 .toc .kicker{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase;
   color:var(--wf-muted); margin:0 0 .3rem; }
@@ -327,8 +374,7 @@ body.specs .specbtn{ display:none; }
 @media(min-width:768px){ .stickycta{ display:none; } }
 
 /* ---- COPY BRIEF TABLE ---------------------------------------------------- */
-.brief{ max-width:1280px; margin:0 auto; background:#fff; padding:1.5rem 1rem 3rem;
-  border-top:6px solid var(--wf-ink); }
+.brief{ max-width:1280px; margin:0 auto; background:#fff; padding:1.5rem 1rem 3rem; }
 @media(min-width:768px){ .brief{ padding:2rem 3rem 4rem; } }
 .tablewrap{ overflow-x:auto; border:1px solid var(--wf-line); border-radius:8px; }
 table.cb{ border-collapse:collapse; width:100%; min-width:720px; font-size:11px; }
@@ -351,32 +397,14 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <span class="dim">Review at 375px and 1440px</span>
 </div>
 
-<div class="toc">
-  <p class="kicker">SSI &middot; warm asset-delivery page &middot; F1 wireframe</p>
-  <h2>Page overview</h2>
-  <p class="lede">Eleven blocks. One ask, repeated four times, with one label. <b>S1 is the only block that changes between variants.</b> Everything below it is written once and reused across the top five videos. Jump to any section.</p>
-  <ol>
-    <li><span class="num">C</span><a href="#chrome">Audience banner + header</a><span class="desc">who this is for, and one way forward</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S1</span><a href="#s1">Asset delivery</a><span class="desc">the video they came for</span><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
-    <li><span class="num">P</span><a href="#proofstrip">Proof strip</a><span class="desc">three stats, one glance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S2</span><a href="#s2">Bridge</a><span class="desc">the asset was step one, not the answer</span><span class="dots"></span><span class="tag tag--v2">CUSTOMIZE V2</span></li>
-    <li class="key"><span class="num">S3</span><a href="#s3">The program</a><span class="desc">mechanism, value prop, authority</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S4</span><a href="#s4">Proof wall</a><span class="desc">six real member results</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S5</span><a href="#s5">Who it is for</a><span class="desc">soft fit, based on timing</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">CTA</span><a href="#cta1">First ask</a><span class="desc">mid-page, after proof and fit</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S6</span><a href="#s6">Objection FAQ</a><span class="desc">the five that actually come up</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">CTA</span><a href="#cta">Final ask</a><span class="desc">same label, last chance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">F</span><a href="#footer">Footer</a><span class="desc">legal and disclaimer</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-  </ol>
-</div>
-
 <div class="viewbar">
   <span class="lbl">View</span>
   <span class="switch">
-    <button type="button" data-mode="preview" aria-pressed="true">Preview</button>
+    <button type="button" data-mode="preview" aria-pressed="true">Full preview</button>
     <button type="button" data-mode="specs" aria-pressed="false">Specs</button>
   </span>
-  <span class="hint">Preview is the page. Specs layers on the build detail: layout rails, word budgets, and the job each box has to do. Open one section at a time with the button on its header.</span>
+  <a class="jump" href="#overview">Jump to section summary</a>
+  <span class="hint">Full preview is the page itself, at real size and spacing. Specs layers on the build detail.</span>
 </div>
 
 <div class="page">
@@ -899,6 +927,25 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
      COPY BRIEF · the same slot data as a table. This is the handoff to the
      copy stage. Every row is a box on the page above.
      ============================================================================ -->
+<div class="toc" id="overview">
+  <p class="kicker">Section summary</p>
+  <h2>The page, section by section</h2>
+  <p class="lede">The eleven blocks you just scrolled through. One ask, repeated four times, with one label. <b>S1 is the only block that changes between variants.</b> Everything below it is written once and reused across the top five videos. Click any section to jump back to it.</p>
+  <ol>
+    <li><span class="num">C</span><a href="#chrome">Audience banner + header</a><span class="desc">who this is for, and one way forward</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S1</span><a href="#s1">Asset delivery</a><span class="desc">the video they came for</span><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
+    <li><span class="num">P</span><a href="#proofstrip">Proof strip</a><span class="desc">three stats, one glance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S2</span><a href="#s2">Bridge</a><span class="desc">the asset was step one, not the answer</span><span class="dots"></span><span class="tag tag--v2">CUSTOMIZE V2</span></li>
+    <li class="key"><span class="num">S3</span><a href="#s3">The program</a><span class="desc">mechanism, value prop, authority</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S4</span><a href="#s4">Proof wall</a><span class="desc">six real member results</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S5</span><a href="#s5">Who it is for</a><span class="desc">soft fit, based on timing</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">CTA</span><a href="#cta1">First ask</a><span class="desc">mid-page, after proof and fit</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S6</span><a href="#s6">Objection FAQ</a><span class="desc">the five that actually come up</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">CTA</span><a href="#cta">Final ask</a><span class="desc">same label, last chance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">F</span><a href="#footer">Footer</a><span class="desc">legal and disclaimer</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+  </ol>
+</div>
+
 <div class="brief" id="brief">
   <p style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6b7280;margin:0 0 .3rem">Copy brief · derived from the wireframe above</p>
   <h2 style="margin:0 0 .4rem;font-size:1.3rem">Every slot on this page, in order</h2>
@@ -979,7 +1026,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       <p>A wireframe locks <b>structure</b>, not words. It answers one question: is this laid out in the right order, with the right emphasis, to move this visitor to action? Copy, brand and real images are deliberately stripped out, because reordering a box is free and rewriting finished copy is not.</p>
 
       <h4>Two views</h4>
-      <p><b>Preview</b> is the page: section headers, and the labelled boxes at the size and weight they will really have. This is the view for judging structure. <b>Specs</b> layers the build detail on top. Switch at the top, or open one section at a time with the button on its header.</p>
+      <p><b>Full preview</b> is the page itself: the real type at the real size, on real page spacing, scrolling without interruption. No section labels, no rails, no annotation. This is the view for judging whether the page works. <b>Specs</b> layers the build detail back on. Switch at the top, or open one section at a time with the faint button on its top right.</p>
 
       <h4>What Specs adds</h4>
       <ul>
@@ -991,7 +1038,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 
       <h4>Who uses which view</h4>
       <ul>
-        <li><b>Reviewer</b> (Gray, the client): Preview. Sign off on section order and emphasis before money goes to copy or design.</li>
+        <li><b>Reviewer</b> (Gray, the client): Full preview. Sign off on section order and emphasis before money goes to copy or design.</li>
         <li><b>Copywriter</b>: Specs. Every box states its job and its budget, so the page can be written without asking a question. The same content is in the copy brief below and in the <code>.md</code> shipped alongside.</li>
         <li><b>Designer and developer</b>: Specs. Layout, counts and fold budgets are the build contract.</li>
       </ul>
@@ -1002,7 +1049,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
         <li><b>Amber means blocked.</b> Something we genuinely do not have yet, like the legal disclaimer. It is never filled with a plausible substitute.</li>
       </ul>
 
-      <p>The dark bar at the very top and this block are wireframe scaffolding. Neither exists on the real page.</p>
+      <p>The dark bar at the top, the view switch, the section summary and this block are all wireframe scaffolding. None of it exists on the real page.</p>
     </div>
   </details>
 </div>
