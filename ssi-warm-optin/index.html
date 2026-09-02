@@ -323,6 +323,13 @@ a.wirebtn[data-label]::before, a.wirebtn-solid[data-label]::before{
   padding:.1rem .3rem; margin-right:.35rem; vertical-align:.08em; }
 .eyebrow-fill{ text-transform:uppercase; letter-spacing:.09em; font-size:.68rem !important;
   color:var(--wf-muted) !important; font-weight:600; }
+/* an author-controlled line break: use it when the break point is a copy
+   decision rather than something the browser should pick. Collapses to normal
+   wrapping below 640px, where forcing lines does more harm than good. */
+@media(min-width:640px){ .fill .line{ display:block; } }
+/* the audience callout: page background, above the headline, not header furniture */
+.callout{ color:var(--wf-muted) !important; font-size:.78rem !important; letter-spacing:.04em;
+  text-transform:uppercase; font-weight:600; }
 
 /* ---- INTENTIONAL SECTION SIZING -----------------------------------------
    Every section declares how much screen it is meant to occupy (--fold-n),
@@ -519,13 +526,13 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- CHROME · HEADER, THEN THE AUDIENCE CALLOUT BENEATH IT -->
 <!-- ============================================================= -->
 <section id="chrome" class="sec sec--alt">
-  <div class="secbadge"><span class="n">C</span><span class="name">Header + audience callout</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <div class="secbadge"><span class="n">C</span><span class="name">Sticky header</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">Earns its pixels by doing two jobs in under two seconds: give exactly one way forward, then tell the visitor they are in the right place.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>Sticky header first: logo left, one button right, no nav links. The callout strip sits directly under it, full width, immediately above the headline.</dd>
+    <dt>Layout</dt><dd>Logo left, one button right, no nav links. Tinted band, and nothing else lives in it.</dd>
     <dt>Folds</dt><dd>0.12 desktop / 0.18 mobile. The callout is one line at 375px, never two.</dd>
     <dt>Media</dt><dd>Logo lockup only. The callout is text, unbranded.</dd>
-    <dt>Elements</dt><dd>1 logo · 1 button · 1 callout line. No secondary button anywhere on this page.</dd>
+    <dt>Elements</dt><dd>1 logo · 1 button. No secondary button anywhere on this page. The audience callout is NOT in this strip; it sits above the headline in S1.</dd>
     <dt>Reference</dt><dd>Funnel Thesis board leads LM-A, EVNT-A and DTO-A with an audience banner. Live SSI page uses a callout strip in the same slot.</dd>
   </dl>
   <div class="wrap-wide">
@@ -541,12 +548,8 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
         <p class="job">The only ask in the chrome. This exact label repeats at every CTA on the page. One label family, no variants.</p>
       </div>
     </div>
-    <div class="slot" style="margin-top:.9rem">
-      <div class="slot-hd"><span class="slot-type">Audience callout</span><span class="budget">6 to 12 words</span></div>
-      <p class="fill fill-body center" data-label="Callout · 6-12 words" data-wmin="6" data-wmax="12">For self-storage investors who already own one facility and want the next.</p>
-      <p class="job">Name the audience so the right person self-identifies instantly. States who the page is for, not what the offer is. Sits under the header and above the headline.</p>
-    </div>
     <div class="note"><b>Label discipline.</b> The CTA label shown is SSI's chosen live label, a qualify-style ask rather than a book-a-call ask, because the first booking is a setter call, not the strategy call. It is a decision, not copy: whatever is chosen repeats unchanged at all four CTA positions.</div>
+    <div class="note"><b>The audience callout is not in this strip.</b> It sits on the page background directly above the headline, at the top of S1, so it reads as the first line of the page rather than as part of the header furniture.</div>
   </div>
 </section>
 
@@ -557,13 +560,18 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <div class="secbadge"><span class="n">S1</span><span class="name">Asset delivery</span> <span class="tag tag--swap">SWAP</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The visitor clicked an email to watch a video. This section delivers exactly that and nothing else. It is the only section that changes between page variants.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>1 column, centred, max 760px. Headline above the video on both breakpoints.</dd>
+    <dt>Layout</dt><dd>1 column, centred, max 760px. Audience callout first on the page background, then the headline, then the video, on both breakpoints.</dd>
     <dt>Folds</dt><dd>1.0 desktop / 1.5 mobile. Video must be at least half visible at 375px without scrolling.</dd>
     <dt>Media</dt><dd>VIDEO 16:9, click-to-play, poster frame. Source for variant 1: the valuation training on the authority's own channel.</dd>
-    <dt>Elements</dt><dd>H1 · subhead · video · scroll cue. No form. No hard CTA.</dd>
+    <dt>Elements</dt><dd>Audience callout · H1 · subhead · video · scroll cue. No form. No hard CTA.</dd>
     <dt>Reference</dt><dd>Live SSI page S1. Variants 2 to 5 swap the video and H1 only, everything below stays identical.</dd>
   </dl>
   <div class="wrap center">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Audience callout</span><span class="budget">6 to 12 words</span> <span class="tag tag--const">CONSTANT</span></div>
+      <p class="fill fill-body callout" data-label="Callout · 6-12 words" data-wmin="6" data-wmax="12">For self-storage investors who already own one facility and want the next.</p>
+      <p class="job">Name the audience so the right person self-identifies instantly. Who the page is for, not what the offer is. Sits on the page background, above the headline, not inside the header strip. Stays CONSTANT even though the rest of S1 swaps.</p>
+    </div>
     <div class="slot">
       <div class="slot-hd"><span class="slot-type">H1 · headline</span><span class="budget">8 to 14 words</span></div>
       <h1 class="fill fill-h1" data-label="Headline · 8-14 words" data-wmin="8" data-wmax="14">How to value a self-storage facility so you never overpay again</h1>
@@ -639,7 +647,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <div class="secbadge"><span class="n">S2</span><span class="name">Bridge · asset to system</span> <span class="tag tag--v2">CUSTOMIZE V2</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The seam an indirect funnel lives or dies on. It reframes the video from an answer into a first step, which is the only reason the visitor keeps reading.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>1 column, centred, max 680px. No media. Deliberately narrow and short so it reads as a turn, not a stop.</dd>
+    <dt>Layout</dt><dd>1 column, centred, max 680px. No media. Deliberately narrow and short so it reads as a turn, not a stop. <b>The title is set in two author-controlled lines</b>, one clause each, rather than left to wrap.</dd>
     <dt>Folds</dt><dd><b>0.5 desktop, intentionally a half section</b> / 0.7 mobile. It is short on purpose: a full-height section here would break the momentum from the video into the offer.</dd>
     <dt>Media</dt><dd>None. An asset-to-system diagram was considered and cut; it would push this past a half section for no persuasive gain.</dd>
     <dt>Elements</dt><dd>H2 · one paragraph. No CTA.</dd>
@@ -648,7 +656,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <div class="wrap center">
     <div class="slot">
       <div class="slot-hd"><span class="slot-type">H2 · the reframe</span><span class="budget">6 to 12 words</span></div>
-      <h2 class="fill fill-h2" data-label="Title · 6-12 words" data-wmin="6" data-wmax="12">Valuing one facility is the start. Owning several needs a system.</h2>
+      <h2 class="fill fill-h2" data-label="Title · 6-12 words · 2 lines" data-wmin="6" data-wmax="12"><span class="line">Valuing one facility is the start.</span><span class="line">Owning several needs a system.</span></h2>
       <p class="job">State that the asset was the beginning, not the answer. The turn from teaching to offering happens in this one line.</p>
     </div>
     <div class="slot">
@@ -1062,8 +1070,8 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <h2>The page, section by section</h2>
   <p class="lede">The eleven blocks you just scrolled through. One ask, repeated four times, with one label. <b>S1 is the only block that changes between variants.</b> Everything below it is written once and reused across the top five videos. Click any section to jump back to it.</p>
   <ol>
-    <li><span class="num">C</span><a href="#chrome">Header + audience callout</a><span class="desc">one way forward, then who this is for</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S1</span><a href="#s1">Asset delivery</a><span class="desc">the video they came for</span><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
+    <li><span class="num">C</span><a href="#chrome">Sticky header</a><span class="desc">logo and exactly one way forward</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S1</span><a href="#s1">Asset delivery</a><span class="desc">audience callout, then the video they came for</span><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
     <li><span class="num">P</span><a href="#proofstrip">Proof strip</a><span class="desc">three stats, one glance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
     <li class="key"><span class="num">S2</span><a href="#s2">Bridge</a><span class="desc">the asset was step one, not the answer</span><span class="dots"></span><span class="tag tag--v2">CUSTOMIZE V2</span></li>
     <li class="key"><span class="num">S3</span><a href="#s3">The program</a><span class="desc">mechanism and value prop</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
@@ -1084,10 +1092,10 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <table class="cb">
     <thead><tr><th style="width:9rem">Slot</th><th style="width:6rem">Type</th><th style="width:7rem">Word budget</th><th>Job</th></tr></thead>
     <tbody>
-      <tr class="grp"><td colspan="4">Chrome · header + audience callout</td></tr>
-      <tr><td>Audience callout</td><td class="t">Text</td><td class="b">6 to 12 w</td><td>Name the audience so the right person self-identifies instantly. Who the page is for, not what the offer is. Sits under the header, above the headline.</td></tr>
+      <tr class="grp"><td colspan="4">Chrome · sticky header</td></tr>
       <tr><td>Header CTA</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>The only ask in the chrome. This exact label repeats at every CTA on the page.</td></tr>
       <tr class="grp"><td colspan="4">S1 · Asset delivery (SWAP)</td></tr>
+      <tr><td>Audience callout</td><td class="t">Text</td><td class="b">6 to 12 w</td><td>Name the audience so the right person self-identifies instantly. Who the page is for, not what the offer is. Sits on the page background above the headline, not inside the header strip. Stays constant even though the rest of S1 swaps.</td></tr>
       <tr><td>H1 headline</td><td class="t">H1</td><td class="b">8 to 14 w</td><td>Deliver the promise the email made. The asset's own promise, not the program's. Breaks over two lines, payoff on line two.</td></tr>
       <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">12 to 20 w</td><td>Pass the five-second relevance test. Who the video is for and why it matters now.</td></tr>
       <tr><td>Scroll cue</td><td class="t">Micro</td><td class="b">2 to 5 w</td><td>Move the visitor down without asking for anything.</td></tr>
@@ -1270,7 +1278,14 @@ function wfWordCount(str){
    2. A hyphenated word still breaks at its OWN hyphen, so an nbsp in front of
       it does nothing. When the second-to-last word is hyphenated, bind three.
    Rewrites only the element's LAST text node, so inline markup survives.     */
-var WF_PROSE = '.howto .body p, .howto .body li, .secwhy, .job, .spec dd, .toc .lede,'
+/* Both the widow binder and the orphan detector run over this list. It covers
+   the PAGE COPY first and the wireframe's own annotation second. An earlier
+   version listed only the annotation, so a visible orphan in a section
+   headline ("system." alone on line two of the bridge) passed the check
+   clean. If it renders as copy, it belongs in here. */
+var WF_PROSE = '.fill, .bullets li, .pc-name, .pc-result, .pc-detail, .statlabel,'
+             + '.faq summary, .faq .faq-a, .foot-copy, .legal p,'
+             + '.howto .body p, .howto .body li, .secwhy, .job, .spec dd, .toc .lede,'
              + '.toc .desc, .brief p, .brief li, .slackcta .sub, .note, .decided, .delta';
 (function(){
   var NB=String.fromCharCode(160);   // never a literal nbsp byte in source
