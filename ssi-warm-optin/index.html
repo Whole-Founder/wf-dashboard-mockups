@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SSI Warm Asset-Delivery Page · Wireframe v1 (F1)</title>
+<title>SSI Warm Asset-Delivery Page · Wireframe v8 · copy locked</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -499,15 +499,90 @@ table.cb tr.grp td{ background:#f1f5f9; font-family:var(--wf-mono); font-size:9.
   text-transform:uppercase; color:var(--wf-slate-d); font-weight:700; }
 table.cb td.t{ font-family:var(--wf-mono); font-size:9.5px; color:var(--wf-slate-d); white-space:nowrap; }
 table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; }
+
+/* ============================================================================
+   PERSUASION VIEW · the third answer
+   Full preview says WHAT the page looks like. Specs says HOW to build it.
+   Persuasion says WHY it is this way: why the section is here, why it takes
+   this shape, and why it runs this long.
+
+   That last beat is the one that mattered. A word budget presented as a given
+   reads as arbitrary, and an arbitrary budget is one a writer is right to
+   ignore. Shown as a derivation from the section's job, it becomes something
+   a copywriter can argue with, which is the only way it survives contact.
+
+   Implementation note: Persuasion sets BOTH body.preview and body.why, so the
+   page renders exactly as it does in Full preview and the rail is the only
+   thing added. Every preview rule is inherited rather than duplicated.
+   ============================================================================ */
+.persuasion{ display:none; }
+body.why .persuasion,
+section.show-why .persuasion{ display:block; background:#f8fafc;
+  border:1px solid #e2e8f0; border-left:3px solid var(--wf-slate);
+  border-radius:0 8px 8px 0; padding:.85rem 1rem 1rem; margin-top:1.25rem; }
+.persuasion .pk{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--wf-muted); margin:0 0 .55rem;
+  padding-bottom:.4rem; border-bottom:1px solid #e2e8f0; }
+.persuasion p{ font-size:12.5px; line-height:1.65; color:#475569; margin:0 0 .65rem; }
+.persuasion p:last-child{ margin-bottom:0; }
+.persuasion b{ color:var(--wf-ink); font-weight:600; }
+/* the length beat is the load-bearing one, so it is the one that is marked */
+.persuasion .len{ background:#fff; border:1px solid #e2e8f0; border-radius:6px;
+  padding:.5rem .6rem; font-size:12px; }
+.persuasion .len::before{ content:"Why this length"; display:block;
+  font-family:var(--wf-mono); font-size:8.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--wf-slate); margin-bottom:.25rem; }
+/* an open question inside a rail: amber, same meaning as everywhere else */
+.persuasion .open{ background:var(--wf-amber-bg); border:1px dashed var(--wf-amber-line);
+  color:var(--wf-amber-ink); border-radius:6px; padding:.5rem .6rem; font-size:12px; }
+.persuasion .open::before{ content:"Open question"; display:block;
+  font-family:var(--wf-mono); font-size:8.5px; letter-spacing:.1em;
+  text-transform:uppercase; margin-bottom:.25rem; }
+
+/* Two columns once there is room for a 320px rail without squeezing the page
+   column. Below this the rail stacks under the section, which is the right
+   behaviour on a phone: the reasoning follows the thing it explains. */
+@media(min-width:1100px){
+  body.why .sec,
+  body.why .sec[data-fold]{ display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,320px); column-gap:2.5rem;
+    align-items:start; }
+  /* everything that is not the rail stays in the page column. This also keeps
+     a per-section specs peek from being dealt into column two. */
+  body.why .sec > *:not(.persuasion){ grid-column:1; min-width:0; }
+  /* span every row so the sticky rail has a tall track to travel in. Without
+     the explicit row span, auto-placement drops the rail below the last
+     content row, because it is last in the DOM. */
+  body.why .persuasion{ grid-column:2; grid-row:1 / -1; align-self:start;
+    position:sticky; top:64px; margin-top:0; }
+  /* The rail costs the page column 360px, which at the 1280px page cap leaves
+     824px. A 3-up proof grid in that space gives each card 202px of text, and
+     a 202px measure strands the last word of the longer details: the widow
+     binder correctly binds three words around the hyphenated ones, then the
+     browser force-breaks inside the bound run because it cannot fit.
+     So the proof wall reflows to 2-up here, exactly as it would at a narrower
+     viewport. Full preview remains the view of record for layout; Persuasion
+     is a reading view and is allowed to reflow to stay readable. */
+  body.why #s4 .g3{ grid-template-columns:repeat(2,1fr); }
+}
+
+/* the third peek button. In Full preview both buttons sit out of the way in
+   the top right corner, so they need different offsets or they overlap. */
+body.preview .whybtn{ position:absolute; top:.5rem; right:4.4rem; opacity:.25; }
+body.preview .whybtn:hover{ opacity:1; }
+body.preview section.show-why .whybtn{ position:static; opacity:1; }
+body.specs .whybtn{ display:none; }
+/* in Persuasion the rail is already open everywhere, so the peek is noise */
+body.why .whybtn{ display:none; }
 </style>
 </head>
 <body class="preview">
 
 <!-- ===== WIREFRAME CHROME · not part of the page. Strip before F2. ===== -->
 <div class="chrome">
-  <span class="ttl">SSI · WARM ASSET-DELIVERY PAGE · WIREFRAME v1</span>
-  <span class="dim">F1 · structure only, no copy, no brand</span>
-  <span class="dim">Review at 375px and 1440px</span>
+  <span class="ttl">SSI · WARM ASSET-DELIVERY PAGE · WIREFRAME v8</span>
+  <span class="dim">Copy locked · written by Natalya, structure reconciled</span>
+  <span class="amb">8 open clearance flags</span>
 </div>
 
 <div class="viewbar">
@@ -515,25 +590,26 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <span class="switch">
     <button type="button" data-mode="preview" aria-pressed="true">Full preview</button>
     <button type="button" data-mode="specs" aria-pressed="false">Specs</button>
+    <button type="button" data-mode="why" aria-pressed="false">Persuasion</button>
   </span>
   <a class="jump" href="#overview">Jump to section summary</a>
-  <span class="hint">Full preview is the page itself, at real size and spacing. Specs layers on the build detail.</span>
+  <span class="hint">Full preview is the page itself. Specs layers on the build detail. Persuasion explains why each section is there and why it runs as long as it does.</span>
 </div>
 
 <div class="page">
 
 <!-- ============================================================= -->
-<!-- CHROME · HEADER, THEN THE AUDIENCE CALLOUT BENEATH IT -->
+<!-- CHROME · STICKY HEADER -->
 <!-- ============================================================= -->
 <section id="chrome" class="sec sec--alt">
-  <div class="secbadge"><span class="n">C</span><span class="name">Sticky header</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
-  <p class="secwhy">Earns its pixels by doing two jobs in under two seconds: give exactly one way forward, then tell the visitor they are in the right place.</p>
+  <div class="secbadge"><span class="n">C</span><span class="name">Sticky header</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Earns its pixels by doing one job in under two seconds: give exactly one way forward, and never compete with the headline underneath it.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>Logo left, one button right, no nav links. Tinted band, and nothing else lives in it.</dd>
-    <dt>Folds</dt><dd>0.12 desktop / 0.18 mobile. The callout is one line at 375px, never two.</dd>
-    <dt>Media</dt><dd>Logo lockup only. The callout is text, unbranded.</dd>
-    <dt>Elements</dt><dd>1 logo · 1 button. No secondary button anywhere on this page. The audience callout is NOT in this strip; it sits above the headline in S1.</dd>
-    <dt>Reference</dt><dd>Funnel Thesis board leads LM-A, EVNT-A and DTO-A with an audience banner. Live SSI page uses a callout strip in the same slot.</dd>
+    <dt>Folds</dt><dd>0.12 desktop / 0.18 mobile.</dd>
+    <dt>Media</dt><dd>Logo lockup only.</dd>
+    <dt>Elements</dt><dd>1 logo · 1 button. No secondary button anywhere on this page. The opening banner is NOT in this strip; it sits above the headline in S1.</dd>
+    <dt>Reference</dt><dd>Funnel Thesis board leads LM-A, EVNT-A and DTO-A with a banner above the fold. Live SSI page uses a callout strip in the same slot.</dd>
   </dl>
   <div class="wrap-wide">
     <div class="g2" style="align-items:center">
@@ -544,12 +620,17 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       </div>
       <div class="slot">
         <div class="slot-hd"><span class="slot-type">Header CTA</span><span class="budget">2 to 4 words</span></div>
-        <div class="center"><a href="#cta" class="wirebtn" data-label="CTA · 2-4 words" data-wmin="2" data-wmax="4">See If You Qualify</a></div>
+        <div class="center"><a href="#cta" class="wirebtn" data-label="CTA · 2-4 words" data-wmin="2" data-wmax="4">Get on a Call</a></div>
         <p class="job">The only ask in the chrome. This exact label repeats at every CTA on the page. One label family, no variants.</p>
       </div>
     </div>
-    <div class="note"><b>Label discipline.</b> The CTA label shown is SSI's chosen live label, a qualify-style ask rather than a book-a-call ask, because the first booking is a setter call, not the strategy call. It is a decision, not copy: whatever is chosen repeats unchanged at all four CTA positions.</div>
-    <div class="note"><b>The audience callout is not in this strip.</b> It sits on the page background directly above the headline, at the top of S1, so it reads as the first line of the page rather than as part of the header furniture.</div>
+    <div class="note"><b>Label decided.</b> <b>Get on a Call</b>, Natalya's label, replacing the qualify-style label carried over from the live page. It is a decision, not copy: it repeats unchanged at all four CTA positions, including the sticky mobile bar. Changing it means changing all four.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>The visitor came from an email, so they have already said yes once. The header does not need to sell; it needs to prove the page is a real business and give the one person who is ready right now somewhere to go without scrolling.</p>
+    <p><b>Why this shape.</b> One button, no nav. A nav menu on a funnel page is a row of exits. The logo is capped so it never reads louder than the headline sitting directly under it.</p>
+    <p class="len">Two to four words, because a button label is read in peripheral vision, not parsed. It also has to survive being repeated four times without wearing out, which is what rules out anything clever.</p>
   </div>
 </section>
 
@@ -557,173 +638,203 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 <!-- S1 · ASSET DELIVERY (the SWAP section) -->
 <!-- ============================================================= -->
 <section id="s1" class="sec" data-fold="1.0" style="--fold-n:1.0">
-  <div class="secbadge"><span class="n">S1</span><span class="name">Asset delivery</span> <span class="tag tag--swap">SWAP</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <div class="secbadge"><span class="n">S1</span><span class="name">Asset delivery</span> <span class="tag tag--swap">SWAP</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The visitor clicked an email to watch a video. This section delivers exactly that and nothing else. It is the only section that changes between page variants.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>1 column, centred, max 760px. Audience callout first on the page background, then the headline, then the video, on both breakpoints.</dd>
+    <dt>Layout</dt><dd>1 column, centred, max 760px. Banner first on the page background, then eyebrow, headline, subhead, video, scroll cue.</dd>
     <dt>Folds</dt><dd>1.0 desktop / 1.5 mobile. Video must be at least half visible at 375px without scrolling.</dd>
-    <dt>Media</dt><dd>VIDEO 16:9, click-to-play, poster frame. Source for variant 1: the valuation training on the authority's own channel.</dd>
-    <dt>Elements</dt><dd>Audience callout · H1 · subhead · video · scroll cue. No form. No hard CTA.</dd>
-    <dt>Reference</dt><dd>Live SSI page S1. Variants 2 to 5 swap the video and H1 only, everything below stays identical.</dd>
+    <dt>Media</dt><dd>VIDEO 16:9, click-to-play, poster frame. Variant 1 is AJ's valuation training, YouTube K4oPB51SS_Q.</dd>
+    <dt>Elements</dt><dd>Banner · eyebrow · H1 · subhead · video · scroll cue. No form. No hard CTA.</dd>
+    <dt>Reference</dt><dd>Live SSI page S1. Variants 2 to 5 swap the video, eyebrow, H1 and subhead only. Everything below this section stays identical.</dd>
   </dl>
   <div class="wrap center">
     <div class="slot">
-      <div class="slot-hd"><span class="slot-type">Audience callout</span><span class="budget">6 to 12 words</span> <span class="tag tag--const">CONSTANT</span></div>
-      <p class="fill fill-body callout" data-label="Callout · 6-12 words" data-wmin="6" data-wmax="12">For self-storage investors who already own one facility and want the next.</p>
-      <p class="job">Name the audience so the right person self-identifies instantly. Who the page is for, not what the offer is. Sits on the page background, above the headline, not inside the header strip. Stays CONSTANT even though the rest of S1 swaps.</p>
+      <div class="slot-hd"><span class="slot-type">Opening banner</span><span class="budget">3 to 6 words</span> <span class="tag tag--const">CONSTANT</span></div>
+      <p class="fill fill-body callout" data-label="Banner · 3-6 words" data-wmin="3" data-wmax="6">No sign-up. Just press play.</p>
+      <p class="job">Kill the expected cost before it is felt. A warm reader arriving from an email is braced for a form, and this line removes that brace in five words. Sits on the page background, above the headline, not inside the header strip. Stays CONSTANT even though the rest of S1 swaps.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Eyebrow</span><span class="budget">4 to 8 words</span></div>
+      <p class="fill fill-body eyebrow-fill" data-label="Eyebrow · 4-8 words" data-wmin="4" data-wmax="8">Free training &middot; Self Storage Income</p>
+      <p class="job">Say what this is and whose it is, before the headline has to. Small, uppercase, never a sentence.</p>
     </div>
     <div class="slot">
       <div class="slot-hd"><span class="slot-type">H1 · headline</span><span class="budget">8 to 14 words</span></div>
-      <h1 class="fill fill-h1" data-label="Headline · 8-14 words" data-wmin="8" data-wmax="14">How to value a self-storage facility so you never overpay again</h1>
+      <h1 class="fill fill-h1" data-label="Headline · 8-14 words" data-wmin="8" data-wmax="14">How to Value a Self-Storage Facility So You Never Overpay</h1>
       <p class="job">Deliver the promise the email made. This is the asset's own promise, what the video teaches, not what the program sells.</p>
     </div>
     <div class="slot">
-      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">12 to 20 words</span></div>
-      <p class="fill fill-sub" data-label="Subtext · 12-20 words" data-wmin="12" data-wmax="20">A walkthrough of the numbers that decide whether a deal is worth pursuing, and the ones that kill it.</p>
-      <p class="job">Pass the five-second relevance test. Say who the video is for and why it matters now.</p>
+      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">20 to 33 words</span></div>
+      <p class="fill fill-sub" data-label="Subtext · 20-33 words" data-wmin="20" data-wmax="33">Everyone valued this facility at $3 million. AJ paid $4.8 million for it. Today it cash flows nearly $300,000 a year and is worth over $8.8 million. Watch exactly what he saw.</p>
+      <p class="job">Make them press play. On this page the subhead is not a relevance test, it is the hook: it sets up a puzzle the video answers, so watching becomes the only way to resolve it.</p>
     </div>
     <div class="slot">
       <div class="slot-hd"><span class="slot-type">Video</span><span class="budget">media · 16:9</span></div>
-      <div class="ph ph-video">VIDEO · the delivered asset<br>click-to-play, poster frame, no autoplay</div>
+      <div class="ph ph-video">VIDEO &middot; the delivered asset<br>click-to-play, poster frame, no autoplay</div>
       <p class="job">The hero of this section. Everything above it exists to get the play click.</p>
     </div>
     <div class="slot">
       <div class="slot-hd"><span class="slot-type">Scroll cue</span><span class="budget">2 to 5 words</span></div>
-      <p class="fill fill-body" data-label="Scroll cue · 2-5 words" data-wmin="2" data-wmax="5">Keep reading below the video</p>
+      <p class="fill fill-body" data-label="Scroll cue · 2-5 words" data-wmin="2" data-wmax="5">Keep watching below</p>
       <p class="job">Move the visitor down without asking for anything. They have no offer context yet, so there is nothing to say yes to.</p>
     </div>
-    <div class="decided"><b>Decision A · settled</b><br><span class="verdict">Ship soft. No hard CTA in the hero.</span> The live page carries a hero button; this page carries a scroll cue instead. The visitor arrives from an email with zero offer context, so a hard ask here is asking them to say yes to something they have not been told about yet. The hero CTA becomes test one once the page has a baseline.</div>
+    <div class="decided"><b>Decision A · held</b><br><span class="verdict">Ship soft. No hard CTA in the hero.</span> Settled before copy, and it survived the copy stage untouched: writing independently from the brief, Natalya also put no button here, only a scroll cue. That agreement is the strongest evidence the structure is right. The hero CTA becomes test one once the page has a baseline.</div>
+    <div class="delta"><b>Flag 8 &middot; budgets widened, noted only</b><br>This subhead runs 32 words. The original brief budgeted 12 to 20, and Natalya flagged the overrun and argued for 20 to 28 on the grounds that on this page the subhead has to earn a play click rather than pass a relevance test. The job is right and the budget has been widened to 20-33 to fit what she wrote. Two other budgets moved the same way: the bridge and the About body. See the Persuasion view for what each length is now derived from.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>This is the whole reason the visitor is here. They opened an email that promised one video, and if the first screen delivers anything other than that video, the click was a bait. Nothing is asked for, because at this point there is nothing to say yes to.</p>
+    <p><b>Why this shape.</b> One centred column, no sidebar, no form. Every element above the player exists only to get the play click, so anything that is not the promise, the proof of relevance, or the player itself is competing with it.</p>
+    <p class="len">The subhead is the exception on this page. Everywhere else a subhead is a relevance check and stays short. Here it carries the hook, so it needs room to set up the gap between what the facility appraised at and what AJ paid, which is the thing the video resolves. That is why it runs to 32 words rather than 20.</p>
   </div>
 </section>
 
 <!-- ============================================================= -->
-<!-- PROOF STRIP · raised blocks, not loose text -->
+<!-- PROOF STRIP -->
 <!-- ============================================================= -->
 <section id="proofstrip" class="sec sec--alt">
-  <div class="secbadge"><span class="n">P</span><span class="name">Proof strip</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <div class="secbadge"><span class="n">P</span><span class="name">Proof strip</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">Aggregate credibility in one glance, immediately after the video, before any claim is made.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>3 raised blocks, not loose text. 3 columns at every breakpoint, staying 3-up at 375px so the numbers read as a strip rather than a stacked wall.</dd>
+    <dt>Layout</dt><dd>3 raised blocks, not loose text. 3 columns at every breakpoint, staying 3-up at 375px so the numbers read as a strip rather than a stacked wall. One caption line underneath.</dd>
     <dt>Folds</dt><dd>0.2 desktop / 0.25 mobile. Sized by content, no minimum.</dd>
     <dt>Media</dt><dd>None. Numbers only, no logos.</dd>
-    <dt>Elements</dt><dd>3 stat blocks, each a bordered card with a number and a label. Never more than 3. Hover any block for what it is measuring.</dd>
-    <dt>Reference</dt><dd>Live SSI page: member count, total transacted, fastest deal. The three figures shown are SSI's cleared numbers.</dd>
+    <dt>Elements</dt><dd>3 stat blocks, each a bordered card with a number and a label, plus 1 caption. Never more than 3 stats.</dd>
+    <dt>Reference</dt><dd>Live SSI page uses member count, total transacted, fastest deal. <b>The three figures below are Natalya's and are not cleared.</b> See the flag.</dd>
   </dl>
   <div class="wrap-wide">
     <div class="g3-tight">
-      <div class="slot" title="Scale: how big is this room. On SSI this is the member count.">
+      <div class="slot" title="Scale: how many facilities the room has actually bought.">
         <div class="slot-hd"><span class="slot-type">Stat 1 · scale</span><span class="budget">num + 2-4w</span></div>
         <div class="statcard">
-          <span class="fill fill-stat">1,000+</span>
-          <span class="statlabel" data-wmin="2" data-wmax="4">members in the community</span>
+          <span class="fill fill-stat">154</span>
+          <span class="statlabel" data-wmin="2" data-wmax="4">facilities acquired</span>
         </div>
         <p class="job">Scale. How big is this room. Cleared figure only.</p>
       </div>
-      <div class="slot" title="Money: the scoreboard number. On SSI this is total transacted.">
-        <div class="slot-hd"><span class="slot-type">Stat 2 · money</span><span class="budget">num + 2-4w</span></div>
+      <div class="slot" title="Volume: the size of what the room collectively owns.">
+        <div class="slot-hd"><span class="slot-type">Stat 2 · volume</span><span class="budget">num + 2-4w</span></div>
         <div class="statcard">
-          <span class="fill fill-stat">$400M+</span>
-          <span class="statlabel" data-wmin="2" data-wmax="4">transacted by members</span>
+          <span class="fill fill-stat">49,000+</span>
+          <span class="statlabel" data-wmin="2" data-wmax="4">units owned</span>
+        </div>
+        <p class="job">Volume. What the room owns between them. Cleared figure only.</p>
+      </div>
+      <div class="slot" title="Money: the scoreboard number.">
+        <div class="slot-hd"><span class="slot-type">Stat 3 · money</span><span class="budget">num + 2-4w</span></div>
+        <div class="statcard">
+          <span class="fill fill-stat">$100M+</span>
+          <span class="statlabel" data-wmin="2" data-wmax="4">equity built</span>
         </div>
         <p class="job">Money. The scoreboard number. Cleared figure only.</p>
       </div>
-      <div class="slot" title="Speed: how fast this can work. On SSI this is the fastest deal.">
-        <div class="slot-hd"><span class="slot-type">Stat 3 · speed</span><span class="budget">num + 2-4w</span></div>
-        <div class="statcard">
-          <span class="fill fill-stat">&lt;60 days</span>
-          <span class="statlabel" data-wmin="2" data-wmax="4">fastest member deal</span>
-        </div>
-        <p class="job">Speed. How fast this can work. Cleared figure only.</p>
-      </div>
     </div>
-    <div class="note"><b>Proof honesty.</b> The three figures are SSI's own cleared numbers, carried over from the live page so the block is sized against real values. Any figure that is not cleared stays out rather than being filled with a placeholder number.</div>
+    <div class="slot" style="margin-top:.7rem">
+      <div class="slot-hd"><span class="slot-type">Caption</span><span class="budget">6 to 10 words</span></div>
+      <div class="center"><p class="fill fill-body" data-label="Caption · 6-10 words" data-wmin="6" data-wmax="10">Real deals from real Self Storage Income investors.</p></div>
+      <p class="job">Attribute the numbers to members rather than to the brand, so the strip reads as a scoreboard for people like the reader rather than a company boast.</p>
+    </div>
+    <div class="delta"><b>Flag 2 &middot; blocked on client clearance</b><br>None of these three figures exists anywhere in SSI's repos. <b>154 facilities acquired</b>, <b>49,000+ units owned</b> and <b>$100M+ equity built</b> appear only in the copy document. SSI's own site metadata says <b>14,000+ units</b>, not 49,000+, and the live AJ-VSL pages use a different trio entirely: 1,000+ members, $400M+ transacted, under 60 days to the fastest first deal. The stat block is also now two money-shaped figures and no speed figure, which loses the "this can happen soon" beat. Either clear Natalya's three with the client or fall back to the cleared trio. Do not ship a plausible substitute.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>It sits immediately after the video and before any claim is made, because this is the moment the reader silently asks whether the person they just watched is an outlier. Three aggregate numbers answer that before the page has asked for anything.</p>
+    <p><b>Why this shape.</b> Raised bordered blocks, not a sentence with numbers in it. This is confirmation of something the reader half-believes already, so it has to be glanceable. Prose here would be read as an argument, and an argument invites doubt.</p>
+    <p class="len">Two to four words a label, and no paragraph at all. The job is to be absorbed at scroll speed, so the number carries the meaning and the label only says what it counts. Anything longer turns a glance into a read.</p>
+    <p class="open">Two of the three figures are money-shaped and none is time-shaped, so the strip no longer answers "how soon". The cleared SSI trio includes a speed number. Worth resolving alongside the clearance question rather than separately.</p>
   </div>
 </section>
 
 <!-- ============================================================= -->
-<!-- S2 · BRIDGE · deliberately a half section -->
+<!-- S2 · BRIDGE -->
 <!-- ============================================================= -->
-<section id="s2" class="sec" data-fold="0.5" style="--fold-n:0.5">
-  <div class="secbadge"><span class="n">S2</span><span class="name">Bridge · asset to system</span> <span class="tag tag--v2">CUSTOMIZE V2</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
-  <p class="secwhy">The seam an indirect funnel lives or dies on. It reframes the video from an answer into a first step, which is the only reason the visitor keeps reading.</p>
+<section id="s2" class="sec" data-fold="1.0" style="--fold-n:1.0">
+  <div class="secbadge"><span class="n">S2</span><span class="name">Bridge &middot; asset to system</span> <span class="tag tag--v2">CUSTOMIZE V2</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">The seam an indirect funnel lives or dies on. It pays off the video, names the gap the video leaves open, and reverses the done-for-you expectation before the offer is introduced.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>1 column, centred, max 680px. No media. Deliberately narrow and short so it reads as a turn, not a stop. <b>The title is set in two author-controlled lines</b>, one clause each, rather than left to wrap.</dd>
-    <dt>Folds</dt><dd><b>0.5 desktop, intentionally a half section</b> / 0.7 mobile. It is short on purpose: a full-height section here would break the momentum from the video into the offer.</dd>
-    <dt>Media</dt><dd>None. An asset-to-system diagram was considered and cut; it would push this past a half section for no persuasive gain.</dd>
-    <dt>Elements</dt><dd>H2 · one paragraph. No CTA.</dd>
-    <dt>Reference</dt><dd>On the live SSI page this line is fused into the section below. Pulling it out as its own beat is the V1 to V2 upgrade.</dd>
+    <dt>Layout</dt><dd>1 column, centred, max 680px. No media, no heading. Four short paragraphs, each one beat.</dd>
+    <dt>Folds</dt><dd><b>1.0 desktop / 1.3 mobile.</b> Revised up from a half section. See the reasoning in the Persuasion view.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>4 paragraphs, 80 to 100 words total. No heading. No CTA.</dd>
+    <dt>Reference</dt><dd>On the live SSI page this beat is fused into the section below. Pulling it out as its own section is the V1 to V2 upgrade.</dd>
   </dl>
   <div class="wrap center">
     <div class="slot">
-      <div class="slot-hd"><span class="slot-type">H2 · the reframe</span><span class="budget">6 to 12 words</span></div>
-      <h2 class="fill fill-h2" data-label="Title · 6-12 words · 2 lines" data-wmin="6" data-wmax="12"><span class="line">Valuing one facility is the start.</span><span class="line">Owning several needs a system.</span></h2>
-      <p class="job">State that the asset was the beginning, not the answer. The turn from teaching to offering happens in this one line.</p>
+      <div class="slot-hd"><span class="slot-type">Body &middot; 4 paragraphs</span><span class="budget">80 to 100 words</span></div>
+      <div data-label="Body · 4 paragraphs, 80-100 words" data-wmin="80" data-wmax="100">
+        <p class="fill fill-body">You just watched AJ value a facility on what it actually earns, not what the market says it's worth. Price and value aren't the same thing.</p>
+        <p class="fill fill-body" style="margin-top:.7rem">That facility appraised at $3 million; he paid $4.8 million when everyone else had walked, and it was worth $7 million.</p>
+        <p class="fill fill-body" style="margin-top:.7rem">Knowing that and doing it with your own money on the line are two different things.</p>
+        <p class="fill fill-body" style="margin-top:.7rem">It's also why the industry sells storage as done-for-you: someone hands you a deal, decides what it's worth, and earns more when you pay more. We built this the opposite way.</p>
+      </div>
+      <p class="job">Pay off the video, name the gap between knowing and doing, and reverse the done-for-you expectation, in that order. This is the turn from teaching to offering and it happens without naming the program.</p>
     </div>
-    <div class="slot">
-      <div class="slot-hd"><span class="slot-type">Body</span><span class="budget">25 to 40 words</span></div>
-      <p class="fill fill-body" data-label="Body · 25-40 words" data-wmin="25" data-wmax="40">That video shows you how to price a single deal correctly. It does not show you how to find the next one, structure the offer, or fund it without tying up everything you have.</p>
-      <p class="job">Name that a system exists behind the asset, without naming the program yet.</p>
-    </div>
-    <div class="note"><b>V2 upgrade.</b> In V1 this bridge is written once and reused across every video variant. In V2 it is rewritten per video, picking up exactly where that specific video left off.</div>
+    <div class="note"><b>V2 upgrade.</b> In V1 this bridge is written once and reused across every video variant. In V2 it is rewritten per video, picking up exactly where that specific video left off. It is the only section other than S1 that is video-specific.</div>
+    <div class="delta"><b>Flag 1 &middot; contradiction, blocked</b><br>The hero subhead says the facility is <b>worth over $8.8 million</b>. This paragraph, twelve lines later, says <b>it was worth $7 million</b>. Same facility, same page. These are probably "worth at purchase" and "worth today", but the page does not say so and as written it reads as an error. None of the five figures in this story ($3M appraisal, $4.8M paid, $7M, $8.8M, $300K annual cash flow) appears anywhere in SSI's repos, so all five need confirming against the video before this ships.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>Everything before this point was the thing the reader asked for. Everything after it is something we want. This is the only section that turns one into the other, which is why an indirect funnel lives or dies here.</p>
+    <p><b>Why this shape.</b> Four short paragraphs rather than a headline plus a block, because it does four separate jobs in sequence: pay off the video, separate price from value, name the gap between knowing and doing, then reverse the done-for-you expectation. A heading would announce the turn; not having one lets the reader arrive at it.</p>
+    <p class="len">This is the budget that moved most, from a half fold to a full one. Half a fold was inherited from a template, and it was wrong: a reframe the reader will resist needs enough room to land, and this one has to reverse the single most expensive wrong expectation in the funnel, the belief that somebody hands you the deal. Four beats at roughly 95 words is what that costs.</p>
   </div>
 </section>
 
 <!-- ============================================================= -->
-<!-- S3 · PROGRAM + MECHANISM + VALUE PROP -->
+<!-- S3 · MECHANISM + SYSTEM -->
 <!-- ============================================================= -->
 <section id="s3" class="sec sec--alt" data-fold="1.6" style="--fold-n:1.6">
-  <div class="secbadge"><span class="n">S3</span><span class="name">The program · mechanism · value prop</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <div class="secbadge"><span class="n">S3</span><span class="name">Mechanism &middot; the system</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The first real introduction of the offer. This is the page's spine, and everything below it is proof of what is claimed here.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>2 columns on desktop: numbered steps left, data panel and outcome card right. Single column at 375px, steps first.</dd>
+    <dt>Layout</dt><dd>2 columns on desktop: 5 numbered steps left, worked deal panel and outcome card right. Single column at 375px, steps first.</dd>
     <dt>Folds</dt><dd>1.6 desktop / 3.0 mobile. The longest section on the page, and the only one allowed past one fold.</dd>
-    <dt>Media</dt><dd>One data panel or figure. Not a photo. It shows the mechanism working on real numbers.</dd>
-    <dt>Elements</dt><dd>Eyebrow · H2 · subhead · 5 numbered steps · 1 data panel · 1 outcome card with 3 bullets · 1 objection-reversal line.</dd>
+    <dt>Media</dt><dd>One worked-deal panel. Not a photo. It shows the mechanism producing an answer on real numbers.</dd>
+    <dt>Elements</dt><dd>H2 · intro line · 5 numbered steps · 1 worked deal panel (lead-in + 2 rows) · 1 outcome card with 3 bullets. No eyebrow. No separate objection-reversal line: the H2 carries it.</dd>
     <dt>Reference</dt><dd>Live SSI page: 5 mechanism steps plus the valuation snapshot panel and the outcome card.</dd>
   </dl>
   <div class="wrap-wide">
     <div class="slot">
-      <div class="slot-hd"><span class="slot-type">Eyebrow</span><span class="budget">2 to 4 words</span></div>
-      <p class="fill fill-body eyebrow-fill" data-label="Eyebrow · 2-4 words" data-wmin="2" data-wmax="4">The system behind it</p>
-      <p class="job">Signal the section change. Small, uppercase, never a sentence.</p>
+      <div class="slot-hd"><span class="slot-type">H2 &middot; reversal + value prop</span><span class="budget">12 to 17 words</span></div>
+      <h2 class="fill fill-h2" data-label="Title · 12-17 words" data-wmin="12" data-wmax="17">We don't hand you deals. We make you able to find, value, and close them yourself.</h2>
+      <p class="job">Kill the biggest misread of the offer and state the value prop in the same breath. On a market that sells done-for-you storage, the reversal is the value prop, so they are one line rather than two.</p>
     </div>
     <div class="slot">
-      <div class="slot-hd"><span class="slot-type">H2 · program + value prop</span><span class="budget">8 to 14 words</span></div>
-      <h2 class="fill fill-h2" data-label="Title · 8-14 words" data-wmin="8" data-wmax="14">The acquisition system that takes you from first valuation to closed deal</h2>
-      <p class="job">Name the program for the first time and state the value prop in one breath. Assume the visitor has never heard the name before.</p>
-    </div>
-    <div class="slot">
-      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">15 to 25 words</span></div>
-      <p class="fill fill-sub" data-label="Subtext · 15-25 words" data-wmin="15" data-wmax="25">Built by the same operator whose training you just watched, and run by members who buy real facilities without guessing at the numbers.</p>
-      <p class="job">Tie the program back to the authority in the video. This is the congruence link that makes the bridge hold, and it is the only authority beat on the page.</p>
+      <div class="slot-hd"><span class="slot-type">Intro line</span><span class="budget">12 to 16 words</span></div>
+      <p class="fill fill-sub" data-label="Subtext · 12-16 words" data-wmin="12" data-wmax="16">Here's the whole system our members use to go from looking to owning.</p>
+      <p class="job">Set up the five steps as one complete system rather than a feature list, and name the end state the reader wants.</p>
     </div>
 
     <div class="g2 g2--split" style="margin-top:1.1rem">
       <div>
         <div class="slot">
-          <div class="slot-hd"><span class="slot-type">Mechanism · 5 numbered steps</span><span class="budget">step name 2-4w · body 12-20w</span></div>
+          <div class="slot-hd"><span class="slot-type">Mechanism &middot; 5 numbered steps</span><span class="budget">name 2-7w &middot; body 6-22w</span></div>
           <div style="display:grid; gap:.6rem">
-            <div class="card"><p class="fill fill-h3"><span class="stepn">1</span> <span data-wmin="2" data-wmax="4">Find and screen deals</span></p><p class="fill fill-body" data-wmin="12" data-wmax="20" style="margin-top:.3rem">Where to look for facilities that are not listed yet, and how to screen them fast.</p></div>
-            <div class="card"><p class="fill fill-h3"><span class="stepn">2</span> <span data-wmin="2" data-wmax="4">Value the deal properly</span></p><p class="fill fill-body" data-wmin="12" data-wmax="20" style="margin-top:.3rem">Run the numbers the way a lender does, so your offer price is defensible rather than hopeful.</p></div>
-            <div class="card"><p class="fill fill-h3"><span class="stepn">3</span> <span data-wmin="2" data-wmax="4">Structure your offer terms</span></p><p class="fill fill-body" data-wmin="12" data-wmax="20" style="margin-top:.3rem">How to shape terms so the seller says yes without you overpaying to win the deal.</p></div>
-            <div class="card"><p class="fill fill-h3"><span class="stepn">4</span> <span data-wmin="2" data-wmax="4">Fund the acquisition</span></p><p class="fill fill-body" data-wmin="12" data-wmax="20" style="margin-top:.3rem">The funding routes members actually use, and which one fits the deal in front of you.</p></div>
-            <div class="card"><p class="fill fill-h3"><span class="stepn">5</span> <span data-wmin="2" data-wmax="4">Operate and raise value</span></p><p class="fill fill-body" data-wmin="12" data-wmax="20" style="margin-top:.3rem">What to change in the first ninety days to lift income without adding a single unit.</p></div>
+            <div class="card"><p class="fill fill-h3"><span class="stepn">1</span> <span data-wmin="2" data-wmax="7">Underwrite like an owner</span></p><p class="fill fill-body" data-wmin="12" data-wmax="22" style="margin-top:.3rem">price any facility on its real net operating income, so you know what it's worth before you make an offer.</p></div>
+            <div class="card"><p class="fill fill-h3"><span class="stepn">2</span> <span data-wmin="2" data-wmax="7">Know the market before you commit</span></p><p class="fill fill-body" data-wmin="12" data-wmax="22" style="margin-top:.3rem">real supply, demand, and pricing for the area, so you're not guessing whether it holds up.</p></div>
+            <div class="card"><p class="fill fill-h3"><span class="stepn">3</span> <span data-wmin="2" data-wmax="7">Find deals other buyers never see</span></p><p class="fill fill-body" data-wmin="12" data-wmax="22" style="margin-top:.3rem">secondary and tertiary markets, past the same listings everyone else is watching.</p></div>
+            <div class="card"><p class="fill fill-h3"><span class="stepn">4</span> <span data-wmin="2" data-wmax="7">Buy without tying up every dollar</span></p><p class="fill fill-body" data-wmin="12" data-wmax="22" style="margin-top:.3rem">the seller financing, SBA, and low-down structures our members use to buy right.</p></div>
+            <div class="card"><p class="fill fill-h3"><span class="stepn">5</span> <span data-wmin="2" data-wmax="7">Talk to operators who've done it</span></p><p class="fill fill-body" data-wmin="5" data-wmax="12" style="margin-top:.3rem">deal-specific guidance from offer to ownership.</p></div>
           </div>
-          <p class="job">Name the mechanism as a verb sequence a person can repeat back. Different, not better. Five steps is the ceiling, not the target.</p>
+          <p class="job">The mechanism as a verb sequence a person can repeat back. Different, not better. Step 5 is deliberately a phrase rather than a sentence: it names access, not a skill, and padding it to match the other four would be decoration.</p>
         </div>
       </div>
       <div>
         <div class="slot">
-          <div class="slot-hd"><span class="slot-type">Data panel</span><span class="budget">figure + 3 labels</span></div>
-          <div class="ph" style="height:200px">DATA PANEL · the mechanism run on real numbers<br>asking price vs your number vs walk-away</div>
-          <p class="job">Show the mechanism producing an answer, not describe it. A number the visitor can check beats a claim they have to trust.</p>
+          <div class="slot-hd"><span class="slot-type">Worked deal panel</span><span class="budget">lead-in 10-14w &middot; 2 rows</span></div>
+          <p class="fill fill-body" data-label="Lead-in · 10-14 words" data-wmin="10" data-wmax="14">Here's what that looks like on a real deal analyzed by AJ:</p>
+          <div class="card" style="margin-top:.5rem">
+            <p class="fill fill-h3" data-label="Row 1 · the numbers · 12-16 words" data-wmin="12" data-wmax="16">$830K asking &middot; $500K what it's actually worth &middot; you'd overpay by $330K</p>
+            <p class="fill fill-body" data-label="Row 2 · what hides it · 20-28 words" data-wmin="20" data-wmax="28" style="margin-top:.5rem">The seller's projection hides it: real expenses run 50%+ of income, not the 30% on paper, on rents the place isn't earning yet.</p>
+          </div>
+          <p class="job">Show the mechanism producing an answer, not describe it. Row one is the verdict, row two is the reason a normal buyer would have missed it. A number the reader can check beats a claim they have to trust.</p>
         </div>
         <div class="slot">
-          <div class="slot-hd"><span class="slot-type">Outcome card</span><span class="budget">H3 4-8w · 3 bullets 6-12w</span></div>
+          <div class="slot-hd"><span class="slot-type">Outcome card</span><span class="budget">H3 4-8w &middot; 3 bullets 6-12w</span></div>
           <div class="card">
             <p class="fill fill-h3" data-label="Title · 4-8 words" data-wmin="4" data-wmax="8">What you walk away with</p>
             <ul class="bullets" data-label="Bullets · 3 items, 6-12 words each" style="margin-top:.5rem">
-              <li data-wmin="6" data-wmax="12">A repeatable way to price any facility you look at</li>
+              <li data-wmin="6" data-wmax="12">A repeatable way to price any facility</li>
               <li data-wmin="6" data-wmax="12">A shortlist of deals worth your time this quarter</li>
               <li data-wmin="6" data-wmax="12">A funding route that fits the deal in front of you</li>
             </ul>
@@ -733,215 +844,266 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       </div>
     </div>
 
-    <div class="slot" style="margin-top:.9rem">
-      <div class="slot-hd"><span class="slot-type">Objection reversal</span><span class="budget">10 to 18 words</span></div>
-      <p class="fill fill-body" data-label="Body · 10-18 words" data-wmin="10" data-wmax="18">We do not hand you deals. We show you how to find and price them yourself.</p>
-      <p class="job">Kill the biggest misread of the mechanism before proof, in one sentence, without hedging.</p>
-    </div>
-    <div class="decided"><b>Decision D · revised 2026-09-01</b><br><span class="verdict">No About block on this page at all.</span> D originally folded a portrait-plus-bio into this section. In review it made S3 read as two sections stacked, so the block is removed rather than moved. Authority now survives as a single line in the subhead above, tying the program to the person whose video they just watched, which is what the client-agnostic standard calls for on a warm list that already follows the authority.</div>
+    <div class="decided"><b>Decision D &middot; revised again 2026-09-03</b><br><span class="verdict">The About block is back, as its own section, after the proof wall.</span> D first folded a bio into this section, then cut it entirely when that made S3 read as two sections stacked. The copy stage restored it, and it is kept: as a standalone section placed late it does not cost the first fold, and Gray's own note that the two "feel like they are really 2 separate sections" argues for separating them rather than for deleting one. See section 8.</div>
+    <div class="delta"><b>Flag 4 &middot; needs sign-off</b><br>The worked deal numbers, <b>$830K asking / $500K actual / $330K overpay</b>, and the <b>50%+ against 30% on paper</b> expense line, have no source in the repos. They are either a real AJ teardown, in which case they need confirming and attributing, or an illustrative example, in which case the panel should say so. Illustrative numbers next to cleared member results read as cleared, which is the risk.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>This is where the offer is named for the first time, and it is the spine of the page: every section below it exists to prove something claimed here. It opens on the reversal because the reader's default assumption, formed by everyone else in the category, is that storage education means somebody hands you a deal.</p>
+    <p><b>Why this shape.</b> Two columns, and the split is doing real work. The steps on the left answer "what is the process"; the worked deal on the right answers "does the process produce a number". Stacking them would make the panel look like a footnote to the steps rather than the evidence for them. Five steps is the ceiling: a sixth stops being a sequence a reader can repeat back.</p>
+    <p class="len">The longest section on the page and the only one over a fold, because it is the only one installing something entirely new. The steps stay at a line each, since the reader is scanning for shape rather than reading for detail. The heading takes 16 words rather than the usual 8 to 14 because it carries two jobs at once, the reversal and the value prop, and splitting them into two lines would let the reader accept the second without having dropped the first.</p>
   </div>
 </section>
 
 <!-- ============================================================= -->
-<!-- S4 · PROOF WALL -->
+<!-- CTA #1 · the soft ask, before the proof wall -->
+<!-- ============================================================= -->
+<section id="cta1" class="sec" data-fold="0.4" style="--fold-n:0.4">
+  <div class="secbadge"><span class="n">CTA</span><span class="name">Soft ask</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">The first ask, placed immediately after the mechanism pays off and before the proof wall, so the reader who is already convinced does not have to scroll three folds to act.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>1 column, centred, max 680px. Sits inline in the page flow, not in a coloured band.</dd>
+    <dt>Folds</dt><dd>0.4 desktop / 0.5 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>H3 · 1 microline · 1 button. Same button label as the header and the final ask.</dd>
+    <dt>Reference</dt><dd>Position moved by the copy stage, from after the proof wall to before it. See Decision C.</dd>
+  </dl>
+  <div class="wrap center">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H3 &middot; the question</span><span class="budget">6 to 10 words</span></div>
+      <p class="fill fill-h3" data-label="Title · 6-10 words" data-wmin="6" data-wmax="10">Thinking storage might be your next move?</p>
+      <p class="job">Ask the question the reader is already half-asking, rather than restating the offer. A question here reads as an invitation, not a pitch.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Microline</span><span class="budget">8 to 14 words</span></div>
+      <p class="fill fill-body" data-label="Microcopy · 8-14 words" data-wmin="8" data-wmax="14">Get on a call and we'll help you figure out where to start.</p>
+      <p class="job">Set the call up as orientation rather than qualification. This is the softer of the two asks, and the microline is what makes it soft.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">CTA button</span><span class="budget">2 to 4 words</span></div>
+      <div><a href="#cta" class="wirebtn-solid" data-label="CTA · 2-4 words" data-wmin="2" data-wmax="4">Get on a Call</a></div>
+      <p class="job">Identical label to the header and the final ask. One label family, no variants, no secondary button.</p>
+    </div>
+    <div class="decided"><b>Decision C &middot; revised 2026-09-03</b><br><span class="verdict">Two asks, and the first one moves up to here.</span> C originally shipped a single ask after proof and fit, to keep one clean baseline to measure. The copy stage moved it above the proof wall and added a second at the end. Kept: both asks carry the identical label and the identical destination, so the baseline is still one number, and first-ask placement is a test question rather than a rule. What is genuinely new is the fork at the end, which is a second <em>path</em> and not just a second button. See section 9.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>The mechanism section just paid off with a worked number. That is the highest-intent moment on the page for a reader who already trusts AJ, and it sits three folds above where the ask used to be. Asking here costs nothing: the reader who is not ready scrolls past into the proof wall, which is what they needed anyway.</p>
+    <p><b>Why this shape.</b> A question, a reassurance, a button, in that order and nothing else. Anything that looks like a pitch block here would make the page feel like it has stopped teaching and started selling, one section too early.</p>
+    <p class="len">The tightest section on the page at four tenths of a fold. An ask is the one place where every extra line is friction rather than persuasion, so the whole thing is three short elements and the button.</p>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S4 · PROOF WALL · six cleared member cases -->
 <!-- ============================================================= -->
 <section id="s4" class="sec" data-fold="1.2" style="--fold-n:1.2">
-  <div class="secbadge"><span class="n">S4</span><span class="name">Proof it works</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <div class="secbadge"><span class="n">S4</span><span class="name">Proof wall</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">The x-ray section. Third-party results carry more weight here than the authority's own numbers, because the authority is already the reason the visitor is on the page.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>3 columns desktop, 2 rows, as defined cards: image area, then name, result and detail. 1 column at 375px. Cards equal height.</dd>
     <dt>Folds</dt><dd>1.2 desktop / 3.5 mobile.</dd>
-    <dt>Media</dt><dd>6 real screenshots or portraits, one per card, filling the card width. Cleared cases only. No stock.</dd>
+    <dt>Media</dt><dd>6 member portraits, one per card, filling the card width. Cleared cases only. No stock.</dd>
     <dt>Elements</dt><dd>H2 · subhead · 6 proof cards. Each card: image, name, headline result, detail.</dd>
-    <dt>Reference</dt><dd>Live SSI page proof wall, 6 source-verified member deals, assets already in the repo. <b>Names and figures below are placeholders, not cleared cases.</b></dd>
+    <dt>Reference</dt><dd><b>All six are source-verified</b> from SSI's live AJ-VSL proof section, whose own header reads "do not edit numbers without re-verifying". Names, figures and portraits carried over unchanged.</dd>
   </dl>
   <div class="wrap-wide">
     <div class="slot center">
-      <div class="slot-hd"><span class="slot-type">H2 · states the finding</span><span class="budget">6 to 12 words</span></div>
-      <h2 class="fill fill-h2" data-label="Title · 6-12 words" data-wmin="6" data-wmax="12">Members who started where you are, buying real facilities</h2>
+      <div class="slot-hd"><span class="slot-type">H2 &middot; states the finding</span><span class="budget">6 to 12 words</span></div>
+      <h2 class="fill fill-h2" data-label="Title · 6-12 words" data-wmin="6" data-wmax="12">Members who started where you are, buying real facilities.</h2>
       <p class="job">Say what the proof proves. A header that names the topic wastes the strongest section on the page.</p>
     </div>
     <div class="slot center">
-      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">10 to 18 words</span></div>
-      <p class="fill fill-sub" data-label="Subtext · 10-18 words" data-wmin="10" data-wmax="18">None of them had a portfolio when they started. Each used the same process.</p>
-      <p class="job">Make the results feel reachable by naming the starting point, not the finish line.</p>
+      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">10 to 18 words &middot; not written</span></div>
+      <p class="center"><span class="pending">Not written yet. 10 to 18 words: make the results feel reachable by naming the starting point, not the finish line.</span></p>
+      <p class="job">Make the results feel reachable by naming the starting point, not the finish line. This slot is deliberately unbudgeted until it is written, so it cannot pass a word-count check by being empty.</p>
     </div>
     <div class="g3" style="margin-top:1rem">
       <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Proof card 1 · scale</span><span class="budget">see card spec</span></div>
+        <div class="slot-hd"><span class="slot-type">Proof card 1 &middot; scale</span><span class="budget">see card spec</span></div>
         <div class="proofcard">
-          <div class="ph" style="height:150px">PROOF IMAGE · real member</div>
+          <img src="proof/charles.png" alt="Charles, Self Storage Income member" style="width:100%; height:150px; object-fit:cover; display:block; background:#eef1f4">
           <div class="pc-body">
-            <p class="pc-name" data-label="Name" data-wmin="1" data-wmax="3">Member name</p>
-            <p class="pc-result" data-label="Result · 4-8 words" data-wmin="4" data-wmax="8">Added value on the first facility</p>
-            <p class="pc-detail" data-label="Detail · 15-25 words" data-wmin="15" data-wmax="25">Where they started, what the deal looked like, and the one part of the process that moved the number.</p>
+            <p class="pc-name" data-label="Name" data-wmin="1" data-wmax="3">Charles</p>
+            <p class="pc-result" data-label="Result · 4-8 words" data-wmin="4" data-wmax="8">$628,778 in value on one deal</p>
+            <p class="pc-detail" data-label="Detail · 15-25 words" data-wmin="15" data-wmax="25">Bought three properties after losing his home in a wildfire. His is now the only storage in town, valued at $3M.</p>
           </div>
         </div>
         <p class="job">One member, one number. A testimonial without a number is decoration.</p>
       </div>
       <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Proof card 2 · variety</span><span class="budget">see card spec</span></div>
+        <div class="slot-hd"><span class="slot-type">Proof card 2 &middot; variety</span><span class="budget">see card spec</span></div>
         <div class="proofcard">
-          <div class="ph" style="height:150px">PROOF IMAGE · real member</div>
+          <img src="proof/jingwen-ni.png" alt="Jingwen and Matthew, Self Storage Income members" style="width:100%; height:150px; object-fit:cover; display:block; background:#eef1f4">
           <div class="pc-body">
-            <p class="pc-name" data-wmin="1" data-wmax="3">Member name</p>
-            <p class="pc-result" data-wmin="4" data-wmax="8">Several facilities inside one year</p>
-            <p class="pc-detail" data-wmin="15" data-wmax="25">A different route to the same outcome, so the wall does not read as one repeated story told six times.</p>
+            <p class="pc-name" data-wmin="1" data-wmax="3">Jingwen &amp; Matthew</p>
+            <p class="pc-result" data-wmin="4" data-wmax="8">380 units via seller financing</p>
+            <p class="pc-detail" data-wmin="15" data-wmax="25">Chose storage over rentals on a $1.19M purchase, and their W-2 income is now offset by the depreciation.</p>
           </div>
         </div>
         <p class="job">Vary the shape of the win across the six, so the wall does not read as one repeated story.</p>
       </div>
       <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Proof card 3 · speed</span><span class="budget">see card spec</span></div>
+        <div class="slot-hd"><span class="slot-type">Proof card 3 &middot; speed</span><span class="budget">see card spec</span></div>
         <div class="proofcard">
-          <div class="ph" style="height:150px">PROOF IMAGE · real member</div>
+          <img src="proof/sho.png" alt="Sho, Self Storage Income member" style="width:100%; height:150px; object-fit:cover; display:block; background:#eef1f4">
           <div class="pc-body">
-            <p class="pc-name" data-wmin="1" data-wmax="3">Member name</p>
-            <p class="pc-result" data-wmin="4" data-wmax="8">Closed faster than expected</p>
-            <p class="pc-detail" data-wmin="15" data-wmax="25">How long it actually took from first look to closing, and what made the timeline possible for them.</p>
+            <p class="pc-name" data-wmin="1" data-wmax="3">Sho</p>
+            <p class="pc-result" data-wmin="4" data-wmax="8">3 facilities in under a year</p>
+            <p class="pc-detail" data-wmin="15" data-wmax="25">Zero storage experience. Negotiated an on-market $2.9M facility down to $1.75M using the SSI valuation process.</p>
           </div>
         </div>
         <p class="job">Speed proof. Someone who got there fast.</p>
       </div>
       <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Proof card 4 · price</span><span class="budget">see card spec</span></div>
+        <div class="slot-hd"><span class="slot-type">Proof card 4 &middot; price</span><span class="budget">see card spec</span></div>
         <div class="proofcard">
-          <div class="ph" style="height:150px">PROOF IMAGE · real member</div>
+          <img src="proof/peter.png" alt="Peter, Self Storage Income member" style="width:100%; height:150px; object-fit:cover; display:block; background:#eef1f4">
           <div class="pc-body">
-            <p class="pc-name" data-wmin="1" data-wmax="3">Member name</p>
-            <p class="pc-result" data-wmin="4" data-wmax="8">Bought below the asking price</p>
-            <p class="pc-detail" data-wmin="15" data-wmax="25">Money saved rather than money made, and the specific part of the valuation work that created the gap.</p>
+            <p class="pc-name" data-wmin="1" data-wmax="3">Peter</p>
+            <p class="pc-result" data-wmin="4" data-wmax="8">$189K below asking price</p>
+            <p class="pc-detail" data-wmin="15" data-wmax="25">Took a $699K asking price down to $509,999 and bought his first facility for less than a rental house.</p>
           </div>
         </div>
         <p class="job">Negotiation or price proof. Money saved, not only money made.</p>
       </div>
       <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Proof card 5 · partnership</span><span class="budget">see card spec</span></div>
+        <div class="slot-hd"><span class="slot-type">Proof card 5 &middot; partnership</span><span class="budget">see card spec</span></div>
         <div class="proofcard">
-          <div class="ph" style="height:150px">PROOF IMAGE · real member</div>
+          <img src="proof/caleb-and-elizabeth.png" alt="Caleb and Elizabeth, Self Storage Income members" style="width:100%; height:150px; object-fit:cover; display:block; background:#eef1f4">
           <div class="pc-body">
-            <p class="pc-name" data-wmin="1" data-wmax="3">Member names</p>
-            <p class="pc-result" data-wmin="4" data-wmax="8">Bought together as a partnership</p>
-            <p class="pc-detail" data-wmin="15" data-wmax="25">A couple or partnership case, for the reader who will not make this decision on their own.</p>
+            <p class="pc-name" data-wmin="1" data-wmax="3">Caleb &amp; Elizabeth</p>
+            <p class="pc-result" data-wmin="4" data-wmax="8">First facility bought for $247,500</p>
+            <p class="pc-detail" data-wmin="15" data-wmax="25">Cap rate went from 9.07% to 12.78%. Bought from mom-and-pop owners running paper slips, no website, no rent raises.</p>
           </div>
         </div>
-        <p class="job">Couple or partnership proof, if the avatar buys as a pair.</p>
+        <p class="job">Couple or partnership proof, for the reader who will not make this decision on their own.</p>
       </div>
       <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Proof card 6 · recency</span><span class="budget">see card spec</span></div>
+        <div class="slot-hd"><span class="slot-type">Proof card 6 &middot; recency</span><span class="budget">see card spec</span></div>
         <div class="proofcard">
-          <div class="ph" style="height:150px">PROOF IMAGE · real member</div>
+          <img src="proof/jacob-teel.png" alt="Jacob Teel, Self Storage Income member" style="width:100%; height:150px; object-fit:cover; display:block; background:#eef1f4">
           <div class="pc-body">
-            <p class="pc-name" data-wmin="1" data-wmax="3">Member name</p>
-            <p class="pc-result" data-wmin="4" data-wmax="8">Closed a facility this year</p>
-            <p class="pc-detail" data-wmin="15" data-wmax="25">The most recent win on the wall, because recency is what answers whether this still works today.</p>
+            <p class="pc-name" data-wmin="1" data-wmax="3">Jacob Teel</p>
+            <p class="pc-result" data-wmin="4" data-wmax="8">3 facilities bought in 2025</p>
+            <p class="pc-detail" data-wmin="15" data-wmax="25">Shifted from residential building into storage in 2025, bringing his family into the day-to-day due diligence and operations.</p>
           </div>
         </div>
         <p class="job">Most recent win. Recency answers "does this still work".</p>
       </div>
     </div>
-    <div class="note"><b>Card spec.</b> Each card: 1 image filling the card width, name 1 to 3 words, headline result 4 to 8 words, detail 15 to 25 words. Detail follows before, after, method. <b>The names and results above are placeholder shapes, not cleared cases.</b> Only source-verified members ship.</div>
+    <div class="note"><b>Card spec.</b> Each card: 1 portrait filling the card width, name 1 to 3 words, headline result 4 to 8 words, detail 15 to 25 words. Detail follows before, after, method. <b>All six are cleared, source-verified members</b> carried over from SSI's live proof section, not placeholders. The six win-shapes are deliberately different: scale, variety, speed, price, partnership, recency.</div>
+    <div class="delta"><b>Flag 5 &middot; one slot still open</b><br>The copy document supplied the H2 and left the six cards as a bracket saying "six member cards, real cleared figures only". The cards have been filled from SSI's source-verified proof section, so this section is no longer blocked. <b>The 10 to 18 word subhead is still unwritten</b> and is the only genuinely missing copy slot on the page.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>The reader already believes AJ can do this; that is why they opened the email. What they do not yet believe is that <b>they</b> can. Six people who started without a portfolio is the only thing that closes that gap, and it is why third-party results outweigh the authority's own numbers here.</p>
+    <p><b>Why this shape.</b> Scannable cards, never paragraphs. The reader is not reading these, they are hunting for the one that looks like them, so the format has to support a scan that stops. Six is chosen so the wall can carry six different <em>kinds</em> of win, which is what stops it reading as one story told six times. Each card leads with a number because a testimonial without a number is decoration.</p>
+    <p class="len">The second longest section, at 1.2 folds, and almost all of that is card count rather than word count. The words per card stay tight, 4 to 8 on the result and 15 to 25 on the detail, because six cards at paragraph length would be a wall nobody finishes.</p>
   </div>
 </section>
 
 <!-- ============================================================= -->
-<!-- S5 · WHO IT IS FOR · 5 bullets per column -->
+<!-- ABOUT AJ · restored by the copy stage, as its own section -->
 <!-- ============================================================= -->
-<section id="s5" class="sec sec--alt" data-fold="0.9" style="--fold-n:0.9">
-  <div class="secbadge"><span class="n">S5</span><span class="name">Who it is for</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
-  <p class="secwhy">A warm list is not a cold audience. This block answers fit on timing and situation, and it is the last thing before the first ask.</p>
+<section id="about" class="sec sec--alt" data-fold="0.6" style="--fold-n:0.6">
+  <div class="secbadge"><span class="n">S5</span><span class="name">About AJ</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">A damaging admission, placed after the proof rather than before it. The reader has just seen six people win; this says the person who taught them lost first.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd>2 equal cards side by side on desktop, stacked at 375px. Neither card is visually dominant.</dd>
-    <dt>Folds</dt><dd>0.9 desktop / 1.5 mobile.</dd>
+    <dt>Layout</dt><dd>1 column, centred, max 680px. No portrait: the reader met AJ in the video ninety seconds ago and does not need to be shown his face again.</dd>
+    <dt>Folds</dt><dd>0.6 desktop / 0.9 mobile.</dd>
     <dt>Media</dt><dd>None.</dd>
-    <dt>Elements</dt><dd>H2 · 2 list cards, <b>5 bullets each</b>. The second card uses a neutral bullet, never a cross.</dd>
-    <dt>Reference</dt><dd>Live SSI page fit block, including the capital bar. One bullet in the left card carries the readiness bar.</dd>
-  </dl>
-  <div class="wrap-wide">
-    <div class="slot center">
-      <div class="slot-hd"><span class="slot-type">H2</span><span class="budget">5 to 10 words</span></div>
-      <h2 class="fill fill-h2" data-label="Title · 5-10 words" data-wmin="5" data-wmax="10">Who this is for, and who it is not</h2>
-      <p class="job">Frame the section as fit, not as a gate. The visitor should read it looking for themselves, not bracing to be rejected.</p>
-    </div>
-    <div class="g2" style="margin-top:.9rem">
-      <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Fit card · for you · 5 bullets</span><span class="budget">title 3-6w · bullets 8-14w</span></div>
-        <div class="card">
-          <p class="fill fill-h3" data-label="Title · 3-6 words" data-wmin="3" data-wmax="6">This is for you if</p>
-          <ul class="bullets" data-label="Bullets · 5 items, 8-14 words each" style="margin-top:.55rem">
-            <li data-wmin="8" data-wmax="14">You already own one facility and want to buy the next one</li>
-            <li data-wmin="8" data-wmax="14">You have capital ready to deploy in the next two quarters</li>
-            <li data-wmin="8" data-wmax="14">You are tired of guessing whether a listing price is fair</li>
-            <li data-wmin="8" data-wmax="14">You want a process you can run again, not a single deal</li>
-            <li data-wmin="8" data-wmax="14">You are willing to do the underwriting work yourself</li>
-          </ul>
-        </div>
-        <p class="job">Describe the person who should book, in their situation, not their job title. One of the five bullets carries the capital or readiness bar.</p>
-      </div>
-      <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Fit card · not a fit · 5 bullets</span><span class="budget">title 3-6w · bullets 8-14w</span></div>
-        <div class="card">
-          <p class="fill fill-h3" data-label="Title · 3-6 words" data-wmin="3" data-wmax="6">Not the right fit if</p>
-          <ul class="bullets" data-label="Bullets · 5 items, 8-14 words each" style="margin-top:.55rem">
-            <li data-wmin="8" data-wmax="14">You are looking for someone to hand you finished deals</li>
-            <li data-wmin="8" data-wmax="14">You want fully passive returns with no involvement at all</li>
-            <li data-wmin="8" data-wmax="14">You have no capital and no timeline for raising any</li>
-            <li data-wmin="8" data-wmax="14">You are a broker looking for listings rather than a buyer</li>
-            <li data-wmin="8" data-wmax="14">You are still deciding whether self-storage is for you</li>
-          </ul>
-        </div>
-        <p class="job">Give the not-yet person a graceful exit that keeps them on the list. Neutral language, no rejection.</p>
-      </div>
-    </div>
-    <div class="decided"><b>Decision B · settled</b><br><span class="verdict">Keep the fit block, five bullets a side.</span> It is in the client-agnostic standard and on the live page, but was absent from the v1 structure map. It stays: on a warm list the real objection is timing and situation, and this is the only section that answers either. Five a side keeps the two columns balanced rather than one looking like an afterthought.</div>
-  </div>
-</section>
-
-<!-- ============================================================= -->
-<!-- CTA #1 (mid-page) -->
-<!-- ============================================================= -->
-<section id="cta1" class="sec" data-fold="0.4" style="--fold-n:0.4">
-  <div class="secbadge"><span class="n">CTA</span><span class="name">First ask, mid-page</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
-  <p class="secwhy">The first ask on the page, placed after belief is built and after fit is settled. Never before.</p>
-  <dl class="spec">
-    <dt>Layout</dt><dd>1 column, centred, max 680px. Sits inline in the page flow, not in a coloured band.</dd>
-    <dt>Folds</dt><dd>0.4 desktop / 0.5 mobile.</dd>
-    <dt>Media</dt><dd>None.</dd>
-    <dt>Elements</dt><dd>H3 · 1 button · 1 microline. Same button label as the header.</dd>
-    <dt>Reference</dt><dd>Standard: first ask after proof and fit.</dd>
+    <dt>Elements</dt><dd>H2 · body of 2 short paragraphs. No CTA, no credential chips.</dd>
+    <dt>Reference</dt><dd>Live SSI value-training page uses the same headline shape. Restored by the copy stage after Decision D had cut it.</dd>
   </dl>
   <div class="wrap center">
     <div class="slot">
-      <div class="slot-hd"><span class="slot-type">H3 · restate outcome</span><span class="budget">6 to 12 words</span></div>
-      <p class="fill fill-h3" data-label="Title · 6-12 words" data-wmin="6" data-wmax="12">Bring a deal and we will pressure-test the numbers</p>
-      <p class="job">Restate what the visitor gets, in their words, immediately above the button.</p>
+      <div class="slot-hd"><span class="slot-type">H2 &middot; the admission</span><span class="budget">6 to 10 words</span></div>
+      <h2 class="fill fill-h2" data-label="Title · 6-10 words" data-wmin="6" data-wmax="10">He overpaid early. Then he built the system.</h2>
+      <p class="job">Lead with the failure, not the credential. The whole value of this section is that it costs him something to say.</p>
     </div>
     <div class="slot">
-      <div class="slot-hd"><span class="slot-type">CTA button</span><span class="budget">2 to 4 words</span></div>
-      <div><a href="#cta" class="wirebtn-solid" data-label="CTA · same label everywhere" data-wmin="2" data-wmax="4">See If You Qualify</a></div>
-      <p class="job">Identical label to the header and the final CTA. One label family, no variants, no secondary button.</p>
+      <div class="slot-hd"><span class="slot-type">Body &middot; 2 paragraphs</span><span class="budget">40 to 65 words</span></div>
+      <div data-label="Body · 2 paragraphs, 40-65 words" data-wmin="40" data-wmax="65">
+        <p class="fill fill-body">AJ bought his first facilities before he knew how to tell price from value, and it cost him. So he built the process he wishes he'd had, the same one he uses on his own deals and teaches here.</p>
+        <p class="fill fill-body" style="margin-top:.7rem">He's since transacted over $400M in storage and hosts the number one self-storage podcast. You don't have to learn it the way he did.</p>
+      </div>
+      <p class="job">Earn the credential by paying for it first. Paragraph one is the admission and the origin of the mechanism; paragraph two is the scale, and it only lands because paragraph one came first.</p>
     </div>
-    <div class="slot">
-      <div class="slot-hd"><span class="slot-type">Microline</span><span class="budget">6 to 12 words</span></div>
-      <p class="fill fill-body" data-label="Microcopy · 6-12 words" data-wmin="6" data-wmax="12">Fifteen minutes with our team, no pitch on the first call.</p>
-      <p class="job">Remove effort by telling them exactly what happens next. Length of call, who they speak to, what to bring.</p>
-    </div>
-    <div class="decided"><b>Decision C · settled</b><br><span class="verdict">One ask, here.</span> A reviewed alternative placed a soft CTA earlier, before the proof wall. v1 ships a single mid-page ask after proof and fit, so there is one clean baseline to measure. An earlier soft ask is a variant to test, not a second button to add at launch.</div>
+    <div class="delta"><b>Flag 3 &middot; uncleared superlative</b><br><b>"the number one self-storage podcast"</b> is not a claim SSI makes anywhere in its own repos, and a ranking claim is the kind that gets challenged. The cleared alternatives already in use are "Host of the Self Storage Income podcast", "the largest storage-investing education brand and podcast online", and "1M+ podcast downloads". The <b>$400M+ transacted</b> figure in the same sentence is cleared and appears on every live AJ-VSL page.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>It answers the objection the proof wall creates. Six member wins invite the thought "those people had help I do not have", and the reply is that the person teaching them started by making the exact mistake the reader is afraid of making. Placed before the proof it would be a bio; placed after it, it is a release of tension.</p>
+    <p><b>Why this shape.</b> A damaging admission, which only works when it is real, costly and on-topic, and this one is all three: he overpaid, in storage, and it is the reason the mechanism exists. No portrait and no credential chips, because they would turn a confession into a brochure.</p>
+    <p class="len">Sixty-three words, over the 40 to 60 the copy stage set itself, and worth the four extra. This is credibility weight, which is the one job that reads as medium length rather than tight: too short and the admission sounds like false modesty, too long and it becomes a founder story competing with the ask twenty lines below.</p>
+    <p class="open">Decision D has now been reversed twice, folded in, cut, restored. That is a sign the underlying question was never really about placement but about whether a warm list that already follows AJ needs re-introducing to him. Worth one test rather than a fourth opinion.</p>
   </div>
 </section>
 
 <!-- ============================================================= -->
-<!-- S6 · FAQ · real accordions -->
+<!-- FINAL CTA · the fork -->
 <!-- ============================================================= -->
-<section id="s6" class="sec sec--alt" data-fold="0.8" style="--fold-n:0.8">
-  <div class="secbadge"><span class="n">S6</span><span class="name">Objection FAQ</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
-  <p class="secwhy">Removes the last confusion and anxiety before the close. Ordered by real objection frequency, not by what is easiest to answer.</p>
+<section id="cta" class="sec" data-fold="0.6" style="--fold-n:0.6">
+  <div class="secbadge"><span class="n">CTA</span><span class="name">Where you go from here &middot; the fork</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Two honest exits rather than one. The reader who is ready books; the reader who is not gets sent to the next training instead of to nothing.</p>
   <dl class="spec">
-    <dt>Layout</dt><dd><b>Expand and collapse accordion</b>, 1 column, max 760px. First item open by default, the rest closed. Click any row to open it.</dd>
-    <dt>Folds</dt><dd>0.8 desktop closed / 1.0 mobile closed. Opening every row roughly doubles it, which is why only the first is open on load.</dd>
+    <dt>Layout</dt><dd>1 column centred inside a bordered card, max 680px. The watch-next block sits below the card, visually quieter, so it never competes with the button.</dd>
+    <dt>Folds</dt><dd>0.6 desktop / 1.0 mobile.</dd>
     <dt>Media</dt><dd>None.</dd>
-    <dt>Elements</dt><dd>H2 · 5 question and answer rows. Five, not eight, on a warm page.</dd>
-    <dt>Reference</dt><dd>Live SSI page: 5 objection FAQs. Pull the actual five from setter call recordings, not from imagination.</dd>
+    <dt>Elements</dt><dd>H2 · subhead · 1 button · watch-next lead-in · 2 next-training links. No reassurance line: the fork does that job.</dd>
+    <dt>Reference</dt><dd>Structure added by the copy stage. The two links are per-video and come from the Ranked Lead Magnets sheet.</dd>
+  </dl>
+  <div class="wrap center">
+    <div class="card" style="padding:1.6rem 1.2rem">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">H2 &middot; close line</span><span class="budget">4 to 7 words</span></div>
+        <h2 class="fill fill-h2" data-label="Title · 4-7 words" data-wmin="4" data-wmax="7">Ready to make a move?</h2>
+        <p class="job">Ask, do not conclude. A question lets the reader answer no without leaving, which is what makes the fork underneath it credible.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">15 to 22 words</span></div>
+        <p class="fill fill-sub" data-label="Subtext · 15-22 words" data-wmin="15" data-wmax="22">Get on a call with our team to talk through your goals and whether storage is your right next step.</p>
+        <p class="job">Name the call for what it is, including the possibility that the answer is no. Mis-set expectations here cost show rate, not click rate.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">CTA button</span><span class="budget">2 to 4 words</span></div>
+        <div><a href="#cta" class="wirebtn-solid" data-label="CTA · 2-4 words" data-wmin="2" data-wmax="4">Get on a Call</a></div>
+        <p class="job">Third appearance of the one label. The sticky mobile bar is the fourth.</p>
+      </div>
+    </div>
+    <div class="slot" style="margin-top:1.1rem">
+      <div class="slot-hd"><span class="slot-type">Watch next &middot; the other path</span><span class="budget">lead-in 14-18w &middot; 2 links</span> <span class="tag tag--swap">SWAP</span></div>
+      <p class="fill fill-body" data-label="Lead-in · 14-18 words" data-wmin="14" data-wmax="18">Not there yet? Keep going. The more of these you watch, the sharper your eye gets:</p>
+      <ul class="bullets" style="margin-top:.5rem; text-align:left; display:inline-block">
+        <li><span class="pending">PER VIDEO: next training link</span></li>
+        <li><span class="pending">PER VIDEO: next training link</span></li>
+      </ul>
+      <p class="job">Give the not-ready reader somewhere to go that is still ours. Framed as sharpening their eye, so choosing it feels like progress rather than retreat. The two links change per variant.</p>
+    </div>
+    <div class="note"><b>Instrument the fork before it ships.</b> Two paths mean two numbers. The watch-next links need their own tracking, otherwise a reader who takes the second path is indistinguishable from one who bounced, and the page will read as worse than it is.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>On a warm list most readers are not saying no, they are saying not yet. A page that offers only a booking treats those two as the same answer and loses the second group entirely. The fork keeps them in the funnel by sending them to the next training instead of to the back button.</p>
+    <p><b>Why this shape.</b> The ask sits inside a bordered card and the fork sits outside and below it, deliberately quieter. Two equally weighted options would be a choice, and a choice at the moment of action is a delay. This is a primary action with a fallback, not a menu.</p>
+    <p class="len">Six tenths of a fold, slightly more than the mid-page ask, because this one carries two paths rather than one. The lead-in earns its 16 words by reframing "not yet" as getting sharper, which is what stops the second path reading as a consolation prize.</p>
+    <p class="open">This is the one genuinely new structure the copy stage added, and it cuts against the page's own rule of a single ask. It is kept because a nurture path on a warm list is a real strategy rather than a leak, but only if it is measured. Untracked, it is indistinguishable from a leak.</p>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- S6 · FAQ · now below the fork -->
+<!-- ============================================================= -->
+<section id="s6" class="sec sec--alt" data-fold="0.45" style="--fold-n:0.45">
+  <div class="secbadge"><span class="n">S6</span><span class="name">Objection FAQ</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">The last two doubts, answered after the ask rather than before it, so the reader who already clicked never has to read them.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd><b>Expand and collapse accordion</b>, 1 column, max 760px. First item open by default, the rest closed.</dd>
+    <dt>Folds</dt><dd>0.45 desktop closed / 0.7 mobile closed. Opening both rows roughly doubles it.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>H2 · <b>2</b> question and answer rows. Reduced from five by the copy stage.</dd>
+    <dt>Reference</dt><dd>The brief asked for five, ordered by real objection frequency from setter recordings. Two were written. See the flag.</dd>
   </dl>
   <div class="wrap">
     <div class="slot center">
@@ -950,88 +1112,46 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       <p class="job">Signal the section without selling. This is the one header on the page allowed to be plain.</p>
     </div>
     <div class="slot" style="margin-top:.9rem">
-      <div class="slot-hd"><span class="slot-type">FAQ accordion · 5 rows</span><span class="budget">Q 6-12w · A 30-50w</span></div>
+      <div class="slot-hd"><span class="slot-type">FAQ accordion &middot; 2 rows</span><span class="budget">Q 5-12w &middot; A 30-50w</span></div>
       <details class="faq" open>
-        <summary><span data-label="Question · 6-12 words" data-wmin="6" data-wmax="12">How much capital do I need to get started?</span></summary>
-        <div class="faq-wrap"><div class="faq-a" data-label="Answer · 30-50 words" data-wmin="30" data-wmax="50">Answer the money objection directly and with a number, because a warm list will not ask twice. State the minimum plainly, say what it is for, and name the situation where someone should wait instead.</div></div>
+        <summary><span data-label="Question · 5-12 words" data-wmin="5" data-wmax="12">So you just hand me the deal?</span></summary>
+        <div class="faq-wrap"><div class="faq-a" data-label="Answer · 30-50 words" data-wmin="30" data-wmax="50">No. We're not a brokerage. You find it, you own 100% of it. We give you the ability to value it, the data to check the market, and operators to call before you sign.</div></div>
       </details>
       <details class="faq">
-        <summary><span data-wmin="6" data-wmax="12">How much time does this actually take each week?</span></summary>
-        <div class="faq-wrap"><div class="faq-a" data-wmin="30" data-wmax="50">Give the honest weekly number rather than a comfortable one. Separate the time spent learning the process from the time spent working a live deal, because those two are very different commitments.</div></div>
+        <summary><span data-wmin="5" data-wmax="12">What happens on the call?</span></summary>
+        <div class="faq-wrap"><div class="faq-a" data-wmin="30" data-wmax="50">We look at where you are, your goals, and whether storage, and our program, is the right next step. You'll leave with a clearer sense of your path, whether or not we end up working together.</div></div>
       </details>
-      <details class="faq">
-        <summary><span data-wmin="6" data-wmax="12">Is this right for me if I own one facility?</span></summary>
-        <div class="faq-wrap"><div class="faq-a" data-wmin="30" data-wmax="50">Restate the fit question the way someone would actually type it, then answer with the situation rather than the job title. Point back to the two columns above instead of repeating them here.</div></div>
-      </details>
-      <details class="faq">
-        <summary><span data-wmin="6" data-wmax="12">Does this work in my market or my region?</span></summary>
-        <div class="faq-wrap"><div class="faq-a" data-wmin="30" data-wmax="50">Answer the market objection with a proof case rather than a promise. Name a member who bought in a comparable market and say what was the same about the process rather than the geography.</div></div>
-      </details>
-      <details class="faq">
-        <summary><span data-wmin="6" data-wmax="12">What actually happens on the first call?</span></summary>
-        <div class="faq-wrap"><div class="faq-a" data-wmin="30" data-wmax="50">Describe the call itself, step by step. Who they speak to, how long it runs, what to bring, and what happens if it is not a fit. This is the highest leverage answer on a booking page.</div></div>
-      </details>
-      <p class="job">Five real objections in frequency order: price, time, is this for me, does it work in my situation, what happens on the call. Answer directly, using a proof case rather than a promise where possible.</p>
+      <p class="job">Two real objections: the done-for-you misread, and what the call actually is. Answer directly, using a proof case rather than a promise where possible.</p>
     </div>
+    <div class="decided"><b>Decision B &middot; revised 2026-09-03</b><br><span class="verdict">The "who it is for" fit block is cut.</span> B had kept it on the grounds that on a warm list the real objection is timing, and it was the only section that answered timing. The copy stage removed it and the cut is accepted: on a page that now ends in a fork, the not-yet reader is handled by being given somewhere to go rather than by being told they are not ready. The timing belief is still worth watching, though. See the open question.</div>
+    <div class="delta"><b>Flag 6 &middot; three rows short</b><br>The brief asked for <b>five</b> questions in real objection-frequency order, pulled from setter call recordings. <b>Two were written.</b> The two that exist are good and are the two most likely to be top of the list, but the remaining three should come from data rather than from a guess. We hold no raw setter recordings; the nearest substitute on hand is the call-quality tab of the SSI scorecard, which carries per-call AI summaries. Money and time are the two objections most conspicuously unanswered anywhere on the page.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>An FAQ below the ask is a filter, not a pitch. Everyone who was going to click has clicked; what is left is the reader who wants one specific doubt cleared before they will. Answering only two of those, rather than pre-empting eight, keeps the page from arguing with objections the reader never had.</p>
+    <p><b>Why this shape.</b> A real accordion with the first row open, so the section costs half a fold closed and cannot become a wall of text. Rows are questions in the reader's own phrasing, not headings, because a reader scanning for their doubt is matching wording rather than reading.</p>
+    <p class="len">Answers at 30 to 50 words, which is long enough to answer without hedging and short enough that the reader does not feel handled. The section as a whole is the smallest full section on the page at 0.45 folds, which is correct for something most readers will never open.</p>
+    <p class="open">Cutting the fit block removed the only place the page addressed <b>timing</b>, which on a warm list is usually the real objection rather than suitability. The fork now absorbs some of that, but nothing states it. If the AIR data supports timing being the top objection, the cheapest fix is a third FAQ row rather than bringing the block back.</p>
   </div>
 </section>
 
 <!-- ============================================================= -->
-<!-- FINAL CTA -->
-<!-- ============================================================= -->
-<section id="cta" class="sec" data-fold="0.55" style="--fold-n:0.55">
-  <div class="secbadge"><span class="n">CTA</span><span class="name">Final ask</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
-  <p class="secwhy">Desire plus effort removal. Same ask, restated for the reader who scrolled the whole page.</p>
-  <dl class="spec">
-    <dt>Layout</dt><dd>1 column centred inside a bordered card, max 680px.</dd>
-    <dt>Folds</dt><dd>0.55 desktop / 0.8 mobile.</dd>
-    <dt>Media</dt><dd>None.</dd>
-    <dt>Elements</dt><dd>H2 · subhead · 1 button · 1 reassurance line. Identical button label.</dd>
-    <dt>Reference</dt><dd>Live SSI page final CTA card.</dd>
-  </dl>
-  <div class="wrap center">
-    <div class="card" style="padding:1.6rem 1.2rem">
-      <div class="slot">
-        <div class="slot-hd"><span class="slot-type">H2 · close line</span><span class="budget">6 to 12 words</span></div>
-        <h2 class="fill fill-h2" data-label="Title · 6-12 words" data-wmin="6" data-wmax="12">Bring a deal. We will pressure-test the numbers.</h2>
-        <p class="job">Restate the outcome as an invitation with a concrete first move, not a slogan.</p>
-      </div>
-      <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">12 to 20 words</span></div>
-        <p class="fill fill-sub" data-label="Subtext · 12-20 words" data-wmin="12" data-wmax="20">A short call with our team to see whether the system fits what you are trying to buy.</p>
-        <p class="job">Name the call for what it is. Mis-set expectations here cost show rate, not click rate.</p>
-      </div>
-      <div class="slot">
-        <div class="slot-hd"><span class="slot-type">CTA button</span><span class="budget">2 to 4 words</span></div>
-        <div><a href="#cta" class="wirebtn-solid" data-label="CTA · same label everywhere" data-wmin="2" data-wmax="4">See If You Qualify</a></div>
-        <p class="job">Third and final appearance of the one label.</p>
-      </div>
-      <div class="slot">
-        <div class="slot-hd"><span class="slot-type">Reassurance</span><span class="budget">8 to 15 words</span></div>
-        <p class="fill fill-body" data-label="Microcopy · 8-15 words" data-wmin="8" data-wmax="15">If it is not a fit we will tell you on the call.</p>
-        <p class="job">Lower the cost of saying yes. One line, no guarantee language that is not cleared.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================= -->
-<!-- FOOTER · dialled in, with the compliance blocks sized -->
+<!-- FOOTER -->
 <!-- ============================================================= -->
 <section id="footer" class="sec">
-  <div class="secbadge"><span class="n">F</span><span class="name">Footer + disclaimers</span> <span class="tag tag--const">CONSTANT</span> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <div class="secbadge"><span class="n">F</span><span class="name">Footer + disclaimers</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
   <p class="secwhy">Legitimacy, not navigation. A footer menu on a funnel page is a set of exits. The compliance blocks are what actually set its height.</p>
   <dl class="spec">
     <dt>Layout</dt><dd>1 column, centred. Logo, then two legal links, then the copyright line, then the compliance stack left-aligned at max 70ch so it stays readable at small type.</dd>
     <dt>Folds</dt><dd>0.55 desktop / 1.0 mobile. Driven almost entirely by the disclaimer length, which is why it is shown at real length here.</dd>
     <dt>Media</dt><dd>Logo mark only.</dd>
     <dt>Elements</dt><dd>Logo · 2 legal links · copyright · <b>4 compliance blocks</b>: Meta/Facebook, Google, earnings and results, investment risk.</dd>
-    <dt>Reference</dt><dd>Wording lifted from SSI's live AJ-VSL footer. This is client boilerplate, <b>not copy for the copywriter to write</b>. The Google block does not exist on SSI's current footer and needs legal sign-off.</dd>
+    <dt>Reference</dt><dd>Wording lifted from SSI's live AJ-VSL footer. This is client boilerplate, <b>not copy for the copywriter to write</b>.</dd>
   </dl>
   <div class="wrap foot">
     <div class="slot">
       <div class="slot-hd"><span class="slot-type">Logo + links + copyright</span><span class="budget">fixed</span></div>
-      <div class="ph" style="height:38px; max-width:190px; margin:0 auto">LOGO · footer mark</div>
+      <div class="ph" style="height:38px; max-width:190px; margin:0 auto">LOGO &middot; footer mark</div>
       <div class="foot-links">
         <span>Privacy Policy</span>
         <span>Terms of Service</span>
@@ -1041,7 +1161,7 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
     </div>
 
     <div class="slot" style="margin-top:1rem">
-      <div class="slot-hd"><span class="slot-type">Compliance stack · 4 blocks</span><span class="budget">real length, client boilerplate</span></div>
+      <div class="slot-hd"><span class="slot-type">Compliance stack &middot; 4 blocks</span><span class="budget">real length, client boilerplate</span></div>
       <div class="legal">
         <p><b>Meta / Facebook.</b> This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.</p>
         <p><b>Google / YouTube.</b> <span class="pending">Pending legal: Google and YouTube disclaimer to match the Meta block. Space is allocated at the same length. Needed before any Google or YouTube traffic runs to this page.</span></p>
@@ -1050,7 +1170,13 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
       </div>
       <p class="job">Client-supplied boilerplate, shown at real length because its length is what sizes the footer. The copywriter does not write these.</p>
     </div>
-    <div class="note"><b>Open.</b> The Meta, earnings and investment blocks are SSI's live wording, carried over from the AJ-VSL footer. The Google and YouTube block is not on SSI's current footer and is marked pending.</div>
+    <div class="delta"><b>Flag 7 &middot; pending legal, carried over</b><br>The Meta, earnings and investment blocks are SSI's live AJ-VSL wording and are cleared. <b>The Google and YouTube block does not exist on SSI's current footer</b> and has to be written and signed off before any Google or YouTube traffic runs to this page. Space is allocated at the matching length so the footer does not resize when it lands. The copy document also asks to keep an "examples are not guaranteed" line, which the earnings block already covers.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>Nobody is persuaded by a footer, but a page without one reads as disposable, and on a page making earnings-adjacent claims the compliance stack is not optional. Two links rather than a menu, because every additional link here is an exit offered to someone who has already reached the bottom.</p>
+    <p><b>Why this shape.</b> The legal text is left-aligned and capped at 70 characters a line, because it is the one block on the page that some readers genuinely have to be able to read rather than skim.</p>
+    <p class="len">Sized by its content and nothing else. It is shown here at real length rather than as a placeholder specifically because the disclaimer length is what determines the footer height, and a short placeholder would misrepresent the bottom of the page by half a fold.</p>
   </div>
 </section>
 
@@ -1058,86 +1184,88 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 
 <!-- sticky mobile CTA · fourth appearance of the one label -->
 <div class="stickycta">
-  <a href="#cta" class="wirebtn-solid" style="display:block">CTA LABEL</a>
+  <a href="#cta" class="wirebtn-solid" style="display:block" data-wmin="2" data-wmax="4">Get on a Call</a>
 </div>
 
 <!-- ============================================================================
-     COPY BRIEF · the same slot data as a table. This is the handoff to the
-     copy stage. Every row is a box on the page above.
+     COPY BRIEF · the same slot data as a table.
      ============================================================================ -->
 <div class="toc" id="overview">
   <p class="kicker">Section summary</p>
   <h2>The page, section by section</h2>
-  <p class="lede">The eleven blocks you just scrolled through. One ask, repeated four times, with one label. <b>S1 is the only block that changes between variants.</b> Everything below it is written once and reused across the top five videos. Click any section to jump back to it.</p>
+  <p class="lede">Eleven blocks. One ask, one label, in four places, plus a second path at the end for the reader who is not ready. <b>S1 is the only block that changes between variants</b>, with the bridge hand-tuned per video in V2. Click any section to jump back to it.</p>
   <ol>
     <li><span class="num">C</span><a href="#chrome">Sticky header</a><span class="desc">logo and exactly one way forward</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S1</span><a href="#s1">Asset delivery</a><span class="desc">audience callout, then the video they came for</span><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
-    <li><span class="num">P</span><a href="#proofstrip">Proof strip</a><span class="desc">three stats, one glance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S2</span><a href="#s2">Bridge</a><span class="desc">the asset was step one, not the answer</span><span class="dots"></span><span class="tag tag--v2">CUSTOMIZE V2</span></li>
-    <li class="key"><span class="num">S3</span><a href="#s3">The program</a><span class="desc">mechanism and value prop</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S4</span><a href="#s4">Proof wall</a><span class="desc">six real member results</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S5</span><a href="#s5">Who it is for</a><span class="desc">soft fit, based on timing</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">CTA</span><a href="#cta1">First ask</a><span class="desc">mid-page, after proof and fit</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li class="key"><span class="num">S6</span><a href="#s6">Objection FAQ</a><span class="desc">the five that actually come up</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
-    <li><span class="num">CTA</span><a href="#cta">Final ask</a><span class="desc">same label, last chance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S1</span><a href="#s1">Asset delivery</a><span class="desc">banner, then the video they came for</span><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
+    <li><span class="num">P</span><a href="#proofstrip">Proof strip</a><span class="desc">three stats and a caption, one glance</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S2</span><a href="#s2">Bridge</a><span class="desc">pays off the video, reverses done-for-you</span><span class="dots"></span><span class="tag tag--v2">CUSTOMIZE V2</span></li>
+    <li class="key"><span class="num">S3</span><a href="#s3">Mechanism</a><span class="desc">the five steps and a worked deal</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">CTA</span><a href="#cta1">Soft ask</a><span class="desc">first ask, straight after the payoff</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">S4</span><a href="#s4">Proof wall</a><span class="desc">six cleared member results</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S5</span><a href="#about">About AJ</a><span class="desc">he overpaid first, then built it</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li class="key"><span class="num">CTA</span><a href="#cta">The fork</a><span class="desc">book a call, or watch the next one</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S6</span><a href="#s6">Objection FAQ</a><span class="desc">two rows, sitting below the ask</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
     <li><span class="num">F</span><a href="#footer">Footer</a><span class="desc">legal and disclaimer</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
   </ol>
 </div>
 
 <div class="brief" id="brief">
-  <p style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6b7280;margin:0 0 .3rem">Copy brief · derived from the wireframe above</p>
+  <p style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6b7280;margin:0 0 .3rem">Copy brief &middot; v2, reconciled against the written copy</p>
   <h2 style="margin:0 0 .4rem;font-size:1.3rem">Every slot on this page, in order</h2>
-  <p style="margin:0 0 1rem;font-size:12px;color:#475569;line-height:1.55;max-width:70ch">One row per box. Write to the <b>job</b>, inside the <b>word budget</b>. If a slot cannot be written inside its budget, that is a structure problem, not a copy problem: flag it rather than overrunning, because the fold budgets in the section specs assume these lengths.</p>
+  <p style="margin:0 0 1rem;font-size:12px;color:#475569;line-height:1.55;max-width:70ch">One row per box. Write to the <b>job</b>, inside the <b>word budget</b>. Budgets on this version are <b>derived from each section's job</b> rather than inherited from another page, and several moved during the copy stage because the job turned out to need more room than the template allowed. If a slot cannot be written inside its budget, say so and say why: that is a structure conversation, not a copy failure.</p>
   <div class="tablewrap">
   <table class="cb">
     <thead><tr><th style="width:9rem">Slot</th><th style="width:6rem">Type</th><th style="width:7rem">Word budget</th><th>Job</th></tr></thead>
     <tbody>
-      <tr class="grp"><td colspan="4">Chrome · sticky header</td></tr>
+      <tr class="grp"><td colspan="4">Chrome &middot; sticky header</td></tr>
       <tr><td>Header CTA</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>The only ask in the chrome. This exact label repeats at every CTA on the page.</td></tr>
-      <tr class="grp"><td colspan="4">S1 · Asset delivery (SWAP)</td></tr>
-      <tr><td>Audience callout</td><td class="t">Text</td><td class="b">6 to 12 w</td><td>Name the audience so the right person self-identifies instantly. Who the page is for, not what the offer is. Sits on the page background above the headline, not inside the header strip. Stays constant even though the rest of S1 swaps.</td></tr>
-      <tr><td>H1 headline</td><td class="t">H1</td><td class="b">8 to 14 w</td><td>Deliver the promise the email made. The asset's own promise, not the program's. Breaks over two lines, payoff on line two.</td></tr>
-      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">12 to 20 w</td><td>Pass the five-second relevance test. Who the video is for and why it matters now.</td></tr>
+      <tr class="grp"><td colspan="4">S1 &middot; Asset delivery (SWAP)</td></tr>
+      <tr><td>Opening banner</td><td class="t">Text</td><td class="b">3 to 6 w</td><td>Kill the expected cost before it is felt. The warm reader is braced for a form; remove that brace. Sits above the headline, not in the header strip. Stays constant while the rest of S1 swaps.</td></tr>
+      <tr><td>Eyebrow</td><td class="t">Micro</td><td class="b">4 to 8 w</td><td>Say what this is and whose it is, before the headline has to.</td></tr>
+      <tr><td>H1 headline</td><td class="t">H1</td><td class="b">8 to 14 w</td><td>Deliver the promise the email made. The asset's own promise, not the program's.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">20 to 33 w</td><td>Make them press play. On this page the subhead is the hook, not a relevance test: set up a puzzle only the video resolves. <b>Widened from 12-20 during the copy stage.</b></td></tr>
       <tr><td>Scroll cue</td><td class="t">Micro</td><td class="b">2 to 5 w</td><td>Move the visitor down without asking for anything.</td></tr>
       <tr class="grp"><td colspan="4">Proof strip</td></tr>
       <tr><td>Stat 1 label</td><td class="t">Stat</td><td class="b">2 to 4 w</td><td>Scale. How big is this room.</td></tr>
-      <tr><td>Stat 2 label</td><td class="t">Stat</td><td class="b">2 to 4 w</td><td>Money. The scoreboard number.</td></tr>
-      <tr><td>Stat 3 label</td><td class="t">Stat</td><td class="b">2 to 4 w</td><td>Speed. How fast this can work.</td></tr>
-      <tr class="grp"><td colspan="4">S2 · Bridge</td></tr>
-      <tr><td>H2 reframe</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>The asset was the beginning, not the answer. The turn from teaching to offering.</td></tr>
-      <tr><td>Body</td><td class="t">Body</td><td class="b">25 to 40 w</td><td>Name that a system exists behind the asset, without naming the program yet.</td></tr>
-      <tr class="grp"><td colspan="4">S3 · Program, mechanism, value prop</td></tr>
-      <tr><td>Eyebrow</td><td class="t">Micro</td><td class="b">2 to 4 w</td><td>Signal the section change.</td></tr>
-      <tr><td>H2 program + VP</td><td class="t">H2</td><td class="b">8 to 14 w</td><td>Name the program for the first time and state the value prop in one breath.</td></tr>
-      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">15 to 25 w</td><td>Tie the program back to the authority in the video. The congruence link, and the only authority beat on the page.</td></tr>
-      <tr><td>Step name x5</td><td class="t">H3</td><td class="b">2 to 4 w each</td><td>The mechanism as a verb sequence a person can repeat back.</td></tr>
-      <tr><td>Step body x5</td><td class="t">Body</td><td class="b">12 to 20 w each</td><td>What happens in that step, in the buyer's language.</td></tr>
+      <tr><td>Stat 2 label</td><td class="t">Stat</td><td class="b">2 to 4 w</td><td>Volume. What the room owns between them.</td></tr>
+      <tr><td>Stat 3 label</td><td class="t">Stat</td><td class="b">2 to 4 w</td><td>Money. The scoreboard number.</td></tr>
+      <tr><td>Caption</td><td class="t">Micro</td><td class="b">6 to 10 w</td><td>Attribute the numbers to members, not to the brand, so the strip is a scoreboard rather than a boast.</td></tr>
+      <tr class="grp"><td colspan="4">S2 &middot; Bridge (CUSTOMIZE V2)</td></tr>
+      <tr><td>Body, 4 paragraphs</td><td class="t">Body</td><td class="b">80 to 100 w</td><td>Pay off the video, separate price from value, name the gap between knowing and doing, reverse the done-for-you expectation. In that order, with no heading. <b>Widened from 25-40 and from half a fold to a full one.</b></td></tr>
+      <tr class="grp"><td colspan="4">S3 &middot; Mechanism</td></tr>
+      <tr><td>H2 reversal + VP</td><td class="t">H2</td><td class="b">12 to 17 w</td><td>Kill the biggest misread of the offer and state the value prop in the same breath. One line, not two.</td></tr>
+      <tr><td>Intro line</td><td class="t">Subhead</td><td class="b">12 to 16 w</td><td>Set the five steps up as one complete system, and name the end state.</td></tr>
+      <tr><td>Step name x5</td><td class="t">H3</td><td class="b">2 to 7 w each</td><td>The mechanism as a verb sequence a person can repeat back.</td></tr>
+      <tr><td>Step body x1-4</td><td class="t">Body</td><td class="b">12 to 22 w each</td><td>What happens in that step, in the buyer's language.</td></tr>
+      <tr><td>Step body x5</td><td class="t">Body</td><td class="b">5 to 12 w</td><td>Deliberately a phrase. Step 5 names access, not a skill, and padding it to match the others would be decoration.</td></tr>
+      <tr><td>Deal panel lead-in</td><td class="t">Body</td><td class="b">10 to 14 w</td><td>Hand off from the steps to a real worked example.</td></tr>
+      <tr><td>Deal panel row 1</td><td class="t">H3</td><td class="b">12 to 16 w</td><td>The verdict as three figures: asking, actual, overpay.</td></tr>
+      <tr><td>Deal panel row 2</td><td class="t">Body</td><td class="b">20 to 28 w</td><td>Why a normal buyer would have missed it.</td></tr>
       <tr><td>Outcome card title</td><td class="t">H3</td><td class="b">4 to 8 w</td><td>What the buyer walks away with.</td></tr>
       <tr><td>Outcome bullets x3</td><td class="t">Bullet</td><td class="b">6 to 12 w each</td><td>Convert the mechanism into a possession.</td></tr>
-      <tr><td>Objection reversal</td><td class="t">Body</td><td class="b">10 to 18 w</td><td>Kill the biggest misread of the mechanism before proof, in one sentence.</td></tr>
-      <tr class="grp"><td colspan="4">S4 · Proof wall</td></tr>
+      <tr class="grp"><td colspan="4">CTA &middot; soft ask</td></tr>
+      <tr><td>H3 question</td><td class="t">H3</td><td class="b">6 to 10 w</td><td>Ask the question the reader is already half-asking. A question reads as an invitation.</td></tr>
+      <tr><td>Microline</td><td class="t">Micro</td><td class="b">8 to 14 w</td><td>Set the call up as orientation, not qualification. This is what makes the first ask soft.</td></tr>
+      <tr><td>CTA button</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>Identical to header and final ask. One label family.</td></tr>
+      <tr class="grp"><td colspan="4">S4 &middot; Proof wall</td></tr>
       <tr><td>H2 finding</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>Say what the proof proves. Not the topic.</td></tr>
-      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">10 to 18 w</td><td>Make results reachable by naming the starting point.</td></tr>
-      <tr><td>Card name x6</td><td class="t">H3</td><td class="b">1 to 3 w each</td><td>The member's name. Real and cleared.</td></tr>
+      <tr data-open="1"><td>Subhead</td><td class="t">Subhead</td><td class="b">10 to 18 w</td><td><b>Still unwritten.</b> Make the results feel reachable by naming the starting point, not the finish line.</td></tr>
+      <tr><td>Card name x6</td><td class="t">H3</td><td class="b">1 to 3 w each</td><td>The member's name. Real and cleared. All six are filled from SSI's source-verified proof section.</td></tr>
       <tr><td>Card result x6</td><td class="t">Body</td><td class="b">4 to 8 w each</td><td>One member, one number.</td></tr>
-      <tr><td>Card detail x6</td><td class="t">Body</td><td class="b">15 to 25 w each</td><td>Before, after, method. Vary the shape of the win across the six.</td></tr>
-      <tr class="grp"><td colspan="4">S5 · Who it is for</td></tr>
-      <tr><td>H2</td><td class="t">H2</td><td class="b">5 to 10 w</td><td>Frame as fit, not as a gate.</td></tr>
-      <tr><td>Fit card title x2</td><td class="t">H3</td><td class="b">3 to 6 w each</td><td>A fit if. No rush if.</td></tr>
-      <tr><td>Fit bullets</td><td class="t">Bullet</td><td class="b">8 to 14 w each</td><td><b>Exactly 4 bullets in card one</b> (one carries the readiness bar) and <b>exactly 3 in card two</b>. Neutral language in card two, no rejection.</td></tr>
-      <tr class="grp"><td colspan="4">CTA #1 · mid-page</td></tr>
-      <tr><td>H3 outcome</td><td class="t">H3</td><td class="b">6 to 12 w</td><td>Restate what they get, in their words, above the button.</td></tr>
-      <tr><td>CTA button</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>Identical to header and final CTA. One label family.</td></tr>
-      <tr><td>Microline</td><td class="t">Micro</td><td class="b">6 to 12 w</td><td>What happens after the click. Length, who they speak to, what to bring.</td></tr>
-      <tr class="grp"><td colspan="4">S6 · FAQ</td></tr>
-      <tr><td>H2</td><td class="t">H2</td><td class="b">2 to 5 w</td><td>Plain header. The one header allowed not to sell.</td></tr>
-      <tr><td>Q x5</td><td class="t">Accordion row</td><td class="b">6 to 12 w each</td><td>Expand and collapse rows, first one open on load. Price, time, is this for me, does it work in my situation, what happens on the call. Pull the real five from setter calls.</td></tr>
-      <tr><td>A x5</td><td class="t">Body</td><td class="b">30 to 50 w each</td><td>Answer directly. Use a proof case rather than a promise where possible.</td></tr>
-      <tr class="grp"><td colspan="4">Final CTA + footer</td></tr>
-      <tr><td>H2 close line</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>Restate the outcome as an invitation with a concrete first move.</td></tr>
-      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">12 to 20 w</td><td>Name the call for what it is. Mis-set expectations cost show rate.</td></tr>
+      <tr><td>Card detail x6</td><td class="t">Body</td><td class="b">15 to 25 w each</td><td>Before, after, method. Six different kinds of win: scale, variety, speed, price, partnership, recency.</td></tr>
+      <tr class="grp"><td colspan="4">S5 &middot; About AJ</td></tr>
+      <tr><td>H2 admission</td><td class="t">H2</td><td class="b">6 to 10 w</td><td>Lead with the failure, not the credential.</td></tr>
+      <tr><td>Body, 2 paragraphs</td><td class="t">Body</td><td class="b">40 to 65 w</td><td>Earn the credential by paying for it first. The admission, then the scale it bought.</td></tr>
+      <tr class="grp"><td colspan="4">CTA &middot; the fork</td></tr>
+      <tr><td>H2 close line</td><td class="t">H2</td><td class="b">4 to 7 w</td><td>Ask, do not conclude. A question lets the reader answer no without leaving.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">15 to 22 w</td><td>Name the call for what it is, including that the answer might be no.</td></tr>
       <tr><td>CTA button</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>Third appearance of the one label. Fourth is the sticky mobile bar.</td></tr>
-      <tr><td>Reassurance</td><td class="t">Micro</td><td class="b">8 to 15 w</td><td>Lower the cost of yes. No uncleared guarantee language.</td></tr>
+      <tr><td>Watch-next lead-in</td><td class="t">Body</td><td class="b">14 to 18 w</td><td>Give the not-ready reader somewhere to go that is still ours, framed as sharpening their eye. Two links, per variant.</td></tr>
+      <tr class="grp"><td colspan="4">S6 &middot; FAQ</td></tr>
+      <tr><td>H2</td><td class="t">H2</td><td class="b">2 to 5 w</td><td>Plain header. The one header allowed not to sell.</td></tr>
+      <tr><td>Q x2</td><td class="t">Accordion row</td><td class="b">5 to 12 w each</td><td>Expand and collapse rows, first one open on load. <b>Three more still to come from setter-call data.</b></td></tr>
+      <tr><td>A x2</td><td class="t">Body</td><td class="b">30 to 50 w each</td><td>Answer directly. Use a proof case rather than a promise where possible.</td></tr>
+      <tr class="grp"><td colspan="4">Footer</td></tr>
       <tr><td>Compliance stack</td><td class="t">Legal</td><td class="b">real length</td><td><b>Not a copy slot.</b> Four client boilerplate blocks: Meta/Facebook, Google/YouTube, earnings and results, investment risk. Meta, earnings and risk are SSI live wording; the Google block is pending legal.</td></tr>
     </tbody>
   </table>
@@ -1145,11 +1273,11 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
 
   <h3 style="margin:1.6rem 0 .4rem;font-size:1rem">Rules that apply to every slot</h3>
   <ul style="margin:0;padding-left:1.1rem;font-size:12px;color:#475569;line-height:1.6;max-width:74ch">
-    <li><b>One CTA label family.</b> The same words at header, mid-page CTA, final CTA and sticky mobile bar. No secondary button anywhere.</li>
-    <li><b>Cleared proof only.</b> Any name, quote or number that is not cleared stays out. It is never replaced with a plausible substitute.</li>
+    <li><b>One CTA label family.</b> <b>Get on a Call</b>, identical at the header, the soft ask, the fork and the sticky mobile bar. The watch-next links are a path, not a second button, and they are styled quieter for that reason.</li>
+    <li><b>Cleared proof only.</b> Any name, quote or number that is not cleared stays out. It is never replaced with a plausible substitute. Eight open flags are marked in amber on the page above.</li>
     <li><b>No em dashes.</b> House rule, applies to every line on the page.</li>
-    <li><b>Budgets are structural.</b> They come from the fold budgets in each section spec. Overrunning a budget moves the first fold, which is the one thing this wireframe exists to protect.</li>
-    <li><b>The four structural questions are settled.</b> Decisions A to D are recorded in place on the page above, with the reasoning. Nothing is blocking copy except the client disclaimer.</li>
+    <li><b>Budgets are derived, not inherited.</b> Each one comes from what its section has to do, which is why three of them moved during the copy stage. A budget you cannot write inside is a structure question: raise it, do not quietly overrun it.</li>
+    <li><b>Decisions A to D are recorded in place</b> on the page above, including the three the copy stage revised, with the reasoning. Nothing is blocking copy except the proof-wall subhead and three FAQ rows.</li>
   </ul>
 </div>
 
@@ -1158,37 +1286,34 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <details>
     <summary>How to read and use this wireframe <span>optional</span></summary>
     <div class="body">
-      <p>A wireframe locks <b>structure</b>, not words. It answers one question: is this laid out in the right order, with the right emphasis, to move this visitor to action? Copy, brand and real images are deliberately stripped out, because reordering a box is free and rewriting finished copy is not.</p>
+      <p>A wireframe locks <b>structure</b>, not words. It answers one question: is this laid out in the right order, with the right emphasis, to move this visitor to action? This version has passed through the copy stage, so the words on it are now real copy rather than placeholders, and the flags in amber are the things that still are not settled.</p>
 
-      <h4>Two views</h4>
-      <p><b>Full preview</b> is the page itself: the real type at the real size, on real page spacing, scrolling without interruption. No section labels, no rails, no annotation. This is the view for judging whether the page works. <b>Specs</b> layers the build detail back on. Switch at the top, or open one section at a time with the faint button on its top right.</p>
+      <h4>Three views</h4>
+      <p><b>Full preview</b> is the page itself: the real type at the real size, on real page spacing, scrolling without interruption. No section labels, no rails, no annotation. This is the view for judging whether the page works.</p>
+      <p><b>Specs</b> layers the build detail back on: what each box is, how long it runs, and what job it has to do.</p>
+      <p><b>Persuasion</b> is the new one. It opens a rail beside each section explaining why that section is there, why it takes the shape it does, and <b>why it runs as long as it does</b>. Switch at the top, or open one section at a time with the faint buttons on its top right.</p>
 
-      <h4>What Specs adds</h4>
-      <ul>
-        <li>A <b>spec rail</b> per section: layout, how many folds it costs, media, element counts, and the reference it was built against.</li>
-        <li>A <b>word budget</b> on every box: the length the layout is built for.</li>
-        <li>A <b>job</b> on every box: the one thing that piece of copy has to accomplish.</li>
-        <li>The <b>decisions</b> behind the four places our sources disagreed, recorded where they apply.</li>
-      </ul>
+      <h4>Why the third view exists</h4>
+      <p>Specs tells you a section gets 80 to 100 words. It never told you <i>why</i>, and a budget with no reasoning behind it reads as arbitrary. This page is the proof of that: the bridge was budgeted at half a fold because another page's bridge was half a fold, and when it was written properly it needed a full one. The budget was wrong, not the copy.</p>
+      <p>So budgets here are <b>derived from the job</b>, and Persuasion shows the derivation. It is the view for anyone deciding whether the page is right, as opposed to building it.</p>
 
       <h4>Who uses which view</h4>
       <ul>
-        <li><b>Reviewer</b> (Gray, the client): Full preview. Sign off on section order and emphasis before money goes to copy or design.</li>
-        <li><b>Copywriter</b>: Specs. Every box states its job and its budget, so the page can be written without asking a question. The same content is in the copy brief below and in the <code>.md</code> shipped alongside.</li>
+        <li><b>Reviewer</b> (Gray, the client): Full preview to judge the page, Persuasion to challenge it. Sign off on section order and emphasis before money goes to design.</li>
+        <li><b>Copywriter</b>: Specs to write, Persuasion to argue with a budget that does not fit the job. The same content is in the copy brief below and in the <code>.md</code> shipped alongside.</li>
         <li><b>Designer and developer</b>: Specs. Layout, counts and fold budgets are the build contract.</li>
       </ul>
 
       <h4>Two conventions worth knowing</h4>
       <ul>
         <li><b>Tags.</b> <span class="tag tag--swap">SWAP</span> changes per variant, <span class="tag tag--const">CONSTANT</span> is written once and reused, <span class="tag tag--v2">CUSTOMIZE V2</span> is constant now and hand-tuned per video later.</li>
-        <li><b>Amber means blocked.</b> Something we genuinely do not have yet, like the legal disclaimer. It is never filled with a plausible substitute.</li>
+        <li><b>Amber means blocked.</b> Something we genuinely do not have yet: an uncleared number, a missing disclaimer, a slot nobody has written. It is never filled with a plausible substitute. There are eight on this page.</li>
       </ul>
 
       <p>The dark bar at the top, the view switch, the section summary and this block are all wireframe scaffolding. None of it exists on the real page.</p>
     </div>
   </details>
 </div>
-
 <!-- ===== INTERNAL FEEDBACK · not part of the page. Strip before F2. ===== -->
 <div class="slackcta">
   <p class="kicker">Internal only</p>
@@ -1196,7 +1321,6 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   <a class="slackbtn" href="https://wholefounder.slack.com/archives/C0BGAUZAN6S" target="_blank" rel="noopener">Leave them here</a>
   <p class="sub">Opens #wf-funnel-cro in Slack. Structural feedback (section order, emphasis, what is missing) is most useful now, while it is still a wireframe. Copy notes go on the slot they belong to.</p>
 </div>
-
 <!-- ============================================================================
      SELF-CHECK · open the console at 375px and run wfCheck()
      ============================================================================ -->
@@ -1207,23 +1331,33 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
    try/catch because storage throws in some embedded contexts.               */
 (function(){
   var body=document.body, KEY='wf-view-mode';
+  var MODES={preview:1, specs:1, why:1};
   function setMode(m){
+    if(!MODES[m]) m='preview';   // unknown, missing, or a value stored before
+                                 // Persuasion existed. Never leave the body
+                                 // with no view class at all.
+    // Persuasion renders the page exactly as Full preview does and only ADDS
+    // the rail, so it sets both classes rather than duplicating every preview
+    // rule in the stylesheet.
     body.classList.toggle('preview', m!=='specs');
     body.classList.toggle('specs',  m==='specs');
+    body.classList.toggle('why',    m==='why');
     [].forEach.call(document.querySelectorAll('[data-mode]'), function(b){
       b.setAttribute('aria-pressed', String(b.getAttribute('data-mode')===m));
     });
     try{ localStorage.setItem(KEY,m); }catch(e){}
   }
   var saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
-  setMode(saved==='specs' ? 'specs' : 'preview');
+  setMode(saved);
 
   document.addEventListener('click', function(e){
     var t=e.target;
     var mode=t.closest && t.closest('[data-mode]');
     if(mode){ setMode(mode.getAttribute('data-mode')); return; }
     var peek=t.closest && t.closest('.specbtn');
-    if(peek){ peek.closest('section').classList.toggle('show-specs'); }
+    if(peek){ peek.closest('section').classList.toggle('show-specs'); return; }
+    var why=t.closest && t.closest('.whybtn');
+    if(why){ why.closest('section').classList.toggle('show-why'); }
   });
 })();
 
@@ -1245,14 +1379,20 @@ table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; 
   });
 })();
 
-/* ---- PLACEHOLDER COPY AT A DECLARED WORD BUDGET -------------------------
-   Every text slot carries data-wmin / data-wmax: the word budget the layout
-   is built for. The text itself is hand-written INDICATIVE placeholder copy,
-   not lorem, so a reviewer can tell at a glance what each block is for.
+/* ---- REAL COPY AT A DERIVED WORD BUDGET ---------------------------------
+   Every text slot carries data-wmin / data-wmax. As of v8 the text in them is
+   REAL COPY, written by Natalya against the v1 brief, not placeholder.
 
-   It is placeholder, not copy: no client specifics, no invented numbers, no
-   member names or results that could be mistaken for cleared proof. wfCheck()
-   measures every slot and fails any that falls outside its declared range.  */
+   The budgets are now DERIVED from each section's job rather than inherited
+   from another page's equivalent section. Three of them moved during the copy
+   stage because the job needed more room than the template allowed. That is
+   the intended behaviour: a budget is a hypothesis about what the job costs,
+   and the copy stage is where it gets tested. wfCheck() measures every slot
+   and fails any that falls outside its declared range.
+
+   Anything not yet cleared or not yet written is marked in amber on the page
+   and is deliberately left UNBUDGETED, so an empty slot cannot pass a
+   word-count check by being empty.                                          */
 
 /* Counts words the way a copywriter would: nbsp-joined pairs (put there by the
    widow binder) count as the two words they are, not as one token. */
@@ -1265,6 +1405,51 @@ function wfWordCount(str){
   var parts = t.split(' '), n = 0;
   for (var i = 0; i < parts.length; i++) if (parts[i].length) n++;
   return n;
+}
+
+/* textContent concatenates across child elements with NO separator, so
+   "<span>the start.</span><span>Owning several</span>" reads as one word
+   "start.Owning" and the slot measures one word short. Every multi-element
+   slot on this page hits that: the two-line bridge title, the numbered steps,
+   the four-paragraph bridge body. Walk the tree instead and put a space at
+   every element boundary. Regex-free, like wfWordCount, for the same reason. */
+function wfSlotText(el){
+  var out='';
+  [].forEach.call(el.childNodes, function(n){
+    if(n.nodeType===3) out += n.nodeValue;
+    else if(n.nodeType===1) out += ' ' + wfSlotText(n) + ' ';
+  });
+  return out;
+}
+
+/* ---- BUDGET CONSISTENCY --------------------------------------------------
+   A budget is hand-typed in up to five places: data-wmin/data-wmax, the
+   .budget chip, the data-label pill, the .job prose, and the copy-brief table.
+   Nothing used to compare them, and they had already drifted: the brief table
+   said "4 bullets in card one and 3 in card two" while the page, the spec
+   rail, both labels and the decision block all said five a side.
+
+   These helpers parse a range out of human text so the check can compare the
+   numbers a reader sees against the numbers the machine enforces. Two forms
+   appear on the page: "8 to 14 words" and "2-4w". Digit scanning rather than
+   a regex, so a hyphenated word ("Lead-in", "self-storage", "W-2") cannot be
+   mistaken for a range.                                                     */
+function wfDigitsTail(s){ var o=''; for(var i=s.length-1;i>=0;i--){ if(s[i]>='0'&&s[i]<='9') o=s[i]+o; else break; } return o; }
+function wfDigitsHead(s){ var o=''; for(var i=0;i<s.length;i++){ if(s[i]>='0'&&s[i]<='9') o+=s[i]; else break; } return o; }
+function wfParseRange(str){
+  var p=String(str).split(' '), i, a, b;
+  for(i=0;i<p.length-2;i++){                      // "8 to 14 words"
+    a=wfDigitsTail(p[i]); b=wfDigitsHead(p[i+2]);
+    if(a && b && p[i+1]==='to' && wfDigitsHead(p[i])===a) return [parseInt(a,10),parseInt(b,10)];
+  }
+  for(i=0;i<p.length;i++){                        // "2-4w", "15-25"
+    var j=p[i].indexOf('-');
+    if(j>0){
+      a=wfDigitsTail(p[i].slice(0,j)); b=wfDigitsHead(p[i].slice(j+1));
+      if(a && b) return [parseInt(a,10),parseInt(b,10)];
+    }
+  }
+  return null;
 }
 
 /* ---- ORPHANS · no single word alone on a last line ------------------------
@@ -1286,7 +1471,10 @@ function wfWordCount(str){
 var WF_PROSE = '.fill, .bullets li, .pc-name, .pc-result, .pc-detail, .statlabel,'
              + '.faq summary, .faq .faq-a, .foot-copy, .legal p,'
              + '.howto .body p, .howto .body li, .secwhy, .job, .spec dd, .toc .lede,'
-             + '.toc .desc, .brief p, .brief li, .slackcta .sub, .note, .decided, .delta';
+             + '.toc .desc, .brief p, .brief li, .slackcta .sub, .note, .decided, .delta,'
+             + '.persuasion p';   /* v8: the Persuasion rail is prose too. Adding a
+                                     new prose region without listing it here is
+                                     exactly how the orphan check went blind in v7. */
 (function(){
   var NB=String.fromCharCode(160);   // never a literal nbsp byte in source
   function lastTextNode(el){
@@ -1373,7 +1561,8 @@ function wfCheck(){
       burst.push(el.tagName+(el.id?'#'+el.id:'.'+(el.className||'').toString().split(' ')[0])
                  +' ('+el.scrollWidth+' in '+el.clientWidth+')');
   });
-  var r={ mode: document.body.classList.contains('specs')?'specs':'preview',
+  var r={ mode: document.body.classList.contains('specs') ? 'specs'
+              : document.body.classList.contains('why') ? 'why' : 'preview',
     viewport:window.innerWidth,
     horizontalOverflow: de.scrollWidth>window.innerWidth+1,
     scrollWidth: de.scrollWidth,
@@ -1387,17 +1576,73 @@ function wfCheck(){
     slotsMissingBudget: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.budget');}).length,
     slotsMissingJob: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.job');}).length,
     sectionsMissingSpec: [].slice.call(document.querySelectorAll('section')).filter(function(s){return !s.querySelector('.spec');}).map(function(s){return s.id;}),
+    // v8: every section must carry a Persuasion rail. A section with no
+    // reasoning behind it is a section nobody has justified.
+    sectionsMissingWhy: [].slice.call(document.querySelectorAll('section')).filter(function(s){return !s.querySelector('.persuasion');}).map(function(s){return s.id;}),
     briefRows: document.querySelectorAll('#brief table.cb tbody tr:not(.grp)').length,
     budgetSlots: document.querySelectorAll('[data-wmin]').length,
     budgetMisses: [].slice.call(document.querySelectorAll('[data-wmin]')).filter(function(el){
       var lo=parseInt(el.getAttribute('data-wmin'),10), hi=parseInt(el.getAttribute('data-wmax'),10);
-      var got=wfWordCount(el.textContent);
+      var got=wfWordCount(wfSlotText(el));
       return got<lo || got>hi;
     }).map(function(el){
-      return '"'+el.textContent.trim().slice(0,42)+'" is '+wfWordCount(el.textContent)
+      return '"'+wfSlotText(el).trim().slice(0,42)+'" is '+wfWordCount(wfSlotText(el))
              +'w, budget '+el.getAttribute('data-wmin')+'-'+el.getAttribute('data-wmax');
     }),
     orphans: wfOrphans() };
+
+  /* ---- v8 · the budget said one thing in five places and nothing checked --
+     1. labelBudgetDrift: the data-label pill a writer reads on the page, against
+        the data-wmin/data-wmax the check enforces, on the SAME element.
+     2. chipBudgetDrift: the .budget chip in the slot header, against the slot's
+        budgeted elements. Only run where every budgeted element in the slot
+        shares one range; a slot whose chip legitimately summarises several
+        ranges ("H3 4-8w · 3 bullets 6-12w") is skipped and counted, so the
+        skips are visible rather than silently passing.
+     3. briefRangeMisses: every word budget printed in the copy-brief table must
+        exist somewhere on the page. Rows marked data-open="1" are slots that
+        are declared but not yet written, and are excluded on purpose.        */
+  var drift=[];
+  [].forEach.call(document.querySelectorAll('[data-label][data-wmin]'), function(el){
+    var rng=wfParseRange(el.getAttribute('data-label'));
+    if(!rng) return;                                  // label carries no range
+    var lo=parseInt(el.getAttribute('data-wmin'),10), hi=parseInt(el.getAttribute('data-wmax'),10);
+    if(rng[0]!==lo || rng[1]!==hi)
+      drift.push('label "'+el.getAttribute('data-label')+'" says '+rng[0]+'-'+rng[1]+', attrs say '+lo+'-'+hi);
+  });
+  r.labelBudgetDrift=drift;
+
+  var chipDrift=[], chipSkipped=0;
+  [].forEach.call(document.querySelectorAll('.slot'), function(slot){
+    var chip=slot.querySelector('.budget'); if(!chip) return;
+    var els=slot.querySelectorAll('[data-wmin]'); if(!els.length) return;
+    var lo=null, hi=null, mixed=false;
+    [].forEach.call(els, function(el){
+      var a=parseInt(el.getAttribute('data-wmin'),10), b=parseInt(el.getAttribute('data-wmax'),10);
+      if(lo===null){ lo=a; hi=b; } else if(a!==lo || b!==hi){ mixed=true; }
+    });
+    if(mixed){ chipSkipped++; return; }
+    var rng=wfParseRange(chip.textContent);
+    if(!rng){ chipSkipped++; return; }
+    if(rng[0]!==lo || rng[1]!==hi)
+      chipDrift.push('chip "'+chip.textContent.trim()+'" says '+rng[0]+'-'+rng[1]+', attrs say '+lo+'-'+hi);
+  });
+  r.chipBudgetDrift=chipDrift; r.chipChecksSkipped=chipSkipped;
+
+  var pageRanges={};
+  [].forEach.call(document.querySelectorAll('[data-wmin]'), function(el){
+    pageRanges[el.getAttribute('data-wmin')+'-'+el.getAttribute('data-wmax')]=1;
+  });
+  var briefMiss=[];
+  [].forEach.call(document.querySelectorAll('#brief table.cb tbody tr'), function(tr){
+    if(tr.className==='grp' || tr.getAttribute('data-open')==='1') return;
+    var cell=tr.querySelector('td.b'); if(!cell) return;
+    var rng=wfParseRange(cell.textContent); if(!rng) return;
+    if(!pageRanges[rng[0]+'-'+rng[1]])
+      briefMiss.push('brief row "'+(tr.querySelector('td')||{}).textContent+'" budgets '+rng[0]+'-'+rng[1]+', no such slot on the page');
+  });
+  r.briefRangeMisses=briefMiss;
+
   r.orphanCount = r.orphans.length;
   // The section list at the top is a promise about the page. If it drifts out
   // of sync with the actual sections it is worse than not being there.
