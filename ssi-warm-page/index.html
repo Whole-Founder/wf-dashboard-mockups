@@ -1998,13 +1998,11 @@ p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
 .fork-title, .close-sub,
 .mechanism-outcome p, .mechanism-item p { text-wrap: wrap; }
 
-/* ---- Audience callout: on the page background above the headline (v7) ---- */
-.audience-note{
-  display:inline-block;margin:0 0 22px;padding:8px 16px;
-  border:1px solid rgba(243,150,16,.42);border-radius:999px;
-  background:rgba(243,150,16,.1);color:#ffd08b;
-  font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
-}
+/* ---- Audience callout: a full-width attention strip at the top of the page,
+   using the donor's own .callout-bar component. It was previously an inline-block
+   pill inside the hero, which put it on the SAME LINE as the inline-flex eyebrow
+   and pushed the eyebrow off centre. As a strip, the eyebrow centres on its own. */
+.callout-bar{padding:12px 18px;font-size:12.5px;letter-spacing:.06em;}
 
 /* ---- Hero adjustments: no CTA, scroll cue instead (Decision A) ---- */
 .hero-video-only{width:100%;max-width:800px;margin:0 auto;}
@@ -2072,6 +2070,10 @@ p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
   margin:20px 0 0;color:rgba(255,255,255,.74);font-size:14.5px;line-height:1.68;
 }
 .deal-lead{margin:28px 0 0;color:var(--blue-ink);font-size:16px;font-weight:700;}
+
+/* Step category tag sits at the right edge of the row. It wraps to two lines
+   ("MARKET / DATA"), and without this the second line aligns left under the first. */
+.mechanism-title-line span{text-align:right;}
 
 /* ---- CTA #1, the soft ask ---- */
 .soft-cta{padding:74px 0;background:var(--blue-soft);border-top:1px solid #dce7f0;border-bottom:1px solid #dce7f0;text-align:center;}
@@ -2228,6 +2230,8 @@ p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
 </style>
 
 <main>
+  <div class="callout-bar">No sign-up. <span class="cb-tag">Just press play.</span></div>
+
   <header class="site-header">
     <div class="header-inner">
       <a href="#top" class="brand-link" aria-label="Back to top">
@@ -2244,7 +2248,6 @@ p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="container hero-inner">
-      <p class="audience-note">No sign-up. Just press play.</p>
       <p class="eyebrow hero-eyebrow">Free training &#183; Self Storage Income</p>
       <h1>
         <span class="line1">How to Value a <span class="nb">Self-Storage</span> Facility</span>
@@ -2272,7 +2275,7 @@ p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
         </div>
       </div>
 
-      <p class="scroll-cue">Keep watching below <i aria-hidden="true">&#9662;</i></p>
+      <p class="scroll-cue">Keep reading below <i aria-hidden="true">&#9662;</i></p>
 
       <!-- ===== Proof strip (CONSTANT) ===== -->
       <div class="proof-strip" aria-label="Self Storage Income credibility">
@@ -2809,7 +2812,7 @@ p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
     'h1', 'h2', 'h3',
     /* .scroll-cue is excluded on purpose: its arrow is a block-level <i>, so a
        line-clustering detector reads it as a one-word final line every time. */
-    '.hero-copy', '.audience-note', '.proof-caption',
+    '.hero-copy', '.callout-bar', '.proof-caption',
     '.proof-strip span',
     '.bridge-inner p', '.bridge-emphasis p',
     '.mechanism-intro > p', '.deal-lead', '.mechanism-item p',
