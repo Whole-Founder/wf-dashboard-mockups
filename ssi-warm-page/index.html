@@ -2073,7 +2073,12 @@ p, li, .hero-copy { text-wrap: balance; }
 .deal-result strong{margin-top:14px;font-size:clamp(30px,2.8vw,38px);letter-spacing:-.035em;}
 .deal-result span{margin-top:10px;font-size:13px;line-height:1.5;color:rgba(255,255,255,.66);}
 .decision-criteria{margin-top:18px;gap:10px;}
-.decision-criteria span{padding:12px 8px;font-size:10.5px;color:rgba(255,255,255,.74);}
+/* Each chip is a grid item stretched to the tallest of the three, so a two-line
+   chip sat top-aligned against a three-line neighbour. Centre the content. */
+.decision-criteria span{
+  padding:12px 8px;font-size:10.5px;color:rgba(255,255,255,.74);
+  display:flex;align-items:center;justify-content:center;
+}
 .data-note{
   margin:20px 0 0;color:rgba(255,255,255,.74);font-size:14.5px;line-height:1.68;
 }
