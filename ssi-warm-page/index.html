@@ -1987,8 +1987,16 @@ h1, h2, h3,
 .eyebrow, .application-kicker,
 .mechanism-title-line h3, .faq-question span,
 .guide-copy h3,
-p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
+p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
 @media (min-width:961px){ .faq-intro h2{ font-size:28px; } }
+
+/* Blocks that must FILL the line before wrapping. Balance centres the ragged
+   edge, which on a short card paragraph leaves a visible gap on the right.
+   NOTE: `text-wrap:normal` is invalid and silently falls back to the inherited
+   balance. The greedy value is `wrap`. */
+.member-detail, .data-note, .deal-result span, .decision-criteria span,
+.fork-title, .close-sub,
+.mechanism-outcome p, .mechanism-item p { text-wrap: wrap; }
 
 /* ---- Audience callout: on the page background above the headline (v7) ---- */
 .audience-note{
@@ -2009,9 +2017,29 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
 }
 .scroll-cue i{display:block;margin-top:6px;font-style:normal;font-size:15px;color:var(--orange);}
 
+/* ---- Proof strip: the numbers ARE the section, so they carry the weight ---- */
+.proof-strip{max-width:1000px;margin-top:40px;}
+.proof-strip > div{
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;padding:30px 20px;text-align:center;
+}
+.proof-strip strong{
+  font-size:clamp(38px,4vw,50px);font-weight:800;line-height:1;letter-spacing:-.035em;
+}
+.proof-strip span{
+  max-width:none;width:100%;text-align:center;
+  font-size:11.5px;letter-spacing:.11em;color:rgba(255,255,255,.72);
+}
+@media (max-width:740px){
+  /* the donor turns each cell into a 96px + 1fr grid on mobile; keep it stacked */
+  .proof-strip > div{display:flex;flex-direction:column;gap:8px;padding:24px 16px;}
+  .proof-strip strong{text-align:center;font-size:40px;}
+  .proof-strip span{justify-self:auto;text-align:center;}
+}
+
 /* ---- Proof strip caption ---- */
 .proof-caption{
-  margin:16px auto 0;max-width:620px;color:rgba(255,255,255,.55);
+  margin:18px auto 0;max-width:620px;color:rgba(255,255,255,.55);
   font-size:12px;text-align:center;
 }
 
@@ -2029,16 +2057,35 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
 }
 .bridge-emphasis p{margin:0;color:#5a3a06;font-size:17px;font-weight:600;line-height:1.7;}
 
-/* ---- Worked-deal note inside the data panel ---- */
+/* ---- Worked deal: the donor sized this panel for a sidebar, and at those
+   sizes it reads as generic filler rather than a real teardown. Scaled up. ---- */
+.data-panel{padding:30px 28px;}
+.data-panel-top{font-size:11px;padding-bottom:18px;}
+.deal-decision{margin-top:24px;gap:14px;}
+.deal-result{min-height:176px;padding:24px 20px;}
+.deal-result small{font-size:10.5px;letter-spacing:.1em;}
+.deal-result strong{margin-top:14px;font-size:clamp(30px,2.8vw,38px);letter-spacing:-.035em;}
+.deal-result span{margin-top:10px;font-size:13px;line-height:1.5;color:rgba(255,255,255,.66);}
+.decision-criteria{margin-top:18px;gap:10px;}
+.decision-criteria span{padding:12px 8px;font-size:10.5px;color:rgba(255,255,255,.74);}
 .data-note{
-  margin:16px 0 0;color:rgba(255,255,255,.62);font-size:12px;line-height:1.6;
+  margin:20px 0 0;color:rgba(255,255,255,.74);font-size:14.5px;line-height:1.68;
 }
-.deal-lead{margin:26px 0 0;color:var(--blue-ink);font-size:15px;font-weight:700;}
+.deal-lead{margin:28px 0 0;color:var(--blue-ink);font-size:16px;font-weight:700;}
 
 /* ---- CTA #1, the soft ask ---- */
 .soft-cta{padding:74px 0;background:var(--blue-soft);border-top:1px solid #dce7f0;border-bottom:1px solid #dce7f0;text-align:center;}
 .soft-cta h3{max-width:620px;margin:0 auto;color:var(--blue-ink);font-size:clamp(26px,2.8vw,34px);}
 .soft-cta > .container > p{max-width:560px;margin:14px auto 26px;color:var(--muted);font-size:17px;}
+
+/* ---- S4 Proof wall: subhead sits on one line, centred, under the headline.
+   The donor caps a centred-heading's last paragraph at 620px, which forced a
+   two-line wrap; same specificity, declared later, so this wins. ---- */
+.centered-heading > p.proof-sub{
+  max-width:none;margin:18px auto 0;color:var(--muted);
+  font-size:17px;line-height:1.6;text-align:center;text-wrap:wrap;
+}
+@media (min-width:961px){ .centered-heading > p.proof-sub{ white-space:nowrap; } }
 
 /* ---- S4 Proof wall: member cards ---- */
 .member-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;}
@@ -2072,23 +2119,48 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
 @media (max-width:960px){ .member-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
 @media (max-width:740px){ .member-grid{grid-template-columns:1fr;} }
 
-/* ---- The fork: watch next ---- */
-.fork-next{
-  max-width:820px;margin:52px auto 0;padding:30px 32px;
-  border:1px solid rgba(255,255,255,.18);border-radius:18px;
+/* ---- CTA #2, the fork. Per the wireframe spec: ONE column centred inside a
+   bordered card, max 680px, with the watch-next block below the card and
+   deliberately quieter so it never competes with the button. A primary action
+   with a fallback, not a menu of two equal options. ---- */
+.close-card{
+  max-width:680px;margin:0 auto;padding:46px 48px;text-align:center;
+  border:1px solid rgba(255,255,255,.22);border-radius:20px;
   background:rgba(255,255,255,.06);
+  box-shadow:0 30px 65px rgba(4,26,50,.25);
 }
-.fork-next > p{margin:0 0 18px;color:rgba(255,255,255,.76);font-size:16px;line-height:1.65;}
-.fork-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.fork-links a{
-  padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;
-  border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.05);
-  color:var(--white);font-size:14px;font-weight:600;line-height:1.4;
-  transition:background 180ms ease,border-color 180ms ease;
+.close-card .eyebrow{margin-bottom:13px;}
+.close-card h2{color:var(--white);font-size:clamp(34px,3.6vw,46px);}
+.close-sub{
+  max-width:540px;margin:18px auto 28px;
+  color:rgba(255,255,255,.72);font-size:17px;line-height:1.7;
 }
-.fork-links a:hover{background:rgba(255,255,255,.1);border-color:rgba(243,150,16,.5);}
-.fork-links a i{font-style:normal;color:var(--orange);font-size:16px;}
-@media (max-width:740px){ .fork-links{grid-template-columns:1fr;} }
+.close-card small{
+  display:block;margin-top:14px;
+  color:rgba(255,255,255,.5);font-size:12px;
+}
+
+.fork-next{max-width:900px;margin:52px auto 0;}
+.fork-lead{
+  margin:0 0 22px;color:rgba(255,255,255,.62);
+  font-size:14px;line-height:1.6;text-align:center;
+}
+.fork-links{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.fork-card{min-width:0;}
+.fork-embed{
+  position:relative;aspect-ratio:16/9;overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);border-radius:12px;background:#061f39;
+}
+.fork-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
+.fork-title{
+  margin:11px 0 0;color:rgba(255,255,255,.7);
+  font-size:13px;line-height:1.5;
+}
+@media (max-width:740px){
+  .fork-links{grid-template-columns:1fr;gap:26px;}
+  .close-card{padding:34px 24px;}
+  .fork-next{margin-top:40px;}
+}
 
 /* ---- Footer legal: four blocks ---- */
 .footer-legal{grid-template-columns:1fr 1fr;}
@@ -2101,47 +2173,10 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
   color:rgba(255,255,255,.37);font-size:9px;text-align:center;
 }
 
-/* ---- Clearance flags: inline markers ---- */
-.flag{
-  border-bottom:2px dotted rgba(243,150,16,.85);
-  background:rgba(243,150,16,.1);padding:0 2px;border-radius:2px;
-}
-.flag::after{
-  content:attr(data-f);
-  margin-left:2px;vertical-align:super;
-  color:#b45309;font-size:9px;font-weight:900;letter-spacing:0;
-}
-.hero .flag, .fork-next .flag, .guide-copy .flag, .data-panel .flag, .footer-legal .flag{
-  border-bottom-color:rgba(255,208,139,.9);background:rgba(243,150,16,.18);
-}
-.hero .flag::after, .fork-next .flag::after, .guide-copy .flag::after,
-.data-panel .flag::after, .footer-legal .flag::after{color:#ffd08b;}
-
-/* ---- Unapproved draft copy ---- */
-.draft{
-  position:relative;display:block;text-align:left;
-  padding:14px 16px 14px 18px;
-  border-left:4px dashed #c2860c;border-radius:0 10px 10px 0;
-  background:rgba(243,150,16,.09);
-}
-.draft::before{
-  content:"Draft, not approved";
-  display:block;margin-bottom:6px;
-  color:#a86a05;font-size:9px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;
-}
-.faq-item.is-draft{border-color:#e8c893;background:#fffaf1;}
-/* The Draft pill is a FLEX ITEM on the question row, not an ::after glued to the
-   question text. Appended to the text there is no break opportunity before it,
-   so the longest question could not wrap and burst its own box by 7px at 375. */
+/* Inline clearance markers and draft labels were removed at Gero's request:
+   the copy is Natalya's and approved, and the review happens internally. The
+   eight open clearance items are still listed in full in the review panel. */
 .faq-question span{flex:1 1 auto;min-width:0;}
-.faq-question i{order:2;}
-.faq-item.is-draft .faq-question::after{
-  content:"Draft";
-  order:1;flex:0 0 auto;
-  padding:3px 8px;border-radius:5px;background:rgba(243,150,16,.2);
-  color:#a86a05;font-size:8px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;
-}
-.fork-links a.is-draft{border-style:dashed;border-color:rgba(243,150,16,.55);}
 
 /* ---- Internal review panel ---- */
 .reviewbtn{
@@ -2218,7 +2253,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
       <p class="hero-copy">
         Everyone valued this facility at $3 million. AJ paid $4.8 million for it.
         Today it cash flows nearly $300,000 a year and is worth
-        <span class="flag" data-f="1">over $8.8 million</span>. Watch exactly what he saw.
+        over $8.8 million. Watch exactly what he saw.
       </p>
 
       <div class="hero-video-only">
@@ -2242,15 +2277,15 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
       <!-- ===== Proof strip (CONSTANT) ===== -->
       <div class="proof-strip" aria-label="Self Storage Income credibility">
         <div>
-          <strong><span class="flag" data-f="2">154</span></strong>
+          <strong>154</strong>
           <span>Facilities acquired</span>
         </div>
         <div>
-          <strong><span class="flag" data-f="2">49,000+</span></strong>
+          <strong>49,000+</strong>
           <span>Units owned</span>
         </div>
         <div>
-          <strong><span class="flag" data-f="2">$100M+</span></strong>
+          <strong>$100M+</strong>
           <span>Equity built</span>
         </div>
       </div>
@@ -2267,7 +2302,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
       </p>
       <p>
         That facility appraised at $3 million; he paid $4.8 million when everyone
-        else had walked, and it was <span class="flag" data-f="1">worth $7 million</span>.
+        else had walked, and it was worth $7 million.
       </p>
       <p>
         Knowing that and doing it with your own money on the line are two
@@ -2298,7 +2333,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
         <div class="data-panel">
           <div class="data-panel-top">
             <span>Worked deal</span>
-            <i><span class="flag" data-f="4">Needs sign-off</span></i>
+            <i>Valuation</i>
           </div>
           <div class="deal-decision">
             <div class="deal-result deal-result-no">
@@ -2417,9 +2452,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
       <div class="section-heading centered-heading">
         <p class="eyebrow">Member results</p>
         <h2 class="outcomes-title">Members who started where you are, buying real facilities.</h2>
-        <p class="draft">
-          Most of them had no storage experience and one deal they were not sure about.
-        </p>
+        <p class="proof-sub">Most of them had no storage experience and one deal they were not sure about.</p>
       </div>
 
       <div class="member-grid">
@@ -2549,7 +2582,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
             </p>
             <p>
               He's since transacted over $400M in storage and hosts the
-              <span class="flag" data-f="3">number one self-storage podcast</span>.
+              number one self-storage podcast.
               You don't have to learn it the way he did.
             </p>
           </div>
@@ -2560,48 +2593,46 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
 
   <!-- ===== CTA #2 - the fork ===== -->
   <section class="final-section" id="book">
-    <div class="container final-layout">
-      <div class="final-copy">
+    <div class="container">
+      <div class="close-card">
         <p class="eyebrow">Where you go from here</p>
-        <h2>
-          <span class="final-heading-line">Ready to make</span>
-          <span class="final-heading-line final-heading-accent">a move?</span>
-        </h2>
-        <p>
+        <h2>Ready to make <span class="accent-orange">a move?</span></h2>
+        <p class="close-sub">
           Get on a call with our team to talk through your goals and whether
           storage is your right next step.
         </p>
-      </div>
-      <div class="application-card">
-        <span class="application-kicker">Free intro call</span>
-        <h3>Get on a Call</h3>
-        <div class="application-points">
-          <p><span>01</span> Talk through where you are today.</p>
-          <p><span>02</span> Pressure-test a deal if you have one.</p>
-          <p><span>03</span> Leave with a clear next step.</p>
-        </div>
-        <a href="#book" class="button application-button">
+        <a href="#book" class="button">
           Get on a Call <span aria-hidden="true">&#8599;</span>
         </a>
         <small>No generic pitch. A real conversation about your situation.</small>
       </div>
-    </div>
 
-    <div class="container">
       <div class="fork-next">
-        <p>
+        <p class="fork-lead">
           Not there yet? Keep going. The more of these you watch, the sharper
           your eye gets:
         </p>
         <div class="fork-links">
-          <a href="#top" class="is-draft">
-            <span>Per variant: next training link</span>
-            <i aria-hidden="true">&#8599;</i>
-          </a>
-          <a href="#top" class="is-draft">
-            <span>Per variant: next training link</span>
-            <i aria-hidden="true">&#8599;</i>
-          </a>
+          <article class="fork-card">
+            <div class="fork-embed">
+              <iframe src="https://www.youtube.com/embed/zhhJ3SU5D2M?rel=0&amp;modestbranding=1"
+                title="Self Storage Underwriting 101 | Full Guide (with numbers)"
+                loading="lazy" allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+            </div>
+            <p class="fork-title">Self Storage Underwriting 101: the full guide, with numbers.</p>
+          </article>
+          <article class="fork-card">
+            <div class="fork-embed">
+              <iframe src="https://www.youtube.com/embed/Ao1fXXZ2lCc?rel=0&amp;modestbranding=1"
+                title="Stuck on Buying Your FIRST Self Storage Facility? Watch This!"
+                loading="lazy" allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+            </div>
+            <p class="fork-title">Stuck on buying your first facility? Watch this one next.</p>
+          </article>
         </div>
       </div>
     </div>
@@ -2640,7 +2671,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
           </div>
         </div>
 
-        <div class="faq-item is-draft">
+        <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-2">
             <span>How much do I need to have ready?</span>
             <i aria-hidden="true">+</i>
@@ -2652,7 +2683,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
           </div>
         </div>
 
-        <div class="faq-item is-draft">
+        <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-3">
             <span>How long before I would actually own something?</span>
             <i aria-hidden="true">+</i>
@@ -2664,7 +2695,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
           </div>
         </div>
 
-        <div class="faq-item is-draft">
+        <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-4">
             <span>I have watched a lot of AJ's videos. What is different here?</span>
             <i aria-hidden="true">+</i>
@@ -2700,7 +2731,7 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
       <div>
         <h4>Google / YouTube</h4>
         <p>
-          <span class="flag" data-f="7">Pending legal</span>: Google and YouTube
+          Pending legal: Google and YouTube
           disclaimer to match the Meta block. Space is allocated at the same
           length. Needed before any Google or YouTube traffic runs to this page.
         </p>
@@ -2747,14 +2778,14 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
 <aside class="reviewpanel" id="reviewpanel" hidden>
   <button class="rp-close" type="button" aria-label="Close">&#215;</button>
   <h4>Open clearance flags</h4>
-  <p>Copy is Natalya's, approved as written. Nothing below has been corrected on the page.</p>
+  <p>Copy is Natalya's, approved as written. Nothing below has been corrected on the page, and the inline markers were removed so the page reads as a page. This list is the record.</p>
   <ol>
     <li><b>$8.8M against $7M.</b> Same facility, hero and bridge. All five figures in that story are unsourced.<em>Natalya + AJ</em></li>
     <li><b>Proof strip trio uncleared.</b> 154 / 49,000+ / $100M+ appear nowhere in SSI's repos. Site metadata says 14,000+ units. Cleared trio is 1,000+ members, $400M+ transacted, under 60 days.<em>Gray to client</em></li>
     <li><b>"Number one self-storage podcast."</b> Uncleared superlative. Cleared: host of the Self Storage Income podcast, 1M+ downloads, $400M+ transacted.<em>Gray to client</em></li>
     <li><b>Worked deal numbers.</b> $830K / $500K / $330K and the 50%-against-30% expense line have no source. Attribute or mark illustrative.<em>Natalya + AJ</em></li>
-    <li><b>Proof-wall subhead drafted.</b> The only copy slot Natalya left unwritten. Draft shown on the page.<em>Natalya</em></li>
-    <li><b>FAQ drafted to five.</b> Two rows are hers. Three are drafts covering money and time, the two objections unanswered anywhere on the page. Real ordering needs setter-call frequency data we do not hold.<em>Natalya</em></li>
+    <li><b>Proof-wall subhead is ours, not Natalya's.</b> The one copy slot she left unwritten. It reads unmarked on the page now, so treat it as a proposal rather than approved copy.<em>Natalya</em></li>
+    <li><b>Three of the five FAQ rows are ours.</b> Rows 1 and 2 are hers. Rows 3 to 5 cover money and time, the two objections unanswered anywhere else on the page. Real ordering needs setter-call frequency data we do not hold.<em>Natalya</em></li>
     <li><b>Google / YouTube disclaimer.</b> Does not exist on SSI's current footer. Needed before Google or YouTube traffic.<em>Legal</em></li>
     <li><b>Three budgets widened</b> to fit what she wrote: hero subhead, bridge, About body. Noted only, no action.<em>Closed</em></li>
   </ol>
@@ -2784,11 +2815,10 @@ p, li, .hero-copy, .member-detail, .bridge-inner p { text-wrap: balance; }
     '.mechanism-intro > p', '.deal-lead', '.mechanism-item p',
     '.mechanism-outcome p', '.data-note', '.deal-result span',
     '.soft-cta > .container > p',
-    '.centered-heading > p', '.member-detail', '.member-result',
+    '.centered-heading > p', '.proof-sub', '.member-detail', '.member-result',
     '.disclaimer-inline',
     '.guide-copy > p',
-    '.final-copy > p', '.application-points p', '.application-card small',
-    '.fork-next > p', '.fork-links a span',
+    '.close-sub', '.close-card small', '.fork-lead', '.fork-title',
     '.faq-intro > p', '.faq-question span', '.faq-answer p',
     '.footer-legal p', '.footer-copy',
     /* review scaffolding, second */
