@@ -1987,16 +1987,24 @@ h1, h2, h3,
 .eyebrow, .application-kicker,
 .mechanism-title-line h3, .faq-question span,
 .guide-copy h3,
-p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
+p, li, .hero-copy { text-wrap: balance; }
 @media (min-width:961px){ .faq-intro h2{ font-size:28px; } }
 
-/* Blocks that must FILL the line before wrapping. Balance centres the ragged
-   edge, which on a short card paragraph leaves a visible gap on the right.
+/* Blocks that must FILL the line before wrapping.
+   THE RULE: balance is right for CENTRED text, where an even ragged edge reads
+   as deliberate. It is wrong for LEFT-ALIGNED body copy, where it shortens every
+   line and leaves a gap down the right-hand side that looks like a bug.
    NOTE: `text-wrap:normal` is invalid and silently falls back to the inherited
    balance. The greedy value is `wrap`. */
 .member-detail, .data-note, .deal-result span, .decision-criteria span,
 .fork-title, .close-sub,
-.mechanism-outcome p, .mechanism-item p { text-wrap: wrap; }
+.mechanism-outcome p, .mechanism-item p,
+.bridge-inner p, .bridge-emphasis p,
+.guide-copy > p, .faq-answer p, .footer-legal p { text-wrap: wrap; }
+
+/* The bridge lead is the one exception: it is set large and reads as a heading,
+   so an even two-line split is what it wants. Higher specificity, so it wins. */
+.bridge-inner p:first-of-type { text-wrap: balance; }
 
 /* ---- Audience callout: a full-width attention strip at the top of the page,
    using the donor's own .callout-bar component. It was previously an inline-block
