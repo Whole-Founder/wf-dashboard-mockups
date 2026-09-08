@@ -2125,11 +2125,15 @@ p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
    bordered card, max 680px, with the watch-next block below the card and
    deliberately quieter so it never competes with the button. A primary action
    with a fallback, not a menu of two equal options. ---- */
+/* The About AJ section above is dark navy and the donor's .final-section is also
+   blue, so the two ran together. The section goes WHITE and the ask stays a solid
+   blue card, which gives the break and keeps the card as the only blue object. */
+.final-section{background:var(--white);color:var(--ink);}
 .close-card{
   max-width:680px;margin:0 auto;padding:46px 48px;text-align:center;
-  border:1px solid rgba(255,255,255,.22);border-radius:20px;
-  background:rgba(255,255,255,.06);
-  box-shadow:0 30px 65px rgba(4,26,50,.25);
+  border:1px solid var(--blue);border-radius:20px;
+  background:var(--blue);
+  box-shadow:0 30px 65px rgba(15,69,129,.22);
 }
 .close-card .eyebrow{margin-bottom:13px;}
 .close-card h2{color:var(--white);font-size:clamp(34px,3.6vw,46px);}
@@ -2142,20 +2146,23 @@ p, li, .hero-copy, .bridge-inner p { text-wrap: balance; }
   color:rgba(255,255,255,.5);font-size:12px;
 }
 
+/* The fork sits OUTSIDE the card, so on a white section its text and frames have
+   to flip from white-on-blue to ink-on-white or they disappear. */
 .fork-next{max-width:900px;margin:52px auto 0;}
 .fork-lead{
-  margin:0 0 22px;color:rgba(255,255,255,.62);
+  margin:0 0 22px;color:var(--muted);
   font-size:14px;line-height:1.6;text-align:center;
 }
 .fork-links{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
 .fork-card{min-width:0;}
 .fork-embed{
   position:relative;aspect-ratio:16/9;overflow:hidden;
-  border:1px solid rgba(255,255,255,.16);border-radius:12px;background:#061f39;
+  border:1px solid var(--line);border-radius:12px;background:var(--blue-pale);
+  box-shadow:0 10px 28px rgba(15,69,129,.09);
 }
 .fork-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
 .fork-title{
-  margin:11px 0 0;color:rgba(255,255,255,.7);
+  margin:11px 0 0;color:#3f5165;
   font-size:13px;line-height:1.5;
 }
 @media (max-width:740px){
