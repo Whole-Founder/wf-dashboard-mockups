@@ -2314,7 +2314,7 @@ p, li, .hero-copy { text-wrap: balance; }
   <!-- ===== S2 - Reframe (CUSTOMIZE V2) ===== -->
   <section class="section bridge-section">
     <div class="container bridge-inner">
-      <h2 class="bridge-headline">The hard part is telling a good storage deal from a bad one.</h2>
+      <h2 class="bridge-headline" style="margin:0 0 22px;">The hard part is telling a good storage deal from a bad one.</h2>
       <p style="font-size:19px;font-weight:400;font-family:inherit;letter-spacing:normal;line-height:1.72;color:#33465a;">
         You just watched AJ get to a number, so you already know you can do the
         math. The hard part is what comes after that, when the deal is your own
@@ -2602,8 +2602,8 @@ p, li, .hero-copy { text-wrap: balance; }
 
       <div class="fork-next">
         <p class="fork-lead">
-          If you are not ready to talk to anyone yet, keep watching.
-          <a href="#top">Go back through AJ's valuation above</a> and take your
+          If you are not ready to talk to anyone yet,
+          <a href="#top">go back through AJ's valuation above</a> and take your
           time with it. When you want to talk it through with his team, the call
           is here.
         </p>
@@ -2806,6 +2806,22 @@ p, li, .hero-copy { text-wrap: balance; }
 
       /* idempotent: strip a previously injected nbsp before re-binding */
       v = v.split(NB).join(' ');
+
+      /* Collapse every run of whitespace (source line-breaks + indentation,
+         tabs, doubled spaces) down to a single space. Without this, when the
+         last two words sit on different source lines the run "word\n        word"
+         renders as one collapsed space AND the injected nbsp lands beside it,
+         so the reader sees a double gap. Collapsing first makes the bind land on
+         a genuine single space every time. Regex-free, to match this file. */
+      var collapsed = '', prevWs = false;
+      for (var ci = 0; ci < v.length; ci++) {
+        var ch = v.charAt(ci);
+        var isWs = (ch === ' ' || ch === '\n' || ch === '\t' || ch === '\r' ||
+                    ch === String.fromCharCode(12) || ch === NB);
+        if (isWs) { if (!prevWs) { collapsed += ' '; prevWs = true; } }
+        else { collapsed += ch; prevWs = false; }
+      }
+      v = collapsed;
 
       var trailing = '';
       while (v.length && (v.charAt(v.length - 1) === ' ')) {
