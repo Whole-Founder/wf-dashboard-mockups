@@ -1933,14 +1933,6 @@ p, li, .hero-copy, .button-note, .story-detail, .disclaimer-inline { text-wrap: 
 /* Final heading: allow the longer accent line to wrap (Britt kept nowrap for shorter copy) */
 .final-copy h2 .final-heading-line{white-space:normal;}
 
-/* Internal review note */
-.mocknote{position:fixed;right:16px;bottom:16px;z-index:80;max-width:308px;padding:15px 18px 15px 16px;border-radius:12px;background:#3b2a63;color:#efeaff;font-size:11px;line-height:1.55;box-shadow:0 18px 40px rgba(20,10,45,.42);}
-.mocknote strong{display:block;margin-bottom:7px;color:#fff;font-size:10px;letter-spacing:.09em;text-transform:uppercase;}
-.mocknote ul{margin:0;padding-left:15px;}
-.mocknote li{margin-bottom:3px;}
-.mocknote button{position:absolute;top:7px;right:11px;padding:0;background:transparent;color:#c9bdf0;font-size:15px;line-height:1;cursor:pointer;}
-@media (max-width:740px){.mocknote{display:none;}}
-
 /* Callout: keep the closing sentence together so no word is left alone */
 .cb-tag{white-space:nowrap;}
 
@@ -2222,37 +2214,6 @@ p, li, .hero-copy { text-wrap: balance; }
    eight open clearance items are still listed in full in the review panel. */
 .faq-question span{flex:1 1 auto;min-width:0;}
 
-/* ---- Internal review panel ---- */
-.reviewbtn{
-  position:fixed;right:18px;bottom:18px;z-index:90;
-  min-height:44px;padding:0 18px;display:inline-flex;align-items:center;gap:9px;
-  border-radius:999px;background:#3b2a63;color:#efeaff;cursor:pointer;
-  font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
-  box-shadow:0 14px 34px rgba(20,10,45,.4);
-}
-.reviewbtn b{
-  min-width:20px;height:20px;padding:0 5px;display:grid;place-items:center;
-  border-radius:999px;background:var(--orange);color:#2a1c4a;font-size:11px;
-}
-.reviewpanel{
-  position:fixed;right:18px;bottom:74px;z-index:91;
-  width:min(378px, calc(100vw - 36px));max-height:min(70vh, 620px);overflow:auto;
-  padding:20px 22px 22px;border-radius:16px;background:#3b2a63;color:#efeaff;
-  font-size:11.5px;line-height:1.6;box-shadow:0 22px 54px rgba(20,10,45,.5);
-}
-.reviewpanel[hidden]{display:none;}
-.reviewpanel h4{
-  margin:0 0 4px;color:#fff;font-family:var(--font-inter),"Inter",Arial,sans-serif;
-  font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
-}
-.reviewpanel > p{margin:0 0 14px;color:#c9bdf0;font-size:11px;}
-.reviewpanel ol{margin:0;padding-left:17px;}
-.reviewpanel li{margin-bottom:9px;}
-.reviewpanel li b{color:#ffd08b;}
-.reviewpanel em{display:block;margin-top:2px;color:#b9a9ea;font-style:normal;font-size:10px;}
-.reviewpanel .rp-close{position:absolute;top:12px;right:14px;padding:0;background:transparent;color:#c9bdf0;font-size:16px;line-height:1;cursor:pointer;}
-.reviewpanel .rp-foot{margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(255,255,255,.14);color:#c9bdf0;font-size:10.5px;}
-
 /* ---- Sticky mobile CTA ---- */
 .stickycta{display:none;}
 @media (max-width:740px){
@@ -2264,8 +2225,6 @@ p, li, .hero-copy { text-wrap: balance; }
   }
   .stickycta .button{width:100%;}
   body{padding-bottom:78px;}
-  .reviewbtn{bottom:82px;}
-  .reviewpanel{bottom:138px;}
   .site-header .button-small span:first-of-type{display:inline;}
   .footer-legal{text-align:center;grid-template-columns:1fr;}
 }
@@ -2830,33 +2789,6 @@ p, li, .hero-copy { text-wrap: balance; }
   <a href="#book" class="button">Book a call with AJ's team <span aria-hidden="true">&#8599;</span></a>
 </div>
 
-<button class="reviewbtn" type="button" id="reviewbtn" aria-expanded="false" aria-controls="reviewpanel">
-  Internal review <b>9</b>
-</button>
-
-<aside class="reviewpanel" id="reviewpanel" hidden>
-  <button class="rp-close" type="button" aria-label="Close">&#215;</button>
-  <h4>Open clearance flags</h4>
-  <p>Rebuilt to the v2 Copy Outline (Natalya / Gray), then adjusted to the round-3 Markup notes. New copy from this round (testimonial mechanism ties, AJ conviction line, three added FAQs) is drafted and shipped for review, not yet cleared. This list is the record of what still needs sourcing, confirmation or legal before paid traffic runs.</p>
-  <ol>
-    <li><b>Proof strip numbers uncleared.</b> 154 facilities and 49,000+ units appear nowhere in SSI's repos; site metadata says 14,000+ units. Kept because they are in the v2 outline, but still need a source or a swap.<em>Gray to client</em></li>
-    <li><b>AJ bio claims.</b> "20 years in the asset class" and "bought through two recessions" are new to this version and unsourced. $400M transacted matches the cleared figure.<em>Natalya + AJ</em></li>
-    <li><b>"$50,000" capital minimum.</b> New concrete number in the FAQ. Confirm it is the cleared floor before it runs.<em>Gray to client</em></li>
-    <li><b>"Within an hour" valuation.</b> Deal-evaluation-engine speed claim in the product panel. Confirm or soften.<em>Natalya + AJ</em></li>
-    <li><b>Google / YouTube disclaimer.</b> Does not exist on SSI's current footer. Needed before Google or YouTube traffic.<em>Legal</em></li>
-    <li><b>Testimonial mechanism ties (round 3, #11).</b> Each of the six member cards now ends with a clause attributing the result to the SSI valuation process / underwriting / playbook. These are drafted attributions, not confirmed by the members. Verify each is true before it runs.<em>Natalya + AJ</em></li>
-    <li><b>AJ conviction line (round 3, #12).</b> "There has never been a better time to buy storage, and he is actively acquiring facilities himself right now." New claim about AJ's current activity. Confirm.<em>Natalya + AJ</em></li>
-    <li><b>Closer photo is black-and-white (round 3, #13).</b> James Mancini's supplied photo is monochrome and sits on the blue close-card. Confirm the person, the caption ("AJ's team") and whether a colour shot is preferred.<em>Gray + Natalya</em></li>
-    <li><b>Added FAQ answers (round 3, #14).</b> Three new rows drafted: off-market deal sourcing, valuation speed, and "is this a course". Confirm the sourcing and speed claims; final set should be heat-map informed.<em>Natalya + AJ</em></li>
-  </ol>
-  <p class="rp-foot">
-    Resolved by v2: the $8.8M-vs-$7M facility story (removed from hero and
-    reframe), the "number one podcast" superlative (removed), the worked-deal
-    $830K/$500K panel (removed), and the proof-wall subhead and FAQ rows (now
-    Natalya's own copy). The bottom watch-next fork was cut to a single text
-    pointer back to the hero video, so it no longer needs its own tracking.
-  </p>
-</aside>
 
 <script>
 /* --------------------------------------------------------------------------
@@ -3085,19 +3017,6 @@ document.querySelectorAll('.faq-question').forEach(function (btn) {
     answer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
   });
 });
-
-/* ---- Internal review panel ---- */
-(function () {
-  var btn = document.getElementById('reviewbtn');
-  var panel = document.getElementById('reviewpanel');
-  if (!btn || !panel) return;
-  function setOpen(open) {
-    panel.hidden = !open;
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  }
-  btn.addEventListener('click', function () { setOpen(panel.hidden); });
-  panel.querySelector('.rp-close').addEventListener('click', function () { setOpen(false); });
-})();
 </script>
 
 <!-- GHL booking widget resizer: listens for the iframe's postMessage and sets its
