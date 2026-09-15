@@ -2603,6 +2603,34 @@ p, li, .hero-copy { text-wrap: balance; }
     </div>
   </section>
 
+  <style>
+    /* Inline GHL booking panel. Sits in its own white panel (not inside the narrow
+       blue .close-card) because GHL's booking form is ~760px wide and cramps below
+       that. Do NOT add transform/will-change to this panel or any ancestor: it makes
+       the panel a containing block for GHL's absolutely-positioned measuring iframe
+       and form_embed.js's reveal breaks (calendar renders blank). */
+    .book-cue{
+      margin:6px 0 0;color:rgba(255,255,255,.6);
+      font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    }
+    .booking-panel{
+      max-width:min(820px, calc(100vw - 32px));
+      margin:34px auto 0;padding:22px;
+      background:var(--white);border:1px solid var(--line);border-radius:20px;
+      box-shadow:0 30px 65px rgba(15,69,129,.18);
+    }
+    .booking-panel__label{
+      margin:0 0 14px;text-align:center;
+      color:var(--blue);font-size:12px;font-weight:700;
+      letter-spacing:.12em;text-transform:uppercase;
+    }
+    /* Placeholder height only; form_embed.js overwrites it inline per step. */
+    .booking-panel iframe{width:100%;border:none;overflow:hidden;height:700px;display:block;}
+    @media (max-width:560px){
+      .booking-panel{padding:14px;border-radius:16px;}
+    }
+  </style>
+
   <!-- ===== CTA #2 - the fork ===== -->
   <section class="final-section" id="book">
     <div class="container">
@@ -2622,9 +2650,17 @@ p, li, .hero-copy { text-wrap: balance; }
           <img src="/ssi-warm-page/proof/james-mancini.jpg" alt="James Mancini, Self Storage Income" width="96" height="96" loading="eager">
           <figcaption><strong>James Mancini</strong><span>AJ's team</span></figcaption>
         </figure>
-        <a href="#book" class="button">
-          Book a call with AJ's team <span aria-hidden="true">&#8599;</span>
-        </a>
+        <p class="book-cue">Pick a time that works for you <span aria-hidden="true">&#8595;</span></p>
+      </div>
+
+      <div class="booking-panel">
+        <p class="booking-panel__label">Book your call with AJ's team</p>
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/booking/WbS4T3iHJ486cjilbqhh"
+          allow="payment"
+          scrolling="no"
+          id="Orqqwvq4dJECGkVDQdol_1789495913249"
+          title="Book a call with AJ's team about Self Storage Income"></iframe>
       </div>
 
       <div class="fork-next">
@@ -3063,6 +3099,10 @@ document.querySelectorAll('.faq-question').forEach(function (btn) {
   panel.querySelector('.rp-close').addEventListener('click', function () { setOpen(false); });
 })();
 </script>
+
+<!-- GHL booking widget resizer: listens for the iframe's postMessage and sets its
+     height per step. Without this the calendar stays at a fixed small height. -->
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 
 </body>
 </html>
