@@ -2228,6 +2228,17 @@ p, li, .hero-copy { text-wrap: balance; }
   .site-header .button-small span:first-of-type{display:inline;}
   .footer-legal{text-align:center;grid-template-columns:1fr;}
 }
+
+/* ---- App-embed guard (added 2026-09-15) ----
+   When this page is embedded inside the Next.js app (apply.selfstorageincome.com/ind-overpay),
+   the host's global CSS reset (Tailwind Preflight) sets h1-h6 font-weight and font-size to
+   `inherit`, stripping the browser-default bold this page was authored against (every section
+   heading rendered at weight 400, and .bridge-headline lost its size too). Restore both
+   explicitly so the design is self-contained and renders identically standalone and embedded.
+   Per-class font-size rules already survive (higher specificity than the reset); only weight,
+   and .bridge-headline's size, needed restoring. */
+main h1, main h2, main h3 { font-weight: 700; }
+.bridge-headline { font-size: 24px; }
 </style>
 
 <main>
