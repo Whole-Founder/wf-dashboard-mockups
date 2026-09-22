@@ -184,6 +184,77 @@
   .legal .sep{opacity:.45;}
   .copyright{font-size:11px;}
 
+
+  /* ---- registration modal ------------------------------------------------
+     The turnstile's whole premise is that the fold asks for ONE click; the
+     fields live behind it. A visible 3-field form reads as work, a button
+     reads as one action. */
+  .modal-backdrop{
+    position:fixed;inset:0;z-index:100;
+    background:rgba(15,20,25,.55);
+    backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+    display:none;align-items:center;justify-content:center;
+    padding:20px 16px;overflow-y:auto;
+  }
+  .modal-backdrop.open{display:flex;}
+  .modal{
+    background:#fff;border-radius:18px;width:100%;max-width:440px;
+    padding:26px 24px 22px;text-align:left;
+    box-shadow:0 24px 60px rgba(15,20,25,.28);
+    max-height:calc(100svh - 40px);overflow-y:auto;
+    animation:modalIn .18s ease;
+  }
+  @keyframes modalIn{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:none}}
+  .modal h2{
+    font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.02em;
+    margin:0 0 4px;color:var(--ink);
+  }
+  .modal .sub2{font-size:13px;color:var(--muted);margin:0 0 18px;line-height:1.5;}
+  .field{margin-bottom:11px;}
+  .field label{
+    display:block;font-size:11.5px;font-weight:600;color:var(--ink);
+    margin-bottom:5px;letter-spacing:.01em;
+  }
+  .field input{
+    width:100%;font-family:var(--body);font-size:16px; /* 16px stops iOS zooming on focus */
+    padding:13px 14px;border-radius:11px;color:var(--ink);background:#FBFAF5;
+    border:1.5px solid rgba(15,20,25,.14);
+    -webkit-appearance:none;appearance:none;
+  }
+  .field input::placeholder{color:#9AA2AD;}
+  .field input:focus{outline:none;border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(201,168,76,.18);}
+  .field input[aria-invalid="true"]{border-color:#C0392B;background:#FEF6F5;}
+  .field .err{display:none;font-size:11.5px;color:#C0392B;margin-top:4px;}
+  .field .err.show{display:block;}
+  .modal .cta{margin-top:6px;max-width:none;}
+  .consent{
+    font-size:10.5px;line-height:1.5;color:var(--muted);margin:14px 0 0;text-align:center;
+  }
+  .consent a{color:var(--muted);}
+  .modal-close{
+    position:absolute;top:10px;right:12px;
+    width:44px;height:44px;border:0;background:transparent;cursor:pointer;
+    font-size:24px;line-height:1;color:var(--muted);border-radius:50%;
+  }
+  .modal-close:hover{background:rgba(15,20,25,.06);color:var(--ink);}
+  .modal-wrap{position:relative;width:100%;max-width:440px;}
+  .success{text-align:center;padding:12px 0 4px;}
+  .success .tick{
+    width:52px;height:52px;border-radius:50%;margin:0 auto 14px;
+    background:rgba(0,182,122,.12);color:#00B67A;
+    display:grid;place-items:center;font-size:26px;
+  }
+  .success h2{text-align:center;}
+  .success p{font-size:13.5px;color:var(--muted);line-height:1.55;margin:0 auto;max-width:34ch;}
+  /* visible focus for keyboard users, everywhere */
+  a:focus-visible,button:focus-visible,input:focus-visible{
+    outline:3px solid rgba(201,168,76,.65);outline-offset:2px;
+  }
+  @media (max-width:520px){
+    .modal{padding:22px 18px 18px;border-radius:16px;}
+    .modal h2{font-size:19px;}
+  }
+
   /* CRO notes overlay */
   .notes-toggle{
     position:fixed;right:14px;bottom:14px;z-index:60;
@@ -350,6 +421,54 @@
       <span class="copyright">&copy; 2026 Ecomwarts Group Private Limited</span>
     </footer></div>
 
+
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-wrap">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Close">&times;</button>
+    <div class="modal">
+      <div id="formView">
+        <h2 id="modalTitle">Save your free spot</h2>
+        <p class="sub2">Saturday, September 26th &middot; 2:00 PM SGT &middot; live on Zoom</p>
+        <form id="regForm" novalidate>
+          <div class="field">
+            <label for="fname">First name</label>
+            <input id="fname" name="fname" type="text" autocomplete="given-name" placeholder="Your first name" required>
+            <span class="err" id="err-fname">Please enter your first name.</span>
+          </div>
+          <div class="field">
+            <label for="email">Email for the access link</label>
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+            <span class="err" id="err-email">Please enter a valid email address.</span>
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+65 9123 4567" required>
+            <span class="err" id="err-phone">Please enter a valid phone number.</span>
+          </div>
+          <button class="cta" type="submit">
+            <span class="big">YES! SAVE MY FREE SPOT</span>
+            <span class="small">Takes about 20 seconds</span>
+          </button>
+          <p class="consent">
+            By submitting this form I agree to receive recurring marketing and promotional phone calls
+            and SMS text messages from Ecomwarts at the phone number I provided. My consent is not a
+            condition of purchase. Message frequency varies. Message and data rates may apply.
+            Reply STOP to opt out or HELP for assistance. See our
+            <a href="https://ecomwarts.net/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a> and
+            <a href="https://ecomwarts.net/terms-and-conditions" target="_blank" rel="noopener">Terms</a>.
+          </p>
+        </form>
+      </div>
+      <div id="successView" class="success" hidden>
+        <div class="tick">&#10003;</div>
+        <h2>You&rsquo;re in, <span id="successName">friend</span></h2>
+        <p>Check your inbox for the Zoom link. We&rsquo;ll send a reminder before we go live on
+        Saturday, September 26th at 2:00 PM SGT.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <button class="notes-toggle" id="toggle" type="button">Show CRO notes</button>
 
 <script>
@@ -367,6 +486,86 @@
     els.s.textContent = pad(sec%60);
   }
   tick(); setInterval(tick, 1000);
+
+
+  // ---- registration modal -------------------------------------------------
+  var modal=document.getElementById('modal'),
+      openBtn=document.querySelector('main .cta'),
+      closeBtn=document.getElementById('modalClose'),
+      form=document.getElementById('regForm'),
+      formView=document.getElementById('formView'),
+      successView=document.getElementById('successView'),
+      lastFocus=null;
+
+  function focusable(){
+    return [].slice.call(modal.querySelectorAll('button,input,a[href]'))
+      .filter(function(el){ return el.offsetParent!==null; });
+  }
+  function openModal(){
+    lastFocus=document.activeElement;
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+    var f=document.getElementById('fname');
+    setTimeout(function(){ f && f.focus(); },30);
+  }
+  function resetForm(){
+    // a reopen after a successful submit must not show the old success state
+    formView.hidden=false; successView.hidden=true;
+    form.reset();
+    ['fname','email','phone'].forEach(function(id){ setErr(id,false); });
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+    // fall back to the trigger: a programmatic open leaves lastFocus on <body>
+    var back=(lastFocus && lastFocus.focus) ? lastFocus : openBtn;
+    back.focus();
+    setTimeout(resetForm,200);
+  }
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('mousedown', function(e){ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', function(e){
+    if(!modal.classList.contains('open')) return;
+    if(e.key==='Escape'){ closeModal(); return; }
+    if(e.key!=='Tab') return;
+    // keep focus inside the dialog
+    var f=focusable(); if(!f.length) return;
+    var first=f[0], last=f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  });
+
+  function setErr(id, show){
+    var input=document.getElementById(id), err=document.getElementById('err-'+id);
+    input.setAttribute('aria-invalid', show?'true':'false');
+    err.classList.toggle('show', show);
+  }
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }
+  function validPhone(v){ return (v.replace(/[^0-9]/g,'').length>=7); }
+
+  ['fname','email','phone'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){ setErr(id,false); });
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var n=document.getElementById('fname').value.trim(),
+        em=document.getElementById('email').value,
+        ph=document.getElementById('phone').value,
+        bad=false;
+    if(!n){ setErr('fname',true); bad=true; }
+    if(!validEmail(em)){ setErr('email',true); bad=true; }
+    if(!validPhone(ph)){ setErr('phone',true); bad=true; }
+    if(bad){ modal.querySelector('[aria-invalid="true"]').focus(); return; }
+    // mockup: no endpoint. Show the state a real submit would produce.
+    document.getElementById('successName').textContent=n;
+    formView.hidden=true; successView.hidden=false;
+    document.getElementById('modalTitle').id='';
+    successView.querySelector('h2').id='modalTitle';
+    successView.querySelector('h2').setAttribute('tabindex','-1');
+    successView.querySelector('h2').focus();
+  });
 
   var btn = document.getElementById('toggle');
   btn.addEventListener('click', function(){
