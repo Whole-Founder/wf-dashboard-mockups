@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSI · New AJ VSL (cold) · Wireframe v1</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   WF WIREFRAME KIT · tokens v2 (annotated / copyless)
+   Canonical copy will live at wf-funnel-wiki/wireframe-kit/starter/tokens.css
+   Inlined here so the deployed preview is one self-contained file.
+
+   What v2 adds over v1: the ANNOTATED SLOT (.slot / .slot-type / .budget /
+   .job / .fill) and the SECTION SPEC RAIL (.spec). A wireframe carries no
+   finished copy; it carries labelled slots with a word budget and a job, so
+   the page IS the copy brief.
+
+   Type: Inter for anything a human READS (headings, body, jobs, notes).
+   IBM Plex Mono for anything the system LABELS (slot types, budgets, spec
+   keys, section badges, tags). That split is the whole visual language: mono
+   means "this is scaffolding", Inter means "this is content".
+
+   Colour discipline: grayscale for structure, amber for a genuine blocker,
+   and exactly one coded pair for variant behaviour (SWAP vs CONSTANT).
+   ============================================================================ */
+:root{
+  --wf-ink:#111827; --wf-body:#374151; --wf-muted:#6b7280; --wf-line:#d1d5db;
+  --wf-bg:#ffffff; --wf-bg-alt:#f9fafb; --wf-slate:#94a3b8; --wf-slate-d:#475569;
+  --wf-amber-bg:#fffbeb; --wf-amber-ink:#92400e; --wf-amber-line:#f59e0b;
+  /* variant behaviour, the one coded pair */
+  /* SWAP carries the most weight on purpose: it is the one thing that changes
+     per variant, so it should be the tag the eye lands on. CONSTANT is coded
+     but deliberately quieter, because it appears nine times. */
+  --wf-swap-bg:#e0e7ff; --wf-swap-ink:#312e81; --wf-swap-line:#6366f1;
+  --wf-const-bg:#f6fdf9; --wf-const-ink:#3f7a56; --wf-const-line:#c3ead2;
+  --wf-v2-bg:#ecfeff; --wf-v2-ink:#155e75; --wf-v2-line:#7dd3fc;
+  --wf-mono:'IBM Plex Mono', ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --wf-sans:'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{ font-family:var(--wf-sans);
+  background:#e5e7eb; color:var(--wf-ink); -webkit-text-size-adjust:100%;
+  font-feature-settings:"cv05" 1,"ss01" 1; }
+img{ max-width:100%; }
+
+/* ---- page shell ---------------------------------------------------------- */
+.page{ max-width:1280px; margin:0 auto; background:var(--wf-bg); }
+.sec{ padding:1.25rem 1rem 1.5rem; border-top:1px solid var(--wf-line); }
+@media(min-width:768px){ .sec{ padding:1.75rem 3rem 2.25rem; } }
+.sec--alt{ background:var(--wf-bg-alt); }
+.wrap{ max-width:760px; margin:0 auto; }
+.wrap-wide{ max-width:1040px; margin:0 auto; }
+.center{ text-align:center; }
+
+/* ---- SECTION HEADER · loud enough to navigate by, quiet enough to stay a
+   wireframe. A single ink rule + a numbered chip + the name in mono caps.    */
+.secbadge{ display:flex; flex-wrap:wrap; align-items:center; gap:.45rem;
+  margin:0 0 .55rem; padding-bottom:.5rem; border-bottom:2px solid var(--wf-ink); }
+.secbadge .n{ font-family:var(--wf-mono); font-size:11.5px; font-weight:700; letter-spacing:.04em;
+  background:var(--wf-ink); color:#fff; border-radius:4px; padding:.18rem .45rem; }
+.secbadge .name{ font-family:var(--wf-mono); font-size:14.5px; font-weight:600; letter-spacing:.03em;
+  text-transform:uppercase; color:var(--wf-ink); }
+@media(min-width:768px){
+  .secbadge .n{ font-size:12.5px; }
+  .secbadge .name{ font-size:17px; }
+}
+/* ---- VARIANT TAGS · the one place colour carries meaning ------------------
+   SWAP     = changes per variant. CONSTANT = written once, reused everywhere.
+   V2       = constant in V1, hand-tuned per asset in V2.                     */
+.tag{ font-family:var(--wf-mono); font-size:9.5px; font-weight:600; letter-spacing:.08em;
+  border:1px solid var(--wf-line); border-radius:99px; padding:.15rem .5rem;
+  color:var(--wf-slate-d); background:#fff; white-space:nowrap; }
+.tag--swap{ background:var(--wf-swap-bg); border-color:var(--wf-swap-line); color:var(--wf-swap-ink); }
+.tag--const{ background:var(--wf-const-bg); border-color:var(--wf-const-line); color:var(--wf-const-ink); }
+.tag--v2{ background:var(--wf-v2-bg); border-color:var(--wf-v2-line); color:var(--wf-v2-ink); }
+.secwhy{ font-size:12.5px; color:#475569; margin:0 0 .9rem; line-height:1.5; max-width:82ch; }
+
+/* ---- SECTION SPEC RAIL · .spec -------------------------------------------
+   Answers, per section: layout, fold budget, media, element form + count,
+   and the reference we are building against. This is the half of the
+   wireframe a DESIGNER and a BUILDER read.                                   */
+.spec{ display:grid; grid-template-columns:5.5rem 1fr; gap:.2rem .7rem; margin:0 0 1rem;
+  background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:.6rem .7rem; }
+.spec dt{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--wf-slate); padding-top:.12rem; }
+.spec dd{ margin:0; font-size:11px; line-height:1.45; color:var(--wf-slate-d); }
+
+/* ---- ANNOTATED SLOT · .slot ----------------------------------------------
+   The atom of a next-level wireframe. Type + budget + job + a fill rendered
+   at the real size, so hierarchy is legible with no words on the page.
+   This is the half of the wireframe a COPYWRITER reads.                      */
+.slot{ border:1px dashed #cbd5e1; border-radius:6px; background:#fff; padding:.55rem .65rem; }
+.slot + .slot, .slot + .g2, .slot + .g3, .g2 + .slot, .g3 + .slot{ margin-top:.55rem; }
+/* wraps deliberately: in a narrow grid column the type label and the budget
+   chip together exceed the column, and a nowrap chip would push the grid wider
+   than the viewport. Wrapping keeps the annotation legible at 375px. */
+.slot-hd{ display:flex; align-items:center; justify-content:space-between;
+  gap:.25rem .5rem; margin-bottom:.4rem; flex-wrap:wrap; }
+.slot-type{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--wf-slate); font-weight:700; }
+.budget{ font-family:var(--wf-mono); font-size:9px; color:var(--wf-slate-d); background:#f1f5f9;
+  border:1px solid #e2e8f0; border-radius:99px; padding:.1rem .45rem; white-space:nowrap; }
+.job{ font-size:11px; line-height:1.45; color:#64748b; margin-top:.4rem; }
+.job::before{ content:"Job: "; font-weight:700; color:var(--wf-ink); }
+
+/* ============================================================================
+   VIEW MODES · the answer to "I can't actually visualise the page"
+   PREVIEW (default) shows the wireframe and nothing else: section header, one
+   line on why it exists, and the labelled boxes at their real size.
+   SPECS shows the annotation layer on top: spec rails, jobs, word budgets,
+   decisions. Same document, two audiences. A human reviews in Preview; a
+   copywriter or a builder works in Specs. Any single section can also be
+   opened on its own without leaving Preview.
+   ============================================================================ */
+/* FULL PREVIEW · this is the page, not a document about the page. Everything
+   that says "wireframe" comes off: section badges, the why-line, spec rails,
+   jobs, budgets, decisions, notes, and the boxes around each slot. What is
+   left is the real type at the real size, on real page spacing, scrolling
+   without interruption. */
+body.preview .secbadge,
+body.preview .secwhy,
+body.preview .spec,
+body.preview .job,
+body.preview .budget,
+body.preview .slot-hd,
+body.preview .decided,
+body.preview .note{ display:none; }
+
+/* the slot stops being a box and becomes page content */
+body.preview .slot{ border:0; padding:0; background:transparent; }
+body.preview .slot + .slot{ margin-top:1.1rem; }
+/* but not between GRID siblings: the grid gap already spaces those, and a
+   top margin on items 2..n drops them below item 1 instead of aligning them */
+body.preview .g2 > .slot + .slot,
+body.preview .g3 > .slot + .slot,
+body.preview .g3-tight > .slot + .slot{ margin-top:0; }
+/* except where the real page genuinely uses cards: the proof wall */
+body.preview #proofwall .g3 > .slot{ border:0; padding:0; }
+/* the card image fills the card, as it would on the real page, rather than
+   sitting as a small square with dead space beside it */
+body.preview #proofwall .ph-sq{ aspect-ratio:auto; height:150px; max-height:none; width:100%; }
+
+/* real page rhythm, not document padding */
+body.preview .sec{ border-top:0; padding:2.25rem 1rem; }
+@media(min-width:768px){ body.preview .sec{ padding:3.25rem 3rem; } }
+body.preview #chrome{ padding:.85rem 1rem; border-bottom:1px solid var(--wf-line); }
+body.preview #chrome .g2{ align-items:center; margin-top:.5rem; }
+/* a logo is a logo, not a half-width band */
+body.preview #chrome .ph{ max-width:190px; height:38px; padding:.4rem; font-size:9.5px; }
+body.preview #footer{ padding:2rem 1rem; border-top:1px solid var(--wf-line); }
+
+/* peek at one section without leaving the clean view */
+body.preview section.show-specs{ padding-top:1.25rem; }
+body.preview section.show-specs .secbadge{ display:flex; }
+body.preview section.show-specs .secwhy{ display:block; }
+body.preview section.show-specs .spec{ display:grid; }
+body.preview section.show-specs .slot-hd{ display:flex; }
+body.preview section.show-specs .job,
+body.preview section.show-specs .decided,
+body.preview section.show-specs .note{ display:block; }
+body.preview section.show-specs .budget{ display:inline-block; }
+body.preview section.show-specs .slot{ border:1px dashed #cbd5e1; padding:.55rem .65rem; }
+body.preview section.show-specs .slot + .slot{ margin-top:.55rem; }
+
+/* the spec button is the only wireframe furniture Preview keeps, and it sits
+   out of the way until you look for it */
+body.preview .specbtn{ position:absolute; top:.5rem; right:1rem; opacity:.25; }
+body.preview .specbtn:hover{ opacity:1; }
+body.preview section.show-specs .specbtn{ position:static; opacity:1; }
+body.preview section{ position:relative; }
+
+/* the switch */
+.viewbar{ position:sticky; top:0; z-index:55; max-width:1280px; margin:0 auto;
+  background:rgba(255,255,255,.94); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--wf-line); padding:.55rem 1rem;
+  display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; }
+@media(min-width:768px){ .viewbar{ padding:.6rem 3rem; } }
+.viewbar .lbl{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--wf-muted); }
+.switch{ display:inline-flex; border:1px solid var(--wf-line); border-radius:99px; padding:2px; background:#f1f5f9; }
+.switch button{ font-family:var(--wf-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+  font-weight:600; border:0; background:transparent; color:var(--wf-slate-d);
+  padding:.3rem .8rem; border-radius:99px; cursor:pointer; }
+.switch button[aria-pressed="true"]{ background:var(--wf-ink); color:#fff; }
+.viewbar .hint{ font-size:11px; color:#64748b; }
+@media(max-width:900px){ .viewbar .hint{ display:none; } }
+.viewbar .jump{ font-family:var(--wf-mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+  font-weight:600; color:var(--wf-slate-d); text-decoration:none;
+  border:1px solid var(--wf-line); border-radius:99px; padding:.3rem .7rem; white-space:nowrap; }
+.viewbar .jump::after{ content:" \2193"; }
+.viewbar .jump:hover{ border-color:var(--wf-ink); color:var(--wf-ink); }
+
+/* per-section peek */
+.specbtn{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+  border:1px solid var(--wf-line); background:#fff; color:var(--wf-slate-d);
+  border-radius:99px; padding:.15rem .5rem; cursor:pointer; margin-left:auto; }
+.specbtn:hover{ border-color:var(--wf-ink); color:var(--wf-ink); }
+.specbtn::after{ content:" +"; }
+section.show-specs .specbtn::after{ content:" \2212"; }
+body.specs .specbtn{ display:none; }
+
+/* fills · the label IS the placeholder, set at the real type size */
+.fill{ color:var(--wf-ink); line-height:1.15; margin:0; }
+.fill-h1{ font-size:1.55rem; font-weight:800; letter-spacing:-.01em; }
+.fill-h2{ font-size:1.25rem; font-weight:800; letter-spacing:-.01em; }
+.fill-h3{ font-size:1rem; font-weight:700; }
+.fill-sub{ font-size:.9rem; font-weight:500; color:var(--wf-body); line-height:1.35; }
+.fill-body{ font-size:.8rem; font-weight:400; color:var(--wf-body); }
+.fill-stat{ font-size:1.5rem; font-weight:800; }
+@media(min-width:768px){
+  .fill-h1{ font-size:2.6rem; } .fill-h2{ font-size:1.75rem; } .fill-h3{ font-size:1.1rem; }
+  .fill-sub{ font-size:1.05rem; } .fill-body{ font-size:.9rem; } .fill-stat{ font-size:2rem; }
+}
+/* line fills · N grey bars at body size, so length is visible without words */
+.lines{ display:block; }
+.lines i{ display:block; height:.55rem; background:#e5e7eb; border-radius:3px; margin-bottom:.3rem; }
+.lines i:last-child{ width:62%; margin-bottom:0; }
+
+/* ---- IMAGE / MEDIA PLACEHOLDER · .ph ------------------------------------- */
+.ph{ background-image:repeating-linear-gradient(45deg,#e5e7eb 0 12px,#eef1f4 12px 24px);
+  border:1px dashed #9ca3af; color:var(--wf-muted); display:flex; align-items:center;
+  justify-content:center; text-align:center; font-size:11px; letter-spacing:.02em;
+  padding:1rem; border-radius:6px; font-family:var(--wf-mono); }
+.ph-video{ aspect-ratio:16/9; }
+.ph-sq{ aspect-ratio:1/1; }
+.ph-port{ aspect-ratio:3/4; }
+
+/* ---- BUTTON · one label family, repeated -------------------------------- */
+.wirebtn-solid{ background:var(--wf-ink); color:#fff; display:inline-block; border-radius:99px;
+  padding:.7rem 1.6rem; font-size:.85rem; font-weight:700; text-decoration:none; }
+.wirebtn{ border:1.5px solid var(--wf-ink); color:var(--wf-ink); display:inline-block;
+  border-radius:99px; padding:.6rem 1.3rem; font-size:.8rem; font-weight:700; text-decoration:none; }
+
+/* ---- CARD / FIELD -------------------------------------------------------- */
+.card{ border:1px solid var(--wf-line); border-radius:8px; padding:.75rem; background:#fff; }
+.field{ border:1px solid #cbd5e1; background:#f8fafc; border-radius:6px; padding:.6rem .7rem;
+  font-size:.8rem; color:var(--wf-muted); font-family:var(--wf-mono); }
+
+/* ---- ANNOTATION + OPEN QUESTION · amber, the only non-grey signal -------- */
+.note{ background:var(--wf-amber-bg); border-left:3px solid var(--wf-amber-line);
+  color:var(--wf-amber-ink); font-size:11px; line-height:1.45; padding:.5rem .65rem;
+  border-radius:0 6px 6px 0; margin:.9rem 0 0; }
+.delta{ background:var(--wf-amber-bg); border:1px dashed var(--wf-amber-line);
+  color:var(--wf-amber-ink); font-size:11px; line-height:1.5; padding:.6rem .7rem;
+  border-radius:6px; margin:.9rem 0 0; }
+.delta b{ font-family:var(--wf-mono); letter-spacing:.06em; }
+/* ---- RESOLVED DECISION · was an open question, now settled. Kept on the page
+   so the reasoning travels with the wireframe instead of dying in a thread.  */
+.decided{ background:#f8fafc; border:1px solid var(--wf-line);
+  border-left:3px solid var(--wf-const-line); color:var(--wf-slate-d);
+  font-size:11.5px; line-height:1.55; padding:.6rem .7rem;
+  border-radius:0 6px 6px 0; margin:.9rem 0 0; }
+.decided b{ font-family:var(--wf-mono); font-size:10px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--wf-const-ink); }
+.decided .verdict{ color:var(--wf-ink); font-weight:600; }
+
+/* ---- PAGE OVERVIEW · the summary you read before you scroll anything ------
+   Deliberately the loudest thing on the document after the page itself. Bold
+   section names, quiet descriptors, tag on the right.                        */
+.toc{ max-width:1280px; margin:0 auto; background:var(--wf-bg-alt);
+  border-top:6px solid var(--wf-ink); border-bottom:1px solid var(--wf-line);
+  padding:1.6rem 1rem 1.7rem; scroll-margin-top:60px; }
+@media(min-width:768px){ .toc{ padding:2rem 3rem 2.1rem; } }
+.toc .kicker{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--wf-muted); margin:0 0 .3rem; }
+.toc h2{ font-size:1.35rem; font-weight:800; letter-spacing:-.01em; margin:0 0 .35rem; color:var(--wf-ink); }
+@media(min-width:768px){ .toc h2{ font-size:1.6rem; } }
+.toc .lede{ font-size:13px; color:#475569; margin:0 0 1.1rem; line-height:1.55; max-width:68ch; }
+.toc ol{ list-style:none; margin:0; padding:0; display:grid; gap:0;
+  border-top:1px solid #e2e8f0; }
+.toc li{ display:flex; align-items:center; gap:.7rem; padding:.55rem 0;
+  border-bottom:1px solid #e2e8f0; }
+.toc .num{ flex:0 0 2.9rem; font-family:var(--wf-mono); font-weight:700; font-size:10.5px;
+  letter-spacing:.05em; color:#fff; background:var(--wf-slate); border-radius:4px;
+  padding:.2rem 0; text-align:center; }
+.toc li.key .num{ background:var(--wf-ink); }
+.toc a{ color:var(--wf-ink); text-decoration:none; font-weight:700; font-size:13.5px;
+  border-bottom:1px solid transparent; }
+.toc a:hover{ border-bottom-color:var(--wf-ink); }
+.toc .desc{ font-size:12.5px; color:#64748b; font-weight:400; }
+.toc .dots{ flex:1 1 auto; border-bottom:1px dotted #cbd5e1; min-width:.75rem; transform:translateY(-3px); }
+@media(max-width:640px){
+  .toc .dots{ display:none; }
+  .toc li{ flex-wrap:wrap; row-gap:.15rem; }
+  .toc .desc{ flex:1 0 100%; padding-left:3.6rem; }
+}
+
+/* ---- SLOT LABEL PILL ------------------------------------------------------
+   A faint mono tag above each copy block naming what it is and how long it
+   runs, so a writer knows immediately where to write what. Deliberately the
+   lightest thing on the page: it must not compete with the content it labels.
+   Hidden in Specs, where the full slot header already says the same thing.   */
+[data-label]::before{
+  content:attr(data-label); display:block;
+  font-family:var(--wf-mono); font-size:8.5px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; color:#b9c4d2;
+  margin-bottom:.3rem; line-height:1.3;
+}
+body.specs [data-label]::before,
+body.preview section.show-specs [data-label]::before{ display:none; }
+/* inside a button the pill would break the pill shape, so lift it out */
+a.wirebtn[data-label], a.wirebtn-solid[data-label]{ position:relative; }
+a.wirebtn[data-label]::before, a.wirebtn-solid[data-label]::before{
+  position:absolute; left:50%; transform:translateX(-50%); top:-1.15rem;
+  white-space:nowrap; margin:0;
+}
+
+/* ---- BULLET LIST · shown at the real count, not as grey bars ------------- */
+.bullets{ list-style:none; margin:0; padding:0; }
+.bullets li{ position:relative; padding-left:1.05rem; font-size:.82rem; line-height:1.55;
+  color:var(--wf-body); margin-bottom:.4rem; }
+.bullets li:last-child{ margin-bottom:0; }
+.bullets li::before{ content:""; position:absolute; left:0; top:.55em; width:5px; height:5px;
+  border-radius:50%; background:var(--wf-slate); }
+/* numbered step chip inside the mechanism cards */
+.stepn{ display:inline-block; min-width:1.35rem; text-align:center; font-family:var(--wf-mono);
+  font-size:.7rem; font-weight:700; background:var(--wf-ink); color:#fff; border-radius:4px;
+  padding:.1rem .3rem; margin-right:.35rem; vertical-align:.08em; }
+.eyebrow-fill{ text-transform:uppercase; letter-spacing:.09em; font-size:.68rem !important;
+  color:var(--wf-muted) !important; font-weight:600; }
+/* an author-controlled line break: use it when the break point is a copy
+   decision rather than something the browser should pick. Collapses to normal
+   wrapping below 640px, where forcing lines does more harm than good. */
+@media(min-width:640px){ .fill .line{ display:block; } }
+/* the audience callout: page background, above the headline, not header furniture */
+.callout{ color:var(--wf-muted) !important; font-size:.78rem !important; letter-spacing:.04em;
+  text-transform:uppercase; font-weight:600; }
+
+/* ---- INTENTIONAL SECTION SIZING -----------------------------------------
+   Every section declares how much screen it is meant to occupy (--fold-n),
+   so a half-height section is deliberately half-height rather than just
+   short. Only in Full preview, and only on desktop, where "a fold" means
+   something.                                                                */
+@media(min-width:768px){
+  /* 72vh per declared fold, not 100vh. At 100vh a short section such as the
+     bridge left a chasm above and below its two lines: the sizing was
+     intentional but it read as dead space. 72vh keeps a half section visibly
+     half-height while the content still fills it. Sections whose content is
+     already taller than this are unaffected. */
+  body.preview .sec[data-fold]{ min-height:calc(var(--fold-n) * 72vh);
+    display:flex; flex-direction:column; justify-content:center; }
+}
+
+/* ---- DEFINED STAT BLOCK · proof strip ------------------------------------
+   Answering "are these just text, or raised blocks?": raised blocks.        */
+.statcard{ background:#fff; border:1px solid var(--wf-line); border-radius:10px;
+  padding:1rem .75rem; text-align:center; box-shadow:0 1px 2px rgba(15,23,42,.04); }
+.statcard .fill-stat{ display:block; }
+.statcard .statlabel{ display:block; font-size:.8rem; color:var(--wf-body); margin-top:.15rem;
+  line-height:1.35; overflow-wrap:anywhere; }
+@media(max-width:520px){
+  /* three columns at 375 leaves ~92px per card, and a long lorem word will
+     otherwise push the track wider than the viewport */
+  .statcard{ padding:.7rem .4rem; }
+  .statcard .statlabel{ font-size:.68rem; }
+  .statcard .fill-stat{ font-size:1.1rem; }
+}
+.statcard[title]{ cursor:help; }
+
+/* ---- PROOF CARD · more defined than a bare grid cell --------------------- */
+.proofcard{ background:#fff; border:1px solid var(--wf-line); border-radius:10px;
+  overflow:hidden; box-shadow:0 1px 2px rgba(15,23,42,.05); display:flex; flex-direction:column; }
+.proofcard .ph{ border:0; border-bottom:1px dashed #9ca3af; border-radius:0; }
+.proofcard .pc-body{ padding:.85rem .9rem 1rem; }
+.proofcard .pc-name{ font-size:.95rem; font-weight:700; }
+.proofcard .pc-result{ font-size:.85rem; font-weight:600; color:var(--wf-body); margin-top:.1rem; }
+.proofcard .pc-detail{ font-size:.78rem; color:var(--wf-muted); margin-top:.4rem; line-height:1.5; }
+
+/* ---- FAQ ACCORDION · a real drop-down, because that is what ships -------- */
+.faq{ border:1px solid var(--wf-line); border-radius:8px; background:#fff; margin-bottom:.5rem; }
+.faq summary{ cursor:pointer; list-style:none; padding:.8rem 1rem; font-weight:600; font-size:.9rem;
+  color:var(--wf-ink); display:flex; align-items:center; gap:.6rem; }
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::after{ content:"+"; margin-left:auto; font-family:var(--wf-mono); color:var(--wf-muted);
+  transition:transform .28s ease, color .2s ease; }
+.faq[open]:not(.closing) summary::after{ transform:rotate(135deg); color:var(--wf-ink); }
+.faq summary:hover{ background:#f8fafc; border-radius:8px; }
+.faq .faq-a{ padding:0 1rem 1rem; font-size:.82rem; line-height:1.65; color:var(--wf-body); }
+/* Smooth open and close. <details> normally snaps, and it removes the content
+   from layout the instant `open` is dropped, so a closing transition never
+   runs. The 0fr-to-1fr grid row animates height without a fixed pixel value,
+   and the JS below holds `open` until the close animation finishes. */
+.faq .faq-wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .28s ease; }
+.faq[open] .faq-wrap{ grid-template-rows:1fr; }
+.faq.closing .faq-wrap{ grid-template-rows:0fr; }
+.faq .faq-wrap > *{ overflow:hidden; min-height:0; }
+@media (prefers-reduced-motion: reduce){
+  .faq .faq-wrap, .faq summary::after{ transition:none; }
+}
+
+/* ---- FOOTER · legal is boilerplate, but its LENGTH sets the footer size -- */
+.foot{ text-align:center; }
+.foot .foot-links{ display:flex; flex-wrap:wrap; gap:.25rem 1.1rem; justify-content:center;
+  font-size:.8rem; color:var(--wf-body); margin:.9rem 0 .6rem; }
+.foot .foot-copy{ font-size:.8rem; color:var(--wf-muted); }
+.foot .legal{ margin:1.1rem auto 0; max-width:70ch; font-size:.68rem; line-height:1.6;
+  color:var(--wf-muted); text-align:left; }
+.foot .legal p{ margin:.6rem 0; }
+.foot .legal b{ color:var(--wf-body); }
+
+/* ---- HOW TO READ · collapsed by default, at the END, not the top --------- */
+.howto{ max-width:1280px; margin:0 auto; background:var(--wf-bg); padding:0 1rem 2.5rem; }
+@media(min-width:768px){ .howto{ padding:0 3rem 3rem; } }
+/* Cap and centre the BOX, not just the text inside it. Capping only the text
+   left a reading column pinned to the left of a 1280px card, which read as an
+   oversized box with the content shoved into one corner. */
+.howto details{ border:1px solid var(--wf-line); border-radius:8px; background:var(--wf-bg-alt);
+  max-width:820px; margin:0 auto; }
+.howto summary{ cursor:pointer; list-style:none; padding:.9rem 1.25rem; font-weight:700; font-size:.95rem;
+  color:var(--wf-ink); display:flex; align-items:center; gap:.5rem; }
+.howto summary::-webkit-details-marker{ display:none; }
+.howto summary::after{ content:"+"; margin-left:auto; font-family:var(--wf-mono); font-size:1rem; color:var(--wf-muted); }
+.howto details[open] summary::after{ content:"\2212"; }
+.howto summary span{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--wf-muted); font-weight:600; }
+.howto .body{ padding:.2rem 1.25rem 1.4rem; font-size:13px; line-height:1.7; color:#475569;
+  border-top:1px solid #e2e8f0; margin-top:.1rem; }
+.howto .body h4{ font-size:12.5px; margin:1.2rem 0 .4rem; color:var(--wf-ink); }
+.howto .body p{ margin:.5rem 0; }
+.howto .body ul{ margin:.4rem 0; padding-left:1.15rem; }
+.howto .body li{ margin-bottom:.35rem; }
+.howto .body code{ font-family:var(--wf-mono); background:#e2e8f0; border-radius:3px; padding:0 .28rem; font-size:11.5px; }
+
+/* ---- INTERNAL FEEDBACK CTA (strip before F2) ---------------------------- */
+.slackcta{ max-width:1280px; margin:0 auto; background:var(--wf-ink); color:#e5e7eb;
+  padding:1.8rem 1rem 2.2rem; text-align:center; }
+@media(min-width:768px){ .slackcta{ padding:2.2rem 3rem 2.6rem; } }
+.slackcta .kicker{ font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:#9ca3af; margin:0 0 .5rem; }
+.slackcta h3{ font-size:1.05rem; font-weight:700; margin:0 0 .9rem; color:#fff; }
+.slackbtn{ display:inline-block; background:#fff; color:var(--wf-ink); border-radius:99px;
+  padding:.7rem 1.5rem; font-weight:700; font-size:.85rem; text-decoration:none; }
+.slackcta .sub{ font-size:11px; color:#9ca3af; margin:.8rem 0 0; line-height:1.5; }
+.pending{ background:#fef3c7; color:var(--wf-amber-ink); border:1px dashed #d97706;
+  border-radius:5px; padding:.3rem .5rem; font-size:10.5px; display:inline-block; }
+
+/* ---- GRIDS --------------------------------------------------------------- */
+.g2,.g3{ display:grid; gap:.7rem; }
+.g2{ grid-template-columns:1fr; } .g3{ grid-template-columns:1fr; }
+@media(min-width:768px){
+  .g2{ grid-template-columns:1fr 1fr; }
+  .g3{ grid-template-columns:repeat(3,1fr); }
+  .g2--split{ grid-template-columns:1.15fr .85fr; }
+  .g2--port{ grid-template-columns:.4fr 1fr; }
+}
+.g3-tight{ display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
+/* grid children default to min-width:auto, which lets a nowrap child blow the
+   track out past the viewport. Pin them to 0 so the track governs. */
+.g2 > *, .g3 > *, .g3-tight > *{ min-width:0; }
+.g3-tight .slot{ padding:.45rem .4rem; }
+.g3-tight .budget{ font-size:8.5px; padding:.08rem .35rem; }
+.job, .fill, .spec dd{ overflow-wrap:anywhere; }
+
+/* ---- ORPHAN CONTROL ------------------------------------------------------
+   `pretty` asks the browser to avoid leaving a single word on the last line.
+   Chrome and Safari honour it; Firefox does not yet, and it gives up on long
+   paragraphs. The widow script at the bottom of this file is the guarantee.
+   Note: the greedy value is `wrap`, NOT `normal` (which is invalid here and
+   silently falls back to an inherited `balance`).                           */
+.howto .body p, .howto .body li, .secwhy, .job, .spec dd, .toc .lede, .toc .desc,
+.brief p, .brief li, .slackcta .sub, .note, .decided, .delta{ text-wrap:pretty; }
+
+/* ---- WIREFRAME CHROME (strip before F2) ---------------------------------- */
+.chrome{ z-index:60; background:#111827; color:#e5e7eb;
+  font-size:10.5px; padding:.5rem .75rem; display:flex; flex-wrap:wrap; gap:.35rem .9rem;
+  align-items:center; justify-content:center; font-family:var(--wf-mono); }
+.chrome .ttl{ font-weight:700; letter-spacing:.08em; }
+.chrome .dim{ color:#9ca3af; }
+.chrome .amb{ color:#fcd34d; }
+.legend{ max-width:1280px; margin:0 auto; background:#f8fafc; border-bottom:1px solid var(--wf-line);
+  padding:.9rem 1rem; font-size:11px; line-height:1.5; color:var(--wf-slate-d); }
+@media(min-width:768px){ .legend{ padding:1rem 3rem; } }
+.legend h3{ font-family:var(--wf-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--wf-muted); margin:0 0 .5rem; }
+.legend ul{ margin:.35rem 0 0; padding-left:1.1rem; }
+.legend li{ margin-bottom:.25rem; }
+.legend code{ font-family:var(--wf-mono); background:#e2e8f0; border-radius:3px; padding:0 .25rem; font-size:10px; }
+
+/* ---- STICKY MOBILE CTA --------------------------------------------------- */
+.stickycta{ position:sticky; bottom:0; z-index:50; background:#fff; border-top:1px solid var(--wf-line);
+  padding:.5rem .75rem; text-align:center; }
+@media(min-width:768px){ .stickycta{ display:none; } }
+
+/* ---- COPY BRIEF TABLE ---------------------------------------------------- */
+.brief{ max-width:1280px; margin:0 auto; background:#fff; padding:1.5rem 1rem 3rem; }
+@media(min-width:768px){ .brief{ padding:2rem 3rem 4rem; } }
+.tablewrap{ overflow-x:auto; border:1px solid var(--wf-line); border-radius:8px; }
+table.cb{ border-collapse:collapse; width:100%; min-width:720px; font-size:11px; }
+table.cb th,table.cb td{ text-align:left; padding:.45rem .6rem; border-bottom:1px solid #e5e7eb;
+  vertical-align:top; line-height:1.4; }
+table.cb th{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--wf-muted); background:#f8fafc; }
+table.cb tr.grp td{ background:#f1f5f9; font-family:var(--wf-mono); font-size:9.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--wf-slate-d); font-weight:700; }
+table.cb td.t{ font-family:var(--wf-mono); font-size:9.5px; color:var(--wf-slate-d); white-space:nowrap; }
+table.cb td.b{ font-family:var(--wf-mono); font-size:9.5px; white-space:nowrap; }
+
+/* ============================================================================
+   PERSUASION VIEW · the third answer
+   Full preview says WHAT the page looks like. Specs says HOW to build it.
+   Persuasion says WHY it is this way: why the section is here, why it takes
+   this shape, and why it runs this long.
+
+   That last beat is the one that mattered. A word budget presented as a given
+   reads as arbitrary, and an arbitrary budget is one a writer is right to
+   ignore. Shown as a derivation from the section's job, it becomes something
+   a copywriter can argue with, which is the only way it survives contact.
+
+   Implementation note: Persuasion sets BOTH body.preview and body.why, so the
+   page renders exactly as it does in Full preview and the rail is the only
+   thing added. Every preview rule is inherited rather than duplicated.
+   ============================================================================ */
+.persuasion{ display:none; }
+body.why .persuasion,
+section.show-why .persuasion{ display:block; background:#f8fafc;
+  border:1px solid #e2e8f0; border-left:3px solid var(--wf-slate);
+  border-radius:0 8px 8px 0; padding:.85rem 1rem 1rem; margin-top:1.25rem; }
+.persuasion .pk{ font-family:var(--wf-mono); font-size:9px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--wf-muted); margin:0 0 .55rem;
+  padding-bottom:.4rem; border-bottom:1px solid #e2e8f0; }
+.persuasion p{ font-size:12.5px; line-height:1.65; color:#475569; margin:0 0 .65rem; }
+.persuasion p:last-child{ margin-bottom:0; }
+.persuasion b{ color:var(--wf-ink); font-weight:600; }
+/* the length beat is the load-bearing one, so it is the one that is marked */
+.persuasion .len{ background:#fff; border:1px solid #e2e8f0; border-radius:6px;
+  padding:.5rem .6rem; font-size:12px; }
+.persuasion .len::before{ content:"Why this length"; display:block;
+  font-family:var(--wf-mono); font-size:8.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--wf-slate); margin-bottom:.25rem; }
+/* an open question inside a rail: amber, same meaning as everywhere else */
+.persuasion .open{ background:var(--wf-amber-bg); border:1px dashed var(--wf-amber-line);
+  color:var(--wf-amber-ink); border-radius:6px; padding:.5rem .6rem; font-size:12px; }
+.persuasion .open::before{ content:"Open question"; display:block;
+  font-family:var(--wf-mono); font-size:8.5px; letter-spacing:.1em;
+  text-transform:uppercase; margin-bottom:.25rem; }
+
+/* Two columns once there is room for a 320px rail without squeezing the page
+   column. Below this the rail stacks under the section, which is the right
+   behaviour on a phone: the reasoning follows the thing it explains. */
+@media(min-width:1100px){
+  body.why .sec,
+  body.why .sec[data-fold]{ display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,320px); column-gap:2.5rem;
+    align-items:start; }
+  /* everything that is not the rail stays in the page column. This also keeps
+     a per-section specs peek from being dealt into column two. */
+  body.why .sec > *:not(.persuasion){ grid-column:1; min-width:0; }
+  /* span every row so the sticky rail has a tall track to travel in. Without
+     the explicit row span, auto-placement drops the rail below the last
+     content row, because it is last in the DOM. */
+  body.why .persuasion{ grid-column:2; grid-row:1 / -1; align-self:start;
+    position:sticky; top:64px; margin-top:0; }
+  /* The rail costs the page column 360px, which at the 1280px page cap leaves
+     824px. A 3-up proof grid in that space gives each card 202px of text, and
+     a 202px measure strands the last word of the longer details: the widow
+     binder correctly binds three words around the hyphenated ones, then the
+     browser force-breaks inside the bound run because it cannot fit.
+     So the proof wall reflows to 2-up here, exactly as it would at a narrower
+     viewport. Full preview remains the view of record for layout; Persuasion
+     is a reading view and is allowed to reflow to stay readable. */
+  body.why #proofwall .g3{ grid-template-columns:repeat(2,1fr); }
+}
+
+/* the third peek button. In Full preview both buttons sit out of the way in
+   the top right corner, so they need different offsets or they overlap. */
+body.preview .whybtn{ position:absolute; top:.5rem; right:4.4rem; opacity:.25; }
+body.preview .whybtn:hover{ opacity:1; }
+body.preview section.show-why .whybtn{ position:static; opacity:1; }
+body.specs .whybtn{ display:none; }
+/* in Persuasion the rail is already open everywhere, so the peek is noise */
+body.why .whybtn{ display:none; }
+</style>
+</head>
+<body class="preview">
+
+<!-- ===== WIREFRAME CHROME · not part of the page. Strip before F2. ===== -->
+<div class="chrome">
+  <span class="ttl">SSI &middot; NEW AJ VSL (COLD) &middot; WIREFRAME v1</span>
+  <span class="dim">F1 &middot; structure only, no copy, no brand</span>
+  <span class="amb">1 open clearance flag</span>
+</div>
+
+<div class="viewbar">
+  <span class="lbl">View</span>
+  <span class="switch">
+    <button type="button" data-mode="preview" aria-pressed="true">Full preview</button>
+    <button type="button" data-mode="specs" aria-pressed="false">Specs</button>
+    <button type="button" data-mode="why" aria-pressed="false">Persuasion</button>
+  </span>
+  <a class="jump" href="#overview">Jump to section summary</a>
+  <span class="hint">Full preview is the page itself. Specs layers on the build detail. Persuasion explains why each section is there and why it runs as long as it does.</span>
+</div>
+
+<div class="page">
+
+<!-- ===================================================================== -->
+<!-- S1 · HERO ============================================================ -->
+<section id="hero" class="sec" data-fold="0.8" style="--fold-n:0.8">
+  <div class="secbadge"><span class="n">S1</span><span class="name">Hero</span> <span class="tag tag--swap">SWAP</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Stop the cold scroll and earn the press of play from a solution-aware stranger who does not yet know AJ or SSI.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>Single column, centered, max 760px. Headline drops to 1.55rem at 375px.</dd>
+    <dt>Folds</dt><dd>0.8 desktop / 1.4 mobile. Matches data-fold.</dd>
+    <dt>Media</dt><dd>None here. The VSL sits in S2 directly below.</dd>
+    <dt>Elements</dt><dd>1 eyebrow &middot; 1 H1 &middot; 1 subhead &middot; 1 play cue. No CTA button (the video does the selling).</dd>
+    <dt>Reference</dt><dd>Live apply.selfstorageincome.com hero; brief Part 2 S1.</dd>
+  </dl>
+  <div class="wrap center">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Eyebrow &middot; self-selection</span><span class="budget">10 to 16 words</span></div>
+      <p class="fill eyebrow-fill" data-label="Eyebrow · 10-16 words" data-wmin="10" data-wmax="16">For investors and business owners ready to buy their first storage facility this year</p>
+      <p class="job">Qualify the reader in one line so a tire-kicker self-ejects before the video.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H1 &middot; mechanism headline</span><span class="budget">18 to 28 words</span></div>
+      <h1 class="fill fill-h1" data-label="Headline · 18-28 words" data-wmin="18" data-wmax="28">How the Operator's Stack Helps Investors With $100K Ready to Deploy Buy Their First Storage Facility (Before They Risk Six Figures on a Hunch)</h1>
+      <p class="job">Lead with the named mechanism and the dream outcome; carry the overpay stake only as a closing tail, never the lead.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Subhead &middot; watch-cue</span><span class="budget">24 to 36 words</span></div>
+      <p class="fill fill-sub" data-label="Subhead · 24-36 words" data-wmin="24" data-wmax="36">Watch AJ Osborne (who has bought and sold $400M in storage) explain the system his members use to know exactly what a facility is worth before they buy. See if it fits your first deal.</p>
+      <p class="job">Give the one reason to press play, and fold AJ's authority in lightly without becoming a proof block.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Play cue</span><span class="budget">3 to 6 words</span></div>
+      <p class="fill fill-body" data-label="Play cue · 3-6 words" data-wmin="3" data-wmax="6">Press play to watch below</p>
+      <p class="job">Point the eye at the single action here, the play, with nothing competing.</p>
+    </div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>This is the first second of a cold visit. The eyebrow tells a capital-ready operator the page is for them, the headline names the mechanism they are comparing methods on, and the subhead earns the click into the video. Without it, a stranger has no reason to start the VSL.</p>
+    <p><b>Why this shape.</b> A calm, proof-led register, not pain-agitation: the reader is competent and resents being sold. Method plus outcome leads; the overpay fear is a tail, not a headline.</p>
+    <p class="len">The headline runs long (18 to 28) because it does four jobs at once: name the Operator's Stack, name the buyer, promise the outcome, and carry the stake. The subhead is wider still because it doubles as the watch-cue and the one trust beat.</p>
+  </div>
+</section>
+
+<!-- S2 · VSL VIDEO ======================================================= -->
+<section id="video" class="sec sec--alt" data-fold="1.0" style="--fold-n:1.0">
+  <div class="secbadge"><span class="n">S2</span><span class="name">VSL video</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Hand the full persuasion to AJ on camera, which a cold buyer cannot get from text.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>Single column, max 760px, video centered and dominant.</dd>
+    <dt>Folds</dt><dd>1.0 desktop / 1.0 mobile.</dd>
+    <dt>Media</dt><dd>1 VSL embed, 16:9, poster frame, click-to-play, no autoplay.</dd>
+    <dt>Elements</dt><dd>1 video only. No caption or fallback copy (not in the brief).</dd>
+    <dt>Reference</dt><dd>AJ V3 cold cut; live AJ VSL hero pattern (Wistia).</dd>
+  </dl>
+  <div class="wrap">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Video &middot; VSL</span><span class="budget">media &middot; 16:9</span></div>
+      <div class="ph ph-video">VSL &middot; AJ V3 cold cut<br>16:9, poster frame, click-to-play, no autoplay</div>
+      <p class="job">Carry the entire argument. The page around it only frames it and drives the one action after.</p>
+    </div>
+    <div class="delta"><b>Flag 1 &middot; VSL embed</b><br>The new AJ V3 cold cut is not recorded yet. The existing AJ sales VSL is Wistia f7cwsl8l4w, but this page needs the new cold cut's id and host confirmed. Not substituted.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>The VSL is where a cold stranger meets AJ and decides whether to trust him. Everything else on the page is scaffolding for this block.</p>
+    <p><b>Why this shape.</b> One large embed with a real poster frame, click-to-play so nothing autoplays and burns trust. No caption or fallback copy, so nothing competes with the video.</p>
+    <p class="len">The section carries no copy on purpose. The video is the persuasion; any text here would only pull attention off it.</p>
+  </div>
+</section>
+
+<!-- S3 · PROOF STRIP ===================================================== -->
+<section id="proof" class="sec" data-fold="0.4" style="--fold-n:0.4">
+  <div class="secbadge"><span class="n">S3</span><span class="name">Proof strip</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">A glanceable, believable reason the scale is real, for the skimmer who did not watch.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>3-up stat row (g3-tight), stacks to 1-up under 520px. One authority line under the row.</dd>
+    <dt>Folds</dt><dd>0.4 desktop / 0.9 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>3 stat cards.</dd>
+    <dt>Reference</dt><dd>AJ figures from the live apply page; brief Part 2 S3.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="g3-tight">
+      <div class="slot" title="AJ's transacted volume in storage.">
+        <div class="slot-hd"><span class="slot-type">Stat 1</span><span class="budget">num + 2-5w</span></div>
+        <div class="statcard"><span class="fill fill-stat">$400M+</span><span class="statlabel" data-wmin="2" data-wmax="5">storage AJ has transacted</span></div>
+        <p class="job">Money and scale. Verified figure.</p>
+      </div>
+      <div class="slot" title="Facilities owned by SSI members.">
+        <div class="slot-hd"><span class="slot-type">Stat 2</span><span class="budget">num + 2-5w</span></div>
+        <div class="statcard"><span class="fill fill-stat">154</span><span class="statlabel" data-wmin="2" data-wmax="5">facilities SSI members own</span></div>
+        <p class="job">Members' footprint. Verified figure.</p>
+      </div>
+      <div class="slot" title="Units members operate.">
+        <div class="slot-hd"><span class="slot-type">Stat 3</span><span class="budget">num + 2-5w</span></div>
+        <div class="statcard"><span class="fill fill-stat">49,000+</span><span class="statlabel" data-wmin="2" data-wmax="5">units members operate</span></div>
+        <p class="job">Operating scale. Verified figure.</p>
+      </div>
+    </div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>A skimmer who scrolled past the video needs one honest reason the scale is real before the pitch. Three verified numbers do that at a glance.</p>
+    <p><b>Why this shape.</b> Raised stat blocks, not a sentence with numbers buried in it. A number in a block is read; a number in prose is skipped.</p>
+    <p class="len">Labels are two to five words because a stat label is read in a glance, not parsed. Three numbers, no prose, so the proof stays skimmable.</p>
+  </div>
+</section>
+
+<!-- S4 · WHAT SSI IS ===================================================== -->
+<section id="ssi" class="sec sec--alt" data-fold="1.6" style="--fold-n:1.6">
+  <div class="secbadge"><span class="n">S4</span><span class="name">What SSI is</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Name what the program is and what you get, and lock the not-a-broker frame so the call is not misread.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>Full-width H2, then two columns: left the reframe, right the four-part stack. Stacks to one column under 768px.</dd>
+    <dt>Folds</dt><dd>1.6 desktop / 3.0 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>1 H2 &middot; left: 1 subhead + 1 reframe &middot; right: 4 numbered parts + 1 method line + 1 guardrail callout.</dd>
+    <dt>Reference</dt><dd>Brief Part 3; live SSI acquisition-infrastructure section (TractIQ named).</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H2 &middot; product name</span><span class="budget">12 to 20 words</span></div>
+      <p class="fill fill-h2" data-label="Headline · 12-20 words" data-wmin="12" data-wmax="20">Self Storage Income gives you the infrastructure the big operators have, pointed at your first facility</p>
+      <p class="job">Name the program and the one-line promise in the reader's frame.</p>
+    </div>
+    <div class="g2">
+      <div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">12 to 20 words</span></div>
+      <p class="fill fill-sub" data-label="Subhead · 12-20 words" data-wmin="12" data-wmax="20">The data, the underwriting, and the people the big operators rely on, brought onto your actual deal.</p>
+      <p class="job">Preview the mechanism in one line before the parts.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Body &middot; reframe</span><span class="budget">40 to 60 words</span></div>
+      <p class="fill fill-body" data-label="Body · 40-60 words" data-wmin="40" data-wmax="60">You already have the information. What you are missing is the infrastructure the big operators use to value a facility before they commit six figures. Self Storage Income hands you that infrastructure and points it at the deal you are trying to buy.</p>
+      <p class="job">Land the belief shift: the gap is not knowledge, it is infrastructure.</p>
+    </div>
+      </div>
+      <div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Lead-in &middot; parts intro</span><span class="budget">4 to 8 words</span></div>
+      <p class="fill fill-h3" data-label="Lead-in · 4-8 words" data-wmin="4" data-wmax="8">The Operator's Stack has four parts</p>
+      <p class="job">Introduce the mechanism as a named, countable stack.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Part 1 &middot; step</span><span class="budget">title 3-6w &middot; body 25-40w</span></div>
+      <p class="fill fill-h3"><span class="stepn">1</span> <span data-wmin="3" data-wmax="6">The deal-evaluation engine</span></p>
+      <p class="fill fill-body" data-wmin="25" data-wmax="40">You run a real facility through TractIQ and an underwriting system: they tell you whether the market is strong, what the rents should be, and what the facility is worth, so you know whether to pursue it or walk.</p>
+      <p class="job">Show the engine that answers the fear: what is this facility really worth.</p>
+      <div class="note">Do not reintroduce a "get an answer within an hour" speed claim here. It was flagged and removed on the SSI warm page in George's R1 review. Keep the payoff as a confident decision, not a stopwatch.</div>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Part 2 &middot; step</span><span class="budget">title 2-4w &middot; body 6-14w</span></div>
+      <p class="fill fill-h3"><span class="stepn">2</span> <span data-wmin="2" data-wmax="4">Sourced deal flow</span></p>
+      <p class="fill fill-body" data-wmin="6" data-wmax="14">Facilities that fit your buy box, brought to you.</p>
+      <p class="job">Name the access, not a skill. A phrase, on purpose.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Part 3 &middot; step</span><span class="budget">title 3-6w &middot; body 18-30w</span></div>
+      <p class="fill fill-h3"><span class="stepn">3</span> <span data-wmin="3" data-wmax="6">Live deal analysis and advisory</span></p>
+      <p class="fill fill-body" data-wmin="18" data-wmax="30">After you run the numbers, AJ and the team review your underwriting live, to flag the opportunity or the red flags before you commit.</p>
+      <p class="job">Prove the human layer: your actual deal gets checked before you wire money.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Part 4 &middot; step</span><span class="budget">title 2-5w &middot; body 12-22w</span></div>
+      <p class="fill fill-h3"><span class="stepn">4</span> <span data-wmin="2" data-wmax="5">An optional partnership</span></p>
+      <p class="fill fill-body" data-wmin="12" data-wmax="22">When it fits, the team can co-manage the facility with you, while you keep full ownership of the deal.</p>
+      <p class="job">Offer the deepest tier without making it the expectation.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Body &middot; method</span><span class="budget">18 to 30 words</span></div>
+      <p class="fill fill-body" data-label="Body · 18-30 words" data-wmin="18" data-wmax="30">All of it runs through the STORAGE Method, the step-by-step path members follow from their first deal to a facility they own and run.</p>
+      <p class="job">Name the through-line system that connects the four parts.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Callout &middot; guardrail</span><span class="budget">30 to 45 words</span></div>
+      <div class="card"><p class="fill fill-body" data-label="Guardrail · 30-45 words" data-wmin="30" data-wmax="45">This is not a broker putting you into their deal, and it is not a course you watch alone. You own one hundred percent of your facility, and the team works your actual deal alongside you.</p></div>
+      <p class="job">Lock the not-a-broker frame so the call is not misread as done-for-you.</p>
+    </div>
+      </div>
+    </div>
+    <div class="decided"><b>Decided &middot; D5</b> <span class="verdict">Kept the brief's four-part Operator's Stack.</span> The live product page breaks the same mechanism into five items (Framework, TractIQ, Sourced Deal Flow, Live Deal Analysis, Operator Insight). Reconciled to the brief's four, named accurately, and flagged here for the copy team to choose the final granularity.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>This is the mandatory product intro. A cold viewer who liked the video still does not know what SSI actually is or what they would be buying. This names it, itemises it, and draws the line that protects the sale.</p>
+    <p><b>Why this shape.</b> The reframe sits in the left column and the four numbered parts in the right, so the narrative and the itemized mechanism read side by side, and a boxed guardrail keeps the not-a-broker frame impossible to miss.</p>
+    <p class="len">The reframe earns 40 to 60 words because it has to turn a belief, which a phrase cannot do. Part two is deliberately a phrase: it names access, not a skill, so padding it would lie about its weight.</p>
+  </div>
+</section>
+
+<!-- S5 · MEMBER RESULTS ================================================== -->
+<section id="proofwall" class="sec" data-fold="1.5" style="--fold-n:1.5">
+  <div class="secbadge"><span class="n">S5</span><span class="name">Member results</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Show real members who used the Stack to buy, in their own voice, so the proof is a person and not a stat.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>3-up video card grid (g3), stacks to 1-up under 768px. Reflows to 2-up in Persuasion.</dd>
+    <dt>Folds</dt><dd>1.5 desktop / 2.6 mobile.</dd>
+    <dt>Media</dt><dd>3 Wistia member video testimonials, 16:9, poster, click-to-play.</dd>
+    <dt>Elements</dt><dd>1 H2 &middot; 1 subhead &middot; 3 video cards (name + transformation headline + card copy) &middot; 1 results disclaimer.</dd>
+    <dt>Reference</dt><dd>Wistia AJ 16:9 set on public/thank-you: ycfpp4jr5b, qycbrchykw, n2r1p3su6z.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H2</span><span class="budget">6 to 12 words</span></div>
+      <p class="fill fill-h2" data-label="Headline · 6-12 words" data-wmin="6" data-wmax="12">Members used the Operator's Stack to buy real facilities</p>
+      <p class="job">Frame the videos as real closed deals, not testimonials in general.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">Subhead</span><span class="budget">12 to 22 words</span></div>
+      <p class="fill fill-sub" data-label="Subhead · 12-22 words" data-wmin="12" data-wmax="22">Hear it from members who started where you are, then bought their first storage facility with the Stack behind them.</p>
+      <p class="job">Set that these are peers, not celebrities, so the proof feels reachable.</p>
+    </div>
+    <div class="g3">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Video testimonial 1</span><span class="budget" style="white-space:normal">name 1-3w &middot; headline 4-10w &middot; copy 15-28w</span></div>
+        <div class="proofcard">
+          <div class="ph ph-video">WISTIA &middot; member story<br>16:9, poster, click-to-play</div>
+          <div class="pc-body">
+            <p class="pc-name" data-wmin="1" data-wmax="3">Jyoti</p>
+            <p class="pc-result" data-wmin="4" data-wmax="10">Added $300K+ in value across her facilities</p>
+            <p class="pc-detail" data-wmin="15" data-wmax="28">She used the Operator's Stack to systemize operations and underwrite her next buys, turning a single facility into a growing portfolio.</p>
+          </div>
+        </div>
+        <p class="job">Name, then a transformation headline, then how SSI got her there.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Video testimonial 2</span><span class="budget" style="white-space:normal">name 1-3w &middot; headline 4-10w &middot; copy 15-28w</span></div>
+        <div class="proofcard">
+          <div class="ph ph-video">WISTIA &middot; member story<br>16:9, poster, click-to-play</div>
+          <div class="pc-body">
+            <p class="pc-name" data-wmin="1" data-wmax="3">Jacob</p>
+            <p class="pc-result" data-wmin="4" data-wmax="10">Three facilities in five months, from zero experience</p>
+            <p class="pc-detail" data-wmin="15" data-wmax="28">SSI's deal flow and underwriting tools taught him to analyze markets and submit offers, so he had three sites operating fast.</p>
+          </div>
+        </div>
+        <p class="job">Name, then a transformation headline, then how SSI got him there.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Video testimonial 3</span><span class="budget" style="white-space:normal">name 1-3w &middot; headline 4-10w &middot; copy 15-28w</span></div>
+        <div class="proofcard">
+          <div class="ph ph-video">WISTIA &middot; member story<br>16:9, poster, click-to-play</div>
+          <div class="pc-body">
+            <p class="pc-name" data-wmin="1" data-wmax="3">Arunav</p>
+            <p class="pc-result" data-wmin="4" data-wmax="10">Closed a $1.1M deal within four months</p>
+            <p class="pc-detail" data-wmin="15" data-wmax="28">SSI's team helped him underwrite and structure a seller-financed purchase, so a first-time buyer closed 120 units near Houston with confidence.</p>
+          </div>
+        </div>
+        <p class="job">Name, then a transformation headline, then how SSI got him there.</p>
+      </div>
+    </div>
+    <div class="slot" style="margin-top:.9rem">
+      <div class="slot-hd"><span class="slot-type">Disclaimer &middot; results</span><span class="budget">12 to 22 words</span></div>
+      <p class="fill fill-body" data-label="Disclaimer · 12-22 words" data-wmin="12" data-wmax="22">Individual results vary and are not guaranteed. These examples are shared for educational and illustrative purposes only.</p>
+      <p class="job">Meet the compliance floor for member-result claims without breaking the tone.</p>
+    </div>
+    <div class="note">Testimonial videos use the AJ 16:9 Wistia set (ycfpp4jr5b Jyoti, qycbrchykw Jacob, n2r1p3su6z Arunav). Confirm this is the right cut for a cold VSL versus the Britt vertical set before F2.</div>
+    <div class="decided"><b>Decided &middot; D1</b> <span class="verdict">Added this member-results wall.</span> Part 2 of the brief omits it; Part 3 includes it. Kept, because cold traffic needs a person behind the numbers, and built as Wistia video testimonials with a headliner and extract per the client's steer.</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>Stats prove scale; a member proves it is reachable. A cold buyer who fears overpaying needs to see someone like them who did not, in their own words.</p>
+    <p><b>Why this shape.</b> Video over text, because a face carries para-social trust a paragraph cannot. Under each: the name, a transformation headline as the hook, and one line on how SSI got them there, so a skimmer gets the story without pressing play.</p>
+    <p class="len">Each card runs three beats: a one-word name, a short transformation headline (4 to 10) as the hook, and 15 to 28 words tying the result back to the Operator's Stack. The video is the proof; the text is its caption.</p>
+  </div>
+</section>
+
+<!-- S6 · WHO THIS IS FOR ================================================= -->
+<section id="who" class="sec sec--alt" data-fold="1.0" style="--fold-n:1.0">
+  <div class="secbadge"><span class="n">S6</span><span class="name">Who this is for</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Let the experienced, capital-ready operator recognise themselves, and let everyone else opt out.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>2 columns desktop (g2), stacked at 375px. Two balanced lists, then a one-line bridge.</dd>
+    <dt>Folds</dt><dd>1.0 desktop / 1.6 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>2 cards (a fit list and a not-fit list, 3 bullets each) &middot; 1 bridge line.</dd>
+    <dt>Reference</dt><dd>Brief Part 3; live SSI fit section.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="g2">
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Fit list &middot; for you</span><span class="budget">title 4-8w &middot; 3 bullets 8-16w</span></div>
+        <div class="card">
+          <p class="fill fill-h3" data-wmin="4" data-wmax="8">This is for you if</p>
+          <ul class="bullets" data-label="Bullets · 3 items, 8-16 words each" style="margin-top:.5rem">
+            <li data-wmin="8" data-wmax="16">You have capital ready to invest and have decided storage is the asset</li>
+            <li data-wmin="8" data-wmax="16">You are an experienced investor or business owner, but this is your first facility</li>
+            <li data-wmin="8" data-wmax="16">You are looking at deals now and cannot tell what a facility is worth</li>
+          </ul>
+        </div>
+        <p class="job">Let the right operator see themselves in three lines.</p>
+      </div>
+      <div class="slot">
+        <div class="slot-hd"><span class="slot-type">Fit list &middot; not for you</span><span class="budget">title 4-8w &middot; 3 bullets 8-16w</span></div>
+        <div class="card">
+          <p class="fill fill-h3" data-wmin="4" data-wmax="8">This is not for you if</p>
+          <ul class="bullets" data-label="Bullets · 3 items, 8-16 words each" style="margin-top:.5rem">
+            <li data-wmin="8" data-wmax="16">You are still deciding whether storage is the right asset for you</li>
+            <li data-wmin="8" data-wmax="16">You want someone to hand you a finished deal and take a cut</li>
+            <li data-wmin="8" data-wmax="16">You want a course to watch alone, not work on your actual deal</li>
+          </ul>
+        </div>
+        <p class="job">Let the wrong fit opt out before the ask, so calls stay qualified.</p>
+      </div>
+    </div>
+    <div class="slot" style="margin-top:.9rem">
+      <div class="slot-hd"><span class="slot-type">Bridge line</span><span class="budget">8 to 16 words</span></div>
+      <p class="fill fill-body" data-label="Bridge · 8-16 words" data-wmin="8" data-wmax="16">If that is you, the next step is a short application, not a purchase.</p>
+      <p class="job">Move from identity to the ask, and pre-empt the fear that this is a hard sell.</p>
+    </div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>Self-selection protects the sales team. The right operator recognises themselves; the wrong one leaves before booking, which keeps the calls warm.</p>
+    <p><b>Why this shape.</b> Two balanced lists, three a side, so neither dominates and the contrast is instant. A single bridge line, not a paragraph, because the ask is next.</p>
+    <p class="len">Bullets run 8 to 16 words because each is a whole criterion in the reader's language, not a label. Three a side is a deliberate balance, so the columns read as a matched pair at every width.</p>
+  </div>
+</section>
+
+<!-- S7 · APPLICATION ===================================================== -->
+<section id="apply" class="sec sec--alt" data-fold="1.4" style="--fold-n:1.4">
+  <div class="secbadge"><span class="n">S7</span><span class="name">Application</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Get the qualified viewer to start the application, the one action the whole page exists for.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>2 columns desktop (g2 split): left copy, right form card. Stacks at 375px, form under copy.</dd>
+    <dt>Folds</dt><dd>1.4 desktop / 2.2 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>Left: eyebrow + H2 + paragraph. Right: form heading + sub + 4 contact fields + Continue button + consent. Steps 2 to 5 and outcomes annotated.</dd>
+    <dt>Reference</dt><dd>Britt VSL #apply / BrittApplyFormCard (SSI Next.js app).</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="g2 g2--split">
+      <div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Eyebrow</span><span class="budget">2 to 4 words</span></div>
+          <p class="fill eyebrow-fill" data-label="Eyebrow · 2-4 words" data-wmin="2" data-wmax="4">The next move</p>
+          <p class="job">Signal the turn from reading to acting.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">H2 &middot; two lines</span><span class="budget">6 to 12 words</span></div>
+          <p class="fill fill-h2" data-label="Headline · 6-12 words" data-wmin="6" data-wmax="12"><span class="line">Get your first storage facility</span><span class="line">over the finish line</span></p>
+          <p class="job">Name the payoff of applying: momentum toward the deal.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Body</span><span class="budget">25 to 40 words</span></div>
+          <p class="fill fill-body" data-label="Body · 25-40 words" data-wmin="25" data-wmax="40">It starts with a short application. If it is a fit, you book a Storage Wealth Game Plan call and leave with a Readiness Score and a clear path to your first facility. Bring your spouse or partner.</p>
+          <p class="job">Set the two-step expectation and the payoff, and invite the decision-maker.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Form heading</span><span class="budget">3 to 5 words</span></div>
+          <p class="fill fill-h3" data-label="Heading · 3-5 words" data-wmin="3" data-wmax="5">See if you qualify</p>
+          <p class="job">Reframe the form as a two-way fit check, not a lead grab.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Form sub</span><span class="budget">4 to 8 words</span></div>
+          <p class="fill fill-body" data-label="Sub · 4-8 words" data-wmin="4" data-wmax="8">Takes about sixty seconds, no commitment</p>
+          <p class="job">Lower the cost of starting.</p>
+        </div>
+        <div class="slot">
+          <div class="slot-hd"><span class="slot-type">Contact fields &middot; step 1</span><span class="budget">4 fields</span></div>
+          <div class="g2" style="gap:.5rem">
+            <div class="field">First name</div>
+            <div class="field">Last name</div>
+            <div class="field">Email</div>
+            <div class="field">Phone</div>
+          </div>
+          <p class="job">Capture the identity fields; the qualification comes in the steps after.</p>
+        </div>
+        <a class="wirebtn-solid" style="display:block;text-align:center;margin-top:.7rem" href="#apply">Continue</a>
+        <div class="slot" style="margin-top:.7rem">
+          <div class="slot-hd"><span class="slot-type">Consent microcopy</span><span class="budget">20 to 35 words</span></div>
+          <p class="fill fill-body" data-label="Consent · 20-35 words" data-wmin="20" data-wmax="35">By continuing you agree to be contacted about your application by phone, text, and email. Message rates may apply. See our <a href="#">Privacy Policy</a> and <a href="#">Terms</a>.</p>
+          <p class="job">Meet TCPA consent at the point of submission, in cleared wording.</p>
+        </div>
+      </div>
+    </div>
+    <div class="note">After step 1, the form continues through four qualification steps (owns real estate, liquid capital, timeline, decision-maker), then submits. Qualified applicants see an embedded booking calendar; the rest see a short thanks message. Modeled on Britt VSL BrittApplyFormCard. Booking, routing, and pixels are build items for F3.</div>
+    <div class="decided"><b>Decided &middot; D2</b> <span class="verdict">CTA is a Britt-style embedded multi-step form.</span> This supersedes the brief's button-only, no-fields plan, per the client's steer. Page-level CTA label family is "START YOUR APPLICATION" (the sticky bar); the form's own control is "Continue".</div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>This is the one action the page was built to produce. Everything before it earned the right to ask; this makes the ask small and concrete.</p>
+    <p><b>Why this shape.</b> Copy on the left, form on the right, so the promise and the action sit together. Only the four identity fields show first; the qualifying questions come after the commitment to start, which lifts completion.</p>
+    <p class="len">The paragraph is 25 to 40 words because it must set a two-step expectation and a payoff. The consent is fixed legal language, budgeted only so its length is honest in the layout.</p>
+  </div>
+</section>
+
+<!-- S8 · BOOKING FAQ ===================================================== -->
+<section id="faq" class="sec" data-fold="1.6" style="--fold-n:1.6">
+  <div class="secbadge"><span class="n">S8</span><span class="name">Booking FAQ</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Remove the last hesitations about booking the call, because the sale stalls on anxiety, not desire.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>Single column, max 760px. Four accordion rows, closed by default.</dd>
+    <dt>Folds</dt><dd>1.6 desktop / 2.6 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>1 H2 &middot; 4 FAQ rows (details / summary).</dd>
+    <dt>Reference</dt><dd>Brief Part 2 S7 (placed after the CTA); live SSI FAQ.</dd>
+  </dl>
+  <div class="wrap">
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">H2</span><span class="budget">3 to 6 words</span></div>
+      <p class="fill fill-h2" data-label="Headline · 3-6 words" data-wmin="3" data-wmax="6">Questions before you book</p>
+      <p class="job">Signpost the objection handling for the booking step.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">FAQ 1</span><span class="budget">Q 5-12w &middot; A 40-70w</span></div>
+      <details class="faq"><summary data-wmin="5" data-wmax="12">What actually happens on the call?</summary><div class="faq-wrap"><div class="faq-a" data-wmin="40" data-wmax="70">You start with a short application. If it looks like a fit, we set up a Storage Wealth Game Plan call, and before it you fill out a short readiness assessment. On the call you leave with a readiness score across your capital, financing, timing, and fit. Either way, you leave knowing where you stand. Bring your spouse or business partner.</div></div></details>
+      <p class="job">Set the two-step expectation and the payoff, and invite the decision-maker.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">FAQ 2</span><span class="budget">Q 5-12w &middot; A 40-70w</span></div>
+      <details class="faq"><summary data-wmin="5" data-wmax="12">Do I need experience or a deal already in hand?</summary><div class="faq-wrap"><div class="faq-a" data-wmin="40" data-wmax="70">No. This is built for people buying their first storage facility, so we do not expect you to have owned one. You also do not need a deal in hand. The program brings you deals and the tools to tell what each one is worth, so you are not sourcing alone or guessing on price. What you bring is real estate or business experience and capital that is ready.</div></div></details>
+      <p class="job">Kill the two disqualifying fears: no experience, no deal yet.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">FAQ 3</span><span class="budget">Q 5-12w &middot; A 40-70w</span></div>
+      <details class="faq"><summary data-wmin="5" data-wmax="12">Is this a broker who sells me a deal?</summary><div class="faq-wrap"><div class="faq-a" data-wmin="40" data-wmax="70">No. We are not a broker. We do not sell you a deal or take a broker's cut, and you own the facility you buy. What we do is work the deal alongside you: help you find it, tell you what it is worth, and stay with you through the financing and the close.</div></div></details>
+      <p class="job">Restate the not-a-broker frame at the point of decision.</p>
+    </div>
+    <div class="slot">
+      <div class="slot-hd"><span class="slot-type">FAQ 4</span><span class="budget">Q 5-12w &middot; A 40-70w</span></div>
+      <details class="faq"><summary data-wmin="5" data-wmax="12">Why does this need capital ready to invest?</summary><div class="faq-wrap"><div class="faq-a" data-wmin="40" data-wmax="70">Because this is about buying a real facility, not studying one, and that takes capital ready, the same as any property purchase. If your capital is ready, the plan we build with you can start now instead of a year from now. If it is not ready yet, the call still gives you a clear picture of what you are working toward, and you decide the timing, not us.</div></div></details>
+      <p class="job">Reframe the capital gate as fit and timing, not a barrier.</p>
+    </div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>By now desire is set by the video and the proof; what remains is anxiety about the call itself. Answering the four real questions here lowers it so the ask lands.</p>
+    <p><b>Why this shape.</b> A real accordion, closed by default, so the page stays short and a reader opens only what worries them. Four rows, not ten, so it reads as reassurance, not a wall.</p>
+    <p class="len">Answers run 40 to 70 words: enough to actually resolve the fear, not a one-liner that reads as evasive. Questions stay short (5 to 12) because they are scan targets.</p>
+  </div>
+</section>
+
+<!-- S9 · FOOTER ========================================================== -->
+<section id="footer" class="sec" data-fold="0.5" style="--fold-n:0.5">
+  <div class="secbadge"><span class="n">S9</span><span class="name">Footer</span> <span class="tag tag--const">CONSTANT</span> <button class="whybtn" type="button" aria-label="Show the reasoning for this section">why</button> <button class="specbtn" type="button" aria-label="Show build specs for this section">specs</button></div>
+  <p class="secwhy">Close the page with the standard SSI legal copy used across the funnels.</p>
+  <dl class="spec">
+    <dt>Layout</dt><dd>Single column, centered copyright and links; left-aligned legal block capped at 70ch.</dd>
+    <dt>Folds</dt><dd>0.7 desktop / 1.1 mobile.</dd>
+    <dt>Media</dt><dd>None.</dd>
+    <dt>Elements</dt><dd>1 copyright line &middot; 3 legal paragraphs (Facebook, results, investment risk) &middot; 1 link row.</dd>
+    <dt>Reference</dt><dd>Standard SSI footer from the live AJ VSL (aj-vsl/v2). Verbatim.</dd>
+  </dl>
+  <div class="wrap-wide">
+    <div class="foot">
+      <p class="foot-copy">© 2026 Self Storage Income. All rights reserved.</p>
+      <div class="legal">
+        <p>This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.</p>
+        <p>DISCLAIMER: The sales figures and results stated on this page and discussed in the training are our personal results and the results of our students. Please understand these results are not typical. We're not implying you'll duplicate them (or do anything for that matter). The average person who buys any "how to" information gets little to no results. We're using these references for example purposes only. Your results will vary and depend on many factors including but not limited to your background, experience, and work ethic. All business entails risk as well as massive and consistent effort and action. If you're not willing to accept that, please DO NOT PURCHASE OR JOIN THIS PROGRAM.</p>
+        <p>All investments involve risk, including loss of principal. Past performance does not guarantee future results. Self storage investing carries risks specific to real estate and should be considered carefully. Consult a qualified financial advisor before making investment decisions.</p>
+      </div>
+      <div class="foot-links"><a href="https://www.selfstorageincome.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a> <a href="https://www.selfstorageincome.com/terms" target="_blank" rel="noopener">Terms of Service</a></div>
+    </div>
+  </div>
+  <div class="persuasion">
+    <p class="pk">Why this section</p>
+    <p>A cold paid page needs a real footer: the Facebook disclaimer, the results disclaimer, and the risk language are a compliance floor, not decoration.</p>
+    <p><b>Why this shape.</b> The standard SSI legal block, reused verbatim from the live funnels so nothing here is newly drafted or open.</p>
+    <p class="len">No word budgets: the legal copy is fixed boilerplate whose length is set by legal. Its size is shown so the footer is honest in the layout.</p>
+  </div>
+</section>
+
+</div><!-- /.page -->
+
+<!-- sticky mobile CTA · give it budget attrs so the check polices it too -->
+<div class="stickycta">
+  <a href="#apply" class="wirebtn-solid" style="display:block" data-wmin="2" data-wmax="4">START YOUR APPLICATION</a>
+</div>
+
+<!-- =====================================================================
+     SECTION SUMMARY · hand-authored. wfCheck().tocMatchesSections asserts
+     this list matches the real sections, in order. Update both together.
+     ===================================================================== -->
+<div class="toc" id="overview">
+  <p class="kicker">Section summary</p>
+  <h2>The page, section by section</h2>
+  <p class="lede">A cold visitor watches AJ's VSL, then meets the proof, the program, and the members, before the one ask: an application. Only the hero changes between ad variants.</p>
+  <ol>
+    <li class="key"><span class="num">S1</span><a href="#hero">Hero</a><span class="desc">eyebrow, mechanism headline, watch-cue, play cue</span><span class="dots"></span><span class="tag tag--swap">SWAP</span></li>
+    <li><span class="num">S2</span><a href="#video">VSL video</a><span class="desc">AJ V3 cold cut, the page's engine</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S3</span><a href="#proof">Proof strip</a><span class="desc">three verified stats and the data engine</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S4</span><a href="#ssi">What SSI is</a><span class="desc">the Operator's Stack, four parts</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S5</span><a href="#proofwall">Member results</a><span class="desc">three Wistia video testimonials</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S6</span><a href="#who">Who this is for</a><span class="desc">two balanced fit lists</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S7</span><a href="#apply">Application</a><span class="desc">embedded multi-step form</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S8</span><a href="#faq">Booking FAQ</a><span class="desc">four objection rows, after the CTA</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+    <li><span class="num">S9</span><a href="#footer">Footer</a><span class="desc">legal and disclaimers</span><span class="dots"></span><span class="tag tag--const">CONSTANT</span></li>
+  </ol>
+</div>
+
+<!-- =====================================================================
+     COPY BRIEF TABLE · hand-authored, and it WILL drift if you let it.
+     wfCheck().briefRangeMisses asserts every budget printed here exists as
+     a real slot on the page. Mark a declared-but-unwritten row data-open="1"
+     to exclude it deliberately.
+     ===================================================================== -->
+<div class="brief" id="brief">
+  <p style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6b7280;margin:0 0 .3rem">Copy brief &middot; derived from the wireframe above</p>
+  <h2 style="margin:0 0 .4rem;font-size:1.3rem">Every slot on this page, in order</h2>
+  <p style="margin:0 0 1rem;font-size:12px;color:#475569;line-height:1.55;max-width:70ch">One row per box. Write to the <b>job</b>, inside the <b>word budget</b>. Budgets are <b>derived from each section's job</b>, not inherited from another page. If a slot cannot be written inside its budget, say so and say why: that is a structure conversation, not a copy failure.</p>
+  <div class="tablewrap">
+  <table class="cb">
+    <thead><tr><th style="width:9rem">Slot</th><th style="width:6rem">Type</th><th style="width:7rem">Word budget</th><th>Job</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td colspan="4">S1 &middot; Hero</td></tr>
+      <tr><td>Eyebrow</td><td class="t">Eyebrow</td><td class="b">10 to 16 w</td><td>Qualify the reader so a tire-kicker self-ejects.</td></tr>
+      <tr><td>Headline</td><td class="t">H1</td><td class="b">18 to 28 w</td><td>Lead with the mechanism and outcome; overpay stake as a tail.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">24 to 36 w</td><td>The watch-cue plus one light trust beat.</td></tr>
+      <tr><td>Play cue</td><td class="t">Cue</td><td class="b">3 to 6 w</td><td>Point the eye at the play, nothing competing.</td></tr>
+      <tr class="grp"><td colspan="4">S2 &middot; VSL video</td></tr>
+      <tr><td>Video</td><td class="t">Media</td><td class="b">16:9</td><td>Carry the whole argument. AJ V3 cold cut.</td></tr>
+      <tr class="grp"><td colspan="4">S3 &middot; Proof strip</td></tr>
+      <tr><td>Stat label x3</td><td class="t">Stat</td><td class="b">2 to 5 w</td><td>What the number counts. Verified figures.</td></tr>
+      <tr class="grp"><td colspan="4">S4 &middot; What SSI is</td></tr>
+      <tr><td>Headline</td><td class="t">H2</td><td class="b">12 to 20 w</td><td>Name the program and its promise.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">12 to 20 w</td><td>Preview the mechanism in one line.</td></tr>
+      <tr><td>Reframe</td><td class="t">Body</td><td class="b">40 to 60 w</td><td>Shift the belief to an infrastructure gap.</td></tr>
+      <tr><td>Parts lead-in</td><td class="t">Lead-in</td><td class="b">4 to 8 w</td><td>Introduce the four-part stack.</td></tr>
+      <tr><td>Part titles</td><td class="t">Title</td><td class="b">3 to 6 w</td><td>Name each part (parts 2 and 4 run shorter, 2 to 5 w).</td></tr>
+      <tr><td>Part 1 body</td><td class="t">Body</td><td class="b">25 to 40 w</td><td>The deal-evaluation engine. No speed claim.</td></tr>
+      <tr><td>Part 2 body</td><td class="t">Body</td><td class="b">6 to 14 w</td><td>Sourced deal flow. A phrase, on purpose.</td></tr>
+      <tr><td>Part 3 body</td><td class="t">Body</td><td class="b">18 to 30 w</td><td>Live deal analysis and advisory.</td></tr>
+      <tr><td>Part 4 body</td><td class="t">Body</td><td class="b">12 to 22 w</td><td>The optional partnership.</td></tr>
+      <tr><td>Method line</td><td class="t">Body</td><td class="b">18 to 30 w</td><td>Name the STORAGE Method through-line.</td></tr>
+      <tr><td>Guardrail</td><td class="t">Callout</td><td class="b">30 to 45 w</td><td>Lock the not-a-broker frame.</td></tr>
+      <tr class="grp"><td colspan="4">S5 &middot; Member results</td></tr>
+      <tr><td>Headline</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>Frame the videos as real closed deals.</td></tr>
+      <tr><td>Subhead</td><td class="t">Subhead</td><td class="b">12 to 22 w</td><td>Peers, not celebrities.</td></tr>
+      <tr><td>Testimonial name x3</td><td class="t">Name</td><td class="b">1 to 3 w</td><td>Member name.</td></tr>
+      <tr><td>Transformation headline x3</td><td class="t">Headline</td><td class="b">4 to 10 w</td><td>A success or transformation hook.</td></tr>
+      <tr><td>Card copy x3</td><td class="t">Body</td><td class="b">15 to 28 w</td><td>How SSI helped them get there.</td></tr>
+      <tr><td>Disclaimer</td><td class="t">Legal</td><td class="b">12 to 22 w</td><td>Results-vary compliance line.</td></tr>
+      <tr class="grp"><td colspan="4">S6 &middot; Who this is for</td></tr>
+      <tr><td>Fit list titles x2</td><td class="t">H3</td><td class="b">4 to 8 w</td><td>Head each list.</td></tr>
+      <tr><td>Fit bullets x6</td><td class="t">Bullet</td><td class="b">8 to 16 w</td><td>One criterion each, balanced 3 a side.</td></tr>
+      <tr><td>Bridge</td><td class="t">Body</td><td class="b">8 to 16 w</td><td>Identity to ask, not a hard sell.</td></tr>
+      <tr class="grp"><td colspan="4">S7 &middot; Application</td></tr>
+      <tr><td>Eyebrow</td><td class="t">Eyebrow</td><td class="b">2 to 4 w</td><td>Signal the turn to acting.</td></tr>
+      <tr><td>Headline</td><td class="t">H2</td><td class="b">6 to 12 w</td><td>Momentum toward the deal.</td></tr>
+      <tr><td>Body</td><td class="t">Body</td><td class="b">25 to 40 w</td><td>Two-step expectation and payoff.</td></tr>
+      <tr><td>Form heading</td><td class="t">H3</td><td class="b">3 to 5 w</td><td>A two-way fit check.</td></tr>
+      <tr><td>Form sub</td><td class="t">Sub</td><td class="b">4 to 8 w</td><td>Lower the cost of starting.</td></tr>
+      <tr><td>Contact fields</td><td class="t">Fields</td><td class="b">4 fields</td><td>First, last, email, phone. Step 1 only.</td></tr>
+      <tr><td>Consent</td><td class="t">Legal</td><td class="b">20 to 35 w</td><td>TCPA consent, cleared wording.</td></tr>
+      <tr><td>CTA (sticky bar)</td><td class="t">Button</td><td class="b">2 to 4 w</td><td>One label family: START YOUR APPLICATION.</td></tr>
+      <tr class="grp"><td colspan="4">S8 &middot; Booking FAQ</td></tr>
+      <tr><td>Question x4</td><td class="t">Q</td><td class="b">5 to 12 w</td><td>A scan target.</td></tr>
+      <tr><td>Answer x4</td><td class="t">A</td><td class="b">40 to 70 w</td><td>Resolve the fear, not a one-liner.</td></tr>
+      <tr class="grp"><td colspan="4">S9 &middot; Footer</td></tr>
+      <tr><td>Legal block</td><td class="t">Legal</td><td class="b">set by legal</td><td>Standard SSI legal (Facebook, results, risk) and policy links.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="margin:1.6rem 0 .4rem;font-size:1rem">Rules that apply to every slot</h3>
+  <ul style="margin:0;padding-left:1.1rem;font-size:12px;color:#475569;line-height:1.6;max-width:74ch">
+    <li><b>One CTA label family.</b> "START YOUR APPLICATION" at every page-level CTA position, including the sticky mobile bar. The application form's own step control ("Continue") is a form button, not part of the family.</li>
+    <li><b>Cleared proof only.</b> Any name, quote or number that is not cleared stays out, and is never replaced with a plausible substitute.</li>
+    <li><b>No em dashes.</b> House rule, every line.</li>
+    <li><b>Budgets are derived, not inherited.</b> Raise one that does not fit; do not overrun it silently.</li>
+    <li><b>Do not pad to a minimum.</b> A slot that does its job in fewer words has a wrong budget, not short copy.</li>
+  </ul>
+</div>
+
+<!-- ===== HOW TO READ · collapsed, at the end, on purpose ===== -->
+<div class="howto">
+  <details>
+    <summary>How to read and use this wireframe <span>optional</span></summary>
+    <div class="body">
+      <p>A wireframe locks <b>structure</b>, not words. It answers one question: is this laid out in the right order, with the right emphasis, to move this visitor to action?</p>
+      <h4>Three views</h4>
+      <p><b>Full preview</b> is the page itself, at real type size on real page spacing. The view for judging whether the page works. <b>Specs</b> layers on the build detail: what each box is, how long it runs, what job it has. <b>Persuasion</b> opens a rail beside each section explaining why the section is there, why it is that shape, and why it runs that long.</p>
+      <h4>Who uses which view</h4>
+      <ul>
+        <li><b>Reviewer:</b> Full preview to judge the page, Persuasion to challenge it.</li>
+        <li><b>Copywriter:</b> Specs to write, Persuasion to argue with a budget that does not fit the job.</li>
+        <li><b>Designer and developer:</b> Specs. Layout, counts and fold budgets are the build contract.</li>
+      </ul>
+      <h4>Two conventions</h4>
+      <ul>
+        <li><b>Tags.</b> <span class="tag tag--swap">SWAP</span> changes per variant, <span class="tag tag--const">CONSTANT</span> is written once and reused, <span class="tag tag--v2">CUSTOMIZE V2</span> is constant now and hand-tuned later.</li>
+        <li><b>Amber means blocked.</b> Something we genuinely do not have yet. Never filled with a plausible substitute.</li>
+      </ul>
+      <p>The dark bar at the top, the view switch, the section summary and this block are all wireframe scaffolding. None of it exists on the real page.</p>
+    </div>
+  </details>
+</div>
+
+<!-- ===== INTERNAL FEEDBACK · not part of the page. Strip before F2. ===== -->
+<div class="slackcta">
+  <p class="kicker">Internal only</p>
+  <h3>Got suggestions for this funnel?</h3>
+  <a class="slackbtn" href="https://wholefounder.slack.com/archives/C0BGAUZAN6S" target="_blank" rel="noopener">Leave them here</a>
+  <p class="sub">Opens #wf-funnel-cro in Slack. Structural feedback is most useful now, while it is still a wireframe. Copy notes go on the slot they belong to.</p>
+</div>
+
+<!-- ============================================================================
+     SELF-CHECK · open the console and run wfCheck(), or load with #selfcheck
+     ============================================================================ -->
+<script>
+/* ---- VIEW SWITCH ---------------------------------------------------------
+   Preview by default. The choice is remembered per reader, so a copywriter
+   who works in Specs does not have to re-select it on every visit. Wrapped in
+   try/catch because storage throws in some embedded contexts.               */
+(function(){
+  var body=document.body, KEY='wf-view-mode';
+  var MODES={preview:1, specs:1, why:1};
+  function setMode(m){
+    if(!MODES[m]) m='preview';   // unknown, missing, or a value stored before
+                                 // Persuasion existed. Never leave the body
+                                 // with no view class at all.
+    // Persuasion renders the page exactly as Full preview does and only ADDS
+    // the rail, so it sets both classes rather than duplicating every preview
+    // rule in the stylesheet.
+    body.classList.toggle('preview', m!=='specs');
+    body.classList.toggle('specs',  m==='specs');
+    body.classList.toggle('why',    m==='why');
+    [].forEach.call(document.querySelectorAll('[data-mode]'), function(b){
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-mode')===m));
+    });
+    try{ localStorage.setItem(KEY,m); }catch(e){}
+  }
+  var saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
+  setMode(saved);
+
+  document.addEventListener('click', function(e){
+    var t=e.target;
+    var mode=t.closest && t.closest('[data-mode]');
+    if(mode){ setMode(mode.getAttribute('data-mode')); return; }
+    var peek=t.closest && t.closest('.specbtn');
+    if(peek){ peek.closest('section').classList.toggle('show-specs'); return; }
+    var why=t.closest && t.closest('.whybtn');
+    if(why){ why.closest('section').classList.toggle('show-why'); }
+  });
+})();
+
+/* ---- SMOOTH ACCORDION ----------------------------------------------------
+   Intercept the summary click so `open` survives long enough for the close
+   transition to play. Without this the browser drops the content instantly
+   and only the opening direction ever animates.                             */
+(function(){
+  var MS=280;
+  document.querySelectorAll('details.faq').forEach(function(d){
+    var sum=d.querySelector('summary'); if(!sum) return;
+    sum.addEventListener('click', function(e){
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if(!d.hasAttribute('open')) return;          // opening: let the browser do it
+      e.preventDefault();                          // closing: animate, then close
+      d.classList.add('closing');
+      setTimeout(function(){ d.removeAttribute('open'); d.classList.remove('closing'); }, MS);
+    });
+  });
+})();
+
+/* ---- REAL COPY AT A DERIVED WORD BUDGET ---------------------------------
+   Every text slot carries data-wmin / data-wmax. As of v8 the text in them is
+   REAL COPY once the copy stage has run, not placeholder.
+
+   The budgets are now DERIVED from each section's job rather than inherited
+   from another page's equivalent section. Three of them moved during the copy
+   stage because the job needed more room than the template allowed. That is
+   the intended behaviour: a budget is a hypothesis about what the job costs,
+   and the copy stage is where it gets tested. wfCheck() measures every slot
+   and fails any that falls outside its declared range.
+
+   Anything not yet cleared or not yet written is marked in amber on the page
+   and is deliberately left UNBUDGETED, so an empty slot cannot pass a
+   word-count check by being empty.                                          */
+
+/* Counts words the way a copywriter would: nbsp-joined pairs (put there by the
+   widow binder) count as the two words they are, not as one token. */
+function wfWordCount(str){
+  // Deliberately regex-free. An earlier version used /\s+/ and lost its
+  // backslash in transit, silently splitting on the letter "s" and reporting
+  // every slot as out of budget. Plain splits cannot be mangled that way.
+  var t = String(str).split(String.fromCharCode(160)).join(' ')
+                     .split('\n').join(' ').split('\t').join(' ').split('\r').join(' ');
+  var parts = t.split(' '), n = 0;
+  for (var i = 0; i < parts.length; i++) if (parts[i].length) n++;
+  return n;
+}
+
+/* textContent concatenates across child elements with NO separator, so
+   "<span>the start.</span><span>Owning several</span>" reads as one word
+   "start.Owning" and the slot measures one word short. Every multi-element
+   slot on this page hits that: the two-line bridge title, the numbered steps,
+   the four-paragraph bridge body. Walk the tree instead and put a space at
+   every element boundary. Regex-free, like wfWordCount, for the same reason. */
+function wfSlotText(el){
+  var out='';
+  [].forEach.call(el.childNodes, function(n){
+    if(n.nodeType===3) out += n.nodeValue;
+    else if(n.nodeType===1) out += ' ' + wfSlotText(n) + ' ';
+  });
+  return out;
+}
+
+/* ---- BUDGET CONSISTENCY --------------------------------------------------
+   A budget is hand-typed in up to five places: data-wmin/data-wmax, the
+   .budget chip, the data-label pill, the .job prose, and the copy-brief table.
+   Nothing used to compare them, and they had already drifted: the brief table
+   said "4 bullets in card one and 3 in card two" while the page, the spec
+   rail, both labels and the decision block all said five a side.
+
+   These helpers parse a range out of human text so the check can compare the
+   numbers a reader sees against the numbers the machine enforces. Two forms
+   appear on the page: "8 to 14 words" and "2-4w". Digit scanning rather than
+   a regex, so a hyphenated word ("Lead-in", "self-storage", "W-2") cannot be
+   mistaken for a range.                                                     */
+function wfDigitsTail(s){ var o=''; for(var i=s.length-1;i>=0;i--){ if(s[i]>='0'&&s[i]<='9') o=s[i]+o; else break; } return o; }
+function wfDigitsHead(s){ var o=''; for(var i=0;i<s.length;i++){ if(s[i]>='0'&&s[i]<='9') o+=s[i]; else break; } return o; }
+function wfParseRange(str){
+  var p=String(str).split(' '), i, a, b;
+  for(i=0;i<p.length-2;i++){                      // "8 to 14 words"
+    a=wfDigitsTail(p[i]); b=wfDigitsHead(p[i+2]);
+    if(a && b && p[i+1]==='to' && wfDigitsHead(p[i])===a) return [parseInt(a,10),parseInt(b,10)];
+  }
+  for(i=0;i<p.length;i++){                        // "2-4w", "15-25"
+    var j=p[i].indexOf('-');
+    if(j>0){
+      a=wfDigitsTail(p[i].slice(0,j)); b=wfDigitsHead(p[i].slice(j+1));
+      if(a && b) return [parseInt(a,10),parseInt(b,10)];
+    }
+  }
+  return null;
+}
+
+/* ---- ORPHANS · no single word alone on a last line ------------------------
+   text-wrap:pretty is the first line of defence but is unsupported in Firefox
+   and gives up on long paragraphs, so this binds the last two words of every
+   prose block with a real non-breaking space.
+
+   Two gotchas this encodes, both learned the hard way on SSI pages:
+   1. The nbsp must be built with String.fromCharCode(160). A literal byte in the
+      source renders as mojibake under some encodings and in headless.
+   2. A hyphenated word still breaks at its OWN hyphen, so an nbsp in front of
+      it does nothing. When the second-to-last word is hyphenated, bind three.
+   Rewrites only the element's LAST text node, so inline markup survives.     */
+/* Both the widow binder and the orphan detector run over this list. It covers
+   the PAGE COPY first and the wireframe's own annotation second. An earlier
+   version listed only the annotation, so a visible orphan in a section
+   headline ("system." alone on line two of the bridge) passed the check
+   clean. If it renders as copy, it belongs in here. */
+var WF_PROSE = '.fill, .bullets li, .pc-name, .pc-result, .pc-detail, .statlabel,'
+             + '.faq summary, .faq .faq-a, .foot-copy, .legal p,'
+             + '.howto .body p, .howto .body li, .secwhy, .job, .spec dd, .toc .lede,'
+             + '.toc .desc, .brief p, .brief li, .slackcta .sub, .note, .decided, .delta,'
+             + '.persuasion p';   /* v8: the Persuasion rail is prose too. Adding a
+                                     new prose region without listing it here is
+                                     exactly how the orphan check went blind in v7. */
+(function(){
+  var NB=String.fromCharCode(160);   // never a literal nbsp byte in source
+  function lastTextNode(el){
+    var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),n,last=null;
+    while((n=w.nextNode())){ if(n.nodeValue && n.nodeValue.trim()) last=n; }
+    return last;
+  }
+  function bindWidows(){
+    document.querySelectorAll(WF_PROSE).forEach(function(el){
+      var n=lastTextNode(el); if(!n) return;
+      var t=n.nodeValue.split(NB).join(' ');            // idempotent: undo first
+      var lead=(t.match(/^\s+/)||[''])[0], trail=(t.match(/\s+$/)||[''])[0];
+      var words=t.trim().split(/\s+/);
+      if(words.length<2){ n.nodeValue=t; return; }
+      var count=(words.length>=3 && words[words.length-2].indexOf('-')>-1)?3:2;
+      var head=words.slice(0,words.length-count).join(' ');
+      var tail=words.slice(words.length-count).join(NB);
+      n.nodeValue=lead+(head?head+' ':'')+tail+trail;
+    });
+  }
+  window.wfBindWidows=bindWidows;
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindWidows);
+  else bindWidows();
+  var t; window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(bindWidows,150); });
+})();
+
+/* Detector: measure every word, cluster into visual lines, flag any block
+   whose last line holds one word. nbsp-joined pairs measure as one word,
+   which is exactly the point. */
+function wfOrphans(){
+  var out=[];
+  document.querySelectorAll(WF_PROSE).forEach(function(el){
+    var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),n,words=[];
+    while((n=w.nextNode())){
+      var re=/\S+/g,m;
+      while((m=re.exec(n.nodeValue))){
+        var r=document.createRange();
+        r.setStart(n,m.index); r.setEnd(n,m.index+m[0].length);
+        var rect=r.getBoundingClientRect();
+        if(rect.width>0) words.push({top:rect.top,txt:m[0]});
+      }
+    }
+    if(words.length<2) return;
+    words.sort(function(a,b){return a.top-b.top;});
+    var lines=[[words[0]]];                     // cluster with tolerance: inline
+    for(var i=1;i<words.length;i++){            // tags sit a few px off baseline
+      if(Math.abs(words[i].top-lines[lines.length-1][0].top)<8) lines[lines.length-1].push(words[i]);
+      else lines.push([words[i]]);
+    }
+    if(lines.length<2) return;
+    var last=lines[lines.length-1];
+    if(last.length===1){
+      out.push((el.getAttribute('class')||el.tagName)+' :: "'+last[0].txt+'"');
+    }
+  });
+  return out;
+}
+
+function wfCheck(){
+  var de=document.documentElement, over=[];
+  // An element inside a deliberate horizontal-scroll container (the copy-brief
+  // table) is not an overflow bug. Ignore those; count everything else.
+  function inScroller(el){
+    for(var p=el.parentElement; p; p=p.parentElement){
+      var ov=getComputedStyle(p).overflowX;
+      if(ov==='auto'||ov==='scroll') return true;
+    }
+    return false;
+  }
+  document.querySelectorAll('*').forEach(function(el){
+    if(el.getBoundingClientRect().width>window.innerWidth+1 && !inScroller(el))
+      over.push(el.tagName+(el.id?'#'+el.id:'.'+(el.className||'').toString().split(' ')[0]));
+  });
+  // The blind spot in the v1 check: it only flagged elements wider than the
+  // VIEWPORT. A 3-up grid whose columns each hold a nowrap chip overflows its
+  // own track by 47px while every element stays under 375px wide, so the page
+  // scrolled sideways and the check reported clean. Catch the real culprit:
+  // any non-scrolling box whose content is wider than the box.
+  var burst=[];
+  document.querySelectorAll('*').forEach(function(el){
+    var ov=getComputedStyle(el).overflowX;
+    if(ov==='auto'||ov==='scroll'||ov==='hidden') return;
+    if(el.clientWidth>0 && el.scrollWidth>el.clientWidth+1 && el!==de && el!==document.body)
+      burst.push(el.tagName+(el.id?'#'+el.id:'.'+(el.className||'').toString().split(' ')[0])
+                 +' ('+el.scrollWidth+' in '+el.clientWidth+')');
+  });
+  var r={ mode: document.body.classList.contains('specs') ? 'specs'
+              : document.body.classList.contains('why') ? 'why' : 'preview',
+    viewport:window.innerWidth,
+    horizontalOverflow: de.scrollWidth>window.innerWidth+1,
+    scrollWidth: de.scrollWidth,
+    overflowCount: over.length, overflowers: over.slice(0,10),
+    burstContainers: burst.slice(0,10),
+    sectionOrder:[].slice.call(document.querySelectorAll('section')).map(function(s){return s.id;}),
+    tocOrder:[].slice.call(document.querySelectorAll('.toc a')).map(function(a){return a.getAttribute('href').slice(1);}),
+    openDeltas: document.querySelectorAll('.delta').length,
+    settledDecisions: document.querySelectorAll('.decided').length,
+    slotCount: document.querySelectorAll('.slot').length,
+    slotsMissingBudget: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.budget');}).length,
+    slotsMissingJob: [].slice.call(document.querySelectorAll('.slot')).filter(function(s){return !s.querySelector('.job');}).length,
+    sectionsMissingSpec: [].slice.call(document.querySelectorAll('section')).filter(function(s){return !s.querySelector('.spec');}).map(function(s){return s.id;}),
+    // v8: every section must carry a Persuasion rail. A section with no
+    // reasoning behind it is a section nobody has justified.
+    sectionsMissingWhy: [].slice.call(document.querySelectorAll('section')).filter(function(s){return !s.querySelector('.persuasion');}).map(function(s){return s.id;}),
+    briefRows: document.querySelectorAll('#brief table.cb tbody tr:not(.grp)').length,
+    budgetSlots: document.querySelectorAll('[data-wmin]').length,
+    budgetMisses: [].slice.call(document.querySelectorAll('[data-wmin]')).filter(function(el){
+      var lo=parseInt(el.getAttribute('data-wmin'),10), hi=parseInt(el.getAttribute('data-wmax'),10);
+      var got=wfWordCount(wfSlotText(el));
+      return got<lo || got>hi;
+    }).map(function(el){
+      return '"'+wfSlotText(el).trim().slice(0,42)+'" is '+wfWordCount(wfSlotText(el))
+             +'w, budget '+el.getAttribute('data-wmin')+'-'+el.getAttribute('data-wmax');
+    }),
+    orphans: wfOrphans() };
+
+  /* ---- v8 · the budget said one thing in five places and nothing checked --
+     1. labelBudgetDrift: the data-label pill a writer reads on the page, against
+        the data-wmin/data-wmax the check enforces, on the SAME element.
+     2. chipBudgetDrift: the .budget chip in the slot header, against the slot's
+        budgeted elements. Only run where every budgeted element in the slot
+        shares one range; a slot whose chip legitimately summarises several
+        ranges ("H3 4-8w · 3 bullets 6-12w") is skipped and counted, so the
+        skips are visible rather than silently passing.
+     3. briefRangeMisses: every word budget printed in the copy-brief table must
+        exist somewhere on the page. Rows marked data-open="1" are slots that
+        are declared but not yet written, and are excluded on purpose.        */
+  var drift=[];
+  [].forEach.call(document.querySelectorAll('[data-label][data-wmin]'), function(el){
+    var rng=wfParseRange(el.getAttribute('data-label'));
+    if(!rng) return;                                  // label carries no range
+    var lo=parseInt(el.getAttribute('data-wmin'),10), hi=parseInt(el.getAttribute('data-wmax'),10);
+    if(rng[0]!==lo || rng[1]!==hi)
+      drift.push('label "'+el.getAttribute('data-label')+'" says '+rng[0]+'-'+rng[1]+', attrs say '+lo+'-'+hi);
+  });
+  r.labelBudgetDrift=drift;
+
+  var chipDrift=[], chipSkipped=0;
+  [].forEach.call(document.querySelectorAll('.slot'), function(slot){
+    var chip=slot.querySelector('.budget'); if(!chip) return;
+    var els=slot.querySelectorAll('[data-wmin]'); if(!els.length) return;
+    var lo=null, hi=null, mixed=false;
+    [].forEach.call(els, function(el){
+      var a=parseInt(el.getAttribute('data-wmin'),10), b=parseInt(el.getAttribute('data-wmax'),10);
+      if(lo===null){ lo=a; hi=b; } else if(a!==lo || b!==hi){ mixed=true; }
+    });
+    if(mixed){ chipSkipped++; return; }
+    var rng=wfParseRange(chip.textContent);
+    if(!rng){ chipSkipped++; return; }
+    if(rng[0]!==lo || rng[1]!==hi)
+      chipDrift.push('chip "'+chip.textContent.trim()+'" says '+rng[0]+'-'+rng[1]+', attrs say '+lo+'-'+hi);
+  });
+  r.chipBudgetDrift=chipDrift; r.chipChecksSkipped=chipSkipped;
+
+  var pageRanges={};
+  [].forEach.call(document.querySelectorAll('[data-wmin]'), function(el){
+    pageRanges[el.getAttribute('data-wmin')+'-'+el.getAttribute('data-wmax')]=1;
+  });
+  var briefMiss=[];
+  [].forEach.call(document.querySelectorAll('#brief table.cb tbody tr'), function(tr){
+    if(tr.className==='grp' || tr.getAttribute('data-open')==='1') return;
+    var cell=tr.querySelector('td.b'); if(!cell) return;
+    var rng=wfParseRange(cell.textContent); if(!rng) return;
+    if(!pageRanges[rng[0]+'-'+rng[1]])
+      briefMiss.push('brief row "'+(tr.querySelector('td')||{}).textContent+'" budgets '+rng[0]+'-'+rng[1]+', no such slot on the page');
+  });
+  r.briefRangeMisses=briefMiss;
+
+  r.orphanCount = r.orphans.length;
+  // The section list at the top is a promise about the page. If it drifts out
+  // of sync with the actual sections it is worse than not being there.
+  r.tocMatchesSections = r.tocOrder.join('|')===r.sectionOrder.join('|');
+  console.log('%cWF SELF-CHECK','font-weight:bold', r);
+  return r;
+}
+// Headless hook: load with #selfcheck and read the <title> (or #wfresult) to
+// get the same report without a console. Used by the 375 / 1440 check run.
+if(location.hash==='#selfcheck'){
+  window.addEventListener('load', function(){
+    var r=wfCheck(), s=JSON.stringify(r);
+    document.title='WFCHECK '+s;
+    var d=document.createElement('pre'); d.id='wfresult'; d.textContent='WFCHECK '+s;
+    document.body.appendChild(d);
+  });
+}
+</script>
+
+</body>
+</html>
