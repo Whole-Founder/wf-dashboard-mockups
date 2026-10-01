@@ -2637,11 +2637,12 @@ main h1, main h2, main h3 { font-weight: 700; }
         <p class="book-cue">Pick a time that works for you <span aria-hidden="true">&#8595;</span></p>
       </div>
 
+      <!-- Keep the calendar iframe EAGER: GHL form_embed.js hides it off-screen until the
+           widget reports loaded, so loading="lazy" would never fire and the calendar stays blank. -->
       <div class="booking-panel">
         <p class="booking-panel__label">Book your call with AJ's team</p>
         <iframe
           src="https://api.leadconnectorhq.com/widget/booking/WbS4T3iHJ486cjilbqhh"
-          loading="lazy"
           allow="payment"
           scrolling="no"
           id="Orqqwvq4dJECGkVDQdol_1789495913249"
