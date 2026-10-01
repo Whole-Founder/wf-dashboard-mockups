@@ -95,6 +95,8 @@ button {
 
 .brand-link {
   display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .brand-mark {
@@ -1433,6 +1435,12 @@ footer .brand-mark {
   font-size: 10px;
 }
 
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
 .footer-legal {
   padding-top: 27px;
   display: grid;
@@ -1632,7 +1640,7 @@ footer .brand-mark {
   }
 
   .button-small {
-    min-height: 38px;
+    min-height: 44px;
     padding-inline: 12px;
     font-size: 9px;
   }
@@ -2014,6 +2022,8 @@ p, li, .hero-copy { text-wrap: balance; }
   font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
 }
 .scroll-cue i{display:block;margin-top:6px;font-style:normal;font-size:15px;color:var(--orange);}
+.scroll-cue i::before{content:"\25BE";}
+.faq-question i::before{content:"+";}
 
 /* ---- Proof strip: the numbers ARE the section, so they carry the weight ---- */
 .proof-strip{max-width:1000px;margin-top:40px;}
@@ -2198,8 +2208,10 @@ p, li, .hero-copy { text-wrap: balance; }
   .fork-next{margin-top:40px;}
 }
 
-/* ---- Footer legal: four blocks ---- */
-.footer-legal{grid-template-columns:1fr 1fr;}
+/* ---- Footer legal: three blocks (Meta, earnings, investment risk) ----
+   The Google/YouTube block was a "pending legal" placeholder; removed 2026-10-01
+   (warm traffic is email/SMS). Legal adds it back before any Google/YouTube ads. */
+.footer-legal{grid-template-columns:repeat(3,1fr);}
 .footer-legal h4{
   margin:0 0 6px;color:rgba(255,255,255,.62);font-family:var(--font-inter),"Inter",Arial,sans-serif;
   font-size:8px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
@@ -2286,7 +2298,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         </div>
       </div>
 
-      <p class="scroll-cue">Keep reading below <i aria-hidden="true">&#9662;</i></p>
+      <p class="scroll-cue">Keep reading below <i aria-hidden="true"></i></p>
 
       <!-- ===== Proof strip (CONSTANT) ===== -->
       <div class="proof-strip" style="grid-template-columns:repeat(2,1fr);" aria-label="Self Storage Income member results">
@@ -2431,7 +2443,7 @@ main h1, main h2, main h3 { font-weight: 700; }
       <div class="member-grid">
         <article class="member-card">
           <div class="member-photo">
-            <img src="/ssi-warm-page/proof/charles.jpg" alt="Charles, Self Storage Income member" loading="eager" width="760" height="570">
+            <img src="/ssi-warm-page/proof/charles.jpg" alt="Charles, Self Storage Income member" loading="lazy" decoding="async" width="760" height="570">
             <span class="member-badge" aria-hidden="true">&#10003;</span>
           </div>
           <div class="member-body">
@@ -2447,7 +2459,7 @@ main h1, main h2, main h3 { font-weight: 700; }
 
         <article class="member-card">
           <div class="member-photo">
-            <img src="/ssi-warm-page/proof/jingwen-ni.jpg" alt="Jingwen and Matthew, Self Storage Income members" loading="eager" width="760" height="570">
+            <img src="/ssi-warm-page/proof/jingwen-ni.jpg" alt="Jingwen and Matthew, Self Storage Income members" loading="lazy" decoding="async" width="760" height="570">
             <span class="member-badge" aria-hidden="true">&#10003;</span>
           </div>
           <div class="member-body">
@@ -2463,7 +2475,7 @@ main h1, main h2, main h3 { font-weight: 700; }
 
         <article class="member-card">
           <div class="member-photo">
-            <img src="/ssi-warm-page/proof/sho.jpg" alt="Sho, Self Storage Income member" loading="eager" width="760" height="570">
+            <img src="/ssi-warm-page/proof/sho.jpg" alt="Sho, Self Storage Income member" loading="lazy" decoding="async" width="760" height="570">
             <span class="member-badge" aria-hidden="true">&#10003;</span>
           </div>
           <div class="member-body">
@@ -2478,7 +2490,7 @@ main h1, main h2, main h3 { font-weight: 700; }
 
         <article class="member-card">
           <div class="member-photo">
-            <img src="/ssi-warm-page/proof/peter.jpg" alt="Peter, Self Storage Income member" loading="eager" width="760" height="570">
+            <img src="/ssi-warm-page/proof/peter.jpg" alt="Peter, Self Storage Income member" loading="lazy" decoding="async" width="760" height="570">
             <span class="member-badge" aria-hidden="true">&#10003;</span>
           </div>
           <div class="member-body">
@@ -2495,7 +2507,7 @@ main h1, main h2, main h3 { font-weight: 700; }
 
         <article class="member-card">
           <div class="member-photo">
-            <img src="/ssi-warm-page/proof/caleb-and-elizabeth.jpg" alt="Caleb and Elizabeth, Self Storage Income members" loading="eager" width="760" height="570">
+            <img src="/ssi-warm-page/proof/caleb-and-elizabeth.jpg" alt="Caleb and Elizabeth, Self Storage Income members" loading="lazy" decoding="async" width="760" height="570">
             <span class="member-badge" aria-hidden="true">&#10003;</span>
           </div>
           <div class="member-body">
@@ -2511,7 +2523,7 @@ main h1, main h2, main h3 { font-weight: 700; }
 
         <article class="member-card">
           <div class="member-photo">
-            <img src="/ssi-warm-page/proof/jacob-teel.jpg" alt="Jacob Teel, Self Storage Income member" loading="eager" width="760" height="570">
+            <img src="/ssi-warm-page/proof/jacob-teel.jpg" alt="Jacob Teel, Self Storage Income member" loading="lazy" decoding="async" width="760" height="570">
             <span class="member-badge" aria-hidden="true">&#10003;</span>
           </div>
           <div class="member-body">
@@ -2629,6 +2641,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <p class="booking-panel__label">Book your call with AJ's team</p>
         <iframe
           src="https://api.leadconnectorhq.com/widget/booking/WbS4T3iHJ486cjilbqhh"
+          loading="lazy"
           allow="payment"
           scrolling="no"
           id="Orqqwvq4dJECGkVDQdol_1789495913249"
@@ -2657,7 +2670,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <div class="faq-item is-open">
           <button class="faq-question" type="button" aria-expanded="true" aria-controls="faq-answer-0">
             <span>What happens on the call?</span>
-            <i aria-hidden="true">+</i>
+            <i aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-answer-0" aria-hidden="false">
             <div class="faq-answer-inner">
@@ -2669,7 +2682,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-1">
             <span>How much capital do I need?</span>
-            <i aria-hidden="true">+</i>
+            <i aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-answer-1" aria-hidden="true">
             <div class="faq-answer-inner">
@@ -2681,7 +2694,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-2">
             <span>Do I need storage experience?</span>
-            <i aria-hidden="true">+</i>
+            <i aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-answer-2" aria-hidden="true">
             <div class="faq-answer-inner">
@@ -2693,7 +2706,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-3">
             <span>What does the team actually do?</span>
-            <i aria-hidden="true">+</i>
+            <i aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-answer-3" aria-hidden="true">
             <div class="faq-answer-inner">
@@ -2705,7 +2718,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-4">
             <span>Do you bring me deals, or do I find my own?</span>
-            <i aria-hidden="true">+</i>
+            <i aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-answer-4" aria-hidden="true">
             <div class="faq-answer-inner">
@@ -2717,7 +2730,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-5">
             <span>How fast can I underwrite a deal?</span>
-            <i aria-hidden="true">+</i>
+            <i aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-answer-5" aria-hidden="true">
             <div class="faq-answer-inner">
@@ -2729,7 +2742,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-6">
             <span>Is this a course?</span>
-            <i aria-hidden="true">+</i>
+            <i aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-answer-6" aria-hidden="true">
             <div class="faq-answer-inner">
@@ -2741,7 +2754,7 @@ main h1, main h2, main h3 { font-weight: 700; }
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-7">
             <span>Can't I just use AI for all of this?</span>
-            <i aria-hidden="true">+</i>
+            <i aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-answer-7" aria-hidden="true">
             <div class="faq-answer-inner">
@@ -2769,14 +2782,6 @@ main h1, main h2, main h3 { font-weight: 700; }
           This site is not a part of the Facebook website or Facebook Inc.
           Additionally, this site is NOT endorsed by Facebook in any way.
           FACEBOOK is a trademark of FACEBOOK, Inc.
-        </p>
-      </div>
-      <div>
-        <h4>Google / YouTube</h4>
-        <p>
-          Pending legal: Google and YouTube
-          disclaimer to match the Meta block. Space is allocated at the same
-          length. Needed before any Google or YouTube traffic runs to this page.
         </p>
       </div>
       <div>
