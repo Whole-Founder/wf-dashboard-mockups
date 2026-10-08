@@ -506,9 +506,29 @@ section { padding: 88px 0; }
 }
 .faq-q i::after { transform: translate(-50%, -50%) rotate(90deg); }
 .faq-item.is-open .faq-q i::after { transform: translate(-50%, -50%) rotate(0deg); }
-.faq-a { display: none; padding: 0 4px 22px; color: #334659; }
-.faq-item.is-open .faq-a { display: block; }
-.faq-a p { text-wrap: wrap; }
+/* Animated expand/collapse (Gero 10/8): the grid row eases 0fr -> 1fr, so the
+   answer grows to its real height with no measuring in JS. */
+.faq-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  color: #334659;
+  opacity: 0;
+  transition: grid-template-rows 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+}
+.faq-item.is-open .faq-a { grid-template-rows: 1fr; opacity: 1; }
+.faq-a-inner { min-height: 0; overflow: hidden; }
+.faq-a p { padding: 0 4px 22px; text-wrap: wrap; }
+.faq-q i::before, .faq-q i::after { transition: transform 0.3s ease; }
+
+/* Lenis smooth scroll: only the two rules it needs (its stock CSS also blocks
+   iframe clicks, which would break the booking calendar). */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .faq-a, .faq-q i::before, .faq-q i::after { transition: none; }
+}
 
 /* ---------- 11. footer ---------- */
 .site-footer { background: var(--navy); color: rgba(255, 255, 255, 0.5); padding: 48px 0 56px; text-align: center; }
@@ -938,27 +958,27 @@ section { padding: 88px 0; }
       <div class="faq-list">
         <div class="faq-item">
           <button type="button" class="faq-q" aria-expanded="false"><span>What happens on the call?</span><i aria-hidden="true"></i></button>
-          <div class="faq-a"><p>We’ll go through where you are with self storage and what you want next, and if Self Storage Income looks like a fit, we talk about how to join. You leave with a clear answer on whether it is right for you, plus answers to the questions you bring.</p></div>
+          <div class="faq-a"><div class="faq-a-inner"><p>We’ll go through where you are with self storage and what you want next, and if Self Storage Income looks like a fit, we talk about how to join. You leave with a clear answer on whether it is right for you, plus answers to the questions you bring.</p></div></div>
         </div>
         <div class="faq-item">
           <button type="button" class="faq-q" aria-expanded="false"><span>How much capital do I need?</span><i aria-hidden="true"></i></button>
-          <div class="faq-a"><p>Self Storage Income is built for investors and business owners with $100,000 or more ready to invest, who are moving into storage specifically. Members who come in with capital to deploy have an advantage, though some have purchased facilities using mostly other people’s money.</p></div>
+          <div class="faq-a"><div class="faq-a-inner"><p>Self Storage Income is built for investors and business owners with $100,000 or more ready to invest, who are moving into storage specifically. Members who come in with capital to deploy have an advantage, though some have purchased facilities using mostly other people’s money.</p></div></div>
         </div>
         <div class="faq-item">
           <button type="button" class="faq-q" aria-expanded="false"><span>Do I need storage experience?</span><i aria-hidden="true"></i></button>
-          <div class="faq-a"><p>No. Most members are experienced investors who are new to storage. That is exactly who the STORAGE Method is for. The training and the team supply the storage-specific judgment you have not built yet, so you are not learning it on a live deal with your own money.</p></div>
+          <div class="faq-a"><div class="faq-a-inner"><p>No. Most members are experienced investors who are new to storage. That is exactly who the STORAGE Method is for. The training and the team supply the storage-specific judgment you have not built yet, so you are not learning it on a live deal with your own money.</p></div></div>
         </div>
         <div class="faq-item">
           <button type="button" class="faq-q" aria-expanded="false"><span>What does the team actually do?</span><i aria-hidden="true"></i></button>
-          <div class="faq-a"><p>Four things. You get live deal analysis, with AJ and his team reviewing your actual deal before you offer. You get real deal flow, both on and off market. You get the SSI network of lenders, debt brokers, and cost-segregation experts behind you. And on the right deal, you have the opportunity to partner with them on the purchase.</p></div>
+          <div class="faq-a"><div class="faq-a-inner"><p>Four things. You get live deal analysis, with AJ and his team reviewing your actual deal before you offer. You get real deal flow, both on and off market. You get the SSI network of lenders, debt brokers, and cost-segregation experts behind you. And on the right deal, you have the opportunity to partner with them on the purchase.</p></div></div>
         </div>
         <div class="faq-item">
           <button type="button" class="faq-q" aria-expanded="false"><span>Do you bring me deals, or do I find my own?</span><i aria-hidden="true"></i></button>
-          <div class="faq-a"><p>Both. You can bring facilities you have already found and run them through the underwriting you learn in the training, and the program also sources deal flow for you, both on and off market, so you are not stuck hunting on your own.</p></div>
+          <div class="faq-a"><div class="faq-a-inner"><p>Both. You can bring facilities you have already found and run them through the underwriting you learn in the training, and the program also sources deal flow for you, both on and off market, so you are not stuck hunting on your own.</p></div></div>
         </div>
         <div class="faq-item">
           <button type="button" class="faq-q" aria-expanded="false"><span>How fast can I underwrite a deal?</span><i aria-hidden="true"></i></button>
-          <div class="faq-a"><p>Fast. After the training, underwriting that used to take hours takes minutes, because you run the numbers yourself using live market data and the same process you watched AJ run. When you want a second set of eyes, you bring the deal to live deal analysis with the team before you make the offer.</p></div>
+          <div class="faq-a"><div class="faq-a-inner"><p>Fast. After the training, underwriting that used to take hours takes minutes, because you run the numbers yourself using live market data and the same process you watched AJ run. When you want a second set of eyes, you bring the deal to live deal analysis with the team before you make the offer.</p></div></div>
         </div>
       </div>
     </div>
@@ -989,6 +1009,7 @@ section { padding: 88px 0; }
 </div>
 
 <script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 
 <script>
 /* ==========================================================================
@@ -1089,6 +1110,30 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 });
+
+/* ---- Smooth scroll (Gero 10/8): Lenis eases wheel scrolling and every #anchor.
+   Touch keeps native scrolling (Lenis default). Skipped for prefers-reduced-motion;
+   if Lenis fails to load, the CSS scroll-behavior:smooth fallback still applies. ---- */
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lenis = null;
+  if (!reduce && typeof window.Lenis === 'function') {
+    lenis = new window.Lenis({ duration: 1.1, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); } });
+    window.__lenis = lenis;
+    (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })(performance.now());
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      var target = id && document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target, { offset: -16, duration: 1.2 });
+      else target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      if (history.replaceState) history.replaceState(null, '', '#' + id);
+    });
+  });
+})();
 
 /* --------------------------------------------------------------------------
    Widow control + wfCheck(), adapted from ssi-warm-page. Regex-free by design.
