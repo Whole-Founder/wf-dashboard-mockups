@@ -8,6 +8,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0f4581">
 <link rel="icon" type="image/svg+xml" href="/ssi-storage-method/img/favicon.svg">
+<script>try { if (new URLSearchParams(location.search).get('v') === '2') document.documentElement.classList.add('v2'); } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
@@ -373,7 +374,28 @@ section { padding: 88px 0; }
 .faq-item.is-open .faq-a { grid-template-rows: 1fr; opacity: 1; }
 .faq-a-inner { min-height: 0; overflow: hidden; }
 .faq-a p { padding: 0 4px 22px; text-wrap: wrap; }
-.faq-foot { max-width: 680px; margin: 40px auto 0; text-align: center; font-size: 18px; font-weight: 600; color: var(--blue-ink); text-wrap: balance; }
+.move-card {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+  max-width: 820px;
+  margin: 44px auto 0;
+  padding: 26px 28px;
+  background: var(--blue-pale);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  border-radius: var(--radius);
+}
+.move-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; }
+.move-icon svg { width: 28px; height: 28px; }
+.move-card h3 { font-size: 21px; line-height: 1.3; }
+.move-card p { margin-top: 6px; color: #334659; text-wrap: wrap; }
+.confirm-note { margin: 14px auto 0; font-size: 15px; color: var(--muted); text-wrap: balance; }
+/* review versions: default = one button + note, ?v=2 = two buttons */
+.only-v2 { display: none !important; }
+html.v2 .only-v2 { display: inline-flex !important; }
+html.v2 .only-v1 { display: none !important; }
 
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -408,7 +430,7 @@ html.lenis, html.lenis body { height: auto; }
   .video .section-head { margin-bottom: 20px; }
   .video .section-head h2 { font-size: 32px; }
   .video .section-head p { margin-top: 8px; font-size: 17px; }
-  .video-wrap { width: min(100%, clamp(520px, calc((100vh - 480px) * 16 / 9), 860px)); }
+  .video-wrap { width: min(100%, clamp(440px, calc((100vh - 520px) * 16 / 9), 860px)); }
 }
 @media (max-width: 960px) {
   .feature-card { grid-template-columns: minmax(0, 1fr); max-width: 620px; margin-inline: auto; }
@@ -447,6 +469,10 @@ html.lenis, html.lenis body { height: auto; }
   .proof-card { padding: 22px; }
   .partner .button { width: 100%; }
   .faq-q { font-size: 16.5px; }
+  .move-card { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 22px 20px; text-align: center; }
+  .move-icon { width: 48px; height: 48px; margin: 0 auto; }
+  .move-icon svg { width: 24px; height: 24px; }
+  .move-card h3 { font-size: 19px; }
 }
 </style>
 </head>
@@ -469,21 +495,22 @@ html.lenis, html.lenis body { height: auto; }
         </div>
         <h1>You’re confirmed.</h1>
         <p class="confirm-sub">Your call with AJ’s team is booked. Here’s how to make it count.</p>
-        <!-- Ported from the live /thank-you appointment card. When the new GHL calendar's
-             redirect passes start_time (+ end_time, timezone, reschedule_link), "Add to
-             calendar" opens a Google Calendar event and "Need a different time?" opens the
-             reschedule link. Without them, they fall back to the invite step and the
-             "reply to your confirmation email" line, so neither button is ever dead. -->
+        <!-- Gero 10/9, Option 2. GHL's post-booking redirect cannot carry the call time or
+             the reschedule link on a round-robin calendar (verified in GHL's widget code), so
+             the buttons point at what GHL does send automatically: the calendar invite, whose
+             notes carry {{appointment.reschedule_link}} (one-time setup on the new calendar).
+             Two versions for review: default = one button + note; ?v=2 = both buttons. -->
         <div class="confirm-actions">
-          <a class="button" id="apptAdd" href="#lock-in" data-cro-id="ty-add-to-calendar">
+          <a class="button" href="#lock-in" data-cro-id="ty-accept-invite">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
-            Add to calendar
+            Accept Your Calendar Invite
           </a>
-          <a class="button ghost" id="apptResched" href="#move" data-cro-id="ty-reschedule">
+          <a class="button ghost only-v2" href="#move" data-cro-id="ty-reschedule">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
             Need a different time?
           </a>
         </div>
+        <p class="confirm-note only-v1">Need a different time? Use the reschedule link in your invite.</p>
       </div>
     </section>
 
@@ -712,7 +739,16 @@ html.lenis, html.lenis body { height: auto; }
           <div class="faq-a"><div class="faq-a-inner"><p>Fast. After the training, underwriting that used to take hours takes minutes, because you run the numbers yourself using live market data and the same process you watched AJ run. When you want a second set of eyes, you bring the deal to live deal analysis with the team before you make the offer.</p></div></div>
         </div>
       </div>
-      <p class="faq-foot" id="move">Need to move your call or have a question before we talk? Just reply to your confirmation email and the team will sort it out.</p>
+      <!-- Reschedule card (Gero 10/9: the text "Need a different time?" lands on must stand out). -->
+      <div class="move-card" id="move">
+        <div class="move-icon" aria-hidden="true">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        </div>
+        <div>
+          <h3>Need A Different Time?</h3>
+          <p>Use the reschedule link in your calendar invite to pick a new time. Have a question before we talk? Just reply to your confirmation email and the team will sort it out.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -739,42 +775,6 @@ html.lenis, html.lenis body { height: auto; }
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 
 <script>
-/* ---- Appointment buttons: ported from the live /thank-you (window.__ssiAppt). ----
-   GHL can append the booked slot on the redirect. Until the new calendar does,
-   both buttons keep their in-page fallbacks (#lock-in and #move). */
-(function () {
-  function qp() {
-    var a = arguments, s;
-    try { s = new URLSearchParams(location.search); } catch (e) { return ''; }
-    for (var i = 0; i < a.length; i++) { var v = s.get(a[i]); if (v) return v; }
-    return '';
-  }
-  var raw = qp('start_time', 'event_start_time', 'appointment_start_time', 'startTime', 'start');
-  var endRaw = qp('end_time', 'event_end_time', 'appointment_end_time', 'endTime');
-  var resched = qp('reschedule_link', 'rescheduleLink', 'reschedule_url');
-  var start = null, end = null;
-  if (raw) { var d = new Date(raw); if (!isNaN(d.getTime())) start = d; }
-  if (endRaw) { var e2 = new Date(endRaw); if (!isNaN(e2.getTime())) end = e2; }
-  if (start && !end) end = new Date(start.getTime() + 45 * 60000);
-
-  if (resched && /^https:\/\//.test(resched)) {
-    var r = document.getElementById('apptResched');
-    r.href = resched; r.target = '_blank'; r.rel = 'noopener';
-  }
-  if (!start) return;
-  var pad = function (n) { return String(n).padStart(2, '0'); };
-  var utc = function (x) {
-    return x.getUTCFullYear() + pad(x.getUTCMonth() + 1) + pad(x.getUTCDate()) + 'T' +
-      pad(x.getUTCHours()) + pad(x.getUTCMinutes()) + pad(x.getUTCSeconds()) + 'Z';
-  };
-  var add = document.getElementById('apptAdd');
-  add.href = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-    '&text=' + encodeURIComponent('Your Self Storage Income call') +
-    '&dates=' + utc(start) + '/' + utc(end) +
-    '&details=' + encodeURIComponent('Your call with the Self Storage Income team. The joining link is in your confirmation email.');
-  add.target = '_blank'; add.rel = 'noopener';
-})();
-
 /* ---- Copy the link for them (origin + path only, never the query string) ---- */
 (function () {
   var btn = document.getElementById('copyLink');
@@ -839,7 +839,7 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
     'h1', 'h2', 'h3', '.confirm-sub', '.section-head p', '.vsl-label',
     '.todo-item p', '.step p', '.guarantee p', '.agenda-card p', '.callout',
     '.member-detail', '.pc-title', '.pc-context', '.chip span',
-    '.disclaimer-inline', '.partner p', '.faq-q span', '.faq-a p', '.faq-foot',
+    '.disclaimer-inline', '.partner p', '.faq-q span', '.faq-a p', '.move-card p', '.confirm-note',
     '.footer-legal p', '.footer-copy'
   ].join(',');
 
