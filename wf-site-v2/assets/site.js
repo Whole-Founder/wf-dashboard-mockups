@@ -62,6 +62,24 @@
     });
   }
 
+  // warm Calendly on the first sign of intent (hover, focus or touch on a Book a call button): a hidden iframe
+  // loads the booking app once, so the popup opens from cache (about 0.9s) instead of cold (about 4.6s, 10/26)
+  var calWarm = false;
+  function warmCal(e) {
+    if (calWarm || !e.target.closest || !e.target.closest('[data-cal]')) return;
+    calWarm = true;
+    var f = document.createElement('iframe');
+    f.src = CAL;
+    f.tabIndex = -1;
+    f.setAttribute('aria-hidden', 'true');
+    f.style.cssText = 'position:absolute;left:-9999px;top:0;width:1px;height:1px;border:0;visibility:hidden';
+    f.addEventListener('load', function () { setTimeout(function () { f.remove(); }, 3000); });
+    document.body.appendChild(f);
+  }
+  ['pointerover', 'focusin', 'touchstart'].forEach(function (ev) {
+    document.addEventListener(ev, warmCal, { passive: true });
+  });
+
   // Calendly popup on every [data-cal] trigger; falls back to the contact page if the widget has not loaded
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-cal]');

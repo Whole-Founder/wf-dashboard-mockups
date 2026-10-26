@@ -1,0 +1,7 @@
+# Whole Founder, wholefounder.com
+# Launch file: only takes effect at the domain root. Search and AI crawlers are allowed on purpose
+# (SEO game plan, Move 2). If Cloudflare sits in front, its AI crawler block must be off too.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.wholefounder.com/sitemap.xml
