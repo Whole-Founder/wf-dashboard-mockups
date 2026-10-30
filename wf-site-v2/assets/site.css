@@ -494,6 +494,10 @@ section{padding:88px 0;position:relative}
 .ca-lead+.ca-lead{margin-top:14px}
 /* phone-only room for Gero's set lines (10/30): each needed 1-29px more than the card gave at 375px */
 @media(max-width:374px){.m-br.w375{display:none}}
+/* Gero 10/30 round 3: Gray's stat captions on one line, the Contact "most from it" title on one line (phones),
+   and more space between the sentences of each Services "How we come in" answer */
+@media(max-width:560px){.fnums-1line{flex-direction:column}.fnums-1line .fnum{max-width:none}.fnums-1line .fnum .c{font-size:11px}.side-block h2.h2-1line{font-size:20px}}
+.answer .dline{margin-top:12px}
 .br-xs{display:none}
 @media(max-width:374px){.br-xs{display:inline}}
 @media(max-width:560px){.gteam{padding:12px}.dcard{padding:22px 14px}.dcard p{font-size:14px}.scard{padding-left:20px;padding-right:20px}.fbody{padding-left:18px;padding-right:18px}}
