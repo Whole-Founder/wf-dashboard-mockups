@@ -480,6 +480,12 @@ section{padding:88px 0;position:relative}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 /* two-sentence headings: each sentence starts its own line */
 @media(min-width:861px){.hero:not(.page-hero) .head h1{max-width:none}}
+/* home hero (Gero 10/30): 3 fixed lines, "Growth marketing / for the top 1% / personal brands", sized so line 1 fits
+   at 320px (line 1 measures 10.09em wide; size = text column width / 10.6, about 5% spare); the eyebrow splits to
+   "Whole Founder / Growth marketing agency" on phones. cqi = the hero column, so scrollbars can't push it over. */
+.hero:not(.page-hero) .head{container-type:inline-size}
+.hero:not(.page-hero) .head h1{max-width:none;font-size:clamp(24px,calc(9.4vw - 4.5px),70px);font-size:clamp(24px,calc(100cqi / 10.6),70px)}
+@media(max-width:560px){.hero-eb{flex-direction:column;align-items:center;gap:6px}.hero-eb .eb-sep{display:none}}
 .hero:not(.page-hero) .head .sub{max-width:46em}
 .dline{display:block}
 /* mint marker behind one key word */
