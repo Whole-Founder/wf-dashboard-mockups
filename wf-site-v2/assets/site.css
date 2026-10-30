@@ -228,11 +228,6 @@ section{padding:88px 0;position:relative}
 .fbody{padding:clamp(28px,4vw,50px);display:flex;flex-direction:column;gap:14px}
 .fbody .role{font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--peri-deep)}
 .fname{font-family:'Inter Tight',sans-serif;font-weight:800;font-size:clamp(30px,4.4vw,46px);line-height:1;letter-spacing:-.02em;text-transform:uppercase;color:var(--navy)}
-/* founder role (Gero 10/30): "Co-Founder" on one line, "Creative and content" whole on the next when the card is narrow
-   (each role line measures about 305px) */
-.fbody{container-type:inline-size}
-.role-2{white-space:nowrap}
-@container (max-width:320px){.fbody .role-sep{display:none}.fbody .role-2{display:block;margin-top:2px}}
 .fname-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .fli{width:38px;height:38px;border-radius:50%;border:1px solid var(--light-border);display:grid;place-items:center;color:var(--peri-deep);flex:none;transition:color .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease)}
 .fli:hover{color:var(--navy);border-color:var(--peri);transform:translateY(-2px)}
@@ -491,6 +486,16 @@ section{padding:88px 0;position:relative}
 .hero:not(.page-hero) .head{container-type:inline-size}
 .hero:not(.page-hero) .head h1{max-width:none;font-size:clamp(24px,calc(9.4vw - 4.5px),70px);font-size:clamp(24px,calc(100cqi / 10.6),70px)}
 @media(max-width:560px){.hero-eb{flex-direction:column;align-items:center;gap:6px}.hero-eb .eb-sep{display:none}}
+/* mobile line control (Gero 10/30): .wrap-fill fills the first line before wrapping (no balancing);
+   .m-br and .m-line break only on phones; .tr-2 puts a testimonial's second fact on its own line */
+.wrap-fill{text-wrap:wrap}
+.m-br{display:none}
+@media(max-width:560px){.m-br{display:inline}.m-line{display:block}.tr-sep{display:none}.tr-2{display:block}}
+.ca-lead+.ca-lead{margin-top:14px}
+/* Clients hero (Gero 10/30): "run their growth" stays on one phone line; it measures about 10em, so the size is capped
+   at column width / 10.6 on phones and matches the page-hero size everywhere else */
+.page-hero .head{container-type:inline-size}
+.page-hero .head h1.h1-fit{font-size:min(clamp(34px,5.6vw,60px),calc(100cqi / 10.6))}
 .hero:not(.page-hero) .head .sub{max-width:46em}
 .dline{display:block}
 /* mint marker behind one key word */
