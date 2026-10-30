@@ -136,7 +136,7 @@ section{padding:88px 0;position:relative}
 .dcard .num{font-family:'Inter Tight',sans-serif;font-weight:800;font-size:12px;letter-spacing:.14em;color:var(--mint)}
 .dcard h3{font-size:18px;font-weight:800;line-height:1.15;color:#fff;letter-spacing:-.01em}
 .dcard p{font-size:14.5px;line-height:1.5;color:var(--mist)}
-@media(max-width:1000px){.disc{grid-template-columns:repeat(2,1fr)}.dcard:last-child{grid-column:1/-1}}
+@media(max-width:1100px){.disc{grid-template-columns:repeat(2,1fr)}.dcard:last-child{grid-column:1/-1}}
 @media(max-width:560px){.disc{grid-template-columns:1fr}}
 
 /* comparison */
@@ -492,6 +492,11 @@ section{padding:88px 0;position:relative}
 .m-br{display:none}
 @media(max-width:560px){.m-br{display:inline}.m-line{display:block}.tr-sep{display:none}.tr-2{display:block}}
 .ca-lead+.ca-lead{margin-top:14px}
+/* phone-only room for Gero's set lines (10/30): each needed 1-29px more than the card gave at 375px */
+@media(max-width:374px){.m-br.w375{display:none}}
+.br-xs{display:none}
+@media(max-width:374px){.br-xs{display:inline}}
+@media(max-width:560px){.gteam{padding:12px}.dcard{padding:22px 14px}.dcard p{font-size:14px}.scard{padding-left:20px;padding-right:20px}.fbody{padding-left:18px;padding-right:18px}}
 /* Clients hero (Gero 10/30): "run their growth" stays on one phone line; it measures about 10em, so the size is capped
    at column width / 10.6 on phones and matches the page-hero size everywhere else */
 .page-hero .head{container-type:inline-size}
