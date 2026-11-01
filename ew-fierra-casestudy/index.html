@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Fierra's store: an Ecomwarts case study</title>
+<meta name="description" content="Laid off at 35, Fierra built one Shopify store with two products. Her numbers, documented, and the mentor who helped her build it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/fierra-hero.webp" imagesrcset="assets/fierra-hero-640.webp 640w, assets/fierra-hero.webp 1200w" imagesizes="(min-width: 1080px) 1008px, 100vw">
+<style>
+:root{
+  --ink:#0F1419; --cream:#FBFAF5; --white:#FFFFFF;
+  --gold:#C9A84C; --gold-bright:#F5C518; --gold-mid:#E0AE00; --gold-deep:#8A6D1F; --gold-pale:#E8CF7A;
+  --muted:#5A6470; --border:rgba(15,20,25,0.10);
+  --cta:linear-gradient(135deg,#F5C518 0%,#E0AE00 50%,#C9A84C 100%);
+  --cta-shadow:0 10px 26px -8px rgba(245,197,24,0.55), inset 0 0 0 1px rgba(255,255,255,0.35);
+  --card-shadow:0 1px 2px rgba(15,20,25,0.04);
+  --hairline:inset 0 0 0 1px rgba(15,20,25,0.10);
+  --r-sm:10px; --r-md:12px; --r-pill:9999px;
+  --ff-display:'Space Grotesk', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ff-body:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --container:760px; --pad-y:80px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--ff-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--ff-display);font-weight:700;margin:0;text-wrap:balance}
+.ln{display:block}
+p{margin:0 0 1em;text-wrap:pretty}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 16px}
+.wide{max-width:1040px;margin:0 auto;padding:0 16px}
+section{padding:var(--pad-y) 0}
+.eyebrow{display:inline-block;font-family:var(--ff-body);font-size:0.6875rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 14px}
+.dark .eyebrow{color:var(--gold-pale)}
+.pill{display:inline-block;padding:6px 14px;border-radius:var(--r-pill);background:var(--ink);color:var(--white);font-size:0.6875rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin:0 0 16px}
+h2{font-size:3rem;line-height:1.2;margin:0 0 20px}
+h3{font-size:1.25rem;line-height:1.25}
+.lead{font-size:1.0625rem;line-height:1.55;color:var(--muted)}
+.dark{background:var(--ink);color:var(--white)}
+.dark .lead{color:rgba(255,255,255,0.78)}
+.cream{background:var(--cream)}
+.center{text-align:center}
+
+/* top bar */
+.topbar{border-bottom:1px solid var(--border);background:var(--white)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
+.topbar img{height:34px;width:auto}
+.topbar span{font-size:0.8125rem;color:var(--muted)}
+
+/* hero */
+.hero{padding-top:48px;padding-bottom:56px;background:radial-gradient(1100px 520px at 12% -10%, rgba(201,168,76,.10), rgba(0,0,0,0) 60%), radial-gradient(900px 480px at 92% 110%, rgba(232,207,122,.09), rgba(0,0,0,0) 65%), linear-gradient(#FFFFFF 0%, #FBFAF5 100%)}
+.hero h1{font-size:3.75rem;line-height:1.06;margin:0 0 20px}
+.hero h1 span{display:block}
+.hero h1 span + span{margin-top:0.25em}
+.hero .lead{margin:0 0 28px;max-width:var(--container)}
+.hero figure img{aspect-ratio:16/8;object-fit:cover;object-position:50% 30%}
+.hero figure{margin:0 0 28px}
+.hero figure img{border-radius:var(--r-md);width:100%}
+figcaption{font-size:0.8125rem;line-height:1.5;color:var(--muted);margin-top:8px}
+.dark figcaption{color:rgba(255,255,255,0.65)}
+
+/* CTA */
+.cta-block{margin-top:32px;text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 36px;border-radius:var(--r-pill);background:var(--cta);box-shadow:var(--cta-shadow);color:var(--ink);font-family:var(--ff-display);font-weight:700;font-size:1.125rem;text-decoration:none;width:100%;max-width:420px}
+.btn:hover{filter:brightness(1.04)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.dark .btn:focus-visible{outline-color:var(--white)}
+.cta-note{font-size:0.8125rem;line-height:1.5;color:var(--muted);margin:10px 0 0}
+.dark .cta-note{color:rgba(255,255,255,0.7)}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+.stat{background:var(--white);border-radius:var(--r-md);box-shadow:var(--hairline);padding:18px 16px}
+.stat b{display:block;font-family:var(--ff-display);font-size:1.875rem;line-height:1.1;margin-bottom:6px}
+.stat span{display:block;font-size:0.875rem;line-height:1.45}
+.stat small{display:block;font-size:0.75rem;line-height:1.4;color:var(--muted);margin-top:6px}
+
+/* prose */
+.prose p{font-size:1.0625rem}
+.prose h2{margin-top:0}
+blockquote{margin:24px 0;padding:4px 0 4px 18px;border-left:3px solid var(--gold);font-family:var(--ff-display);font-size:1.375rem;line-height:1.35;font-weight:600}
+blockquote cite{display:block;font-family:var(--ff-body);font-style:normal;font-weight:400;font-size:0.8125rem;color:var(--muted);margin-top:8px}
+
+/* proof cards */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
+.card{background:var(--white);color:var(--ink);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--card-shadow);display:flex;flex-direction:column}
+.card-head{padding:18px 20px 14px;text-align:center}
+.card-head h3{font-size:1.25rem}
+.card-media{position:relative;background:#11161c}
+.card-media img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.card-media img.contain{object-position:50% 18%}
+.card-label{position:relative;margin:-26px 20px 0;background:var(--white);border-radius:var(--r-sm);box-shadow:0 6px 18px rgba(15,20,25,0.12);padding:12px 14px;text-align:center}
+.card-label q{display:block;font-family:var(--ff-display);font-weight:600;font-size:1rem;line-height:1.35;quotes:"\201C" "\201D"}
+.card-label span{display:block;font-size:0.8125rem;color:var(--muted);margin-top:4px}
+.rows{margin:12px 20px 20px;padding:0;list-style:none}
+.rows li{display:grid;grid-template-columns:116px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:0.9375rem;line-height:1.5}
+.rows li:last-child{border-bottom:0}
+.rows li > span:first-child{font-weight:600}
+.rows b{font-weight:700}
+.needs{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;padding:20px;border:2px dashed var(--gold);background:repeating-linear-gradient(45deg,#1a2028,#1a2028 12px,#151a21 12px,#151a21 24px);color:var(--gold-pale);font-family:var(--ff-body);font-weight:600;font-size:0.9375rem;line-height:1.45;text-align:center}
+.needs-inline{display:inline-block;border:1.5px dashed var(--gold);border-radius:6px;padding:1px 6px;color:var(--gold-deep);background:#fff8e1;font-weight:600;font-size:0.875rem}
+.source-note{font-size:0.875rem;line-height:1.5;color:rgba(255,255,255,0.7);max-width:var(--container);margin:28px auto 0;text-align:center}
+
+/* checklist + steps */
+.checks{list-style:none;margin:24px 0;padding:0;display:grid;gap:12px}
+.checks li{position:relative;background:var(--white);border-radius:var(--r-sm);box-shadow:var(--hairline);padding:14px 16px 14px 48px;font-size:1rem;line-height:1.5}
+.checks li::before{content:"";position:absolute;left:16px;top:17px;width:20px;height:20px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%230F1419' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+.timeline{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:12px}
+.timeline li{display:grid;grid-template-columns:132px 1fr;gap:16px;background:var(--white);border-radius:var(--r-sm);box-shadow:var(--hairline);padding:16px}
+.timeline li b{font-family:var(--ff-display);font-size:0.9375rem;line-height:1.4;color:var(--gold-deep)}
+.timeline li span{font-size:1rem;line-height:1.5}
+
+/* guide */
+.guide{display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:start}
+.guide img{border-radius:var(--r-md);width:100%}
+.creds{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px}
+.creds li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:1rem;line-height:1.5}
+.creds li::before{content:"";width:18px;height:18px;margin-top:3px;border-radius:5px;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%23F5C518' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat}
+
+/* workshop steps */
+.steps{display:grid;gap:12px;margin-top:28px;counter-reset:s;list-style:none;padding:0}
+.steps li{color:var(--ink);display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--white);border-radius:var(--r-sm);box-shadow:var(--hairline);padding:16px}
+.steps li::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--gold-bright);font-family:var(--ff-display);font-weight:700}
+.steps h3{font-size:1.0625rem;margin:6px 0 4px}
+.steps p{margin:0;font-size:0.9375rem;color:var(--muted)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.pair img{border-radius:var(--r-md);width:100%;aspect-ratio:3/2;object-fit:cover}
+
+/* FAQ */
+.faq{margin-top:28px;display:grid;gap:10px}
+.faq details{background:var(--white);border-radius:var(--r-sm);box-shadow:var(--hairline)}
+.faq summary{cursor:pointer;list-style:none;padding:16px 48px 16px 16px;font-family:var(--ff-display);font-weight:600;font-size:1.0625rem;line-height:1.4;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:18px;top:13px;font-size:1.375rem;color:var(--gold-deep)}
+.faq details[open] summary::after{content:"\2212"}
+.faq .ans{padding:0 16px 16px;font-size:1rem;line-height:1.6}
+.faq .ans p:last-child{margin-bottom:0}
+
+/* footer */
+footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--border)}
+.fda-disclaimer{font-size:12px;line-height:1.6;color:var(--muted);white-space:pre-line;margin:0}
+.wf-disc{margin-top:8px}
+.wf-disc summary{cursor:pointer;font-size:12px;color:var(--muted);text-decoration:underline;padding:10px 0}
+.foot-legal{margin-top:16px;font-size:12px;color:var(--muted)}
+
+/* preview banner (staging only) */
+.preview-note{background:#fff8e1;border-bottom:1px solid var(--gold-pale);font-size:0.8125rem;line-height:1.45;padding:8px 16px;text-align:center;color:var(--gold-deep)}
+
+@media (max-width:900px){
+  .cards{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .guide{grid-template-columns:1fr;gap:24px}
+  .guide img{max-width:320px}
+}
+@media (max-width:640px){
+  :root{--pad-y:48px}
+  .hero{padding-top:28px;padding-bottom:40px}
+  .hero h1{font-size:1.75rem}
+  h2{font-size:1.5rem}
+  .lead,.prose p{font-size:0.9375rem}
+  body{font-size:0.9375rem}
+  blockquote{font-size:1.125rem}
+  .stat b{font-size:1.5rem}
+  .rows li{grid-template-columns:96px 1fr;font-size:0.875rem}
+  .timeline li{grid-template-columns:1fr;gap:4px}
+  .pair{grid-template-columns:1fr}
+  .btn{font-size:1.0625rem;padding:0 20px}
+  .topbar img{height:28px}
+}
+
+.wf-reg{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,10,10,.6)}
+.wf-reg.open{display:flex}
+.wf-reg-box{position:relative;width:100%;max-width:420px;max-height:92dvh;overflow-y:auto;background:#fff;color:#1a1a1a;border-radius:14px;padding:28px 22px 20px;box-shadow:0 20px 60px rgba(0,0,0,.3);font-family:'Schibsted Grotesk',system-ui,sans-serif}
+.wf-reg-x{position:absolute;top:8px;right:8px;width:36px;height:36px;border:0;background:none;font-size:22px;line-height:1;color:#666;cursor:pointer}
+.wf-reg h2{font-family:'Sora',system-ui,sans-serif;font-size:22px;line-height:1.25;margin:0 0 4px;text-wrap:balance}
+.wf-reg-sub{font-size:14px;line-height:1.5;color:#555;margin:0 0 16px}
+.wf-reg form{display:grid;gap:10px}
+.wf-reg input,.wf-reg select{width:100%;font:inherit;font-size:16px;color:#1a1a1a;background:#fff;border:1px solid #d4d4d8;border-radius:8px;padding:12px 12px;min-height:48px}
+.wf-reg input:focus,.wf-reg select:focus{outline:2px solid #1a1a1a;outline-offset:0;border-color:#1a1a1a}
+.wf-reg .bad{border-color:#dc2626}
+.wf-reg-phone{display:grid;grid-template-columns:118px 1fr;gap:8px}
+.wf-reg-err{color:#dc2626;font-size:12px;margin:-4px 0 0}
+.wf-reg-btn{width:100%;min-height:52px;border:0;border-radius:8px;background:#1a1a1a;color:#fff;font-family:'Sora',system-ui,sans-serif;font-weight:700;font-size:16px;cursor:pointer;margin-top:4px}
+.wf-reg-btn[disabled]{opacity:.7;cursor:wait}
+.wf-reg-legal{font-size:11.5px;line-height:1.5;color:#71717a;margin:14px 0 0;text-align:center}
+.wf-reg-legal a{color:inherit;text-decoration:underline}
+
+.wf-reg-box{font-family:var(--ff-body)}
+.wf-reg h2{font-family:var(--ff-display)}
+.wf-reg-btn{background:var(--cta);color:var(--ink);font-family:var(--ff-display);border-radius:var(--r-pill)}
+.wf-reg-done{display:none;text-align:center;padding:8px 0 4px}
+.wf-reg-done h3{font-size:1.25rem;margin:0 0 8px}
+.wf-reg-done p{font-size:0.9375rem;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+
+<div class="preview-note">Review copy for Gray. Not live, no tracking, nothing on this page sends a sign-up. Dashed gold boxes mark proof we still need from Ecomwarts.</div>
+
+<header class="topbar">
+  <div class="wrap">
+    <img src="assets/logo-ecomwarts-elite.png" alt="Ecomwarts Elite" width="460" height="228">
+    <span>Student case study</span>
+  </div>
+</header>
+
+<main>
+
+<!-- S1 HERO -->
+<section class="hero" id="hero">
+  <div class="wide">
+    <p class="eyebrow">Ecomwarts student case study · Singapore</p>
+    <h1><span>Laid off at 35, after 15 years.</span><span>This is the store Fierra built next.</span></h1>
+    <p class="lead">One Shopify store, two products, and $318,000 USD in sales between mid‑March and July 8, 2026. Here are her numbers, what it took, and who helped her build it.</p>
+    <figure>
+      <img src="assets/fierra-hero.webp" srcset="assets/fierra-hero-640.webp 640w, assets/fierra-hero.webp 1200w" sizes="(min-width: 1080px) 1008px, 100vw" alt="Fierra speaking in the Ecomwarts studio" width="1200" height="900" fetchpriority="high">
+      <figcaption>Fierra telling her story on Rayston Heem's YouTube channel, recorded July 8, 2026.</figcaption>
+    </figure>
+    <div class="stats" aria-label="The case file at a glance">
+      <div class="stat"><b>$318,000</b><span>USD in sales, mid‑March to July 8, 2026</span><small>Her figure, on camera</small></div>
+      <div class="stat"><b>$278,062</b><span>USD in Shopify sales, April 1 to June 30</span><small>On her Shopify app, on camera</small></div>
+      <div class="stat"><b>6,088</b><span>orders, April 1 to June 30</span><small>Same Shopify screen</small></div>
+      <div class="stat"><b>1 store</b><span>with two products</span><small>Her first store</small></div>
+    </div>
+    <div class="cta-block">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note">Watch Rayston build a store live first. The One Store Away Workshop · 60 minutes on Zoom · No cost to attend</p>
+    </div>
+  </div>
+</section>
+
+<!-- S2 BEFORE -->
+<section class="prose" id="before">
+  <div class="wrap">
+    <p class="eyebrow">Before the store</p>
+    <h2>For 15 years, her laptop came on every family holiday</h2>
+    <p>Fierra was a project manager in Singapore. She worked about 40 hours a week, and her overtime went unpaid.</p>
+    <p>Her mornings started with Microsoft Teams, then email. When the family went away, the projects kept running, so the laptop came too. She took customer calls from overseas.</p>
+    <blockquote>“I was physically present with my family. But mentally, I'm not there. I'm absent.”<cite>Fierra, on her holidays as a project manager</cite></blockquote>
+    <p>Then, at 35, she was laid off. She had two children, aged seven and two, and a small payout from the company to carry her through the next few months.</p>
+    <blockquote>“I have liabilities, I have responsibilities. So I can't waste time.”<cite>Fierra, on the weeks after the layoff</cite></blockquote>
+    <p>She saw two paths. Find another job, or build the business she had always wanted. She chose to test the business and gave herself one to three months. If it failed, she would go back to a full-time job.</p>
+    <p>She even took a job as a safety net while she built. She left it after two weeks, because the store's results were already coming in. Her husband was the family's only earner while she built it, and he backed her fully.</p>
+  </div>
+</section>
+
+<!-- S3 WHY A MENTOR -->
+<section class="cream prose" id="mentor-choice">
+  <div class="wrap">
+    <p class="eyebrow">The decision</p>
+    <h2><span class="ln">She had tried dropshipping before.</span><span class="ln">This time she got a mentor.</span></h2>
+    <p>Six or seven years earlier, Fierra had tried dropshipping on her own. She knew the model was real. What she did not have now was time to relearn it from scattered YouTube videos and Reddit threads.</p>
+    <p>So she looked for someone to learn from. She found Rayston Heem, founder of Ecomwarts, through his YouTube tutorials and the case studies he shares of his students.</p>
+    <blockquote>“Why can't I be one of them?”<cite>Fierra, on seeing other Ecomwarts students' results</cite></blockquote>
+    <p>She enrolled in his program. She paused for the first couple of weeks, then committed fully.</p>
+  </div>
+</section>
+
+<!-- S4 PROOF CARDS -->
+<section class="dark" id="case-file">
+  <div class="wide">
+    <div class="wrap center" style="padding:0">
+      <p class="eyebrow">The case file</p>
+      <h2>What Fierra built, documented</h2>
+      <p class="lead">Every figure below comes from her July 8, 2026 interview on Rayston Heem's YouTube channel, or from her Shopify app as she showed it on camera. They are sales, not profit.</p>
+    </div>
+
+    <div class="cards">
+
+      <article class="card">
+        <div class="card-head"><h3>Her first store</h3></div>
+        <div class="card-media">
+          <div class="needs">[NEEDS: screenshot of Fierra's store homepage, from Fierra via Ecomwarts, store name blurred if she prefers]</div>
+        </div>
+        <div class="card-label"><q>Her AI dropshipping store</q><span>Shopify · started mid‑March 2026</span></div>
+        <ul class="rows">
+          <li><span>Platform</span><span>Shopify</span></li>
+          <li><span>Started</span><span>Mid‑March 2026, after enrolling in Rayston's program</span></li>
+          <li><span>Products</span><span><b>Two.</b> The first got sales moving. She has since added a second. <span class="needs-inline">[NEEDS: product photos, if EW will show them]</span></span></li>
+          <li><span>Ships to</span><span>6 countries, per her Shopify screen</span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h3>Month one</h3></div>
+        <div class="card-media">
+          <img src="assets/fierra-month1.webp" srcset="assets/fierra-month1-640.webp 640w, assets/fierra-month1.webp 1200w" sizes="(min-width: 900px) 500px, 100vw" alt="Fierra describing her first month" width="1200" height="900">
+        </div>
+        <div class="card-label"><q>Her goal was $10,000 a month</q><span>Mid‑March to mid‑April 2026</span></div>
+        <ul class="rows">
+          <li><span>Sales</span><span><b>Over $30,000 USD</b></span></li>
+          <li><span>Her target</span><span>$10,000 a month in sales</span></li>
+          <li><span>Hours</span><span>Full days at the start</span></li>
+          <li><span>Source</span><span>Her words in the interview. <span class="needs-inline">[NEEDS: month-one dashboard screenshot]</span></span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h3>April to June</h3></div>
+        <div class="card-media">
+          <img class="contain" src="assets/dashboard.webp" alt="Fierra's Shopify app showing total sales of $278,062 and 6,088 orders from April 1 to June 30" width="680" height="960">
+        </div>
+        <div class="card-label"><q>On her Shopify app, on camera</q><span>April 1 to June 30, 2026</span></div>
+        <ul class="rows">
+          <li><span>Total sales</span><span><b>$278,062 USD</b></span></li>
+          <li><span>Orders</span><span><b>6,088</b></span></li>
+          <li><span>Shown</span><span>36 seconds into the interview, when Rayston asked her to pull up the dashboard</span></li>
+          <li><span>Source</span><span>Her Shopify app, filmed live. <span class="needs-inline">[NEEDS: clean screenshot of this screen]</span></span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h3>Mid‑March to July 8</h3></div>
+        <div class="card-media">
+          <img src="assets/two-shot.webp" srcset="assets/two-shot-640.webp 640w, assets/two-shot.webp 1200w" sizes="(min-width: 900px) 500px, 100vw" alt="Fierra and Rayston Heem at the interview table in the Ecomwarts studio" width="1200" height="810">
+        </div>
+        <div class="card-label"><q>$318,000 USD in under four months</q><span>From the start of her store to the day of the interview</span></div>
+        <ul class="rows">
+          <li><span>Sales</span><span><b>$318,000 USD</b></span></li>
+          <li><span>Period</span><span>Mid‑March to July 8, 2026</span></li>
+          <li><span>The money</span><span>She puts most of it back into the store and pays herself a monthly salary</span></li>
+          <li><span>Source</span><span>Her words in the interview</span></li>
+        </ul>
+      </article>
+
+    </div>
+
+    <div class="cta-block">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note">See the same build live: the One Store Away Workshop · 60 minutes on Zoom · No cost to attend</p>
+    </div>
+  </div>
+</section>
+
+<!-- S5 WHAT IT TOOK -->
+<section class="prose" id="what-it-took">
+  <div class="wrap">
+    <p class="eyebrow">What it took</p>
+    <h2>Full days at the start, fewer hours once she knew the work</h2>
+    <p>The numbers did not come from a few spare minutes. Here is how her time went, in her words.</p>
+    <ul class="timeline">
+      <li><b>At the start</b><span>Full days. “At the start, it was really like a full day thing for me.”</span></li>
+      <li><b>First 2 to 4 weeks</b><span>Getting comfortable with Shopify and Facebook ads again. She had used Shopify before, but “over the years it has completely changed.”</span></li>
+      <li><b>By July 2026</b><span>About one to two hours a day, plus one or two deep-focus days a week of five to eight hours.</span></li>
+    </ul>
+    <blockquote>“You just have to follow the course to a T and of course ask the mentors as you go along with any questions.”<cite>Fierra, on what made the difference</cite></blockquote>
+  </div>
+</section>
+
+<!-- S6 WHAT CHANGED -->
+<section class="cream prose" id="what-changed">
+  <div class="wrap">
+    <p class="eyebrow">What changed</p>
+    <h2>Her afternoons now start at the school gate</h2>
+    <p>Her mornings go to the store, and to herself. In the afternoon she picks her children up from school and spends the rest of the day with them.</p>
+    <p>On a recent family trip to China, she didn't need to check her phone for work chats or emails.</p>
+    <blockquote>“Basically for me, it's just 100% being present in my family.”<cite>Fierra, on the trip</cite></blockquote>
+    <p>Asked what the store gave back, she named two things: presence with her family, and financial freedom.</p>
+  </div>
+</section>
+
+<!-- S7 THE GUIDE -->
+<section id="guide">
+  <div class="wrap">
+    <div class="guide">
+      <figure style="margin:0">
+        <img src="assets/rayston.webp" alt="Rayston Heem, founder of Ecomwarts" width="800" height="800">
+        <figcaption>Rayston Heem, in the same interview.</figcaption>
+      </figure>
+      <div>
+        <span class="pill">Meet her mentor</span>
+        <h2>Rayston Heem, the founder who taught her</h2>
+        <p>Rayston started dropshipping at 16. In his first year he lost all his money. Then, in his words, “one product changed my life.”</p>
+        <p>Today he teaches his method through Ecomwarts: pick a product, build the store and make the ads, using AI tools at each step.</p>
+        <ul class="creds">
+          <li><span>Founder of Ecomwarts, a company based in Singapore</span></li>
+          <li><span>Teaches AI dropshipping: product, store and ads, built with AI tools</span></li>
+          <li><span>Runs two calls a week for his students, by his account in the interview</span></li>
+          <li><span>A Singapore student community. Fierra says it helps because building a business “can get lonely sometimes.”</span></li>
+          <li><span>Rated 4.5 on Trustpilot (34 reviews) <span class="needs-inline">[NEEDS: re-check count before launch]</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S8 THE OFFER -->
+<section class="dark" id="workshop">
+  <div class="wrap">
+    <p class="eyebrow">Your next step</p>
+    <h2><span class="ln">Want help building yours?</span><span class="ln">Start by watching Rayston build one live.</span></h2>
+    <p class="lead">Fierra had her doubts too: “It does look unrealistic, right?” Seeing the work done is how to judge it for yourself. That is what the One Store Away Workshop is for.</p>
+    <p class="lead">In 60 minutes, live on Zoom, Rayston builds a store from product to launch with AI tools. There is no cost to attend.</p>
+    <ol class="steps">
+      <li><div><h3>He picks a product with AI tools</h3><p>Live, step by step, so you see how he chooses it.</p></div></li>
+      <li><div><h3>He builds the whole store with AI tools</h3><p>End to end, in under 60 minutes, so you can see how to do the same.</p></div></li>
+      <li><div><h3>He makes the ads with AI tools</h3><p>No filming yourself and no designing by hand.</p></div></li>
+      <li><div><h3>He launches the store</h3><p>How he goes live, how he checks it is working, and what success looks like.</p></div></li>
+      <li><div><h3>He answers your questions, live</h3><p>So you leave clear on how to build a store yourself.</p></div></li>
+      <li><div><h3>Then, the help Fierra had</h3><p>At the end, Rayston introduces the Ecomwarts mentorship program, the one Fierra went through. It is paid and optional. The workshop stands on its own.</p></div></li>
+    </ol>
+    <div class="pair">
+      <figure style="margin:0"><img src="assets/rayston-teaching.webp" alt="Rayston Heem teaching at a screen" width="675" height="450"><figcaption>Rayston teaching.</figcaption></figure>
+      <figure style="margin:0"><img src="assets/rayston-live-qa.webp" alt="Rayston Heem taking questions at a live Ecomwarts event" width="960" height="640"><figcaption>Rayston taking questions at a live event.</figcaption></figure>
+    </div>
+    <div class="cta-block">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note">No cost to attend · Live on Zoom · Twice a week, 60 minutes</p>
+    </div>
+  </div>
+</section>
+
+<!-- S9 FIT -->
+<section class="cream" id="fit">
+  <div class="wrap">
+    <p class="eyebrow">Be honest with yourself</p>
+    <h2>This may suit you if</h2>
+    <ul class="checks">
+      <li><b>You have a job and very little spare time.</b> Fierra tested with a time limit and a fallback.</li>
+      <li><b>You want to build something for your family.</b> Her reason was to be present for her kids.</li>
+      <li><b>You have a budget for ads.</b> Running a store means paying for ads while you test. Without that budget, it won't suit you yet.</li>
+      <li><b>You're ready to do the work.</b> Even with AI tools, it took her full days and weeks of relearning. If you want results without the work, it won't suit you.</li>
+      <li><b>You'd like to see the work before you decide.</b> That's the point of the workshop. The paid program at the end is optional.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S10 FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <details open><summary>Are Fierra's numbers real?</summary><div class="ans"><p>They are her own figures, from her July 8, 2026 interview on Rayston Heem's YouTube channel. The $278,062 and the 6,088 orders are on her Shopify app, filmed during that interview. They are sales, not profit, and Ecomwarts has not audited them. Her result is not typical.</p></div></details>
+      <details><summary>Was Fierra paid to share her story?</summary><div class="ans"><p>No. She was not paid for the interview.</p></div></details>
+      <details><summary>Who runs this?</summary><div class="ans"><p>Ecomwarts Group Private Limited, a company in Singapore. Fierra is an Ecomwarts student who told her story on camera in July 2026. Ecomwarts is rated 4.5 on Trustpilot (34 reviews).</p></div></details>
+      <details><summary>Does the workshop cost anything?</summary><div class="ans"><p>There's no cost to attend. And yes, there is an offer: after the workshop, Ecomwarts offers a paid coaching program for people who want hands-on help. It's optional. The workshop stands on its own. The price is explained at the end, before you decide anything.</p></div></details>
+      <details><summary>What will I see, and how long is it?</summary><div class="ans"><p>Rayston picks a product, builds the store and makes the ads with AI tools, live. Then he takes your questions. It's a 60-minute workshop on Zoom.</p></div></details>
+      <details><summary>Do I need to leave my job, or have a budget ready?</summary><div class="ans"><p>No. You can keep your job and watch, and there's nothing to pay to attend. If you later build a store, you'll need a budget for ads, as Fierra did.</p></div></details>
+      <details><summary>When is it, and is there a replay?</summary><div class="ans"><p>It runs live on Zoom twice a week. You're booked into the next session, and the date shows right after you register. A replay may be shared with registered attendees, but live attendance is strongly encouraged. Questions are only answered live.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- S11 FINAL CTA -->
+<section class="dark center" id="final">
+  <div class="wrap">
+    <h2>See the build live before you decide anything</h2>
+    <p class="lead">Watch Rayston Heem pick a product, build the store and make the ads with AI tools, live. Then ask him your questions.</p>
+    <div class="cta-block">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note">No cost to attend · Live on Zoom · Twice a week, 60 minutes</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+<div data-section="compliance-footer">
+<p class="fda-disclaimer compliance-footer">This page is an advertisement by Ecomwarts Group Private Limited, Singapore. Fierra is an Ecomwarts student and shares her story with permission. Her figures are her own, from a video interview on July 8, 2026, including the Shopify screen she showed in it. They are revenue, not profit, and Ecomwarts has not checked them. Her result is not typical. The typical outcome is no income.
+
+These results are shown for illustrative purposes only and are based on the past experiences of individual students. Your results may vary depending on your effort, skill, capital, market conditions, and consistency. Running an e-commerce business involves financial risk. Please read the full disclaimer below.</p>
+<details class="wf-disc"><summary>Full disclaimer</summary>
+<p class="fda-disclaimer compliance-footer">This website is operated and maintained by Ecomwarts Group Private Limited, a company incorporated in Singapore. Use of this website and our programs is governed by our Terms of Service and Privacy Policy.
+
+We use cookies to improve, promote, and protect our services. By continuing to use this site, you agree to our Terms of Service and Privacy Policy. We collect, use, and disclose personal data in accordance with the Personal Data Protection Act 2012 (Singapore).
+
+THIRD-PARTY PLATFORMS: This site is not part of, affiliated with, or endorsed by Meta Platforms, Inc., Google LLC, TikTok, Shopify Inc., or any other platform, supplier, or payment provider mentioned in our content. All trademarks belong to their respective owners and are used for reference only.
+
+NOT MULTI-LEVEL MARKETING: Ecomwarts Group Private Limited does not operate a multi-level marketing or pyramid selling scheme within the meaning of the Multi-Level Marketing and Pyramid Selling (Prohibition) Act 1973 (Singapore). Any referral or affiliate program we offer is optional, requires no purchase to join, and rewards are not based on recruiting other participants.
+
+NOT A BUSINESS OPPORTUNITY: We are an education and training company. We do not sell a business opportunity, franchise, "get rich quick" program, or guaranteed money-making system. We do not provide you with stores, customers, suppliers, or sales. Any business you build is owned and operated solely by you, and you are fully responsible for its decisions and outcomes.
+
+EARNINGS DISCLAIMER: While we make every effort to accurately represent our programs, Ecomwarts Group Private Limited makes no promise, guarantee, or representation that you will earn any specific amount of money, any money at all, or that you will not lose money. Any earnings or revenue figures shown, including those of our founders, coaches, or students, are not typical and should not be taken as an indication of what you will achieve. Revenue is not profit, and figures shown may not account for advertising costs, product costs, refunds, platform fees, taxes, and other business expenses. Past results do not guarantee future results.
+
+DROPSHIPPING RISKS: Operating an online store involves real risk, including the loss of money spent on advertising, inventory, software, and other costs. Risks also include supplier delays or failures, product quality issues, chargebacks and refunds, payment processor holds, and suspension of advertising or store accounts by third-party platforms. You should only invest money you can afford to lose.
+
+YOUR RESPONSIBILITIES: You are solely responsible for ensuring your business complies with all laws that apply to you and your customers, including business registration, tax and GST obligations, consumer protection laws, product safety and import regulations, advertising standards, and intellectual property rights. You must not sell counterfeit, infringing, or prohibited products. We are not responsible for any product you choose to sell or any claim made against your business.
+
+NOT PROFESSIONAL ADVICE: Our content is for general educational purposes only and does not constitute financial, investment, legal, tax, or accounting advice. You should consult a qualified professional before making any business or financial decision.
+
+TESTIMONIALS: Testimonials and case studies reflect the individual opinions and experiences of people who have purchased our training. Results are not typical and depend on individual effort, time, skill, capital, and circumstances outside our control. We do not independently verify every figure shared by students.
+
+LIMITATION OF LIABILITY: To the fullest extent permitted by Singapore law, Ecomwarts Group Private Limited, its directors, employees, coaches, and affiliates shall not be liable for any direct, indirect, incidental, or consequential loss or damage, including loss of profits, revenue, or data, arising from your use of our website, programs, or any information provided.
+
+THIRD-PARTY CONTENT: We may link to or recommend content, tools, or services provided by third parties. We do not control and are not responsible for such third parties, and some may share common interests or ownership with, or pay commissions to, Ecomwarts Group Private Limited.
+
+INTELLECTUAL PROPERTY: All course materials, videos, and content are the intellectual property of Ecomwarts Group Private Limited and are protected under the Copyright Act 2021 (Singapore). Any copying, reproduction, sharing, or distribution without written permission is strictly prohibited.
+
+GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dispute shall be subject to the exclusive jurisdiction of the Singapore courts.
+
+Ecomwarts Group Private Limited, Singapore. Contact: ecomwarts@gmail.com</p>
+</details>
+</div>
+ 
+  </div>
+</footer>
+
+<div class="wf-reg" id="wf-reg" role="dialog" aria-modal="true" aria-labelledby="wf-reg-title" hidden>
+  <div class="wf-reg-box">
+    <button type="button" class="wf-reg-x" aria-label="Close" data-wf-close>&times;</button>
+    <h2 id="wf-reg-title">Save your spot</h2>
+    <p class="wf-reg-sub">The One Store Away Workshop · Live on Zoom · No cost to attend</p>
+    <form id="wf-reg-form" novalidate>
+      <input type="text" name="fullName" autocomplete="name" placeholder="Full Name*" aria-label="Full name">
+      <p class="wf-reg-err" data-err="fullName" hidden></p>
+      <input type="email" name="email" autocomplete="email" placeholder="Email For Access Link*" aria-label="Email for access link">
+      <p class="wf-reg-err" data-err="email" hidden></p>
+      <div class="wf-reg-phone">
+        <select name="dial" aria-label="Country code"></select>
+        <input type="tel" name="phone" autocomplete="tel-national" inputmode="tel" placeholder="Phone Number*" aria-label="Phone number">
+      </div>
+      <p class="wf-reg-err" data-err="phone" hidden></p>
+      <button type="submit" class="wf-reg-btn">Save my spot</button>
+    </form>
+    <div class="wf-reg-done" id="wf-reg-done" role="status"><h3>Preview only</h3><p>Nothing was sent. On the live page, this button books the next One Store Away Workshop and opens the thank-you page.</p></div>
+    <p class="wf-reg-legal">By submitting this form I agree to receive recurring marketing and promotional phone calls and SMS text messages from Ecomwarts at the phone number I provided. My consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. See our <a href="https://apply.ecomwarts.net/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>, <a href="https://apply.ecomwarts.net/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://apply.ecomwarts.net/disclaimer" target="_blank" rel="noopener noreferrer">Disclaimer</a>.</p>
+  </div>
+</div>
+
+<script>
+
+(function(){
+  var COUNTRIES = [["AF","+93","🇦🇫","Afghanistan"],["AL","+355","🇦🇱","Albania"],["DZ","+213","🇩🇿","Algeria"],["AS","+1684","🇦🇸","American Samoa"],["AD","+376","🇦🇩","Andorra"],["AO","+244","🇦🇴","Angola"],["AI","+1264","🇦🇮","Anguilla"],["AG","+1268","🇦🇬","Antigua and Barbuda"],["AR","+54","🇦🇷","Argentina"],["AM","+374","🇦🇲","Armenia"],["AW","+297","🇦🇼","Aruba"],["AU","+61","🇦🇺","Australia"],["AT","+43","🇦🇹","Austria"],["AZ","+994","🇦🇿","Azerbaijan"],["BS","+1242","🇧🇸","Bahamas"],["BH","+973","🇧🇭","Bahrain"],["BD","+880","🇧🇩","Bangladesh"],["BB","+1246","🇧🇧","Barbados"],["BY","+375","🇧🇾","Belarus"],["BE","+32","🇧🇪","Belgium"],["BZ","+501","🇧🇿","Belize"],["BJ","+229","🇧🇯","Benin"],["BM","+1441","🇧🇲","Bermuda"],["BT","+975","🇧🇹","Bhutan"],["BO","+591","🇧🇴","Bolivia"],["BA","+387","🇧🇦","Bosnia and Herzegovina"],["BW","+267","🇧🇼","Botswana"],["BR","+55","🇧🇷","Brazil"],["IO","+246","🇮🇴","British Indian Ocean Territory"],["VG","+1284","🇻🇬","British Virgin Islands"],["BN","+673","🇧🇳","Brunei"],["BG","+359","🇧🇬","Bulgaria"],["BF","+226","🇧🇫","Burkina Faso"],["BI","+257","🇧🇮","Burundi"],["KH","+855","🇰🇭","Cambodia"],["CM","+237","🇨🇲","Cameroon"],["CA","+1","🇨🇦","Canada"],["CV","+238","🇨🇻","Cape Verde"],["KY","+1345","🇰🇾","Cayman Islands"],["CF","+236","🇨🇫","Central African Republic"],["TD","+235","🇹🇩","Chad"],["CL","+56","🇨🇱","Chile"],["CN","+86","🇨🇳","China"],["CO","+57","🇨🇴","Colombia"],["KM","+269","🇰🇲","Comoros"],["CK","+682","🇨🇰","Cook Islands"],["CR","+506","🇨🇷","Costa Rica"],["HR","+385","🇭🇷","Croatia"],["CU","+53","🇨🇺","Cuba"],["CW","+599","🇨🇼","Curaçao"],["CY","+357","🇨🇾","Cyprus"],["CZ","+420","🇨🇿","Czech Republic"],["CD","+243","🇨🇩","DR Congo"],["DK","+45","🇩🇰","Denmark"],["DJ","+253","🇩🇯","Djibouti"],["DM","+1767","🇩🇲","Dominica"],["DO","+1849","🇩🇴","Dominican Republic"],["EC","+593","🇪🇨","Ecuador"],["EG","+20","🇪🇬","Egypt"],["SV","+503","🇸🇻","El Salvador"],["GQ","+240","🇬🇶","Equatorial Guinea"],["ER","+291","🇪🇷","Eritrea"],["EE","+372","🇪🇪","Estonia"],["SZ","+268","🇸🇿","Eswatini"],["ET","+251","🇪🇹","Ethiopia"],["FK","+500","🇫🇰","Falkland Islands"],["FO","+298","🇫🇴","Faroe Islands"],["FJ","+679","🇫🇯","Fiji"],["FI","+358","🇫🇮","Finland"],["FR","+33","🇫🇷","France"],["GF","+594","🇬🇫","French Guiana"],["PF","+689","🇵🇫","French Polynesia"],["GA","+241","🇬🇦","Gabon"],["GM","+220","🇬🇲","Gambia"],["GE","+995","🇬🇪","Georgia"],["DE","+49","🇩🇪","Germany"],["GH","+233","🇬🇭","Ghana"],["GI","+350","🇬🇮","Gibraltar"],["GR","+30","🇬🇷","Greece"],["GL","+299","🇬🇱","Greenland"],["GD","+1473","🇬🇩","Grenada"],["GP","+590","🇬🇵","Guadeloupe"],["GU","+1671","🇬🇺","Guam"],["GT","+502","🇬🇹","Guatemala"],["GG","+44","🇬🇬","Guernsey"],["GN","+224","🇬🇳","Guinea"],["GW","+245","🇬🇼","Guinea-Bissau"],["GY","+592","🇬🇾","Guyana"],["HT","+509","🇭🇹","Haiti"],["HN","+504","🇭🇳","Honduras"],["HK","+852","🇭🇰","Hong Kong"],["HU","+36","🇭🇺","Hungary"],["IS","+354","🇮🇸","Iceland"],["IN","+91","🇮🇳","India"],["ID","+62","🇮🇩","Indonesia"],["IR","+98","🇮🇷","Iran"],["IQ","+964","🇮🇶","Iraq"],["IE","+353","🇮🇪","Ireland"],["IM","+44","🇮🇲","Isle of Man"],["IL","+972","🇮🇱","Israel"],["IT","+39","🇮🇹","Italy"],["CI","+225","🇨🇮","Ivory Coast"],["JM","+1876","🇯🇲","Jamaica"],["JP","+81","🇯🇵","Japan"],["JE","+44","🇯🇪","Jersey"],["JO","+962","🇯🇴","Jordan"],["KZ","+7","🇰🇿","Kazakhstan"],["KE","+254","🇰🇪","Kenya"],["KI","+686","🇰🇮","Kiribati"],["XK","+383","🇽🇰","Kosovo"],["KW","+965","🇰🇼","Kuwait"],["KG","+996","🇰🇬","Kyrgyzstan"],["LA","+856","🇱🇦","Laos"],["LV","+371","🇱🇻","Latvia"],["LB","+961","🇱🇧","Lebanon"],["LS","+266","🇱🇸","Lesotho"],["LR","+231","🇱🇷","Liberia"],["LY","+218","🇱🇾","Libya"],["LI","+423","🇱🇮","Liechtenstein"],["LT","+370","🇱🇹","Lithuania"],["LU","+352","🇱🇺","Luxembourg"],["MO","+853","🇲🇴","Macau"],["MG","+261","🇲🇬","Madagascar"],["MW","+265","🇲🇼","Malawi"],["MY","+60","🇲🇾","Malaysia"],["MV","+960","🇲🇻","Maldives"],["ML","+223","🇲🇱","Mali"],["MT","+356","🇲🇹","Malta"],["MH","+692","🇲🇭","Marshall Islands"],["MQ","+596","🇲🇶","Martinique"],["MR","+222","🇲🇷","Mauritania"],["MU","+230","🇲🇺","Mauritius"],["YT","+262","🇾🇹","Mayotte"],["MX","+52","🇲🇽","Mexico"],["FM","+691","🇫🇲","Micronesia"],["MD","+373","🇲🇩","Moldova"],["MC","+377","🇲🇨","Monaco"],["MN","+976","🇲🇳","Mongolia"],["ME","+382","🇲🇪","Montenegro"],["MS","+1664","🇲🇸","Montserrat"],["MA","+212","🇲🇦","Morocco"],["MZ","+258","🇲🇿","Mozambique"],["MM","+95","🇲🇲","Myanmar"],["NA","+264","🇳🇦","Namibia"],["NR","+674","🇳🇷","Nauru"],["NP","+977","🇳🇵","Nepal"],["NL","+31","🇳🇱","Netherlands"],["NC","+687","🇳🇨","New Caledonia"],["NZ","+64","🇳🇿","New Zealand"],["NI","+505","🇳🇮","Nicaragua"],["NE","+227","🇳🇪","Niger"],["NG","+234","🇳🇬","Nigeria"],["NU","+683","🇳🇺","Niue"],["KP","+850","🇰🇵","North Korea"],["MK","+389","🇲🇰","North Macedonia"],["MP","+1670","🇲🇵","Northern Mariana Islands"],["NO","+47","🇳🇴","Norway"],["OM","+968","🇴🇲","Oman"],["PK","+92","🇵🇰","Pakistan"],["PW","+680","🇵🇼","Palau"],["PS","+970","🇵🇸","Palestine"],["PA","+507","🇵🇦","Panama"],["PG","+675","🇵🇬","Papua New Guinea"],["PY","+595","🇵🇾","Paraguay"],["PE","+51","🇵🇪","Peru"],["PH","+63","🇵🇭","Philippines"],["PL","+48","🇵🇱","Poland"],["PT","+351","🇵🇹","Portugal"],["PR","+1939","🇵🇷","Puerto Rico"],["QA","+974","🇶🇦","Qatar"],["CG","+242","🇨🇬","Republic of the Congo"],["RE","+262","🇷🇪","Réunion"],["RO","+40","🇷🇴","Romania"],["RU","+7","🇷🇺","Russia"],["RW","+250","🇷🇼","Rwanda"],["BL","+590","🇧🇱","Saint Barthélemy"],["SH","+290","🇸🇭","Saint Helena"],["KN","+1869","🇰🇳","Saint Kitts and Nevis"],["LC","+1758","🇱🇨","Saint Lucia"],["MF","+590","🇲🇫","Saint Martin"],["PM","+508","🇵🇲","Saint Pierre and Miquelon"],["VC","+1784","🇻🇨","Saint Vincent and the Grenadines"],["WS","+685","🇼🇸","Samoa"],["SM","+378","🇸🇲","San Marino"],["ST","+239","🇸🇹","São Tomé and Príncipe"],["SA","+966","🇸🇦","Saudi Arabia"],["SN","+221","🇸🇳","Senegal"],["RS","+381","🇷🇸","Serbia"],["SC","+248","🇸🇨","Seychelles"],["SL","+232","🇸🇱","Sierra Leone"],["SG","+65","🇸🇬","Singapore"],["SX","+1721","🇸🇽","Sint Maarten"],["SK","+421","🇸🇰","Slovakia"],["SI","+386","🇸🇮","Slovenia"],["SB","+677","🇸🇧","Solomon Islands"],["SO","+252","🇸🇴","Somalia"],["ZA","+27","🇿🇦","South Africa"],["KR","+82","🇰🇷","South Korea"],["SS","+211","🇸🇸","South Sudan"],["ES","+34","🇪🇸","Spain"],["LK","+94","🇱🇰","Sri Lanka"],["SD","+249","🇸🇩","Sudan"],["SR","+597","🇸🇷","Suriname"],["SE","+46","🇸🇪","Sweden"],["CH","+41","🇨🇭","Switzerland"],["SY","+963","🇸🇾","Syria"],["TW","+886","🇹🇼","Taiwan"],["TJ","+992","🇹🇯","Tajikistan"],["TZ","+255","🇹🇿","Tanzania"],["TH","+66","🇹🇭","Thailand"],["TL","+670","🇹🇱","Timor-Leste"],["TG","+228","🇹🇬","Togo"],["TK","+690","🇹🇰","Tokelau"],["TO","+676","🇹🇴","Tonga"],["TT","+1868","🇹🇹","Trinidad and Tobago"],["TN","+216","🇹🇳","Tunisia"],["TR","+90","🇹🇷","Turkey"],["TM","+993","🇹🇲","Turkmenistan"],["TC","+1649","🇹🇨","Turks and Caicos Islands"],["TV","+688","🇹🇻","Tuvalu"],["UG","+256","🇺🇬","Uganda"],["UA","+380","🇺🇦","Ukraine"],["AE","+971","🇦🇪","United Arab Emirates"],["GB","+44","🇬🇧","United Kingdom"],["US","+1","🇺🇸","United States"],["UY","+598","🇺🇾","Uruguay"],["VI","+1340","🇻🇮","US Virgin Islands"],["UZ","+998","🇺🇿","Uzbekistan"],["VU","+678","🇻🇺","Vanuatu"],["VA","+379","🇻🇦","Vatican City"],["VE","+58","🇻🇪","Venezuela"],["VN","+84","🇻🇳","Vietnam"],["WF","+681","🇼🇫","Wallis and Futuna"],["EH","+212","🇪🇭","Western Sahara"],["YE","+967","🇾🇪","Yemen"],["ZM","+260","🇿🇲","Zambia"],["ZW","+263","🇿🇼","Zimbabwe"]];
+  var box = document.getElementById('wf-reg');
+  var form = document.getElementById('wf-reg-form');
+  var dial = form.elements.dial;
+  COUNTRIES.forEach(function(c){
+    var o = document.createElement('option');
+    o.value = c[1]; o.textContent = c[2] + ' ' + c[1];
+    o.title = c[3];
+    if (c[0] === 'SG') o.selected = true;
+    dial.appendChild(o);
+  });
+
+  var lastFocus = null;
+  function open(){
+    lastFocus = document.activeElement;
+    box.hidden = false; box.classList.add('open');
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(function(){ form.elements.fullName.focus(); }, 30);
+  }
+  function close(){
+    box.classList.remove('open'); box.hidden = true;
+    document.documentElement.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  // Capture phase, so it runs before anything else that listens for link clicks.
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href*="apply.ecomwarts.net/evnt-one-store"]');
+    if (!a) return;
+    e.preventDefault(); e.stopPropagation();
+    open();
+  }, true);
+  box.addEventListener('click', function(e){
+    if (e.target === box || e.target.closest('[data-wf-close]')) close();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !box.hidden) close(); });
+
+  function cookie(n){ var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)'); return m ? decodeURIComponent(m[1]) : ''; }
+  function uuid(){
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+  function e164(){
+    var digits = (form.elements.phone.value || '').replace(/\D/g, '').replace(/^0/, '');
+    return digits ? dial.value + digits : '';
+  }
+  function check(){
+    var f = form.elements, errs = {};
+    if (!f.fullName.value.trim()) errs.fullName = 'Full name is required';
+    var em = f.email.value.trim();
+    if (!em) errs.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) errs.email = 'Enter a valid email';
+    var ph = e164();
+    if (!f.phone.value.trim()) errs.phone = 'Phone number is required';
+    else if (!/^\+[1-9]\d{6,14}$/.test(ph)) errs.phone = 'Enter a valid phone number';
+    ['fullName','email','phone'].forEach(function(k){
+      var p = form.querySelector('[data-err="' + k + '"]');
+      p.textContent = errs[k] || ''; p.hidden = !errs[k];
+      f[k].classList.toggle('bad', !!errs[k]);
+    });
+    return !Object.keys(errs).length;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!check()) return;
+    // Review copy: never posts anywhere. The live page sends this to /api/register.
+    form.hidden = true;
+    var legal = box.querySelector('.wf-reg-legal'); if (legal) legal.hidden = true;
+    var done = document.getElementById('wf-reg-done'); done.style.display = 'block';
+  });
+})();
+</script>
+</body>
+</html>
