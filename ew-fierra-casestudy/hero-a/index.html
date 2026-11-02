@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Fierra's store: an Ecomwarts case study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>/* EW sales-letter case study: shared styles. Tokens from repos/wf-funnel-wiki/clients/ew/design-tokens.json */
+:root{
+  --ink:#0F1419; --cream:#FBFAF5; --white:#FFFFFF;
+  --gold:#C9A84C; --gold-bright:#F5C518; --gold-mid:#E0AE00; --gold-deep:#8A6D1F; --gold-pale:#E8CF7A;
+  --muted:#5A6470; --border:rgba(15,20,25,0.10);
+  --cta:linear-gradient(135deg,#F5C518 0%,#E0AE00 50%,#C9A84C 100%);
+  --cta-shadow:0 10px 26px -8px rgba(245,197,24,0.55), inset 0 0 0 1px rgba(255,255,255,0.35);
+  --card-shadow:0 1px 2px rgba(15,20,25,0.04);
+  --hairline:inset 0 0 0 1px rgba(15,20,25,0.10);
+  --page-wash:radial-gradient(1100px 520px at 12% -10%, rgba(201,168,76,.10), rgba(0,0,0,0) 60%), radial-gradient(900px 480px at 92% 110%, rgba(232,207,122,.09), rgba(0,0,0,0) 65%), linear-gradient(#FFFFFF 0%, #FBFAF5 100%);
+  --r-sm:10px; --r-md:12px; --r-pill:9999px;
+  --ff-display:'Space Grotesk', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ff-body:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --container:760px; --pad-y:80px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--ff-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--ff-display);font-weight:700;margin:0;text-wrap:balance}
+p{margin:0 0 1em;text-wrap:pretty}
+.ln{display:block}
+.nw{white-space:nowrap}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 16px}
+.wide{max-width:1040px;margin:0 auto;padding:0 16px}
+section{padding:var(--pad-y) 0}
+.center{text-align:center}
+
+/* CTA (same label and line as the advertorial) */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 36px;border-radius:var(--r-pill);background:var(--cta);box-shadow:var(--cta-shadow);color:var(--ink);font-family:var(--ff-display);font-weight:700;font-size:1.125rem;text-decoration:none;width:100%;max-width:420px}
+.btn:hover{filter:brightness(1.04)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.cta-note{font-size:0.8125rem;line-height:1.5;color:var(--muted);margin:10px 0 0}
+
+/* S01 header */
+.site-head{background:var(--white);border-bottom:1px solid var(--border)}
+.site-head .wide{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
+.site-head img{height:40px;width:auto}
+.site-head nav{display:flex;gap:28px}
+.site-head nav a{color:var(--ink);text-decoration:none;font-size:0.9375rem;font-weight:600}
+.site-head nav a:hover{color:var(--gold-deep)}
+
+/* S01 hero: the kit's grid hero stands in for Commercial Freedom's aerial photo */
+.hero{position:relative;overflow:hidden;background:var(--page-wash);padding:72px 0 80px;text-align:center}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(15,20,25,.18) 1px, rgba(0,0,0,0) 1px), linear-gradient(90deg, rgba(15,20,25,.18) 1px, rgba(0,0,0,0) 1px);background-size:72px 72px;-webkit-mask:linear-gradient(#000 0%, #000 35%, rgba(0,0,0,.55) 62%, rgba(0,0,0,0) 92%);mask:linear-gradient(#000 0%, #000 35%, rgba(0,0,0,.55) 62%, rgba(0,0,0,0) 92%);pointer-events:none}
+.hero > .wide{position:relative}
+.attn{display:inline-flex;align-items:center;gap:10px;max-width:100%;padding:8px 18px;border-radius:var(--r-pill);background:var(--ink);color:var(--white);font-size:0.8125rem;line-height:1.4;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 28px}
+.attn svg{flex:none;width:18px;height:18px}
+.attn b{color:var(--gold-bright);font-weight:700}
+.hero h1{font-size:3.75rem;line-height:1.06;max-width:960px;margin:0 auto 22px}
+.hero h1 em{font-style:normal;color:var(--gold-deep)}
+.hero .sub{font-size:1.0625rem;line-height:1.55;color:var(--ink);max-width:680px;margin:0 auto 32px;text-wrap:balance}
+
+@media (max-width:640px){
+  :root{--pad-y:48px}
+  body{font-size:0.9375rem}
+  .site-head .wide{min-height:60px}
+  .site-head img{height:32px}
+  .site-head nav{display:none}
+  .hero{padding:40px 0 48px}
+  .attn{font-size:0.75rem;padding:8px 14px;text-align:left;border-radius:var(--r-md)}
+  .hero h1{font-size:1.75rem;line-height:1.12}
+  .hero .sub{font-size:0.9375rem}
+  .btn{font-size:1.0625rem;padding:0 20px}
+}
+
+/* S02 proof tiles (Commercial Freedom fold 2) */
+.tiles-sec{padding:56px 0 80px;background:var(--white)}
+.tiles-head{display:flex;align-items:flex-start;justify-content:center;gap:10px;margin:0 0 20px;font-family:var(--ff-display);font-weight:700;font-size:1.875rem;line-height:1.25;color:var(--gold-deep)}
+.tiles-head svg{flex:none;width:60px;height:44px;margin-top:10px}
+.tiles{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:36px 132px;max-width:760px;margin:0 auto}
+.tile{margin:0;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);overflow:hidden}
+.tile img,.tile .needs{display:block;width:100%;aspect-ratio:2/1;object-fit:cover;object-position:50% 16%}
+.tile .needs{display:flex;align-items:center;justify-content:center;padding:12px;border:2px dashed var(--gold);background:var(--cream);color:var(--gold-deep);font-size:0.8125rem;font-weight:600;line-height:1.4;text-align:center}
+.tile figcaption{padding:12px 10px 14px;text-align:center}
+.tile figcaption b{display:block;font-family:var(--ff-display);font-size:1.25rem;line-height:1.25}
+.tile figcaption span{display:block;font-size:0.8125rem;line-height:1.5;color:var(--muted);margin-top:2px}
+.tiles-face{position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);border-radius:50%;border:5px solid var(--white);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);object-fit:cover;background:var(--ink)}
+@media (max-width:640px){
+  .tiles-sec{padding:40px 0 48px}
+  .tiles-head{font-size:1.25rem}
+  .tiles-head svg{width:44px;height:32px;margin-top:6px}
+  .tiles{gap:16px 12px;padding-top:108px}
+  .tile figcaption{padding:10px 6px 12px}
+  .tile figcaption b{font-size:1.0625rem}
+  .tiles-face{top:0;width:96px;height:96px;border-width:4px;transform:translateX(-50%)}
+}
+
+/* S03 her story (Commercial Freedom's founder letter) */
+.letter{padding:40px 0 80px;background:var(--white)}
+.letter .wrap{max-width:640px}
+.letter-h2{font-size:3rem;line-height:1.2;text-align:center;max-width:900px;margin:0 auto 12px}
+.letter-h2 em{font-style:normal;color:var(--gold-deep)}
+.letter-sub{text-align:center;font-size:1.0625rem;line-height:1.55;color:var(--muted);margin:0 0 36px}
+.letter p{font-size:1rem;line-height:1.6;margin:0 0 1.1em}
+.letter .salute{font-weight:600}
+.letter .strong{font-weight:700}
+.letter .dots-head{font-family:var(--ff-display);font-weight:700;font-size:1.25rem;line-height:1.25;text-align:center;margin:36px 0 16px}
+.dots{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:12px}
+.dots li{position:relative;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);padding:12px 16px 12px 46px;font-weight:600;font-size:1rem;line-height:1.5}
+.dots li::before{content:"";position:absolute;left:14px;top:14px;width:20px;height:20px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%230F1419' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+.signoff{display:flex;align-items:center;gap:20px;max-width:420px;margin:32px auto 32px;background:var(--white);border-radius:var(--r-md);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);overflow:hidden}
+.signoff img{width:120px;height:120px;object-fit:cover;flex:none}
+.signoff b{display:block;font-family:var(--ff-display);font-size:1.25rem;line-height:1.25}
+.signoff span{display:block;font-size:0.8125rem;line-height:1.5;color:var(--muted)}
+@media (max-width:640px){
+  .letter{padding:24px 0 48px}
+  .letter-h2{font-size:1.5rem}
+  .letter-sub{font-size:0.9375rem;margin-bottom:28px}
+  .letter p,.dots li{font-size:0.9375rem}
+  .letter .dots-head{font-size:1.125rem}
+  .signoff img{width:96px;height:96px}
+}
+
+/* S04 case-file cards (Commercial Freedom's acquisitions & performance) */
+.casefile{background:var(--ink);color:var(--white)}
+.cf-h2{font-size:3rem;line-height:1.2;text-align:center;max-width:820px;margin:0 auto 14px}
+.cf-intro{text-align:center;font-size:0.9375rem;line-height:1.6;color:var(--gold-pale);max-width:640px;margin:0 auto 40px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto}
+.card{background:var(--white);color:var(--ink);border-radius:var(--r-md);padding:20px 20px 8px;display:flex;flex-direction:column}
+.card h3{font-size:1.25rem;line-height:1.25;text-align:center;margin:0 0 14px}
+.card-media{border-radius:var(--r-sm);overflow:hidden;background:var(--ink)}
+.card-media img,.card-media .needs{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.card-media .needs{display:flex;align-items:center;justify-content:center;padding:16px;border:2px dashed var(--gold);border-radius:var(--r-sm);background:var(--cream);color:var(--gold-deep);font-size:0.8125rem;font-weight:600;line-height:1.4;text-align:center}
+.card-label{position:relative;margin:-34px 16px 4px;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);padding:12px 14px;text-align:center}
+.card-label .q{font-family:var(--ff-display);font-weight:600;font-size:1rem;line-height:1.4;margin:0}
+.card-label .meta{font-size:0.8125rem;line-height:1.5;color:var(--muted);margin:4px 0 0}
+.rows{margin:6px 0 0;padding:0}
+.rows > div{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:0.9375rem;line-height:1.5}
+.rows > div:last-child{border-bottom:0}
+.rows dt{font-weight:600}
+.rows dd{margin:0}
+.needs-inline{display:inline-block;margin-top:4px;border:1.5px dashed var(--gold);border-radius:6px;padding:1px 6px;color:var(--gold-deep);background:var(--cream);font-weight:600;font-size:0.8125rem}
+.cf-cta{margin-top:40px}
+.casefile .cta-note{color:var(--gold-pale)}
+@media (max-width:760px){
+  .cards{grid-template-columns:1fr;gap:20px}
+  .cf-h2{font-size:1.5rem}
+  .cf-intro{font-size:0.8125rem;margin-bottom:28px}
+  .card{padding:16px 16px 6px}
+  .rows > div{grid-template-columns:92px 1fr;font-size:0.875rem}
+}
+
+/* S05 meet Rayston (Commercial Freedom's "Meet Johnny") */
+.meet{background:var(--white)}
+.meet-hero{position:relative;width:100%;max-width:800px;height:230px;margin:0 auto 24px}
+.meet-photo{position:absolute;left:50%;top:0;width:210px;height:210px;transform:translateX(-50%);border-radius:50%;object-fit:cover;background:var(--cream);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline)}
+.badge{position:absolute;margin:0;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:var(--r-pill);background:var(--white);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);font-family:var(--ff-display);font-weight:600;font-size:0.9375rem;line-height:1.2;white-space:nowrap}
+.badge::before,.badge::after{content:"";width:14px;height:30px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 36'%3E%3Cpath d='M12.5 35C6.5 28 4.5 18 7.5 2' fill='none' stroke='%23C9A84C' stroke-width='1.3' stroke-linecap='round'/%3E%3Cg fill='%23C9A84C'%3E%3Cellipse cx='4.6' cy='7.5' rx='1.9' ry='3.8' transform='rotate(-28 4.6 7.5)'/%3E%3Cellipse cx='10.2' cy='6' rx='1.9' ry='3.8' transform='rotate(32 10.2 6)'/%3E%3Cellipse cx='3.6' cy='15.5' rx='1.9' ry='3.8' transform='rotate(-45 3.6 15.5)'/%3E%3Cellipse cx='9.6' cy='14' rx='1.9' ry='3.8' transform='rotate(38 9.6 14)'/%3E%3Cellipse cx='4.8' cy='23.5' rx='1.9' ry='3.8' transform='rotate(-58 4.8 23.5)'/%3E%3Cellipse cx='11' cy='22' rx='1.9' ry='3.8' transform='rotate(44 11 22)'/%3E%3Cellipse cx='8.2' cy='30.5' rx='1.8' ry='3.4' transform='rotate(-68 8.2 30.5)'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+.badge::after{transform:scaleX(-1)}
+.b1{right:calc(50% + 92px);top:30px}.b2{left:calc(50% + 92px);top:30px}.b3{right:calc(50% + 100px);top:126px}.b4{left:calc(50% + 100px);top:126px}
+.meet-pill{display:inline-block;padding:6px 16px;border-radius:var(--r-pill);background:var(--ink);color:var(--white);font-size:0.6875rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase}
+.meet-h2{font-size:3rem;line-height:1.2;text-align:center;max-width:1000px;margin:16px auto 28px}
+.ticks{list-style:none;margin:0 auto 20px;padding:0;max-width:640px;display:grid;gap:10px}
+.ticks li{position:relative;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);padding:12px 16px 12px 48px;font-size:1rem;line-height:1.5}
+.ticks li::before{content:"";position:absolute;left:16px;top:15px;width:20px;height:20px;border-radius:6px;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%23F5C518' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+.meet-close{text-align:center;font-size:0.9375rem;line-height:1.6;color:var(--muted);max-width:600px;margin:0 auto 28px}
+@media (max-width:640px){
+  .meet-hero{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:176px}
+  .meet-photo{width:160px;height:160px}
+  .badge{position:static;justify-content:center;min-width:0;padding:8px 6px;gap:4px;font-size:0.8125rem;white-space:normal;text-align:center}
+  .badge::before,.badge::after{width:9px;height:18px}
+  .meet-h2 .nw{white-space:normal}
+  .meet-h2{font-size:1.5rem}
+  .ticks li{font-size:0.9375rem}
+}
+
+/* Phrase-binding only where it fits */
+@media (max-width:900px){ .meet-h2 .nw{white-space:normal} }
+@media (max-width:360px){ .nw{white-space:normal} }
+
+.needs-badge{border:1.5px dashed var(--gold);color:var(--gold-deep);font-family:var(--ff-body);font-size:0.8125rem}
+.meet-h2 .ln + .ln{margin-top:0.15em}
+/* Each sentence keeps its own line on phones too (polish audit: "Then" started mid-line at 320). */
+
+/* Real dashboards: show the whole screen, never crop the numbers */
+.tile img.dash,.card-media img.dash{object-fit:cover;object-position:0 0;background:var(--white)}
+.card-media:has(img.dash){background:var(--white);box-shadow:var(--hairline)}
+@media (max-width:1100px){ .card-label .nw{white-space:normal} }
+@media (max-width:900px){ .cards{grid-template-columns:1fr;max-width:560px} }
+@media (max-width:360px){ .rows > div{grid-template-columns:1fr;gap:2px} }
+
+/* S06 the steps (Commercial Freedom's "Method" block) */
+.method{background:var(--cream)}
+.trio{display:flex;align-items:center;justify-content:center;margin:0 auto 28px;max-width:640px}
+.trio img{width:34%;aspect-ratio:4/3;object-fit:cover;object-position:0 0;border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);background:var(--white)}
+.trio img.mid{width:40%;aspect-ratio:3/4;object-position:40% 50%;margin:0 -4%;position:relative;z-index:1;box-shadow:0 10px 26px -8px rgba(15,20,25,0.35)}
+.sec-h2{font-size:3rem;line-height:1.2;text-align:center;margin:16px auto 24px;max-width:900px}
+.short{max-width:600px;margin:0 auto}
+.short p{font-size:1rem;line-height:1.6;margin:0 0 1.1em}
+.steps-h{font-family:var(--ff-display);font-size:1.875rem;line-height:1.25;text-align:center;margin:40px auto 24px}
+.steps-h em{font-style:normal;color:var(--gold-deep)}
+.msteps{list-style:none;margin:0 auto;padding:0;max-width:600px;display:grid;gap:14px}
+.msteps li{display:grid;grid-template-columns:44px 1fr;gap:16px;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);padding:18px 20px}
+.msteps svg{width:32px;height:32px;fill:none;stroke:var(--gold-deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.msteps h4{font-family:var(--ff-display);font-size:1rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 6px}
+.msteps p{margin:0;font-size:0.9375rem;line-height:1.6;color:var(--muted)}
+.close-line{text-align:center;font-family:var(--ff-display);font-weight:600;font-size:1.25rem;margin:32px auto 24px}
+@media (max-width:640px){
+  .sec-h2{font-size:1.5rem}
+  .steps-h{font-size:1.25rem}
+  .short p{font-size:0.9375rem}
+  .msteps li{grid-template-columns:36px 1fr;gap:12px;padding:16px}
+  .msteps svg{width:28px;height:28px}
+  .msteps h4{font-size:0.875rem}
+  .close-line{font-size:1.125rem}
+  .sec-h2 .ln,.steps-h .ln{display:inline}
+  .sec-h2 .ln + .ln::before,.steps-h .ln + .ln::before{content:" "}
+}
+
+/* S07 not another course (Commercial Freedom's "straight-talking mentorship" band) */
+.enemy{background:var(--ink);color:var(--white)}
+.enemy-img{display:block;width:100%;max-width:360px;aspect-ratio:4/3;object-fit:cover;object-position:50% 30%;border-radius:var(--r-md);margin:0 auto 28px}
+.enemy .sec-h2{color:var(--white)}
+.dark-checks{list-style:none;margin:0 auto 32px;padding:0;max-width:600px;display:grid;gap:12px}
+.dark-checks li{position:relative;background:var(--white);color:var(--ink);border-radius:var(--r-sm);padding:14px 16px 14px 50px;font-size:1rem;line-height:1.5;font-weight:500}
+.dark-checks li::before{content:"";position:absolute;left:16px;top:16px;width:20px;height:20px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%230F1419' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+.enemy .short p{color:rgba(255,255,255,0.86)}
+.enemy .short .pull{font-family:var(--ff-display);font-weight:600;font-size:1.25rem;line-height:1.4;color:var(--gold-pale);border-left:3px solid var(--gold);padding-left:16px;margin:8px 0 20px}
+.enemy .cta-note{color:var(--gold-pale)}
+@media (max-width:640px){
+  .enemy-img{max-width:280px}
+  .dark-checks li{font-size:0.9375rem}
+  .enemy .short .pull{font-size:1.0625rem}
+}
+.enemy .wrap{max-width:1000px}
+.enemy .sec-h2{max-width:1000px}
+
+/* One sentence per line, with a full blank line between, like Commercial Freedom's body copy (Gray, 2026-11-01) */
+.short p,.letter p{margin:0 0 1.5em}
+.msteps p + p{margin-top:0.4em}
+
+/* S08 who it's for (Commercial Freedom's "Who We Help") */
+.who{background:var(--white)}
+.who-cards{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:900px;margin:8px auto 36px}
+.who-card{background:var(--white);border-radius:var(--r-md);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);padding:16px 16px 20px}
+.who-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--r-sm);margin:0 0 16px}
+.who-card h3{font-size:1.25rem;line-height:1.25;margin:0 0 8px}
+.who-card > p{font-size:0.9375rem;line-height:1.6;color:var(--muted);margin:0 0 14px}
+.ticks.small{margin:0;gap:8px}
+.ticks.small li{box-shadow:none;padding:4px 0 4px 32px;font-size:0.9375rem}
+.ticks.small li::before{left:0;top:6px}
+@media (max-width:760px){ .who-cards{grid-template-columns:1fr;max-width:480px} }
+.who-img.needs{display:flex;align-items:center;justify-content:center;padding:16px;border:2px dashed var(--gold);background:var(--cream);color:var(--gold-deep);font-size:0.8125rem;font-weight:600;text-align:center}
+
+/* S09 what's included (Commercial Freedom's "What's Included In The ... Program") */
+.included{background:var(--ink);color:var(--white)}
+.included .sec-h2{color:var(--white)}
+.inc-img{display:block;width:100%;max-width:480px;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-md);margin:0 auto 28px}
+.inc{list-style:none;margin:8px auto 36px;padding:0;max-width:640px;display:grid;gap:14px}
+.inc li{display:grid;grid-template-columns:40px 1fr;gap:16px;align-items:start;background:var(--white);color:var(--ink);border-radius:var(--r-md);padding:20px 22px}
+.inc svg{width:40px;height:40px;fill:none;stroke:var(--gold-deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.inc h3{font-size:1.125rem;line-height:1.3;margin:2px 0 8px}
+.inc p{font-size:0.9375rem;line-height:1.6;color:var(--muted);margin:0}
+.inc p + p{margin-top:0.6em}
+.included .cta-note{color:var(--gold-pale)}
+@media (max-width:640px){
+  .inc-img{max-width:320px}
+  .inc li{grid-template-columns:32px 1fr;gap:12px;padding:16px}
+  .inc svg{width:32px;height:32px}
+}
+
+/* S10 reasons (Commercial Freedom's "9 Reasons Why Tradies Are Using...") */
+.reasons{background:var(--cream)}
+.nums{list-style:none;counter-reset:n;margin:8px auto 36px;padding:0;max-width:640px;display:grid;gap:14px}
+.nums li{counter-increment:n;position:relative;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);padding:16px 20px 16px 64px;font-size:1rem;line-height:1.55}
+.nums li::before{content:counter(n);position:absolute;left:0;top:50%;transform:translateY(-50%);width:40px;height:32px;border-radius:0 var(--r-pill) var(--r-pill) 0;background:var(--ink);color:var(--gold-bright);font-family:var(--ff-display);font-weight:700;font-size:0.9375rem;display:flex;align-items:center;justify-content:center}
+.nums b{font-weight:700}
+@media (max-width:640px){
+  .nums li{padding:14px 16px 14px 56px;font-size:0.9375rem}
+  .nums li::before{width:36px;height:30px}
+}
+/* "the One Store Away Workshop" is one unbreakable phrase after the typography pass: size it to fit a phone */
+@media (max-width:640px){ .reasons .sec-h2{font-size:1.375rem} }
+@media (max-width:360px){ .reasons .sec-h2{font-size:1.1875rem} }
+
+/* S11 how it works (Commercial Freedom's "How It Works") */
+.hiw{background:var(--ink);color:var(--white)}
+.hiw .sec-h2{color:var(--white)}
+.hiw-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin:8px auto 40px}
+.hiw-card{position:relative;background:var(--white);color:var(--ink);border-radius:var(--r-md);padding:16px 18px 22px}
+.hiw-card + .hiw-card::before{content:"";position:absolute;left:-30px;top:96px;width:20px;height:20px;border-top:3px solid var(--gold);border-right:3px solid var(--gold);transform:rotate(45deg)}
+.hiw-media{position:relative;margin:0 0 24px}
+.hiw-media img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-sm)}
+.hiw-media img.top{object-position:50% 0;background:var(--cream);box-shadow:var(--hairline)}
+.hiw-step{position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);background:var(--white);border-radius:var(--r-sm) var(--r-sm) 0 0;padding:6px 14px 2px;text-align:center;font-size:0.6875rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-deep);line-height:1.2}
+.hiw-step b{display:block;font-family:var(--ff-display);font-weight:700;font-size:1.125rem;color:var(--ink);letter-spacing:0}
+.hiw-card h3{font-size:1.25rem;line-height:1.25;margin:0 0 10px}
+.hiw-card p{font-size:0.9375rem;line-height:1.6;color:var(--muted);margin:0}
+.hiw-card p + p{margin-top:0.75em}
+.hiw .cta-note{color:var(--gold-pale)}
+@media (max-width:900px){
+  .hiw-cards{grid-template-columns:1fr;max-width:420px;gap:44px}
+  .hiw-card + .hiw-card::before{left:50%;top:-30px;transform:translateX(-50%) rotate(135deg)}
+}
+
+/* Hero line control (polish audit 2026-11-01): .keep is never relaxed, unlike .nw below 360px */
+.keep{white-space:nowrap}
+.hero h1 em{white-space:nowrap}
+@media (max-width:359px){ .hero h1{font-size:1.5rem} }
+@media (max-width:640px){ .cta-note .sep{display:none} .cta-note .l2{display:block} }
+/* Smallest phones: step titles fit on one line (polish audit: "5. Ask" sat alone at 320) */
+@media (max-width:359px){ .msteps li{gap:12px;padding:16px 14px} .msteps h4{font-size:0.875rem;letter-spacing:0.03em} }
+
+/* S12 claim your spot (Commercial Freedom's "Claim Your Free 30-Minute ... Strategy Session") */
+.claim{background:var(--cream)}
+.claim-img{display:block;width:100%;max-width:640px;aspect-ratio:2/1;object-fit:cover;object-position:50% 40%;border-radius:var(--r-md);margin:0 auto 28px}
+.claim .sec-h2 em{font-style:normal;color:var(--gold-deep)}
+.claim-sub{text-align:center;font-size:1.125rem;color:var(--muted);margin:-8px auto 32px}
+.claim-h3{font-size:1.375rem;line-height:1.3;text-align:center;margin:12px auto 20px}
+.claim-list{list-style:none;margin:0 auto 36px;padding:0;max-width:600px;display:grid;gap:14px}
+.claim-list li{position:relative;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);padding:16px 18px 16px 52px;font-size:1rem;line-height:1.55}
+.claim-list li::before{content:"";position:absolute;left:16px;top:18px;width:22px;height:22px;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%23F5C518' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+@media (max-width:640px){
+  .claim-sub{font-size:1rem;margin-bottom:24px}
+  .claim-h3{font-size:1.1875rem}
+  .claim-list li{font-size:0.9375rem;padding:14px 14px 14px 48px}
+  .claim-list li::before{left:14px;top:16px}
+}
+.claim .wrap{max-width:1000px} .claim .short,.claim-list{max-width:600px}
+
+/* S13 honest fit check (in the shape of Commercial Freedom's "WARNING! ... Take Action Today" band, without the scarcity) */
+.fit{background:var(--ink);color:var(--white)}
+.fit .wrap{text-align:center}
+.fit-alert{display:inline-flex;align-items:center;gap:10px;margin:0 auto 4px;padding:10px 22px;border-radius:var(--r-pill);background:rgba(245,197,24,.12);box-shadow:inset 0 0 0 1px rgba(245,197,24,.55);color:var(--gold-bright);font-family:var(--ff-display);font-weight:700;font-size:1.0625rem;letter-spacing:.02em}
+.fit-alert svg{width:20px;height:20px;flex:none}
+.fit .sec-h2{color:var(--white)}
+.fit .short{text-align:left}
+.fit .short p{color:rgba(255,255,255,.88)}
+.fit-label{display:inline-block;margin:8px auto 24px;padding:8px 20px;border-radius:var(--r-pill);background:rgba(255,255,255,.1);color:var(--white);font-family:var(--ff-display);font-weight:700;font-size:1.0625rem}
+.fit .cta-note{color:var(--gold-pale)}
+@media (max-width:640px){ .fit-alert,.fit-label{font-size:1rem} }
+
+/* S14 FAQ (Commercial Freedom's "Frequently Asked Questions") */
+.faq{background:var(--white)}
+.faq-list{max-width:640px;margin:8px auto 36px;display:grid;gap:14px}
+.faq details{background:var(--white);border-radius:var(--r-sm);box-shadow:0 6px 18px -10px rgba(15,20,25,.25), var(--hairline)}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;font-family:var(--ff-display);font-weight:700;font-size:1.0625rem;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:24px;height:24px;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5' fill='none' stroke='%23F5C518' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/24px no-repeat;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(180deg)}
+.faq summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:var(--r-sm)}
+.faq-a{padding:0 20px 18px}
+.faq-a p{font-size:0.9375rem;line-height:1.6;color:var(--muted);margin:0}
+.faq-a p + p{margin-top:0.6em}
+@media (max-width:640px){ .faq summary{font-size:1rem;padding:16px} .faq-a{padding:0 16px 16px} }
+
+/* S15 final call (Commercial Freedom's "Ready To Achieve Real Freedom From The Tools?") */
+.final{background:var(--ink);color:var(--white)}
+.final .sec-h2{color:var(--white)}
+.final-img{display:block;width:100%;max-width:560px;aspect-ratio:2/1;object-fit:cover;object-position:50% 20%;border-radius:var(--r-md);margin:0 auto 28px}
+.final-checks{list-style:none;margin:8px auto 36px;padding:0;max-width:520px;display:grid;gap:12px}
+.final-checks li{position:relative;background:var(--white);color:var(--ink);border-radius:var(--r-sm);padding:13px 16px 13px 52px;font-size:1rem;line-height:1.45;font-weight:500}
+.final-checks li::before{content:"";position:absolute;left:14px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%230F1419' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px no-repeat}
+.final .cta-note{color:var(--gold-pale)}
+@media (max-width:640px){ .final-img{max-width:100%} .final-checks li{font-size:0.9375rem} }
+
+/* Final polish audit (2026-11-01) */
+.faq summary{text-wrap:balance}
+.close-line .ln + .ln{margin-top:0.2em}
+.meet-h2 .ln{max-width:760px;margin-inline:auto}
+@media (max-width:360px){ .cf-h2{font-size:1.375rem} .meet-pill{letter-spacing:.06em;padding:6px 12px} }
+/* Dashboard cards: show the whole screenshot width, and fade only its last label row, so nothing peeks out beside the quote card (polish audit) */
+.card-media:has(img.dash){position:relative}
+.card-media img.dash{object-fit:contain;object-position:50% 0}
+/* (label row now cropped out of the files themselves; no fade needed) */
+.card-media img.dash.tall{object-fit:cover;object-position:0 0}
+
+/* Re-audit fixes (2026-11-01) */
+.foot-links span{text-align:center}
+@media (max-width:359px){ .attn{letter-spacing:.02em} }
+
+
+.hero.hA{background:#0F1419;text-align:left;padding:104px 0 112px;color:#fff}
+.hero.hA::before{content:"";position:absolute;inset:0 0 0 -200px;background:url(../assets/studio-fierra-hd.webp) 0% 30%/cover no-repeat;-webkit-mask:none;mask:none}
+.hero.hA::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,20,25,.05) 0%,rgba(15,20,25,.30) 30%,rgba(15,20,25,.86) 46%,rgba(15,20,25,.94) 100%)}
+.hero.hA > .wide{position:relative;z-index:1}
+.hA .copy{max-width:580px;margin-left:auto}
+.hA .attn{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);border-radius:var(--r-md);text-align:left;max-width:526px}
+.hA h1 em{white-space:nowrap}
+.hA .copy{max-width:620px}
+.hA h1{font-size:3rem;line-height:1.08;margin:0 0 22px;color:#fff;max-width:none;text-wrap:balance}
+.hA h1 em{color:var(--gold-bright)}
+.hA .sub{color:rgba(255,255,255,.88);margin:0 0 30px;max-width:540px}
+.hA .cta-note{color:rgba(255,255,255,.72)}
+.hA .tag{position:absolute;z-index:1;left:24px;bottom:22px;font-size:.8125rem;line-height:1.4;color:#fff;background:rgba(15,20,25,.62);padding:6px 12px;border-radius:var(--r-pill)}
+.hA .mob-photo{display:none}
+@media (max-width:640px){
+  .hero.hA{padding:0 0 44px;text-align:center}
+  .hero.hA::before,.hero.hA::after{display:none}
+  .hA .mob-photo{display:block;position:relative;height:168px;margin:0 0 14px;background:url(../assets/studio-fierra-hd.webp) 20% 25%/160% auto no-repeat}
+  .hA .mob-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,20,25,0) 55%,#0F1419 100%)}
+  .hA .tag{left:12px;bottom:14px;z-index:2;font-size:.75rem}
+  .hA .copy{margin:0 auto}
+  .hA .attn{margin-bottom:10px}
+  .hA .tag{left:auto;right:12px;top:auto;bottom:12px}
+  .hA h1{font-size:1.75rem;line-height:1.12;margin-bottom:16px}
+  .hA .sub{margin:0 auto 22px}
+}
+@media (max-width:359px){
+  .hA .mob-photo{height:150px}
+  .hero.hA{padding-bottom:36px}
+  .hA h1{font-size:1.5rem}
+}
+
+@media (max-width:640px){.hA .desk-tag{display:none}}
+.wf-reg{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(15,20,25,.6)}
+.wf-reg.open{display:flex}
+.wf-reg-box{position:relative;width:100%;max-width:420px;max-height:92dvh;overflow-y:auto;background:#fff;color:#0F1419;border-radius:12px;padding:28px 22px 20px;box-shadow:0 20px 60px rgba(0,0,0,.3);font-family:Inter,system-ui,sans-serif}
+.wf-reg-x{position:absolute;top:8px;right:8px;width:36px;height:36px;border:0;background:none;font-size:22px;line-height:1;color:#5A6470;cursor:pointer;font-family:Inter,system-ui,sans-serif}
+.wf-reg h2{font-family:'Space Grotesk',Inter,system-ui,sans-serif;font-size:22px;line-height:1.25;margin:0 0 4px;text-wrap:balance}
+.wf-reg-sub{font-size:14px;line-height:1.5;color:#5A6470;margin:0 0 16px}
+.wf-reg form{display:grid;gap:10px}
+.wf-reg input,.wf-reg select{width:100%;font:inherit;font-size:16px;color:#0F1419;background:#fff;border:1px solid #d4d4d8;border-radius:10px;padding:12px 12px;min-height:48px}
+.wf-reg input:focus,.wf-reg select:focus{outline:2px solid #0F1419;outline-offset:0;border-color:#0F1419}
+.wf-reg .bad{border-color:#dc2626}
+.wf-reg-phone{display:grid;grid-template-columns:118px 1fr;gap:8px}
+.wf-reg-err{color:#dc2626;font-size:12px;margin:-4px 0 0}
+.wf-reg-btn{width:100%;min-height:52px;border:0;border-radius:10px;background:#0F1419;color:#fff;font-family:'Space Grotesk',Inter,system-ui,sans-serif;font-weight:700;font-size:16px;cursor:pointer;margin-top:4px}
+.wf-reg-btn[disabled]{opacity:.7;cursor:wait}
+.wf-reg-legal{font-size:11.5px;line-height:1.5;color:#5A6470;margin:14px 0 0;text-align:center}
+.wf-reg-legal a{color:inherit;text-decoration:underline}
+
+.wf-reg-legal a{white-space:nowrap}
+@media (max-width:360px){.wf-reg-phone{grid-template-columns:88px 1fr}.wf-reg select{padding-inline:8px 4px}.wf-reg input[name=phone]{padding-inline:10px 8px}}
+
+.wf-reg-box{font-family:var(--ff-body)} .wf-reg h2{font-family:var(--ff-display)}
+.wf-reg-btn{background:var(--cta);color:var(--ink);font-family:var(--ff-display);border-radius:var(--r-pill)}
+.wf-reg-done{display:none;text-align:center;padding:8px 0 4px} .wf-reg-done h3{font-size:1.25rem;margin:0 0 8px} .wf-reg-done p{font-size:0.9375rem;color:var(--muted);margin:0}
+footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--border)}
+.fda-disclaimer{font-size:0.8125rem;line-height:1.6;color:var(--muted);white-space:pre-line;margin:0}
+.fda-disclaimer a{color:inherit}
+.foot-links{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 22px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:0.8125rem;color:var(--muted)}
+.foot-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted)}
+.foot-links span{display:inline-flex;align-items:center;min-height:44px}
+.wf-disc{margin-top:8px} .wf-disc summary{cursor:pointer;font-size:0.8125rem;color:var(--muted);text-decoration:underline;padding:10px 0}
+.build-note{background:#fff8e1;border-bottom:1px solid var(--gold-pale);font-size:0.8125rem;line-height:1.45;padding:8px 16px;text-align:center;color:var(--gold-deep)}
+</style></head><body>
+<div class="build-note">Section-by-section build for Gray. Sections built so far: 01, 02, 03, 04, 05, 06, 07, 08, 10, 11, 12, 13, 14, 15 (hero test arm A). Not live, no tracking, the button never sends.</div>
+<!-- HERO TEST ARM A: "studio" (Keystone layout). Full-width frame of Fierra in EW's studio (interview 3:13, re-pulled full size, light sharpening; 1080p source is the ceiling), dark overlay, white copy right, figure in gold. Copy identical to the control hero. -->
+<header class="site-head">
+  <div class="wide">
+    <img src="../assets/logo-ecomwarts-elite.png" alt="Ecomwarts Elite" width="460" height="228">
+    <nav aria-label="Page sections">
+      <a href="#how-it-works">How it works</a>
+      <a href="#her-numbers">Her numbers</a>
+      <a href="#faq">Questions</a>
+    </nav>
+  </div>
+</header>
+<section class="hero hA" id="hero">
+  <div class="mob-photo" role="img" aria-label="Fierra in her Ecomwarts interview"><span class="tag">Fierra, in her Ecomwarts interview</span></div>
+  <span class="tag desk-tag">Fierra, in her Ecomwarts interview</span>
+  <div class="wide">
+    <div class="copy">
+    <p class="attn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.5 21h21L12 2.5Z" fill="#F5C518"/><path d="M12 9v5.5" stroke="#0F1419" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.3" fill="#0F1419"/></svg><span><b>Attention <span class="keep">Singapore working mums:</span></b> <span class="keep">home with your kids,</span> <span class="keep">but still on work chats?</span></span></p>
+    <h1>How a laid‑off <span class="keep">Singapore mum</span> built one online store to&nbsp;<em>$318,000 USD in sales</em> <span class="keep">in under four months</span></h1>
+    <p class="sub"><span class="keep">Watch her mentor, Rayston Heem,</span> <span class="keep">build a store live with AI tools</span> <span class="keep">at the One Store Away Workshop.</span></p>
+    <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+    <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+
+<!-- S02 Proof tiles. Mirrors Commercial Freedom fold 2 ("Build a property portfolio like this"): script heading with an arrow, 2x2 asset photos with one figure under each, the founder's face in the middle. -->
+<!-- v2 (Gray sent her community posts, 2026-11-01): every tile is now a real dashboard or the on-camera moment, one number under each, like their $/month per building. -->
+<!-- TEMPLATE SLOTS: {student_face} and, per tile, {tile_image} {tile_figure} {tile_period}. FIXED EW COPY: heading pattern "{Name}'s store, by the numbers". -->
+<!-- Sources: $318,000 interview 11:53 (read off her phone) · $85.2K Apr 15-May 15 Shopify, her EW community post 16/5/26 · $120.9K May 15-Jun 14 Shopify, post 15/6/26 · $5,117 May 17 Shopify, post 18/5/26. Originals: reports/ecomwarts/casestudy-page-2026-11-01/proof/ -->
+<section class="tiles-sec" id="her-numbers">
+  <div class="wide">
+    <p class="tiles-head"><span>Fierra’s store, by the numbers</span><svg viewBox="0 0 60 44" aria-hidden="true"><path d="M2 8 C 26 2, 46 6, 52 34" fill="none" stroke="#8A6D1F" stroke-width="2.2" stroke-linecap="round"/><path d="M45 29 L52 36 L57 27" fill="none" stroke="#8A6D1F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+    <div class="tiles">
+      <figure class="tile">
+        <img src="../assets/fierra-318.webp" alt="Fierra reading her total sales off her phone in the interview" width="1000" height="750" style="object-position:50% 35%">
+        <figcaption><b>$318,000 USD</b><span>in sales, mid‑March to July 8, 2026</span></figcaption>
+      </figure>
+      <figure class="tile">
+        <img class="dash" src="../assets/dashf-month2.webp" alt="Fierra's Shopify dashboard: total sales $85.2K, April 15 to May 15, 2026" width="684" height="332">
+        <figcaption><b>$85.2K USD</b><span>in month two, <span class="keep">April 15 to May 15</span></span></figcaption>
+      </figure>
+      <figure class="tile">
+        <img class="dash" src="../assets/dashf-month3.webp" alt="Fierra's Shopify dashboard: total sales $120.9K, May 15 to June 14, 2026" width="678" height="324">
+        <figcaption><b>$120.9K USD</b><span>in month three, <span class="keep">May 15 to June 14</span></span></figcaption>
+      </figure>
+      <figure class="tile">
+        <img class="dash" src="../assets/dashf-5k-day.webp" alt="Fierra's Shopify dashboard: total sales $5,117 on May 17, 2026" width="658" height="321">
+        <figcaption><b>$5,117 USD</b><span>in a single day, May 17</span></figcaption>
+      </figure>
+      <img class="tiles-face" src="../assets/fierra-face.webp" alt="Fierra" width="400" height="400">
+    </div>
+  </div>
+</section>
+
+<!-- S03 Her story. Mirrors Commercial Freedom's founder letter: H2 with the $ figure highlighted + subline, salutation, 3 pain checkboxes, short one-to-two-sentence paragraphs, "Imagine waking up to find" + 5 checkboxes, the offer, a sign-off card with photo, button. -->
+<!-- Voice: theirs is first person from the founder. Ours is third person about the student (Gray's brief); the sign-off card names her, not a signature. -->
+<!-- TEMPLATE SLOTS: {h2_before} {h2_result} {subline}, the 3 pain questions (from the student's own "before"), story paragraphs + quotes, the 5 "now" checkboxes, sign-off card. FIXED EW COPY: salutation, the workshop paragraph, button + line. -->
+<!-- H2 v2 (Gray 2026-11-01 asked for the "12-hour shifts" style; she said ~8 h/day, 40 h/week, OT unpaid at 3:34-3:42, so 8-hour days). Sources (interview ntPczG2ynnE): 15 yrs PM, laid off 0:07/4:30 · 40 h, OT unpaid 3:34-3:42 · Teams + email first thing 4:56 · laptop + calls on holiday 4:48 · "present... absent" 4:20 · kids 7 and 2 7:02 · payout 10:30 · "liabilities... responsibilities" 0:51 · two paths 0:55 · 1-3 months 7:49 · tried dropshipping 6-7 yrs ago 13:01 · YouTube/Reddit 1:38 · found Rayston via tutorials + case studies 9:32 · safety-net job, left after 2 weeks 2:14 · husband only earner 17:18 · mornings + school pickup 6:40-6:56 · 1-2 h/day + deep-focus days 3:58 · China trip 5:31-5:48 · reinvests, monthly salary 12:42 · $318,000 11:53 -->
+<section class="letter" id="her-story">
+  <div class="wide">
+    <h2 class="letter-h2"><span class="keep">How Fierra went</span> <span class="keep">from 8‑hour days</span> <span class="keep">and unpaid overtime</span> <span class="keep">to <em>$318,000 USD</em></span> <span class="keep">in store sales</span></h2>
+    <p class="letter-sub">(After a layoff, <span class="keep">with a deadline she set herself:</span> one to three months)</p>
+  </div>
+  <div class="wrap">
+    <p class="salute">Dear working mum,</p>
+    <ul class="dots">
+      <li>Is Microsoft Teams <span class="keep">the first thing</span> you check every morning?</li>
+      <li>Do family holidays still come with a laptop and work calls?</li>
+      <li>Are you there with your family, but your mind is still at work?</li>
+    </ul>
+    <p>That was Fierra, too.</p>
+    <p>For 15 years she was a project manager in Singapore.</p>
+    <p>About 40 hours a week, and the overtime went unpaid.</p>
+    <p>On holidays she still took calls with customers.</p>
+    <p>In her words: “I was physically present with my family. But mentally, I’m not there.”</p>
+    <p>Then, at 35, she was laid off.</p>
+    <p>She had two children, aged seven and two, and a small payout from the company to carry her for a few months.</p>
+    <p class="strong">“I have liabilities, I have responsibilities. So I can’t waste time.”</p>
+    <p>She saw two paths: find another job, or build the business she had always wanted.</p>
+    <p>She gave herself one to three months to test the business.</p>
+    <p>If it failed, she would go back to a full‑time job.</p>
+    <p>She had tried dropshipping six or seven years earlier, so she knew the model was real.</p>
+    <p>This time she didn’t want to piece it together from random YouTube videos and Reddit threads.</p>
+    <p>She found Rayston Heem through his YouTube tutorials and the case studies he shares of his students, and joined his Ecomwarts program.</p>
+    <p>She even took a job as a safety net.</p>
+    <p>She left&nbsp;it after two weeks, because the store’s sales were already coming in.</p>
+    <p>Her husband was the family’s only earner while she built it, and he backed her fully.</p>
+    <p class="dots-head">What Fierra’s days look like now:</p>
+    <ul class="dots">
+      <li>Her mornings go to the store, and to herself</li>
+      <li>She picks her kids up from school, and the afternoon is theirs</li>
+      <li><span class="ln"><span class="keep">About one to two hours a day</span> <span class="keep">on the store,</span></span><span class="ln"><span class="keep">plus one or two</span> <span class="keep">deep‑focus days a week</span></span></li>
+      <li>A family trip to China <span class="nw"><span class="keep">without checking</span> <span class="keep">her phone for work</span></span></li>
+      <li>Most of the money goes back into the store, <span class="nw"><span class="keep">and she pays herself</span> <span class="keep">a monthly salary</span></span></li>
+    </ul>
+    <p>You can watch the same work done before you decide anything.</p>
+    <p>At the One Store Away Workshop, Rayston builds a store live with AI tools, from picking the product to launch, in 60 minutes on Zoom.</p>
+    <div class="signoff">
+      <img src="../assets/fierra-face-4m20.webp" alt="Fierra" width="400" height="400">
+      <div><b>Fierra</b><span>Ecomwarts student, Singapore</span><span>Told on camera, July 8, 2026</span></div>
+    </div>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S04 Case-file cards. Mirrors Commercial Freedom's "See our recent commercial acquisitions & performance": dark band, centred H2, 2-col cards (title, photo, floating label + meta line, labelled rows), button. Theirs has 6 deal cards; ours has 6 milestones, in date order. -->
+<!-- v2 (Gray sent her EW community posts, 2026-11-01): each milestone shows her own Shopify dashboard; labels are her own words from that post or the interview. -->
+<!-- TEMPLATE SLOTS: per card {title} {image} {quote} {quote_meta} {rows}. FIXED EW COPY: H2 pattern, intro line, button + line. -->
+<!-- Sources: month one over $30k (interview 11:19-11:35), 10k goal (8:30) · May 2 $4,589.05 / 99 orders, "first 3k & 4k day", "averaging 1~2k before" (post 3/5/26) · Apr 15-May 15 $85.2K / 1,874 orders, thanks to coaches (post 16/5/26) · May 17 $5,117 / 110 orders, "10k a month... in a day? Just WILD!" (post 18/5/26) · May 15-Jun 14 $120.9K / 2,638 orders, "truly changed my life" (post 15/6/26) · $318,000 (11:53), reinvests + monthly salary (12:42), "surreal" (12:39). Originals: ../proof/ -->
+<section class="casefile" id="case-file">
+  <div class="wide">
+    <h2 class="cf-h2"><span class="nw">See how Fierra’s store</span> <span class="nw">performed, period by period</span></h2>
+    <p class="cf-intro"><span class="ln">From the Shopify dashboards she posted in the Ecomwarts student community</span><span class="ln">and her July 8, 2026 interview on Rayston Heem’s YouTube channel.</span><span class="ln">All figures are sales, not profit.</span></p>
+    <div class="cards">
+
+      <article class="card">
+        <h3>Month one</h3>
+        <div class="card-media"><img src="../assets/fierra-month1.webp" alt="Fierra in the Ecomwarts studio" width="1200" height="900"></div>
+        <div class="card-label"><p class="q"><span class="keep">“I was actually expecting</span> <span class="keep">just to get…</span> <span class="keep">10k a month of revenue.”</span></p><p class="meta">Mid‑March to mid‑April 2026</p></div>
+        <dl class="rows">
+          <div><dt>Sales:</dt><dd><b>Over $30,000 USD</b></dd></div>
+          <div><dt>Her goal:</dt><dd>$10,000 a month</dd></div>
+          <div><dt>Her hours:</dt><dd>Full days at the start</dd></div>
+          <div><dt>Source:</dt><dd>Her words in the interview</dd></div>
+        </dl>
+      </article>
+
+      <article class="card">
+        <h3>Her first $4K day</h3>
+        <div class="card-media"><img class="dash" src="../assets/dash-4k-day.webp" alt="Fierra’s Shopify app: total sales $4,589.05 and 99 orders on May 2, 2026" width="748" height="300"></div>
+        <div class="card-label"><p class="q"><span class="nw">“Hit my first 3k & 4k day</span> <span class="nw">in the same day too!”</span></p><p class="meta">May 2, 2026</p></div>
+        <dl class="rows">
+          <div><dt>Sales:</dt><dd><b>$4,589.05 USD</b></dd></div>
+          <div><dt>Orders:</dt><dd>99</dd></div>
+          <div><dt>Before:</dt><dd>About $1,000 to $2,000 a day</dd></div>
+          <div><dt>Source:</dt><dd>Her Shopify app, posted to the Ecomwarts community</dd></div>
+        </dl>
+      </article>
+
+      <article class="card">
+        <h3>Month two</h3>
+        <div class="card-media"><img class="dash" src="../assets/dashf-month2.webp" alt="Fierra’s Shopify dashboard: total sales $85.2K and 1,874 orders, April 15 to May 15, 2026" width="684" height="332"></div>
+        <div class="card-label"><p class="q"><span class="keep">“Thank you so much</span> <span class="keep">to all the coaches…</span> <span class="keep">to help me scale</span> <span class="keep">as quickly as possible.”</span></p><p class="meta">April 15 to May 15, 2026</p></div>
+        <dl class="rows">
+          <div><dt>Sales:</dt><dd><b>$85.2K USD</b></dd></div>
+          <div><dt>Orders:</dt><dd>1,874</dd></div>
+          <div><dt>Source:</dt><dd>Her Shopify dashboard, posted to the Ecomwarts community</dd></div>
+        </dl>
+      </article>
+
+      <article class="card">
+        <h3>Her first $5K day</h3>
+        <div class="card-media"><img class="dash" src="../assets/dashf-5k-day.webp" alt="Fierra’s Shopify dashboard: total sales $5,117 and 110 orders on May 17, 2026" width="658" height="321"></div>
+        <div class="card-label"><p class="q"><span class="nw">“My personal aim/target was 10k a month,</span> <span class="nw">but this amount in a day?</span> <span class="keep ln">Just WILD!”</span></p><p class="meta">May 17, 2026</p></div>
+        <dl class="rows">
+          <div><dt>Sales:</dt><dd><b>$5,117 USD</b></dd></div>
+          <div><dt>Orders:</dt><dd>110</dd></div>
+          <div><dt>Source:</dt><dd>Her Shopify dashboard, posted to the Ecomwarts community</dd></div>
+        </dl>
+      </article>
+
+      <article class="card">
+        <h3>Month three</h3>
+        <div class="card-media"><img class="dash" src="../assets/dashf-month3.webp" alt="Fierra’s Shopify dashboard: total sales $120.9K and 2,638 orders, May 15 to June 14, 2026" width="678" height="324"></div>
+        <div class="card-label"><p class="q"><span class="nw">“This has truly changed</span> <span class="nw">my life and more!”</span></p><p class="meta">May 15 to June 14, 2026</p></div>
+        <dl class="rows">
+          <div><dt>Sales:</dt><dd><b>$120.9K USD</b></dd></div>
+          <div><dt>Orders:</dt><dd>2,638</dd></div>
+          <div><dt>Source:</dt><dd>Her Shopify dashboard, posted to the Ecomwarts community</dd></div>
+        </dl>
+      </article>
+
+      <article class="card">
+        <h3>Mid‑March to July 8</h3>
+        <div class="card-media"><img src="../assets/fierra-2m30.webp" alt="Fierra telling her story in her Ecomwarts interview" width="1200" height="900"></div>
+        <div class="card-label"><p class="q"><span class="nw">“It feels surreal to be honest,</span> <span class="nw">even today.”</span></p><p class="meta">From the start of her store to the interview</p></div>
+        <dl class="rows">
+          <div><dt>Sales:</dt><dd><b>$318,000 USD</b></dd></div>
+          <div><dt>The money:</dt><dd>Most goes back into the store, and she pays herself a monthly salary</dd></div>
+          <div><dt>Source:</dt><dd>Read off her phone, on camera</dd></div>
+        </dl>
+      </article>
+
+    </div>
+    <div class="center cf-cta">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S05 Meet Rayston. Mirrors Commercial Freedom's "Meet Johnny Leary": round photo with 4 laurel badges, a "Meet ..." pill, H2, 6 checklist rows, button. -->
+<!-- v2 (Gray, 2026-11-01): lead with his accolade, never "lost all his money" (it seeds the fear of losing money); laurels like theirs; headshot centred. -->
+<!-- FIXED EW COPY: the whole section repeats on every student's page (Rayston is always the guide); only "that taught [Name]" changes. -->
+<!-- $10M+ in online sales = Gray 2026-11-01 (EW to confirm the figure). Sources: millionaire at 18 + retired his parents = Gray 2026-11-01. Public: June 2025 press release (markets.financialcontent.com, accwirecq-2025-6-3) "seven-figure online venture by the age of 18" (revenue; a Jan 2025 release says 20) and "support his family financially"; theindependent.sg/?p=721809 "youngest millionaire in Singapore". "Retired his parents": NO public source found, EW to confirm. Started at 16 in mum's bedroom 21:47-22:25 · "one product changed my life" 22:28 · coaches almost all ex-students (tsl-bof 08-COPY-v4, hedged "almost all") · AI tools for product/store/ads (advertorial, Gray 10-24) · two weekly calls 20:59, SG community 20:19 · Trustpilot 4.5/34 (advertorial FAQ 10-25, re-check) -->
+<section class="meet" id="meet-rayston">
+  <div class="wide">
+    <div class="meet-hero">
+      <img class="meet-photo" src="../assets/rayston-center.webp" alt="Rayston Heem, founder of Ecomwarts, on his podcast set" width="600" height="600">
+      <p class="badge b1"><span>Millionaire at 18</span></p>
+      <p class="badge b2"><span>Retired his parents</span></p>
+      <p class="badge b3"><span>Founder of Ecomwarts</span></p>
+      <p class="badge b4"><span>$10M+ in online sales</span></p>
+    </div>
+    <p class="center"><span class="meet-pill">Meet Rayston Heem…</span></p>
+    <h2 class="meet-h2"><span class="ln">Became a millionaire at 18 and retired his parents.</span><span class="ln">Then built the program that taught Fierra.</span></h2>
+    <ul class="ticks">
+      <li>Built a seven‑figure <span class="keep">online business by 18</span></li>
+      <li>Started dropshipping at 16 <span class="keep">from his mum’s bedroom,</span> <span class="keep">until one product changed his life</span></li>
+      <li>Founded Ecomwarts in Singapore, <span class="keep">where almost all the coaches</span> <span class="keep">started as students</span></li>
+      <li>Teaches the whole build with AI tools: <span class="nw">the product, the store and the ads</span></li>
+      <li>Runs two calls a week for his students, <span class="keep">plus a Singapore</span> <span class="keep">student community</span></li>
+      <!-- [NEEDS: EW to re-check the Trustpilot count; same line is on the live advertorial] -->
+      <li>Ecomwarts is rated 4.5 on Trustpilot (34 reviews)</li>
+    </ul>
+    <p class="meet-close">Fierra found him through his YouTube tutorials and the case studies he shares of his students.</p>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S06 The steps. Mirrors Commercial Freedom's "The Commercial Freedom Method": image trio, pill, "Your blueprint to..." H2, short paragraphs, "Across 7 key steps..." + numbered icon cards, closing line, button. -->
+<!-- Theirs lists the paid program's steps. EW has no named method we can verify, so ours lists what the workshop shows live (approved on the advertorial, Gray 10-24/25). -->
+<!-- FIXED EW COPY: whole section (same workshop on every student's page); only "the program Fierra went through" names the student. -->
+<section class="method" id="how-it-works">
+  <div class="wrap">
+    <div class="trio">
+      <img src="../assets/rayston-live-qa.webp" alt="Rayston Heem taking questions at a live Ecomwarts event" width="960" height="640">
+      <img class="mid" src="../assets/rayston-teaching.webp" alt="Rayston Heem teaching at a screen" width="675" height="450">
+      <img src="../assets/dashf-month3.webp" alt="Fierra’s Shopify dashboard for May 15 to June 14, 2026" width="678" height="324">
+    </div>
+    <p class="center"><span class="meet-pill">Inside the One Store Away Workshop</span></p>
+    <h2 class="sec-h2"><span class="ln"><span class="nw">Your blueprint</span> <span class="nw">for a first store,</span></span><span class="ln"><span class="nw">built live</span> <span class="nw">in 60 minutes</span></span></h2>
+    <div class="short">
+      <p>Imagine watching a store go from idea to launch in one sitting.</p>
+      <p><span class="keep">That’s what</span> the One Store Away Workshop shows you.</p>
+      <p>Live on Zoom, Rayston picks a product, builds the store and makes the ads, with AI tools at every step.</p>
+      <p>No theory‑heavy course.</p>
+      <p>No piecing it together from random YouTube videos.</p>
+      <p>Just the build, start to finish, <span class="keep">so you can see the work</span> before you decide anything.</p>
+    </div>
+    <h3 class="steps-h"><span class="ln">In <em>6 live steps</em>, you’ll see</span><span class="ln">a store go from idea to launch:</span></h3>
+    <ol class="msteps">
+      <li><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="14" cy="14" r="8"/><path d="M20 20l7 7"/></svg><div><h4>1. Pick the product</h4><p><span class="keep">Rayston shows you how</span> <span class="keep">he picks a product</span> quickly with AI tools.</p></div></li>
+      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12l3-6h16l3 6"/><path d="M5 12h22v14H5z"/><path d="M13 26v-7h6v7"/></svg><div><h4>2. Build the store</h4><p>An entire store, end to end, <span class="keep">in under 60 minutes,</span> with AI tools.</p></div></li>
+      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 13v6h4l9 6V7l-9 6H5z"/><path d="M23 11c2 2 2 8 0 10"/></svg><div><h4>3. Make the ads</h4><p>Built with AI tools: no filming yourself and no designing by hand.</p></div></li>
+      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c5 3 7 9 6 15l-6 6-6-6c-1-6 1-12 6-15z"/><circle cx="16" cy="13" r="2.5"/><path d="M10 19l-4 2 2 5 4-2M22 19l4 2-2 5-4-2"/></svg><div><h4>4. Launch the store</h4><p>How he goes live, how he checks it is working, and what success looks like.</p></div></li>
+      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h22v14H14l-6 5v-5H5z"/><path d="M11 13h10M11 17h6"/></svg><div><h4>5. Ask your questions live</h4><p>So you leave clear on how to build a store yourself.</p></div></li>
+      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 17l6-6 5 3 4-3 9 6-6 6-4-3-3 3-5-3z"/><path d="M10 11l5 3"/></svg><div><h4>6. Then, the help Fierra had</h4><p>Rayston introduces <span class="keep">the Ecomwarts</span> <span class="keep">mentorship program,</span> <span class="keep">the one Fierra went through.</span></p>
+      <p>It’s paid and optional.</p>
+      <p><span class="nw">The workshop stands on its own.</span></p></div></li>
+    </ol>
+    <p class="close-line"><span class="ln">You watch the whole build first.</span><span class="ln">Then you decide.</span></p>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S07 Not another course. Mirrors Commercial Freedom's "A straight-talking mentorship for tradies... without the usual real estate guru BS": dark band, image, H2, 3 check boxes naming the alternatives, short "I get it" paragraphs, button. -->
+<!-- Their enemies: gurus, buyer's agents, pitch-fest webinars. Ours, in Fierra's own words: random YouTube/Reddit (1:38), courses "good in theory" with no student wins (15:46-16:00), courses that "just leave you there" (23:53). "Goes through every phase with you" (23:43). Coaches almost all ex-students (kickoff, hedged). -->
+<!-- H2 mirrors theirs ("A Straight-Talking Mentorship For Tradies... Without The Usual Real Estate Guru Bullsh*t"); "professionals" is the avatar slot (Gray 2026-11-01 comment: "professionals", replacing "working mums"). FIXED EW COPY with student quotes as slots: the 3 checks and the two quotes. -->
+<section class="enemy" id="not-another-course">
+  <div class="wrap">
+    <img class="enemy-img" src="../assets/fierra-9m00.webp" alt="Fierra explaining her choice in her Ecomwarts interview" width="1200" height="900">
+    <h2 class="sec-h2"><span class="ln"><span class="nw">A hands‑on mentorship</span> <span class="nw">for professionals…</span></span><span class="ln"><span class="nw">without the usual</span> <span class="nw">online‑course fluff</span></span></h2>
+    <ul class="dark-checks">
+      <li>Tired of piecing it together from random YouTube videos and Reddit threads?</li>
+      <li>Seen courses that are <span class="nw">“really good in theory,”</span> with no <span class="keep">student wins</span> to show for it?</li>
+      <li>Worried you’ll be taught to build a store, then left on your own?</li>
+    </ul>
+    <div class="short">
+      <p>Fierra had all three doubts.</p>
+      <p>Before she chose a mentor, she looked at the usual courses.</p>
+      <p>What she wanted to see was the end result.</p>
+      <p>Real students.</p>
+      <p>Real stores.</p>
+      <p>What she found in Ecomwarts, in her words:</p>
+      <p class="pull">“It goes through every phase with you, it grows with you as well.”</p>
+      <p>Almost all of the coaches started as students.</p>
+      <p>They’ve built stores themselves.</p>
+      <p>And before you pay for anything, you can watch Rayston build one live.</p>
+    </div>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- v2 (Gray 2026-11-01): ~50/50 men and women; no layoff angle. Card 1 parents with jobs (better life for their kids); card 2 young professionals (retire their parents / side income). Natalya has an updated persona set to align with later. Card 2 photo: AI (gemini-3-pro-image, $0.1387, proof/ai/persona-pro-t2.png). Alternate card 1 photo (dad with kids): assets/persona-dad-alt.webp.
+     S08 Who it's for. Mirrors Commercial Freedom's "Who We Help": H2, two persona cards (photo, title, line, 3 checks), button. -->
+<!-- Theirs uses stock tradie photos; ours uses the two AI lifestyle illustrations Gray approved on the advertorial (school gate; layoff letter), the same role their stock photos play. Personas: the signed-off SG working mum (persona doc 10-23) and the laid-off professional (Fierra's own path; the GTM "Job Escapee"). Avatar 1/2/3 mapping still open with Gray. -->
+<!-- TEMPLATE SLOTS: the two persona cards (per avatar). FIXED EW COPY: H2. -->
+<section class="who" id="who-its-for">
+  <div class="wide">
+    <h2 class="sec-h2 center">Who the workshop is for</h2>
+    <div class="who-cards">
+      <article class="who-card">
+        <img class="who-img" src="../assets/persona-working-mum.webp" alt="A parent walking two children home from the school gate" width="1264" height="848">
+        <h3>Parents with jobs</h3>
+        <p>You want a better life for your kids.</p>
+        <p>It has to fit around work and family.</p>
+        <ul class="ticks small">
+          <li>Keep your job <span class="keep">while you watch and decide</span></li>
+          <li>See the whole build before you risk anything</li>
+          <li>Learn from the program <span class="keep">Fierra went through</span></li>
+        </ul>
+      </article>
+      <article class="who-card">
+        <img class="who-img" src="../assets/persona-young-pro.webp" alt="A young professional working on a laptop at home in the evening" width="1376" height="768">
+        <h3>Young professionals</h3>
+        <p>You want to retire your parents one day.</p>
+        <p>Or build a side income toward the life you want.</p>
+        <ul class="ticks small">
+          <li>Start learning <span class="keep">without leaving your job</span></li>
+          <li>See a store built, <span class="keep">product to ads,</span> <span class="keep">in 60 minutes</span></li>
+          <li>Ask your questions live, <span class="nw">to the person who taught Fierra</span></li>
+        </ul>
+      </article>
+    </div>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S10 Reasons. Mirrors Commercial Freedom's "9 Reasons Why Tradies Are Using The Commercial Freedom Method": light band, H2, nine numbered white rows (bold lead, plain tail), button. -->
+<!-- Every reason is a workshop fact from the approved, live advertorial (apply.ecomwarts.io/evnt-advert-fierra): see the build before deciding; product and store with AI tools; ads with AI, no filming yourself or designing by hand; launch, testing and success metrics shown; 60 min live on Zoom twice a week; keep your job and watch (FAQ); live Q&A after the build; no cost, booked into the next session on registering (FAQ); paid program optional, workshop stands on its own. "The person who taught Fierra" = S05. -->
+<!-- "Professionals" matches S07 (Gray's comment). Their list sells the paid program; ours sells only the workshop (Gray 2026-11-01). FIXED EW COPY: whole section. -->
+<section class="reasons" id="reasons">
+  <div class="wrap">
+    <h2 class="sec-h2"><span class="ln">9 reasons professionals join</span><span class="ln">the One Store Away Workshop</span></h2>
+    <ol class="nums">
+      <li><b>You see the whole build</b> before you decide anything.</li>
+      <li><b>Rayston picks the product and builds the store with AI tools,</b> <span class="nw">step by step on screen.</span></li>
+      <li><b>The ads are made with AI tools too,</b> so there’s no filming yourself <span class="nw">or designing by hand.</span></li>
+      <li><b>You see the launch,</b> how he tests the store and what success looks like.</li>
+      <li><b>It fits a busy week:</b> 60 minutes, <span class="nw">live on Zoom,</span> twice a week.</li>
+      <li><b>You can keep your job</b> and still watch.</li>
+      <li><b>Your questions get answered live</b> by the person who taught Fierra.</li>
+      <li><b>There’s no cost to attend,</b> <span class="keep">and you’re booked</span> <span class="keep">into the next session</span> <span class="keep">when you register.</span></li>
+      <li><b>The paid program at the end is optional:</b> <span class="keep">the workshop stands on its own.</span></li>
+    </ol>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S11 How it works. Mirrors Commercial Freedom's "How It Works": dark band, H2, three white cards (photo, step tab, title, copy) with arrows between, button. -->
+<!-- Theirs: book a session, join the program, land a deal. Ours sells only the workshop (Gray 2026-11-01): save your spot, watch the build, ask your questions. -->
+<!-- Images are real: step 1 is a screenshot of this page's own sign-up form; steps 2-3 are EW event photos. Facts from the live advertorial: name, email and phone; booked into the next session, date shows after registering (FAQ); 60 min on Zoom, product + store + ads with AI tools; questions after the build, "leave clear on how to build the store yourself". FIXED EW COPY: whole section. -->
+<section class="hiw" id="three-steps">
+  <div class="wide">
+    <h2 class="sec-h2">How it works</h2>
+    <div class="hiw-cards">
+      <article class="hiw-card">
+        <div class="hiw-media"><img src="../assets/signup-form.webp" alt="The sign-up form: full name, email and phone, then Save my spot" width="1200" height="800"><span class="hiw-step">Step<b>1</b></span></div>
+        <h3>Save your spot</h3>
+        <p>Add your name, email and phone.</p>
+        <p>You’re booked <span class="keep">into the next live session,</span> <span class="keep">and the date shows straight away.</span></p>
+      </article>
+      <article class="hiw-card">
+        <div class="hiw-media"><img src="../assets/rayston-teaching.webp" alt="Rayston Heem teaching at a screen" width="675" height="450"><span class="hiw-step">Step<b>2</b></span></div>
+        <h3>Watch the build live</h3>
+        <p>For 60 minutes on Zoom, Rayston picks a product, builds the store and makes the ads with AI tools.</p>
+      </article>
+      <article class="hiw-card">
+        <div class="hiw-media"><img src="../assets/rayston-live-qa.webp" alt="Rayston Heem answering questions at a live Ecomwarts event" width="960" height="640"><span class="hiw-step">Step<b>3</b></span></div>
+        <h3>Ask your questions</h3>
+        <p>After the build, Rayston answers your questions live.</p>
+        <p>You leave clear on how to build a store yourself.</p>
+      </article>
+    </div>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S12 Claim your spot. Mirrors Commercial Freedom's "Claim Your Free 30-Minute ... Strategy Session": light band, image, long H2 with one phrase highlighted (theirs highlights the session name), a "(Without ...)" line, short one-sentence paragraphs, "Here's what you'll discover" + five check cards, button. -->
+<!-- Theirs has a bonus box ("[DYNAMIC MONTH] Bonus ... valued at $1,000"); left out: we know of no workshop bonus. [NEEDS: EW, only if a real attendee bonus exists]. -->
+<!-- Every line is a workshop fact from the live advertorial: no cost to attend; keep your job and watch (FAQ); Rayston Heem, founder of Ecomwarts; 60 min live on Zoom; picks a product, builds the store, makes the ads with AI tools; launch, checks it's working, success metrics; questions answered so you leave clear on how to build the store yourself; Ecomwarts introduced at the end, the program Fierra went through, paid and optional. H2 "idea to launch" = S06 approved copy. Image: interview 21:00, Fierra with Rayston. FIXED EW COPY: whole section. -->
+<section class="claim" id="claim">
+  <div class="wrap">
+    <img class="claim-img" src="../assets/studio-twoshot-21m.webp" alt="Fierra and her mentor, Rayston Heem, at the Ecomwarts Elite table" width="1600" height="800">
+    <h2 class="sec-h2 claim-h2"><span class="keep">Save your spot</span> <span class="keep">and watch a store</span> <em class="keep">go from idea to launch,</em> <span class="keep">live with AI tools</span></h2>
+    <p class="claim-sub">(Without paying to attend or leaving your job)</p>
+    <div class="short">
+      <p>Learn from Rayston Heem, <span class="keep">founder of Ecomwarts</span> and the mentor who taught Fierra.</p>
+      <p>In 60 minutes, live on Zoom, he picks a product, builds the store and makes the ads.</p>
+      <p>Then he shows you <span class="keep">how he launches the store,</span> how he checks it’s working and what success looks like.</p>
+      <p>At the end, he introduces Ecomwarts, the program Fierra went through.</p>
+      <p>It’s paid and optional.</p>
+    </div>
+    <h3 class="claim-h3"><span class="keep">Here’s what you’ll see</span> <span class="keep">at the workshop:</span></h3>
+    <ul class="claim-list">
+      <li><b>How Rayston picks a product quickly</b> with AI tools.</li>
+      <li><b>How he builds an entire store,</b> <span class="keep">end to end,</span> in under 60 minutes.</li>
+      <li><b>How he makes the ads with AI tools,</b> <span class="keep">with no filming</span> <span class="keep">or designing by hand.</span></li>
+      <li><b>How he launches the store</b> and checks that it’s working.</li>
+      <li><b><span class="keep">Answers to your questions,</span> live,</b> so you leave clear on how to build a store yourself.</li>
+    </ul>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S13 Fit check. Mirrors the SHAPE of Commercial Freedom's "WARNING! Here's Why You Need To Take Action Today": dark band, alert pill, H2, short one-sentence paragraphs broken up by small labelled pills, button. -->
+<!-- Their content is scarcity ("spots fill quickly", "waitlist") with no count or date; our rubric fails made-up scarcity (map-b note), so this is an honest fit check instead. -->
+<!-- Every line is from the approved, live advertorial's "Dropshipping may suit you if" block and her words at interview 7:40 ("it does look unrealistic ... So that's what I thought at first as well."; the advertorial's version is a paraphrase), plus the EW footer's "results vary". FIXED EW COPY with the student quote and the "time limit and a fallback" line as student slots. -->
+<section class="fit" id="fit-check">
+  <div class="wrap">
+    <p class="fit-alert"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.5 21h21L12 2.5Z" fill="#F5C518"/><path d="M12 9v5.5" stroke="#0F1419" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.3" fill="#0F1419"/></svg>An honest note</p>
+    <h2 class="sec-h2"><span class="keep">Here’s who this suits,</span> <span class="keep">and who it doesn’t</span></h2>
+    <div class="short">
+      <p>Fierra’s numbers are her own, and results vary.</p>
+      <p>She had doubts too: <span class="keep">“It does look unrealistic…</span> <span class="keep">So that’s what I thought</span> <span class="keep">at first as well.”</span></p>
+      <p>What settled it was seeing how the model works before committing to anything.</p>
+    </div>
+    <p class="fit-label">It may suit you if:</p>
+    <div class="short">
+      <p>You have a job and very little spare time.</p>
+      <p><span class="keep">Fierra planned her test</span> <span class="keep">with a time limit</span> and a fallback.</p>
+      <p>You want to build something for your family.</p>
+      <p>You’d like to see the work before you decide anything.</p>
+    </div>
+    <p class="fit-label">It won’t suit you yet if:</p>
+    <div class="short">
+      <p>You have no budget for ads, because <span class="keep">running a store</span> means paying for ads while you test.</p>
+      <p>You’re hoping for results without the work.</p>
+      <p>Even with AI tools, it took Fierra weeks of relearning and full‑focus days.</p>
+    </div>
+    <p class="fit-label">The next step is simple:</p>
+    <div class="short">
+      <p>Watch the whole build first, at no cost.</p>
+      <p>Then decide.</p>
+    </div>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S14 FAQ. Mirrors Commercial Freedom's "Frequently Asked Questions": H2, stacked white accordion cards (first one open), chevron in a circle, button. Theirs has 10; ours has 8. -->
+<!-- Q1-Q5: the live, approved advertorial's FAQ, answers word for word, split one sentence per line. Q1 keeps the advertorial's Trustpilot line (4.5, 34 reviews): [NEEDS: EW re-check, same open item as S05]. -->
+<!-- Q6-Q8 are about her numbers. Q6: footer disclosure (revenue, not profit; her figures, not checked by EW; results not typical). Q7: S04 "Mid-March to July 8" ($318,000). Q8: advertorial ("Even having tried it before, it took her a few weeks to get comfortable with Shopify and Facebook Ads again"). FIXED EW COPY: Q1-Q5. Student slots: Q6-Q8. -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <h2 class="sec-h2">Frequently asked questions</h2>
+    <div class="faq-list">
+      <details open>
+        <summary><span>Who runs this, <span class="keep">and is Fierra a real person?</span></span></summary>
+        <div class="faq-a">
+          <p>Ecomwarts Group Private Limited, a company in Singapore.</p>
+          <p>Fierra is an Ecomwarts student who told her story on camera in July 2026.</p>
+          <p>Ecomwarts is rated 4.5 on Trustpilot (34 reviews).</p>
+        </div>
+      </details>
+      <details>
+        <summary>Does the workshop cost anything?</summary>
+        <div class="faq-a">
+          <p>There’s no cost to attend.</p>
+          <p>And yes, there is an offer: after the workshop, Ecomwarts offers a paid coaching program for people who want hands‑on help.</p>
+          <p>It’s optional.</p>
+          <p>The workshop stands on its own.</p>
+          <p>The price is explained at the end, before you decide anything.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What will I see, and how long is it?</summary>
+        <div class="faq-a">
+          <p>Rayston picks a product, builds the store and makes the ads with AI tools, live.</p>
+          <p>Then he takes your questions.</p>
+          <p>It’s a 60‑minute workshop on Zoom.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Do I need to leave my job, or have a budget ready?</summary>
+        <div class="faq-a">
+          <p>No.</p>
+          <p>You can keep your job and watch, and there’s nothing to pay to attend.</p>
+          <p>If you later build a store, you’ll need a budget for ads, as Fierra did.</p>
+          <p>Rayston’s own estimate of the time it takes is two to three hours a day.</p>
+        </div>
+      </details>
+      <details>
+        <summary>When is it, and is there a replay?</summary>
+        <div class="faq-a">
+          <p>It runs live on Zoom twice a week.</p>
+          <p>You’re booked into the next session, and the date shows right after you register.</p>
+          <p><span class="keep">A replay may be shared</span> <span class="keep">with registered attendees,</span> <span class="keep">but live attendance</span> <span class="keep">is strongly encouraged.</span></p>
+          <p>Questions are only answered live.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Are Fierra’s numbers profit?</summary>
+        <div class="faq-a">
+          <p>No.</p>
+          <p>They’re revenue: sales before costs <span class="keep">like ads, products and fees.</span></p>
+          <p>Her figures are her own, from her July 8, 2026 interview and her Shopify screens.</p>
+          <p>Ecomwarts hasn’t checked them, and her results are not typical.</p>
+        </div>
+      </details>
+      <details>
+        <summary>How long did Fierra take to reach $318,000?</summary>
+        <div class="faq-a">
+          <p>Her store’s sales reached $318,000 USD between mid‑March and July 8, 2026.</p>
+          <p>That’s under four months.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Had Fierra done this before?</summary>
+        <div class="faq-a">
+          <p>She had made an attempt years before.</p>
+          <p>Even so, it took her a few weeks to get comfortable with Shopify and Facebook Ads again.</p>
+          <p><span class="keep">The first weeks took many hours,</span> <span class="keep">but it got easier</span> <span class="keep">as she gained experience.</span></p>
+        </div>
+      </details>
+    </div>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- S15 Final call. Mirrors Commercial Freedom's closing "Ready To Achieve Real Freedom From The Tools?": dark band, image, question H2, five white check rows, button. -->
+<!-- Theirs promises outcomes ("replace your income", "outperform by 100%-563%"); ours lists only workshop facts from the live advertorial: build from product to launch; product, store and ads with AI tools; keep your job and watch (FAQ); questions answered live, by the mentor who taught Fierra (S05); no cost, twice a week on Zoom. H2 "before you decide" = advertorial's "see it work before you decide anything". Image: interview 19:00, Rayston (new frame). FIXED EW COPY: whole section. -->
+<section class="final" id="final-call">
+  <div class="wrap">
+    <img class="final-img" src="../assets/rayston-19m.webp" alt="Rayston Heem, founder of Ecomwarts, in the Ecomwarts studio" width="1440" height="720">
+    <h2 class="sec-h2"><span class="keep">Ready to watch</span> <span class="keep">the whole build</span> <span class="keep">before you decide?</span></h2>
+    <ul class="final-checks">
+      <li><span class="keep">See a store built live,</span> <span class="keep">from product to launch</span></li>
+      <li><span class="keep">Watch the product,</span> <span class="keep">store and ads</span> <span class="keep">made with AI tools</span></li>
+      <li><span class="keep">Keep your job</span> <span class="keep">while you watch and decide</span></li>
+      <li><span class="keep">Ask your questions live,</span> <span class="keep">to the mentor</span> <span class="keep">who taught Fierra</span></li>
+      <li><span class="keep">No cost to attend,</span> <span class="keep">twice a week on Zoom</span></li>
+    </ul>
+    <div class="center">
+      <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><div data-section="compliance-footer">
+<p class="fda-disclaimer compliance-footer">This page is an advertisement by Ecomwarts Group Private Limited, Singapore. Fierra is an Ecomwarts student and shares her story with permission. Her figures are her own, from a video interview on July 8, 2026 and her own Shopify screenshots. They are revenue, not profit, and Ecomwarts has not checked them. Her result is not typical. The typical outcome is no income.
+
+These results are shown for illustrative purposes only and are based on the past experiences of individual students. Your results may vary depending on your effort, skill, capital, market conditions, and consistency. Running an e‑commerce business involves financial risk. Please read the full disclaimer below.</p>
+<details class="wf-disc"><summary>Full disclaimer</summary>
+<p class="fda-disclaimer compliance-footer">This website is operated and maintained by Ecomwarts Group Private Limited, a company incorporated in Singapore. Use of this website and our programs is governed by our <a href="https://apply.ecomwarts.net/terms-and-conditions">Terms of Service</a> and <a href="https://apply.ecomwarts.net/privacy-policy">Privacy Policy</a>.
+
+We use cookies to improve, promote, and protect our services. By continuing to use this site, you agree to our Terms of Service and Privacy Policy. We collect, use, and disclose personal data in accordance with the Personal Data Protection Act 2012 (Singapore).
+
+THIRD-PARTY PLATFORMS: This site is not part of, affiliated with, or endorsed by Meta Platforms, Inc., Google LLC, TikTok, Shopify Inc., or any other platform, supplier, or payment provider mentioned in our content. All trademarks belong to their respective owners and are used for reference only.
+
+NOT MULTI-LEVEL MARKETING: Ecomwarts Group Private Limited does not operate a multi-level marketing or pyramid selling scheme within the meaning of the Multi-Level Marketing and Pyramid Selling (Prohibition) Act 1973 (Singapore). Any referral or affiliate program we offer is optional, requires no purchase to join, and rewards are not based on recruiting other participants.
+
+NOT A BUSINESS OPPORTUNITY: We are an education and training company. We do not sell a business opportunity, franchise, "get rich quick" program, or guaranteed money-making system. We do not provide you with stores, customers, suppliers, or sales. Any business you build is owned and operated solely by you, and you are fully responsible for its decisions and outcomes.
+
+EARNINGS DISCLAIMER: While we make every effort to accurately represent our programs, Ecomwarts Group Private Limited makes no promise, guarantee, or representation that you will earn any specific amount of money, any money at all, or that you will not lose money. Any earnings or revenue figures shown, including those of our founders, coaches, or students, are not typical and should not be taken as an indication of what you will achieve. Revenue is not profit, and figures shown may not account for advertising costs, product costs, refunds, platform fees, taxes, and other business expenses. Past results do not guarantee future results.
+
+DROPSHIPPING RISKS: Operating an online store involves real risk, including the loss of money spent on advertising, inventory, software, and other costs. Risks also include supplier delays or failures, product quality issues, chargebacks and refunds, payment processor holds, and suspension of advertising or store accounts by third-party platforms. You should only invest money you can afford to lose.
+
+YOUR RESPONSIBILITIES: You are solely responsible for ensuring your business complies with all laws that apply to you and your customers, including business registration, tax and GST obligations, consumer protection laws, product safety and import regulations, advertising standards, and intellectual property rights. You must not sell counterfeit, infringing, or prohibited products. We are not responsible for any product you choose to sell or any claim made against your business.
+
+NOT PROFESSIONAL ADVICE: Our content is for general educational purposes only and does not constitute financial, investment, legal, tax, or accounting advice. You should consult a qualified professional before making any business or financial decision.
+
+TESTIMONIALS: Testimonials and case studies reflect the individual opinions and experiences of people who have purchased our training. Results are not typical and depend on individual effort, time, skill, capital, and circumstances outside our control. We do not independently verify every figure shared by students.
+
+LIMITATION OF LIABILITY: To the fullest extent permitted by Singapore law, Ecomwarts Group Private Limited, its directors, employees, coaches, and affiliates shall not be liable for any direct, indirect, incidental, or consequential loss or damage, including loss of profits, revenue, or data, arising from your use of our website, programs, or any information provided.
+
+THIRD-PARTY CONTENT: We may link to or recommend content, tools, or services provided by third parties. We do not control and are not responsible for such third parties, and some may share common interests or ownership with, or pay commissions to, Ecomwarts Group Private Limited.
+
+INTELLECTUAL PROPERTY: All course materials, videos, and content are the intellectual property of Ecomwarts Group Private Limited and are protected under the Copyright Act 2021 (Singapore). Any copying, reproduction, sharing, or distribution without written permission is strictly prohibited.
+
+GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dispute shall be subject to the exclusive jurisdiction of the Singapore courts.
+
+Ecomwarts Group Private Limited, Singapore. Contact: <a href="mailto:ecomwarts@gmail.com">ecomwarts@gmail.com</a></p>
+</details>
+<!-- S16 link row: mirrors MiniDisclaimer.tsx (repos/ew_ecomwarts) and Commercial Freedom's bottom bar (copyright + policy links). -->
+<nav class="foot-links" aria-label="Legal"><a href="https://apply.ecomwarts.net/disclaimer">Disclaimer</a><a href="https://apply.ecomwarts.net/privacy-policy">Privacy Policy</a><a href="https://apply.ecomwarts.net/terms-and-conditions">Terms and Conditions</a><span>© 2026 <span class="keep">ECOMWARTS GROUP</span> <span class="keep">PRIVATE LIMITED</span></span></nav>
+</div>
+ </div></footer>
+<div class="wf-reg" id="wf-reg" role="dialog" aria-modal="true" aria-labelledby="wf-reg-title" hidden>
+  <div class="wf-reg-box">
+    <button type="button" class="wf-reg-x" aria-label="Close" data-wf-close>&times;</button>
+    <h2 id="wf-reg-title">Save your spot</h2>
+    <p class="wf-reg-sub"><span class="keep" style="display:block">The One Store Away Workshop</span><span class="keep">Live on Zoom · No cost to attend</span></p>
+    <form id="wf-reg-form" novalidate>
+      <input type="text" name="fullName" autocomplete="name" placeholder="Full Name*" aria-label="Full name">
+      <p class="wf-reg-err" data-err="fullName" hidden></p>
+      <input type="email" name="email" autocomplete="email" placeholder="Email For Access Link*" aria-label="Email for access link">
+      <p class="wf-reg-err" data-err="email" hidden></p>
+      <div class="wf-reg-phone">
+        <select name="dial" aria-label="Country code"></select>
+        <input type="tel" name="phone" autocomplete="tel-national" inputmode="tel" placeholder="Phone Number*" aria-label="Phone number">
+      </div>
+      <p class="wf-reg-err" data-err="phone" hidden></p>
+      <button type="submit" class="wf-reg-btn">Save my spot</button>
+    </form>
+    <div class="wf-reg-done" id="wf-reg-done" role="status"><h3>Preview only</h3><p>Nothing was sent. On the live page, this button books the next One Store Away Workshop and opens the thank-you page.</p></div>
+    <p class="wf-reg-legal">By submitting this form I agree to receive recurring marketing and promotional phone calls and SMS text messages from Ecomwarts at the phone number I provided. My consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. See our <a href="https://apply.ecomwarts.net/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>, <a href="https://apply.ecomwarts.net/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://apply.ecomwarts.net/disclaimer" target="_blank" rel="noopener noreferrer">Disclaimer</a>.</p>
+  </div>
+</div>
+<script>
+(function(){
+  var COUNTRIES = [["AF","+93","🇦🇫","Afghanistan"],["AL","+355","🇦🇱","Albania"],["DZ","+213","🇩🇿","Algeria"],["AS","+1684","🇦🇸","American Samoa"],["AD","+376","🇦🇩","Andorra"],["AO","+244","🇦🇴","Angola"],["AI","+1264","🇦🇮","Anguilla"],["AG","+1268","🇦🇬","Antigua and Barbuda"],["AR","+54","🇦🇷","Argentina"],["AM","+374","🇦🇲","Armenia"],["AW","+297","🇦🇼","Aruba"],["AU","+61","🇦🇺","Australia"],["AT","+43","🇦🇹","Austria"],["AZ","+994","🇦🇿","Azerbaijan"],["BS","+1242","🇧🇸","Bahamas"],["BH","+973","🇧🇭","Bahrain"],["BD","+880","🇧🇩","Bangladesh"],["BB","+1246","🇧🇧","Barbados"],["BY","+375","🇧🇾","Belarus"],["BE","+32","🇧🇪","Belgium"],["BZ","+501","🇧🇿","Belize"],["BJ","+229","🇧🇯","Benin"],["BM","+1441","🇧🇲","Bermuda"],["BT","+975","🇧🇹","Bhutan"],["BO","+591","🇧🇴","Bolivia"],["BA","+387","🇧🇦","Bosnia and Herzegovina"],["BW","+267","🇧🇼","Botswana"],["BR","+55","🇧🇷","Brazil"],["IO","+246","🇮🇴","British Indian Ocean Territory"],["VG","+1284","🇻🇬","British Virgin Islands"],["BN","+673","🇧🇳","Brunei"],["BG","+359","🇧🇬","Bulgaria"],["BF","+226","🇧🇫","Burkina Faso"],["BI","+257","🇧🇮","Burundi"],["KH","+855","🇰🇭","Cambodia"],["CM","+237","🇨🇲","Cameroon"],["CA","+1","🇨🇦","Canada"],["CV","+238","🇨🇻","Cape Verde"],["KY","+1345","🇰🇾","Cayman Islands"],["CF","+236","🇨🇫","Central African Republic"],["TD","+235","🇹🇩","Chad"],["CL","+56","🇨🇱","Chile"],["CN","+86","🇨🇳","China"],["CO","+57","🇨🇴","Colombia"],["KM","+269","🇰🇲","Comoros"],["CK","+682","🇨🇰","Cook Islands"],["CR","+506","🇨🇷","Costa Rica"],["HR","+385","🇭🇷","Croatia"],["CU","+53","🇨🇺","Cuba"],["CW","+599","🇨🇼","Curaçao"],["CY","+357","🇨🇾","Cyprus"],["CZ","+420","🇨🇿","Czech Republic"],["CD","+243","🇨🇩","DR Congo"],["DK","+45","🇩🇰","Denmark"],["DJ","+253","🇩🇯","Djibouti"],["DM","+1767","🇩🇲","Dominica"],["DO","+1849","🇩🇴","Dominican Republic"],["EC","+593","🇪🇨","Ecuador"],["EG","+20","🇪🇬","Egypt"],["SV","+503","🇸🇻","El Salvador"],["GQ","+240","🇬🇶","Equatorial Guinea"],["ER","+291","🇪🇷","Eritrea"],["EE","+372","🇪🇪","Estonia"],["SZ","+268","🇸🇿","Eswatini"],["ET","+251","🇪🇹","Ethiopia"],["FK","+500","🇫🇰","Falkland Islands"],["FO","+298","🇫🇴","Faroe Islands"],["FJ","+679","🇫🇯","Fiji"],["FI","+358","🇫🇮","Finland"],["FR","+33","🇫🇷","France"],["GF","+594","🇬🇫","French Guiana"],["PF","+689","🇵🇫","French Polynesia"],["GA","+241","🇬🇦","Gabon"],["GM","+220","🇬🇲","Gambia"],["GE","+995","🇬🇪","Georgia"],["DE","+49","🇩🇪","Germany"],["GH","+233","🇬🇭","Ghana"],["GI","+350","🇬🇮","Gibraltar"],["GR","+30","🇬🇷","Greece"],["GL","+299","🇬🇱","Greenland"],["GD","+1473","🇬🇩","Grenada"],["GP","+590","🇬🇵","Guadeloupe"],["GU","+1671","🇬🇺","Guam"],["GT","+502","🇬🇹","Guatemala"],["GG","+44","🇬🇬","Guernsey"],["GN","+224","🇬🇳","Guinea"],["GW","+245","🇬🇼","Guinea-Bissau"],["GY","+592","🇬🇾","Guyana"],["HT","+509","🇭🇹","Haiti"],["HN","+504","🇭🇳","Honduras"],["HK","+852","🇭🇰","Hong Kong"],["HU","+36","🇭🇺","Hungary"],["IS","+354","🇮🇸","Iceland"],["IN","+91","🇮🇳","India"],["ID","+62","🇮🇩","Indonesia"],["IR","+98","🇮🇷","Iran"],["IQ","+964","🇮🇶","Iraq"],["IE","+353","🇮🇪","Ireland"],["IM","+44","🇮🇲","Isle of Man"],["IL","+972","🇮🇱","Israel"],["IT","+39","🇮🇹","Italy"],["CI","+225","🇨🇮","Ivory Coast"],["JM","+1876","🇯🇲","Jamaica"],["JP","+81","🇯🇵","Japan"],["JE","+44","🇯🇪","Jersey"],["JO","+962","🇯🇴","Jordan"],["KZ","+7","🇰🇿","Kazakhstan"],["KE","+254","🇰🇪","Kenya"],["KI","+686","🇰🇮","Kiribati"],["XK","+383","🇽🇰","Kosovo"],["KW","+965","🇰🇼","Kuwait"],["KG","+996","🇰🇬","Kyrgyzstan"],["LA","+856","🇱🇦","Laos"],["LV","+371","🇱🇻","Latvia"],["LB","+961","🇱🇧","Lebanon"],["LS","+266","🇱🇸","Lesotho"],["LR","+231","🇱🇷","Liberia"],["LY","+218","🇱🇾","Libya"],["LI","+423","🇱🇮","Liechtenstein"],["LT","+370","🇱🇹","Lithuania"],["LU","+352","🇱🇺","Luxembourg"],["MO","+853","🇲🇴","Macau"],["MG","+261","🇲🇬","Madagascar"],["MW","+265","🇲🇼","Malawi"],["MY","+60","🇲🇾","Malaysia"],["MV","+960","🇲🇻","Maldives"],["ML","+223","🇲🇱","Mali"],["MT","+356","🇲🇹","Malta"],["MH","+692","🇲🇭","Marshall Islands"],["MQ","+596","🇲🇶","Martinique"],["MR","+222","🇲🇷","Mauritania"],["MU","+230","🇲🇺","Mauritius"],["YT","+262","🇾🇹","Mayotte"],["MX","+52","🇲🇽","Mexico"],["FM","+691","🇫🇲","Micronesia"],["MD","+373","🇲🇩","Moldova"],["MC","+377","🇲🇨","Monaco"],["MN","+976","🇲🇳","Mongolia"],["ME","+382","🇲🇪","Montenegro"],["MS","+1664","🇲🇸","Montserrat"],["MA","+212","🇲🇦","Morocco"],["MZ","+258","🇲🇿","Mozambique"],["MM","+95","🇲🇲","Myanmar"],["NA","+264","🇳🇦","Namibia"],["NR","+674","🇳🇷","Nauru"],["NP","+977","🇳🇵","Nepal"],["NL","+31","🇳🇱","Netherlands"],["NC","+687","🇳🇨","New Caledonia"],["NZ","+64","🇳🇿","New Zealand"],["NI","+505","🇳🇮","Nicaragua"],["NE","+227","🇳🇪","Niger"],["NG","+234","🇳🇬","Nigeria"],["NU","+683","🇳🇺","Niue"],["KP","+850","🇰🇵","North Korea"],["MK","+389","🇲🇰","North Macedonia"],["MP","+1670","🇲🇵","Northern Mariana Islands"],["NO","+47","🇳🇴","Norway"],["OM","+968","🇴🇲","Oman"],["PK","+92","🇵🇰","Pakistan"],["PW","+680","🇵🇼","Palau"],["PS","+970","🇵🇸","Palestine"],["PA","+507","🇵🇦","Panama"],["PG","+675","🇵🇬","Papua New Guinea"],["PY","+595","🇵🇾","Paraguay"],["PE","+51","🇵🇪","Peru"],["PH","+63","🇵🇭","Philippines"],["PL","+48","🇵🇱","Poland"],["PT","+351","🇵🇹","Portugal"],["PR","+1939","🇵🇷","Puerto Rico"],["QA","+974","🇶🇦","Qatar"],["CG","+242","🇨🇬","Republic of the Congo"],["RE","+262","🇷🇪","Réunion"],["RO","+40","🇷🇴","Romania"],["RU","+7","🇷🇺","Russia"],["RW","+250","🇷🇼","Rwanda"],["BL","+590","🇧🇱","Saint Barthélemy"],["SH","+290","🇸🇭","Saint Helena"],["KN","+1869","🇰🇳","Saint Kitts and Nevis"],["LC","+1758","🇱🇨","Saint Lucia"],["MF","+590","🇲🇫","Saint Martin"],["PM","+508","🇵🇲","Saint Pierre and Miquelon"],["VC","+1784","🇻🇨","Saint Vincent and the Grenadines"],["WS","+685","🇼🇸","Samoa"],["SM","+378","🇸🇲","San Marino"],["ST","+239","🇸🇹","São Tomé and Príncipe"],["SA","+966","🇸🇦","Saudi Arabia"],["SN","+221","🇸🇳","Senegal"],["RS","+381","🇷🇸","Serbia"],["SC","+248","🇸🇨","Seychelles"],["SL","+232","🇸🇱","Sierra Leone"],["SG","+65","🇸🇬","Singapore"],["SX","+1721","🇸🇽","Sint Maarten"],["SK","+421","🇸🇰","Slovakia"],["SI","+386","🇸🇮","Slovenia"],["SB","+677","🇸🇧","Solomon Islands"],["SO","+252","🇸🇴","Somalia"],["ZA","+27","🇿🇦","South Africa"],["KR","+82","🇰🇷","South Korea"],["SS","+211","🇸🇸","South Sudan"],["ES","+34","🇪🇸","Spain"],["LK","+94","🇱🇰","Sri Lanka"],["SD","+249","🇸🇩","Sudan"],["SR","+597","🇸🇷","Suriname"],["SE","+46","🇸🇪","Sweden"],["CH","+41","🇨🇭","Switzerland"],["SY","+963","🇸🇾","Syria"],["TW","+886","🇹🇼","Taiwan"],["TJ","+992","🇹🇯","Tajikistan"],["TZ","+255","🇹🇿","Tanzania"],["TH","+66","🇹🇭","Thailand"],["TL","+670","🇹🇱","Timor-Leste"],["TG","+228","🇹🇬","Togo"],["TK","+690","🇹🇰","Tokelau"],["TO","+676","🇹🇴","Tonga"],["TT","+1868","🇹🇹","Trinidad and Tobago"],["TN","+216","🇹🇳","Tunisia"],["TR","+90","🇹🇷","Turkey"],["TM","+993","🇹🇲","Turkmenistan"],["TC","+1649","🇹🇨","Turks and Caicos Islands"],["TV","+688","🇹🇻","Tuvalu"],["UG","+256","🇺🇬","Uganda"],["UA","+380","🇺🇦","Ukraine"],["AE","+971","🇦🇪","United Arab Emirates"],["GB","+44","🇬🇧","United Kingdom"],["US","+1","🇺🇸","United States"],["UY","+598","🇺🇾","Uruguay"],["VI","+1340","🇻🇮","US Virgin Islands"],["UZ","+998","🇺🇿","Uzbekistan"],["VU","+678","🇻🇺","Vanuatu"],["VA","+379","🇻🇦","Vatican City"],["VE","+58","🇻🇪","Venezuela"],["VN","+84","🇻🇳","Vietnam"],["WF","+681","🇼🇫","Wallis and Futuna"],["EH","+212","🇪🇭","Western Sahara"],["YE","+967","🇾🇪","Yemen"],["ZM","+260","🇿🇲","Zambia"],["ZW","+263","🇿🇼","Zimbabwe"]];
+  var box = document.getElementById('wf-reg');
+  var form = document.getElementById('wf-reg-form');
+  var dial = form.elements.dial;
+  COUNTRIES.forEach(function(c){
+    var o = document.createElement('option');
+    o.value = c[1]; o.textContent = c[2] + ' ' + c[1];
+    o.title = c[3];
+    if (c[0] === 'SG') o.selected = true;
+    dial.appendChild(o);
+  });
+
+  var lastFocus = null;
+  function open(){
+    lastFocus = document.activeElement;
+    box.hidden = false; box.classList.add('open');
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(function(){ form.elements.fullName.focus(); }, 30);
+  }
+  function close(){
+    box.classList.remove('open'); box.hidden = true;
+    document.documentElement.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  // Capture phase, so it runs before anything else that listens for link clicks.
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href*="apply.ecomwarts.net/evnt-one-store"]');
+    if (!a) return;
+    e.preventDefault(); e.stopPropagation();
+    open();
+  }, true);
+  box.addEventListener('click', function(e){
+    if (e.target === box || e.target.closest('[data-wf-close]')) close();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !box.hidden) close(); });
+
+  function cookie(n){ var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)'); return m ? decodeURIComponent(m[1]) : ''; }
+  function uuid(){
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+  function e164(){
+    var digits = (form.elements.phone.value || '').replace(/\D/g, '').replace(/^0/, '');
+    return digits ? dial.value + digits : '';
+  }
+  function check(){
+    var f = form.elements, errs = {};
+    if (!f.fullName.value.trim()) errs.fullName = 'Full name is required';
+    var em = f.email.value.trim();
+    if (!em) errs.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) errs.email = 'Enter a valid email';
+    var ph = e164();
+    if (!f.phone.value.trim()) errs.phone = 'Phone number is required';
+    else if (!/^\+[1-9]\d{6,14}$/.test(ph)) errs.phone = 'Enter a valid phone number';
+    ['fullName','email','phone'].forEach(function(k){
+      var p = form.querySelector('[data-err="' + k + '"]');
+      p.textContent = errs[k] || ''; p.hidden = !errs[k];
+      f[k].classList.toggle('bad', !!errs[k]);
+    });
+    return !Object.keys(errs).length;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!check()) return;
+    // Review copy: never posts anywhere. The live page sends this to /api/register.
+    form.hidden = true;
+    var legal = box.querySelector('.wf-reg-legal'); if (legal) legal.hidden = true;
+    document.getElementById('wf-reg-done').style.display = 'block';
+  });
+})();</script>
+</body></html>
