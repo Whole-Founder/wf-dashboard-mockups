@@ -76,8 +76,7 @@ section{padding:var(--pad-y) 0}
 .tiles-head svg{flex:none;width:60px;height:44px;margin-top:10px}
 .tiles{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:36px 132px;max-width:760px;margin:0 auto}
 .tile{margin:0;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);overflow:hidden}
-.tile img,.tile .needs{display:block;width:100%;aspect-ratio:2/1;object-fit:cover;object-position:50% 16%}
-.tile .needs{display:flex;align-items:center;justify-content:center;padding:12px;border:2px dashed var(--gold);background:var(--cream);color:var(--gold-deep);font-size:0.8125rem;font-weight:600;line-height:1.4;text-align:center}
+.tile img{display:block;width:100%;aspect-ratio:2/1;object-fit:cover;object-position:50% 16%}
 .tile figcaption{padding:12px 10px 14px;text-align:center}
 .tile figcaption b{display:block;font-family:var(--ff-display);font-size:1.25rem;line-height:1.25}
 .tile figcaption span{display:block;font-size:0.8125rem;line-height:1.5;color:var(--muted);margin-top:2px}
@@ -126,8 +125,7 @@ section{padding:var(--pad-y) 0}
 .card{background:var(--white);color:var(--ink);border-radius:var(--r-md);padding:20px 20px 8px;display:flex;flex-direction:column}
 .card h3{font-size:1.25rem;line-height:1.25;text-align:center;margin:0 0 14px}
 .card-media{border-radius:var(--r-sm);overflow:hidden;background:var(--ink)}
-.card-media img,.card-media .needs{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
-.card-media .needs{display:flex;align-items:center;justify-content:center;padding:16px;border:2px dashed var(--gold);border-radius:var(--r-sm);background:var(--cream);color:var(--gold-deep);font-size:0.8125rem;font-weight:600;line-height:1.4;text-align:center}
+.card-media img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
 .card-label{position:relative;margin:-34px 16px 4px;background:var(--white);border-radius:var(--r-sm);box-shadow:0 1px 2px rgba(15,20,25,0.04), var(--hairline);padding:12px 14px;text-align:center}
 .card-label .q{font-family:var(--ff-display);font-weight:600;font-size:1rem;line-height:1.4;margin:0}
 .card-label .meta{font-size:0.8125rem;line-height:1.5;color:var(--muted);margin:4px 0 0}
@@ -136,7 +134,6 @@ section{padding:var(--pad-y) 0}
 .rows > div:last-child{border-bottom:0}
 .rows dt{font-weight:600}
 .rows dd{margin:0}
-.needs-inline{display:inline-block;margin-top:4px;border:1.5px dashed var(--gold);border-radius:6px;padding:1px 6px;color:var(--gold-deep);background:var(--cream);font-weight:600;font-size:0.8125rem}
 .cf-cta{margin-top:40px}
 .casefile .cta-note{color:var(--gold-pale)}
 @media (max-width:760px){
@@ -171,11 +168,19 @@ section{padding:var(--pad-y) 0}
   .ticks li{font-size:0.9375rem}
 }
 
+/* 641-759px: the absolute laurel badges ran past the viewport (scrollWidth 716), so use the phone's 2x2 badge grid */
+@media (min-width:641px) and (max-width:759px){
+  .meet-hero{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:226px;max-width:560px}
+  .badge{position:static;justify-content:center;min-width:0}
+}
+
+/* 641-767px: the desktop h1 (3.75rem) and the reasons h2 (3rem) are wider than the screen there (scrollWidth 716); step them to kit sizes (h1 = the arms' 3rem, h2 = kit h3 1.875rem) */
+@media (min-width:641px) and (max-width:767px){ .hero h1{font-size:3rem} .reasons .sec-h2{font-size:1.875rem} }
+
 /* Phrase-binding only where it fits */
 @media (max-width:900px){ .meet-h2 .nw{white-space:normal} }
-@media (max-width:360px){ .nw{white-space:normal} }
+@media (max-width:359px){ .nw{white-space:normal} }
 
-.needs-badge{border:1.5px dashed var(--gold);color:var(--gold-deep);font-family:var(--ff-body);font-size:0.8125rem}
 .meet-h2 .ln + .ln{margin-top:0.15em}
 /* Each sentence keeps its own line on phones too (polish audit: "Then" started mid-line at 320). */
 
@@ -247,24 +252,6 @@ section{padding:var(--pad-y) 0}
 .ticks.small li{box-shadow:none;padding:4px 0 4px 32px;font-size:0.9375rem}
 .ticks.small li::before{left:0;top:6px}
 @media (max-width:760px){ .who-cards{grid-template-columns:1fr;max-width:480px} }
-.who-img.needs{display:flex;align-items:center;justify-content:center;padding:16px;border:2px dashed var(--gold);background:var(--cream);color:var(--gold-deep);font-size:0.8125rem;font-weight:600;text-align:center}
-
-/* S09 what's included (Commercial Freedom's "What's Included In The ... Program") */
-.included{background:var(--ink);color:var(--white)}
-.included .sec-h2{color:var(--white)}
-.inc-img{display:block;width:100%;max-width:480px;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-md);margin:0 auto 28px}
-.inc{list-style:none;margin:8px auto 36px;padding:0;max-width:640px;display:grid;gap:14px}
-.inc li{display:grid;grid-template-columns:40px 1fr;gap:16px;align-items:start;background:var(--white);color:var(--ink);border-radius:var(--r-md);padding:20px 22px}
-.inc svg{width:40px;height:40px;fill:none;stroke:var(--gold-deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.inc h3{font-size:1.125rem;line-height:1.3;margin:2px 0 8px}
-.inc p{font-size:0.9375rem;line-height:1.6;color:var(--muted);margin:0}
-.inc p + p{margin-top:0.6em}
-.included .cta-note{color:var(--gold-pale)}
-@media (max-width:640px){
-  .inc-img{max-width:320px}
-  .inc li{grid-template-columns:32px 1fr;gap:12px;padding:16px}
-  .inc svg{width:32px;height:32px}
-}
 
 /* S10 reasons (Commercial Freedom's "9 Reasons Why Tradies Are Using...") */
 .reasons{background:var(--cream)}
@@ -288,7 +275,6 @@ section{padding:var(--pad-y) 0}
 .hiw-card + .hiw-card::before{content:"";position:absolute;left:-30px;top:96px;width:20px;height:20px;border-top:3px solid var(--gold);border-right:3px solid var(--gold);transform:rotate(45deg)}
 .hiw-media{position:relative;margin:0 0 24px}
 .hiw-media img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-sm)}
-.hiw-media img.top{object-position:50% 0;background:var(--cream);box-shadow:var(--hairline)}
 .hiw-step{position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);background:var(--white);border-radius:var(--r-sm) var(--r-sm) 0 0;padding:6px 14px 2px;text-align:center;font-size:0.6875rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-deep);line-height:1.2}
 .hiw-step b{display:block;font-family:var(--ff-display);font-weight:700;font-size:1.125rem;color:var(--ink);letter-spacing:0}
 .hiw-card h3{font-size:1.25rem;line-height:1.25;margin:0 0 10px}
@@ -303,7 +289,8 @@ section{padding:var(--pad-y) 0}
 /* Hero line control (polish audit 2026-11-01): .keep is never relaxed, unlike .nw below 360px */
 .keep{white-space:nowrap}
 .hero h1 em{white-space:nowrap}
-@media (max-width:359px){ .hero h1{font-size:1.5rem} }
+/* Below 368px every arm's h1 steps down (the arm hero rules are more specific than .hero h1, hence .hero.hA / .hero.hB) */
+@media (max-width:367px){ .hero h1,.hero.hA h1,.hero.hB h1{font-size:1.5rem} }
 @media (max-width:640px){ .cta-note .sep{display:none} .cta-note .l2{display:block} }
 /* Smallest phones: step titles fit on one line (polish audit: "5. Ask" sat alone at 320) */
 @media (max-width:359px){ .msteps li{gap:12px;padding:16px 14px} .msteps h4{font-size:0.875rem;letter-spacing:0.03em} }
@@ -370,11 +357,14 @@ section{padding:var(--pad-y) 0}
 .card-media:has(img.dash){position:relative}
 .card-media img.dash{object-fit:contain;object-position:50% 0}
 /* (label row now cropped out of the files themselves; no fade needed) */
-.card-media img.dash.tall{object-fit:cover;object-position:0 0}
 
 /* Re-audit fixes (2026-11-01) */
 .foot-links span{text-align:center}
-@media (max-width:359px){ .attn{letter-spacing:.02em} }
+/* Below 360px: keep "Attention Singapore working mums:" on one line (polish audits 2026-11-02) */
+@media (max-width:359px){ .attn{letter-spacing:.02em;font-size:0.6875rem;padding:8px 12px;gap:8px} }
+@media (max-width:359px){ .meet-h2{font-size:1.375rem} }
+.signoff span .keep{display:inline}
+@media (max-width:359px){ .cf-h2{font-size:1.25rem} .signoff img{width:80px;height:80px} .signoff{gap:14px} }
 
 
 .hero.hB{text-align:left;padding:64px 0 88px}
@@ -388,7 +378,13 @@ section{padding:var(--pad-y) 0}
 .hB .name{position:absolute;top:16px;left:16px;background:rgba(15,20,25,.72);color:#fff;font-size:.8125rem;font-weight:600;line-height:1.3;padding:7px 12px;border-radius:var(--r-pill)}
 .hB .proof{position:absolute;left:-72px;bottom:-36px;width:320px;margin:0;background:#fff;border-radius:var(--r-sm);box-shadow:0 18px 40px -16px rgba(15,20,25,.45),var(--hairline);overflow:hidden}
 .hB .proof img{width:100%}
-.hB .proof figcaption{font-size:.75rem;line-height:1.4;color:var(--muted);padding:8px 12px 10px;border-top:1px solid var(--border)}
+.hB .proof figcaption{font-size:.8125rem;line-height:1.4;color:var(--muted);padding:8px 12px 10px;border-top:1px solid var(--border)}
+/* 641-1023px: the two-column grid has no room for the photo (it collapsed and the cards overflowed), so stack copy over photo */
+@media (min-width:641px) and (max-width:1023px){
+  .hB .grid{grid-template-columns:1fr;gap:56px}
+  .hB .photo{width:100%;max-width:520px;margin:0 auto}
+  .hB .proof{left:-40px;bottom:-36px}
+}
 @media (max-width:640px){
   .hero.hB{padding:36px 0 64px;text-align:center}
   .hB .grid{grid-template-columns:1fr;gap:28px}
@@ -409,7 +405,7 @@ section{padding:var(--pad-y) 0}
 .wf-reg-box{position:relative;width:100%;max-width:420px;max-height:92dvh;overflow-y:auto;background:#fff;color:#0F1419;border-radius:12px;padding:28px 22px 20px;box-shadow:0 20px 60px rgba(0,0,0,.3);font-family:Inter,system-ui,sans-serif}
 .wf-reg-x{position:absolute;top:8px;right:8px;width:36px;height:36px;border:0;background:none;font-size:22px;line-height:1;color:#5A6470;cursor:pointer;font-family:Inter,system-ui,sans-serif}
 .wf-reg h2{font-family:'Space Grotesk',Inter,system-ui,sans-serif;font-size:22px;line-height:1.25;margin:0 0 4px;text-wrap:balance}
-.wf-reg-sub{font-size:14px;line-height:1.5;color:#5A6470;margin:0 0 16px}
+.wf-reg-sub{font-size:0.8125rem;line-height:1.5;color:#5A6470;margin:0 0 16px}
 .wf-reg form{display:grid;gap:10px}
 .wf-reg input,.wf-reg select{width:100%;font:inherit;font-size:16px;color:#0F1419;background:#fff;border:1px solid #d4d4d8;border-radius:10px;padding:12px 12px;min-height:48px}
 .wf-reg input:focus,.wf-reg select:focus{outline:2px solid #0F1419;outline-offset:0;border-color:#0F1419}
@@ -432,11 +428,14 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 .fda-disclaimer a{color:inherit}
 .foot-links{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 22px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:0.8125rem;color:var(--muted)}
 .foot-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted)}
-.foot-links span{display:inline-flex;align-items:center;min-height:44px}
+.foot-links > span{display:inline-block;box-sizing:border-box;min-height:44px;padding:12px 0;line-height:1.5}
 .wf-disc{margin-top:8px} .wf-disc summary{cursor:pointer;font-size:0.8125rem;color:var(--muted);text-decoration:underline;padding:10px 0}
-.build-note{background:#fff8e1;border-bottom:1px solid var(--gold-pale);font-size:0.8125rem;line-height:1.45;padding:8px 16px;text-align:center;color:var(--gold-deep)}
+.cta-next{font-size:0.8125rem;line-height:1.5;font-weight:400;color:inherit;margin:12px 0 0}
+.cta-next + .cta-note{margin-top:2px}
+.wf-reg-sub .wf-sess{display:block;color:var(--ink);font-weight:400}
+[data-wf-session][hidden]{display:none !important}
 </style></head><body>
-<div class="build-note">Section-by-section build for Gray. Sections built so far: 01, 02, 03, 04, 05, 06, 07, 08, 10, 11, 12, 13, 14, 15 (hero test arm B). Not live, no tracking, the button never sends.</div>
+<div class="build-note" style="background:#fff8e1;border-bottom:1px solid var(--gold-pale);font-size:0.8125rem;line-height:1.45;padding:8px 16px;text-align:center;color:var(--gold-deep)">Section-by-section build for Gray. Sections built so far: 01, 02, 03, 04, 05, 06, 07, 08, 10, 11, 12, 13, 14, 15 (hero test arm B). Not live, no tracking, the button never sends.</div>
 <!-- HERO TEST ARM B: "split proof" (ADC/Banjo layout). Copy left; right: Fierra reading her sales off her phone (interview 11:54, 760x950 native crop from the 1080p frame) with her real Shopify card ($120.9K, May 15 to June 14) overlapping. On phones the card is hidden and only the photo shows (Gray: both took too much space). Copy identical to the control hero. If B wins, S02 tile 1 swaps so the photo is not repeated. -->
 <header class="site-head">
   <div class="wide">
@@ -452,9 +451,10 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
   <div class="wide grid">
     <div class="copy">
     <p class="attn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.5 21h21L12 2.5Z" fill="#F5C518"/><path d="M12 9v5.5" stroke="#0F1419" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.3" fill="#0F1419"/></svg><span><b>Attention <span class="keep">Singapore working mums:</span></b> <span class="keep">home with your kids,</span> <span class="keep">but still on work chats?</span></span></p>
-    <h1>How a laid‑off <span class="keep">Singapore mum</span> built one online store to&nbsp;<em>$318,000 USD in sales</em> <span class="keep">in under four months</span></h1>
+    <h1><span class="keep">How a laid‑off</span> <span class="keep">Singapore mum</span> <span class="keep">built one online store</span> to&nbsp;<em>$318,000 USD in sales</em> <span class="keep">in under four months</span></h1>
     <p class="sub"><span class="keep">Watch her mentor, Rayston Heem,</span> <span class="keep">build a store live with AI tools</span> <span class="keep">at the One Store Away Workshop.</span></p>
     <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
+    <p class="cta-next" data-wf-session="hero" hidden></p>
     <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
     </div>
     <div class="photo">
@@ -518,15 +518,15 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <p>For 15 years she was a project manager in Singapore.</p>
     <p>About 40 hours a week, and the overtime went unpaid.</p>
     <p>On holidays she still took calls with customers.</p>
-    <p>In her words: “I was physically present with my family. But mentally, I’m not there.”</p>
+    <p>In her words: <span class="ln">“I was physically present with my family.</span> <span class="ln">But mentally, I’m not there.”</span></p>
     <p>Then, at 35, she was laid off.</p>
     <p>She had two children, aged seven and two, and a small payout from the company to carry her for a few months.</p>
-    <p class="strong">“I have liabilities, I have responsibilities. So I can’t waste time.”</p>
+    <p class="strong"><span class="ln"><span class="keep">“I have liabilities,</span> <span class="keep">I have responsibilities.</span></span> <span class="ln">So I can’t waste time.”</span></p>
     <p>She saw two paths: find another job, or build the business she had always wanted.</p>
     <p>She gave herself one to three months to test the business.</p>
     <p>If it failed, she would go back to a full‑time job.</p>
     <p>She had tried dropshipping six or seven years earlier, so she knew the model was real.</p>
-    <p>This time she didn’t want to piece it together from random YouTube videos and Reddit threads.</p>
+    <p>This time she didn’t want to piece it together from random YouTube&nbsp;videos and Reddit threads.</p>
     <p>She found Rayston Heem through his YouTube tutorials and the case studies he shares of his students, and joined his Ecomwarts program.</p>
     <p>She even took a job as a safety net.</p>
     <p>She left&nbsp;it after two weeks, because the store’s sales were already coming in.</p>
@@ -534,7 +534,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <p class="dots-head">What Fierra’s days look like now:</p>
     <ul class="dots">
       <li>Her mornings go to the store, and to herself</li>
-      <li>She picks her kids up from school, and the afternoon is theirs</li>
+      <li><span class="keep">She picks her kids up</span> <span class="keep">from school,</span> <span class="keep">and the afternoon is theirs</span></li>
       <li><span class="ln"><span class="keep">About one to two hours a day</span> <span class="keep">on the store,</span></span><span class="ln"><span class="keep">plus one or two</span> <span class="keep">deep‑focus days a week</span></span></li>
       <li>A family trip to China <span class="nw"><span class="keep">without checking</span> <span class="keep">her phone for work</span></span></li>
       <li>Most of the money goes back into the store, <span class="nw"><span class="keep">and she pays herself</span> <span class="keep">a monthly salary</span></span></li>
@@ -543,7 +543,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <p>At the One Store Away Workshop, Rayston builds a store live with AI tools, from picking the product to launch, in 60 minutes on Zoom.</p>
     <div class="signoff">
       <img src="../assets/fierra-face-4m20.webp" alt="Fierra" width="400" height="400">
-      <div><b>Fierra</b><span>Ecomwarts student, Singapore</span><span>Told on camera, July 8, 2026</span></div>
+      <div><b>Fierra</b><span><span class="keep">Ecomwarts student, Singapore</span></span><span>Told on camera, July 8, 2026</span></div>
     </div>
     <div class="center">
       <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
@@ -558,7 +558,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 <!-- Sources: month one over $30k (interview 11:19-11:35), 10k goal (8:30) · May 2 $4,589.05 / 99 orders, "first 3k & 4k day", "averaging 1~2k before" (post 3/5/26) · Apr 15-May 15 $85.2K / 1,874 orders, thanks to coaches (post 16/5/26) · May 17 $5,117 / 110 orders, "10k a month... in a day? Just WILD!" (post 18/5/26) · May 15-Jun 14 $120.9K / 2,638 orders, "truly changed my life" (post 15/6/26) · $318,000 (11:53), reinvests + monthly salary (12:42), "surreal" (12:39). Originals: ../proof/ -->
 <section class="casefile" id="case-file">
   <div class="wide">
-    <h2 class="cf-h2"><span class="nw">See how Fierra’s store</span> <span class="nw">performed, period by period</span></h2>
+    <h2 class="cf-h2"><span class="keep">See how Fierra’s store</span> <span class="keep">performed, period by period</span></h2>
     <p class="cf-intro"><span class="ln">From the Shopify dashboards she posted in the Ecomwarts student community</span><span class="ln">and her July 8, 2026 interview on Rayston Heem’s YouTube channel.</span><span class="ln">All figures are sales, not profit.</span></p>
     <div class="cards">
 
@@ -641,7 +641,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 <!-- S05 Meet Rayston. Mirrors Commercial Freedom's "Meet Johnny Leary": round photo with 4 laurel badges, a "Meet ..." pill, H2, 6 checklist rows, button. -->
 <!-- v2 (Gray, 2026-11-01): lead with his accolade, never "lost all his money" (it seeds the fear of losing money); laurels like theirs; headshot centred. -->
 <!-- FIXED EW COPY: the whole section repeats on every student's page (Rayston is always the guide); only "that taught [Name]" changes. -->
-<!-- $10M+ in online sales = Gray 2026-11-01 (EW to confirm the figure). Sources: millionaire at 18 + retired his parents = Gray 2026-11-01. Public: June 2025 press release (markets.financialcontent.com, accwirecq-2025-6-3) "seven-figure online venture by the age of 18" (revenue; a Jan 2025 release says 20) and "support his family financially"; theindependent.sg/?p=721809 "youngest millionaire in Singapore". "Retired his parents": NO public source found, EW to confirm. Started at 16 in mum's bedroom 21:47-22:25 · "one product changed my life" 22:28 · coaches almost all ex-students (tsl-bof 08-COPY-v4, hedged "almost all") · AI tools for product/store/ads (advertorial, Gray 10-24) · two weekly calls 20:59, SG community 20:19 · Trustpilot 4.5/34 (advertorial FAQ 10-25, re-check) -->
+<!-- $10M+ in online sales = Gray 2026-11-01 (confirmed by Gray 2026-11-02). Sources: millionaire at 18 + retired his parents = Gray 2026-11-01. Public: June 2025 press release (markets.financialcontent.com, accwirecq-2025-6-3) "seven-figure online venture by the age of 18" (revenue; a Jan 2025 release says 20) and "support his family financially"; theindependent.sg/?p=721809 "youngest millionaire in Singapore". "Retired his parents": no public source; confirmed by Gray 2026-11-02. Started at 16 in mum's bedroom 21:47-22:25 · "one product changed my life" 22:28 · coaches almost all ex-students (tsl-bof 08-COPY-v4, hedged "almost all") · AI tools for product/store/ads (advertorial, Gray 10-24) · two weekly calls 20:59, SG community 20:19 · Trustpilot 4.5/34 (advertorial FAQ 10-25, re-check) -->
 <section class="meet" id="meet-rayston">
   <div class="wide">
     <div class="meet-hero">
@@ -652,17 +652,17 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
       <p class="badge b4"><span>$10M+ in online sales</span></p>
     </div>
     <p class="center"><span class="meet-pill">Meet Rayston Heem…</span></p>
-    <h2 class="meet-h2"><span class="ln">Became a millionaire at 18 and retired his parents.</span><span class="ln">Then built the program that taught Fierra.</span></h2>
+    <h2 class="meet-h2"><span class="ln"><span class="keep">Became a millionaire at 18</span> <span class="keep">and retired his parents.</span></span><span class="ln">Then built the program that taught Fierra.</span></h2>
     <ul class="ticks">
       <li>Built a seven‑figure <span class="keep">online business by 18</span></li>
       <li>Started dropshipping at 16 <span class="keep">from his mum’s bedroom,</span> <span class="keep">until one product changed his life</span></li>
       <li>Founded Ecomwarts in Singapore, <span class="keep">where almost all the coaches</span> <span class="keep">started as students</span></li>
-      <li>Teaches the whole build with AI tools: <span class="nw">the product, the store and the ads</span></li>
-      <li>Runs two calls a week for his students, <span class="keep">plus a Singapore</span> <span class="keep">student community</span></li>
-      <!-- [NEEDS: EW to re-check the Trustpilot count; same line is on the live advertorial] -->
+      <li><span class="keep">Teaches the whole build</span> <span class="keep">with AI tools:</span> <span class="keep">the product, the store and the ads</span></li>
+      <li><span class="keep">Runs two calls a week</span> <span class="keep">for his students,</span> <span class="keep">plus a Singapore</span> <span class="keep">student community</span></li>
+      <!-- Trustpilot 4.5 (34): confirmed by Gray 2026-11-02 -->
       <li>Ecomwarts is rated 4.5 on Trustpilot (34 reviews)</li>
     </ul>
-    <p class="meet-close">Fierra found him through his YouTube tutorials and the case studies he shares of his students.</p>
+    <p class="meet-close">Fierra found him through <span class="keep">his YouTube tutorials</span> <span class="keep">and the case studies he shares</span> <span class="keep">of his students.</span></p>
     <div class="center">
       <a class="btn" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
       <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
@@ -687,7 +687,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
       <p><span class="keep">That’s what</span> the One Store Away Workshop shows you.</p>
       <p>Live on Zoom, Rayston picks a product, builds the store and makes the ads, with AI tools at every step.</p>
       <p>No theory‑heavy course.</p>
-      <p>No piecing it together from random YouTube videos.</p>
+      <p>No piecing it together <span class="keep">from random YouTube videos.</span></p>
       <p>Just the build, start to finish, <span class="keep">so you can see the work</span> before you decide anything.</p>
     </div>
     <h3 class="steps-h"><span class="ln">In <em>6 live steps</em>, you’ll see</span><span class="ln">a store go from idea to launch:</span></h3>
@@ -697,7 +697,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
       <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 13v6h4l9 6V7l-9 6H5z"/><path d="M23 11c2 2 2 8 0 10"/></svg><div><h4>3. Make the ads</h4><p>Built with AI tools: no filming yourself and no designing by hand.</p></div></li>
       <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c5 3 7 9 6 15l-6 6-6-6c-1-6 1-12 6-15z"/><circle cx="16" cy="13" r="2.5"/><path d="M10 19l-4 2 2 5 4-2M22 19l4 2-2 5-4-2"/></svg><div><h4>4. Launch the store</h4><p>How he goes live, how he checks it is working, and what success looks like.</p></div></li>
       <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h22v14H14l-6 5v-5H5z"/><path d="M11 13h10M11 17h6"/></svg><div><h4>5. Ask your questions live</h4><p>So you leave clear on how to build a store yourself.</p></div></li>
-      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 17l6-6 5 3 4-3 9 6-6 6-4-3-3 3-5-3z"/><path d="M10 11l5 3"/></svg><div><h4>6. Then, the help Fierra had</h4><p>Rayston introduces <span class="keep">the Ecomwarts</span> <span class="keep">mentorship program,</span> <span class="keep">the one Fierra went through.</span></p>
+      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 17l6-6 5 3 4-3 9 6-6 6-4-3-3 3-5-3z"/><path d="M10 11l5 3"/></svg><div><h4>6. Then, the help Fierra had</h4><p>Rayston introduces <span class="nw">the Ecomwarts mentorship program,</span> <span class="keep">the one Fierra went through.</span></p>
       <p>It’s paid and optional.</p>
       <p><span class="nw">The workshop stands on its own.</span></p></div></li>
     </ol>
@@ -718,7 +718,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <h2 class="sec-h2"><span class="ln"><span class="nw">A hands‑on mentorship</span> <span class="nw">for professionals…</span></span><span class="ln"><span class="nw">without the usual</span> <span class="nw">online‑course fluff</span></span></h2>
     <ul class="dark-checks">
       <li>Tired of piecing it together from random YouTube videos and Reddit threads?</li>
-      <li>Seen courses that are <span class="nw">“really good in theory,”</span> with no <span class="keep">student wins</span> to show for it?</li>
+      <li>Seen courses that are <span class="keep">“really good in theory,”</span> <span class="keep">with no student wins</span> <span class="keep">to show for it?</span></li>
       <li>Worried you’ll be taught to build a store, then left on your own?</li>
     </ul>
     <div class="short">
@@ -728,7 +728,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
       <p>Real students.</p>
       <p>Real stores.</p>
       <p>What she found in Ecomwarts, in her words:</p>
-      <p class="pull">“It goes through every phase with you, it grows with you as well.”</p>
+      <p class="pull"><span class="ln">“It goes through <span class="keep">every phase with you,</span></span> <span class="ln">it grows with you as well.”</span></p>
       <p>Almost all of the coaches started as students.</p>
       <p>They’ve built stores themselves.</p>
       <p>And before you pay for anything, you can watch Rayston build one live.</p>
@@ -786,12 +786,12 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <h2 class="sec-h2"><span class="ln">9 reasons professionals join</span><span class="ln">the One Store Away Workshop</span></h2>
     <ol class="nums">
       <li><b>You see the whole build</b> before you decide anything.</li>
-      <li><b>Rayston picks the product and builds the store with AI tools,</b> <span class="nw">step by step on screen.</span></li>
-      <li><b>The ads are made with AI tools too,</b> so there’s no filming yourself <span class="nw">or designing by hand.</span></li>
-      <li><b>You see the launch,</b> how he tests the store and what success looks like.</li>
-      <li><b>It fits a busy week:</b> 60 minutes, <span class="nw">live on Zoom,</span> twice a week.</li>
+      <li><b><span class="keep">Rayston picks the product</span> <span class="keep">and builds the store</span> <span class="keep">with AI tools,</span></b> <span class="keep">step by step on screen.</span></li>
+      <li><b><span class="keep">The ads are made</span> <span class="keep">with AI tools too,</span></b> <span class="keep">so there’s no filming yourself</span> <span class="keep">or designing by hand.</span></li>
+      <li><b>You see the launch,</b> <span class="keep">how he tests the store</span> <span class="keep">and what success looks like.</span></li>
+      <li><b>It fits a busy week:</b> 60 minutes, <span class="keep">live on Zoom,</span> twice a week.</li>
       <li><b>You can keep your job</b> and still watch.</li>
-      <li><b>Your questions get answered live</b> by the person who taught Fierra.</li>
+      <li><b><span class="keep">Your questions</span> <span class="keep">get answered live</span></b> <span class="keep">by the person</span> <span class="keep">who taught Fierra.</span></li>
       <li><b>There’s no cost to attend,</b> <span class="keep">and you’re booked</span> <span class="keep">into the next session</span> <span class="keep">when you register.</span></li>
       <li><b>The paid program at the end is optional:</b> <span class="keep">the workshop stands on its own.</span></li>
     </ol>
@@ -845,7 +845,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <div class="short">
       <p>Learn from Rayston Heem, <span class="keep">founder of Ecomwarts</span> and the mentor who taught Fierra.</p>
       <p>In 60 minutes, live on Zoom, he picks a product, builds the store and makes the ads.</p>
-      <p>Then he shows you <span class="keep">how he launches the store,</span> how he checks it’s working and what success looks like.</p>
+      <p>Then he shows you <span class="keep">how he launches the store,</span> <span class="keep">how he checks it’s working</span> <span class="keep">and what success looks like.</span></p>
       <p>At the end, he introduces Ecomwarts, the program Fierra went through.</p>
       <p>It’s paid and optional.</p>
     </div>
@@ -873,7 +873,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <h2 class="sec-h2"><span class="keep">Here’s who this suits,</span> <span class="keep">and who it doesn’t</span></h2>
     <div class="short">
       <p>Fierra’s numbers are her own, and results vary.</p>
-      <p>She had doubts too: <span class="keep">“It does look unrealistic…</span> <span class="keep">So that’s what I thought</span> <span class="keep">at first as well.”</span></p>
+      <p><span class="ln">She had doubts too: <span class="keep">“It does look unrealistic…</span></span> <span class="ln">So that’s what I thought at first as well.”</span></p>
       <p>What settled it was seeing how the model works before committing to anything.</p>
     </div>
     <p class="fit-label">It may suit you if:</p>
@@ -885,7 +885,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     </div>
     <p class="fit-label">It won’t suit you yet if:</p>
     <div class="short">
-      <p>You have no budget for ads, because <span class="keep">running a store</span> means paying for ads while you test.</p>
+      <p>You have no budget for ads, <span class="keep">because running a store</span> means <span class="keep">paying for ads</span> <span class="keep">while you test.</span></p>
       <p>You’re hoping for results without the work.</p>
       <p>Even with AI tools, it took Fierra weeks of relearning and full‑focus days.</p>
     </div>
@@ -902,7 +902,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 </section>
 
 <!-- S14 FAQ. Mirrors Commercial Freedom's "Frequently Asked Questions": H2, stacked white accordion cards (first one open), chevron in a circle, button. Theirs has 10; ours has 8. -->
-<!-- Q1-Q5: the live, approved advertorial's FAQ, answers word for word, split one sentence per line. Q1 keeps the advertorial's Trustpilot line (4.5, 34 reviews): [NEEDS: EW re-check, same open item as S05]. -->
+<!-- Q1-Q5: the live, approved advertorial's FAQ, answers word for word, split one sentence per line. Q1 keeps the advertorial's Trustpilot line (4.5, 34 reviews), confirmed by Gray 2026-11-02. -->
 <!-- Q6-Q8 are about her numbers. Q6: footer disclosure (revenue, not profit; her figures, not checked by EW; results not typical). Q7: S04 "Mid-March to July 8" ($318,000). Q8: advertorial ("Even having tried it before, it took her a few weeks to get comfortable with Shopify and Facebook Ads again"). FIXED EW COPY: Q1-Q5. Student slots: Q6-Q8. -->
 <section class="faq" id="faq">
   <div class="wrap">
@@ -920,7 +920,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
         <summary>Does the workshop cost anything?</summary>
         <div class="faq-a">
           <p>There’s no cost to attend.</p>
-          <p>And yes, there is an offer: after the workshop, Ecomwarts offers a paid coaching program for people who want hands‑on help.</p>
+          <p>And yes, there is an offer: after the workshop, Ecomwarts offers a paid&nbsp;coaching&nbsp;program for people who want hands‑on help.</p>
           <p>It’s optional.</p>
           <p>The workshop stands on its own.</p>
           <p>The price is explained at the end, before you decide anything.</p>
@@ -947,7 +947,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
         <summary>When is it, and is there a replay?</summary>
         <div class="faq-a">
           <p>It runs live on Zoom twice a week.</p>
-          <p>You’re booked into the next session, and the date shows right after you register.</p>
+          <p><span data-wf-session="faq">You’re booked into <span class="keep">the next session,</span> <span class="keep">and the date shows</span> <span class="keep">right after you register.</span></span></p>
           <p><span class="keep">A replay may be shared</span> <span class="keep">with registered attendees,</span> <span class="keep">but live attendance</span> <span class="keep">is strongly encouraged.</span></p>
           <p>Questions are only answered live.</p>
         </div>
@@ -962,7 +962,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
         </div>
       </details>
       <details>
-        <summary>How long did Fierra take to reach $318,000?</summary>
+        <summary><span><span class="keep">How long did Fierra take</span> <span class="keep">to reach $318,000?</span></span></summary>
         <div class="faq-a">
           <p>Her store’s sales reached $318,000 USD between mid‑March and July 8, 2026.</p>
           <p>That’s under four months.</p>
@@ -1017,7 +1017,7 @@ THIRD-PARTY PLATFORMS: This site is not part of, affiliated with, or endorsed by
 
 NOT MULTI-LEVEL MARKETING: Ecomwarts Group Private Limited does not operate a multi-level marketing or pyramid selling scheme within the meaning of the Multi-Level Marketing and Pyramid Selling (Prohibition) Act 1973 (Singapore). Any referral or affiliate program we offer is optional, requires no purchase to join, and rewards are not based on recruiting other participants.
 
-NOT A BUSINESS OPPORTUNITY: We are an education and training company. We do not sell a business opportunity, franchise, "get rich quick" program, or guaranteed money-making system. We do not provide you with stores, customers, suppliers, or sales. Any business you build is owned and operated solely by you, and you are fully responsible for its decisions and outcomes.
+NOT A BUSINESS OPPORTUNITY: We are an education and training company. We do not sell a business opportunity, franchise, "get rich quick" program, or guaranteed money‑making system. We do not provide you with stores, customers, suppliers, or sales. Any business you build is owned and operated solely by you, and you are fully responsible for its decisions and outcomes.
 
 EARNINGS DISCLAIMER: While we make every effort to accurately represent our programs, Ecomwarts Group Private Limited makes no promise, guarantee, or representation that you will earn any specific amount of money, any money at all, or that you will not lose money. Any earnings or revenue figures shown, including those of our founders, coaches, or students, are not typical and should not be taken as an indication of what you will achieve. Revenue is not profit, and figures shown may not account for advertising costs, product costs, refunds, platform fees, taxes, and other business expenses. Past results do not guarantee future results.
 
@@ -1047,7 +1047,7 @@ Ecomwarts Group Private Limited, Singapore. Contact: <a href="mailto:ecomwarts@g
   <div class="wf-reg-box">
     <button type="button" class="wf-reg-x" aria-label="Close" data-wf-close>&times;</button>
     <h2 id="wf-reg-title">Save your spot</h2>
-    <p class="wf-reg-sub"><span class="keep" style="display:block">The One Store Away Workshop</span><span class="keep">Live on Zoom · No cost to attend</span></p>
+    <p class="wf-reg-sub"><span class="keep" style="display:block">The One Store Away Workshop</span><span class="wf-sess" data-wf-session="popup" hidden></span><span class="keep">Live on Zoom · No cost to attend</span></p>
     <form id="wf-reg-form" novalidate>
       <input type="text" name="fullName" autocomplete="name" placeholder="Full Name*" aria-label="Full name">
       <p class="wf-reg-err" data-err="fullName" hidden></p>
@@ -1064,6 +1064,109 @@ Ecomwarts Group Private Limited, Singapore. Contact: <a href="mailto:ecomwarts@g
     <p class="wf-reg-legal">By submitting this form I agree to receive recurring marketing and promotional phone calls and SMS text messages from Ecomwarts at the phone number I provided. My consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. See our <a href="https://apply.ecomwarts.net/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>, <a href="https://apply.ecomwarts.net/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://apply.ecomwarts.net/disclaimer" target="_blank" rel="noopener noreferrer">Disclaimer</a>.</p>
   </div>
 </div>
+<script>/* Next workshop session, live from Dynamis' webinar_sessions table (Gray, 2026-11-02).
+   Same table, query, key and pick rule as the thank-you page (repos/ew-advertorial/thank-you)
+   and EW's lib/webinarSchedule.ts. Never a typed date: if the table cannot be read, or has no
+   session still ahead, every date line stays hidden and the FAQ keeps its original sentence.
+   Fills: [data-wf-session="popup"] (popup line), [data-wf-session="hero"] (hero line under the
+   button), [data-wf-session="faq"] (FAQ sentence). Re-picks every 30s so an open page rolls on. */
+(function () {
+  var SCHEDULE_URL = "https://hwdtokxngrbhcnfezhou.supabase.co";
+  // Publishable, read-only key. Public by design (it ships in ecomwarts.net's own bundle).
+  var SCHEDULE_KEY = "sb_publishable_iBQJNZznGYfDW67SaIIepw_SW1VLo6o";
+  var SCHEDULE_QUERY = "/rest/v1/webinar_sessions?select=starts_at,zoom_url&is_active=eq.true&order=starts_at.asc";
+  var ROLL_AFTER_MS = 30 * 60 * 1000;
+  var SGT = "Asia/Singapore";
+
+  function read(timeoutMs) {
+    var ctrl = typeof AbortController === "function" ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, timeoutMs);
+    return fetch(SCHEDULE_URL + SCHEDULE_QUERY, {
+      headers: { apikey: SCHEDULE_KEY, Accept: "application/json" },
+      signal: ctrl ? ctrl.signal : undefined,
+      credentials: "omit",
+      referrerPolicy: "no-referrer"
+    }).then(function (res) { return res.ok ? res.json() : null; })
+      .catch(function () { return null; })
+      .then(function (rows) { clearTimeout(timer); return rows; });
+  }
+  function toSessions(rows) {
+    if (!Array.isArray(rows)) return [];
+    var out = [];
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i] || {};
+      var t = typeof r.starts_at === "string" ? new Date(r.starts_at).getTime() : NaN;
+      if (isFinite(t)) out.push(t);
+    }
+    return out;
+  }
+  // The current webinar: the first session whose start + 30 min is still ahead, else the last one.
+  // A pick that is already over (the table holds no future session) is never shown.
+  function active(now, list) {
+    var pick = null;
+    for (var i = 0; i < list.length; i++) if (list[i] + ROLL_AFTER_MS > now) { pick = list[i]; break; }
+    if (pick === null) pick = list[list.length - 1];
+    return pick + ROLL_AFTER_MS > now ? new Date(pick) : null;
+  }
+  // "Sunday, November 8" and "2:00 PM SGT", in Singapore time.
+  function day(d) {
+    return new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: SGT }).format(d);
+  }
+  function time(d) {
+    return new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: SGT }).format(d) + " SGT";
+  }
+  // Text with every space non-breaking, in a span that never wraps.
+  function keep(text) {
+    var s = document.createElement("span");
+    s.className = "keep";
+    s.textContent = text.replace(/\s+/g, " ");
+    return s;
+  }
+  function fill(el, parts) {
+    el.textContent = "";
+    for (var i = 0; i < parts.length; i++) el.appendChild(typeof parts[i] === "string" ? document.createTextNode(parts[i]) : parts[i]);
+  }
+
+  var faq = document.querySelectorAll('[data-wf-session="faq"]');
+  var faqOriginal = [];
+  for (var i = 0; i < faq.length; i++) faqOriginal.push(faq[i].innerHTML);
+
+  var shown = null;
+  function render(d) {
+    var key = d ? d.getTime() : 0;
+    if (key === shown) return;
+    shown = key;
+    var lines = document.querySelectorAll('[data-wf-session="popup"],[data-wf-session="hero"]');
+    for (var j = 0; j < lines.length; j++) {
+      var el = lines[j];
+      if (!d) { el.hidden = true; el.textContent = ""; continue; }
+      // One format for both lines: "<day>, <time>", each half kept whole, so a wrap never strands punctuation.
+      if (el.getAttribute("data-wf-session") === "popup") fill(el, [keep(day(d) + ","), " ", keep(time(d))]);
+      else fill(el, [keep("Next session: " + day(d) + ","), " ", keep(time(d))]);
+      el.hidden = false;
+    }
+    for (var k = 0; k < faq.length; k++) {
+      if (!d) faq[k].innerHTML = faqOriginal[k];
+      else fill(faq[k], ["You’re booked into ", keep("the next session:"), " ", keep(day(d)), " ", keep("at " + time(d)), "."]);
+    }
+  }
+
+  var sessions = null;
+  function tick() { render(sessions ? active(Date.now(), sessions) : null); }
+  var tries = 0;
+  function load() {
+    read(8000).then(function (rows) {
+      var list = toSessions(rows);
+      if (list.length) { sessions = list; tick(); return; }
+      tries++;
+      setTimeout(load, tries < 3 ? 2000 : 60000);
+    });
+  }
+  render(null);
+  load();
+  setInterval(tick, 30000);
+})();
+</script>
 <script>
 (function(){
   var COUNTRIES = [["AF","+93","🇦🇫","Afghanistan"],["AL","+355","🇦🇱","Albania"],["DZ","+213","🇩🇿","Algeria"],["AS","+1684","🇦🇸","American Samoa"],["AD","+376","🇦🇩","Andorra"],["AO","+244","🇦🇴","Angola"],["AI","+1264","🇦🇮","Anguilla"],["AG","+1268","🇦🇬","Antigua and Barbuda"],["AR","+54","🇦🇷","Argentina"],["AM","+374","🇦🇲","Armenia"],["AW","+297","🇦🇼","Aruba"],["AU","+61","🇦🇺","Australia"],["AT","+43","🇦🇹","Austria"],["AZ","+994","🇦🇿","Azerbaijan"],["BS","+1242","🇧🇸","Bahamas"],["BH","+973","🇧🇭","Bahrain"],["BD","+880","🇧🇩","Bangladesh"],["BB","+1246","🇧🇧","Barbados"],["BY","+375","🇧🇾","Belarus"],["BE","+32","🇧🇪","Belgium"],["BZ","+501","🇧🇿","Belize"],["BJ","+229","🇧🇯","Benin"],["BM","+1441","🇧🇲","Bermuda"],["BT","+975","🇧🇹","Bhutan"],["BO","+591","🇧🇴","Bolivia"],["BA","+387","🇧🇦","Bosnia and Herzegovina"],["BW","+267","🇧🇼","Botswana"],["BR","+55","🇧🇷","Brazil"],["IO","+246","🇮🇴","British Indian Ocean Territory"],["VG","+1284","🇻🇬","British Virgin Islands"],["BN","+673","🇧🇳","Brunei"],["BG","+359","🇧🇬","Bulgaria"],["BF","+226","🇧🇫","Burkina Faso"],["BI","+257","🇧🇮","Burundi"],["KH","+855","🇰🇭","Cambodia"],["CM","+237","🇨🇲","Cameroon"],["CA","+1","🇨🇦","Canada"],["CV","+238","🇨🇻","Cape Verde"],["KY","+1345","🇰🇾","Cayman Islands"],["CF","+236","🇨🇫","Central African Republic"],["TD","+235","🇹🇩","Chad"],["CL","+56","🇨🇱","Chile"],["CN","+86","🇨🇳","China"],["CO","+57","🇨🇴","Colombia"],["KM","+269","🇰🇲","Comoros"],["CK","+682","🇨🇰","Cook Islands"],["CR","+506","🇨🇷","Costa Rica"],["HR","+385","🇭🇷","Croatia"],["CU","+53","🇨🇺","Cuba"],["CW","+599","🇨🇼","Curaçao"],["CY","+357","🇨🇾","Cyprus"],["CZ","+420","🇨🇿","Czech Republic"],["CD","+243","🇨🇩","DR Congo"],["DK","+45","🇩🇰","Denmark"],["DJ","+253","🇩🇯","Djibouti"],["DM","+1767","🇩🇲","Dominica"],["DO","+1849","🇩🇴","Dominican Republic"],["EC","+593","🇪🇨","Ecuador"],["EG","+20","🇪🇬","Egypt"],["SV","+503","🇸🇻","El Salvador"],["GQ","+240","🇬🇶","Equatorial Guinea"],["ER","+291","🇪🇷","Eritrea"],["EE","+372","🇪🇪","Estonia"],["SZ","+268","🇸🇿","Eswatini"],["ET","+251","🇪🇹","Ethiopia"],["FK","+500","🇫🇰","Falkland Islands"],["FO","+298","🇫🇴","Faroe Islands"],["FJ","+679","🇫🇯","Fiji"],["FI","+358","🇫🇮","Finland"],["FR","+33","🇫🇷","France"],["GF","+594","🇬🇫","French Guiana"],["PF","+689","🇵🇫","French Polynesia"],["GA","+241","🇬🇦","Gabon"],["GM","+220","🇬🇲","Gambia"],["GE","+995","🇬🇪","Georgia"],["DE","+49","🇩🇪","Germany"],["GH","+233","🇬🇭","Ghana"],["GI","+350","🇬🇮","Gibraltar"],["GR","+30","🇬🇷","Greece"],["GL","+299","🇬🇱","Greenland"],["GD","+1473","🇬🇩","Grenada"],["GP","+590","🇬🇵","Guadeloupe"],["GU","+1671","🇬🇺","Guam"],["GT","+502","🇬🇹","Guatemala"],["GG","+44","🇬🇬","Guernsey"],["GN","+224","🇬🇳","Guinea"],["GW","+245","🇬🇼","Guinea-Bissau"],["GY","+592","🇬🇾","Guyana"],["HT","+509","🇭🇹","Haiti"],["HN","+504","🇭🇳","Honduras"],["HK","+852","🇭🇰","Hong Kong"],["HU","+36","🇭🇺","Hungary"],["IS","+354","🇮🇸","Iceland"],["IN","+91","🇮🇳","India"],["ID","+62","🇮🇩","Indonesia"],["IR","+98","🇮🇷","Iran"],["IQ","+964","🇮🇶","Iraq"],["IE","+353","🇮🇪","Ireland"],["IM","+44","🇮🇲","Isle of Man"],["IL","+972","🇮🇱","Israel"],["IT","+39","🇮🇹","Italy"],["CI","+225","🇨🇮","Ivory Coast"],["JM","+1876","🇯🇲","Jamaica"],["JP","+81","🇯🇵","Japan"],["JE","+44","🇯🇪","Jersey"],["JO","+962","🇯🇴","Jordan"],["KZ","+7","🇰🇿","Kazakhstan"],["KE","+254","🇰🇪","Kenya"],["KI","+686","🇰🇮","Kiribati"],["XK","+383","🇽🇰","Kosovo"],["KW","+965","🇰🇼","Kuwait"],["KG","+996","🇰🇬","Kyrgyzstan"],["LA","+856","🇱🇦","Laos"],["LV","+371","🇱🇻","Latvia"],["LB","+961","🇱🇧","Lebanon"],["LS","+266","🇱🇸","Lesotho"],["LR","+231","🇱🇷","Liberia"],["LY","+218","🇱🇾","Libya"],["LI","+423","🇱🇮","Liechtenstein"],["LT","+370","🇱🇹","Lithuania"],["LU","+352","🇱🇺","Luxembourg"],["MO","+853","🇲🇴","Macau"],["MG","+261","🇲🇬","Madagascar"],["MW","+265","🇲🇼","Malawi"],["MY","+60","🇲🇾","Malaysia"],["MV","+960","🇲🇻","Maldives"],["ML","+223","🇲🇱","Mali"],["MT","+356","🇲🇹","Malta"],["MH","+692","🇲🇭","Marshall Islands"],["MQ","+596","🇲🇶","Martinique"],["MR","+222","🇲🇷","Mauritania"],["MU","+230","🇲🇺","Mauritius"],["YT","+262","🇾🇹","Mayotte"],["MX","+52","🇲🇽","Mexico"],["FM","+691","🇫🇲","Micronesia"],["MD","+373","🇲🇩","Moldova"],["MC","+377","🇲🇨","Monaco"],["MN","+976","🇲🇳","Mongolia"],["ME","+382","🇲🇪","Montenegro"],["MS","+1664","🇲🇸","Montserrat"],["MA","+212","🇲🇦","Morocco"],["MZ","+258","🇲🇿","Mozambique"],["MM","+95","🇲🇲","Myanmar"],["NA","+264","🇳🇦","Namibia"],["NR","+674","🇳🇷","Nauru"],["NP","+977","🇳🇵","Nepal"],["NL","+31","🇳🇱","Netherlands"],["NC","+687","🇳🇨","New Caledonia"],["NZ","+64","🇳🇿","New Zealand"],["NI","+505","🇳🇮","Nicaragua"],["NE","+227","🇳🇪","Niger"],["NG","+234","🇳🇬","Nigeria"],["NU","+683","🇳🇺","Niue"],["KP","+850","🇰🇵","North Korea"],["MK","+389","🇲🇰","North Macedonia"],["MP","+1670","🇲🇵","Northern Mariana Islands"],["NO","+47","🇳🇴","Norway"],["OM","+968","🇴🇲","Oman"],["PK","+92","🇵🇰","Pakistan"],["PW","+680","🇵🇼","Palau"],["PS","+970","🇵🇸","Palestine"],["PA","+507","🇵🇦","Panama"],["PG","+675","🇵🇬","Papua New Guinea"],["PY","+595","🇵🇾","Paraguay"],["PE","+51","🇵🇪","Peru"],["PH","+63","🇵🇭","Philippines"],["PL","+48","🇵🇱","Poland"],["PT","+351","🇵🇹","Portugal"],["PR","+1939","🇵🇷","Puerto Rico"],["QA","+974","🇶🇦","Qatar"],["CG","+242","🇨🇬","Republic of the Congo"],["RE","+262","🇷🇪","Réunion"],["RO","+40","🇷🇴","Romania"],["RU","+7","🇷🇺","Russia"],["RW","+250","🇷🇼","Rwanda"],["BL","+590","🇧🇱","Saint Barthélemy"],["SH","+290","🇸🇭","Saint Helena"],["KN","+1869","🇰🇳","Saint Kitts and Nevis"],["LC","+1758","🇱🇨","Saint Lucia"],["MF","+590","🇲🇫","Saint Martin"],["PM","+508","🇵🇲","Saint Pierre and Miquelon"],["VC","+1784","🇻🇨","Saint Vincent and the Grenadines"],["WS","+685","🇼🇸","Samoa"],["SM","+378","🇸🇲","San Marino"],["ST","+239","🇸🇹","São Tomé and Príncipe"],["SA","+966","🇸🇦","Saudi Arabia"],["SN","+221","🇸🇳","Senegal"],["RS","+381","🇷🇸","Serbia"],["SC","+248","🇸🇨","Seychelles"],["SL","+232","🇸🇱","Sierra Leone"],["SG","+65","🇸🇬","Singapore"],["SX","+1721","🇸🇽","Sint Maarten"],["SK","+421","🇸🇰","Slovakia"],["SI","+386","🇸🇮","Slovenia"],["SB","+677","🇸🇧","Solomon Islands"],["SO","+252","🇸🇴","Somalia"],["ZA","+27","🇿🇦","South Africa"],["KR","+82","🇰🇷","South Korea"],["SS","+211","🇸🇸","South Sudan"],["ES","+34","🇪🇸","Spain"],["LK","+94","🇱🇰","Sri Lanka"],["SD","+249","🇸🇩","Sudan"],["SR","+597","🇸🇷","Suriname"],["SE","+46","🇸🇪","Sweden"],["CH","+41","🇨🇭","Switzerland"],["SY","+963","🇸🇾","Syria"],["TW","+886","🇹🇼","Taiwan"],["TJ","+992","🇹🇯","Tajikistan"],["TZ","+255","🇹🇿","Tanzania"],["TH","+66","🇹🇭","Thailand"],["TL","+670","🇹🇱","Timor-Leste"],["TG","+228","🇹🇬","Togo"],["TK","+690","🇹🇰","Tokelau"],["TO","+676","🇹🇴","Tonga"],["TT","+1868","🇹🇹","Trinidad and Tobago"],["TN","+216","🇹🇳","Tunisia"],["TR","+90","🇹🇷","Turkey"],["TM","+993","🇹🇲","Turkmenistan"],["TC","+1649","🇹🇨","Turks and Caicos Islands"],["TV","+688","🇹🇻","Tuvalu"],["UG","+256","🇺🇬","Uganda"],["UA","+380","🇺🇦","Ukraine"],["AE","+971","🇦🇪","United Arab Emirates"],["GB","+44","🇬🇧","United Kingdom"],["US","+1","🇺🇸","United States"],["UY","+598","🇺🇾","Uruguay"],["VI","+1340","🇻🇮","US Virgin Islands"],["UZ","+998","🇺🇿","Uzbekistan"],["VU","+678","🇻🇺","Vanuatu"],["VA","+379","🇻🇦","Vatican City"],["VE","+58","🇻🇪","Venezuela"],["VN","+84","🇻🇳","Vietnam"],["WF","+681","🇼🇫","Wallis and Futuna"],["EH","+212","🇪🇭","Western Sahara"],["YE","+967","🇾🇪","Yemen"],["ZM","+260","🇿🇲","Zambia"],["ZW","+263","🇿🇼","Zimbabwe"]];
