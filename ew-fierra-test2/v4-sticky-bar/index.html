@@ -504,10 +504,10 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
    The footer gets the bar's height as extra bottom padding (from first paint, so nothing shifts). */
 .wf-sticky{display:none}
 @media (max-width:640px){
-  .wf-sticky{display:flex;align-items:center;gap:12px;position:fixed;left:0;right:0;bottom:0;z-index:2147482000;padding:10px 12px calc(10px + env(safe-area-inset-bottom, 0px));background:var(--white);border-top:1px solid var(--border);box-shadow:0 -10px 26px -14px rgba(15,20,25,.45);transform:translateY(110%);visibility:hidden;transition:transform .22s ease, visibility 0s linear .22s}
+  .wf-sticky{display:flex;align-items:center;gap:12px;position:fixed;left:0;right:0;bottom:0;z-index:2147482000;padding:10px 12px calc(10px + env(safe-area-inset-bottom, 0px));background:var(--white);border-top:1px solid var(--border);transform:translateY(110%);visibility:hidden;transition:transform .22s ease, visibility 0s linear .22s}
   .wf-sticky.on{transform:none;visibility:visible;transition:transform .22s ease, visibility 0s}
-  .wf-sticky-next{flex:1 1 auto;min-width:0;margin:0;font-size:0.8125rem;line-height:1.3;color:var(--muted);text-align:left}
-  .wf-sticky-next .t{display:block;font-family:var(--ff-display);font-weight:700;font-size:1rem;line-height:1.3;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .wf-sticky-next{flex:1 1 auto;min-width:0;margin:0;font-size:0.8125rem;line-height:1.5;color:var(--muted);text-align:left}
+  .wf-sticky-next .t{display:block;font-family:var(--ff-body);font-weight:600;font-size:1rem;line-height:1.5;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
   .wf-sticky .btn{flex:0 0 auto;width:auto;min-height:48px;padding:0 22px;font-size:1rem;margin-left:auto}
   .wf-sticky-next[hidden] + .btn{flex:1 1 auto;max-width:none;margin-left:0}
   footer{padding-bottom:calc(56px + 68px + env(safe-area-inset-bottom, 0px))}

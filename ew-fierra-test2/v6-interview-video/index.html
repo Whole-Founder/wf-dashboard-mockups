@@ -507,7 +507,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 .hB .photo .vid.on{opacity:1}
 .hB .photo picture{display:block}
 .hB .vid-cap{position:absolute;left:50%;bottom:88px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);margin:0;padding:5px 12px;border-radius:var(--r-sm);background:rgba(15,20,25,.72);color:var(--white);font-family:var(--ff-body);font-size:0.9375rem;font-weight:600;line-height:1.4;text-align:center;text-wrap:balance;pointer-events:none}
-.hB .vid-snd{position:absolute;top:12px;right:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:0;border-radius:var(--r-pill);background:rgba(15,20,25,.72);color:var(--white);cursor:pointer}
+.hB .vid-snd{position:absolute;top:12px;right:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:0;font:inherit;border-radius:var(--r-pill);background:rgba(15,20,25,.72);color:var(--white);cursor:pointer}
 .hB .vid-snd svg{width:22px;height:22px}
 .hB .vid-snd .i-on{display:none}
 .hB .vid-snd[aria-pressed="true"] .i-on{display:block}
@@ -1415,7 +1415,7 @@ GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dis
   if (!v) return;
   var cap = document.querySelector(".hB .vid-cap");
   var snd = document.querySelector(".hB .vid-snd");
-  var CUES = [[0.0, 3.3, "So initially, my goal was just to hit 10K a month,"], [3.3, 5.7, "and I’ll just be very happy or pleased with that."], [5.7, 7.9, "But, you know, as results shown,"], [7.9, 9.8, "I didn’t expect this much success"], [9.8, 11.3, "in the short period of time as well."], [11.3, 13.6, "So it does goes to show that your course"], [13.6, 15.6, "and your mentorship really, it does work."]];
+  var CUES = [[0.0, 3.3, "So initially, my goal was just to hit 10K a month,"], [3.3, 5.7, "and I’ll just be very happy or pleased with that."], [5.7, 7.9, "But, you know, as results shown,"], [7.9, 9.8, "I didn’t expect this much success"], [9.8, 11.3, "in the short period of time as well."], [11.3, 13.6, "So it does goes to show that your course"], [13.6, 15.6, "and your mentorship really, it does work."]];
   try { for (var i = 0; i < v.textTracks.length; i++) v.textTracks[i].mode = "hidden"; } catch (e) {}
   v.muted = true;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
