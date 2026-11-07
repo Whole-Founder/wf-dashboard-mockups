@@ -513,10 +513,18 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 .hB .vid-snd[aria-pressed="true"] .i-on{display:block}
 .hB .vid-snd[aria-pressed="true"] .i-off{display:none}
 .hB .vid-snd:focus-visible{outline:3px solid var(--gold-bright);outline-offset:2px}
+.hB .vid-pp{position:absolute;top:12px;right:64px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:0;font:inherit;border-radius:var(--r-pill);background:rgba(15,20,25,.72);color:var(--white);cursor:pointer}
+.hB .vid-pp svg{width:22px;height:22px}
+.hB .vid-pp .i-play{display:none}
+.hB .vid-pp.paused .i-play{display:block}
+.hB .vid-pp.paused .i-pause{display:none}
+.hB .vid-pp:focus-visible{outline:3px solid var(--gold-bright);outline-offset:2px}
 @media (max-width:640px){
   .hB .photo .vid{object-position:50% 30%}
   .hB .vid-cap{bottom:10px;max-width:calc(100% - 20px);padding:4px 10px;font-size:0.8125rem}
   .hB .vid-snd{right:auto;left:12px}
+  /* phones: the two buttons stack on the left, under each other, so the name pill (top right) keeps its room at 320px */
+  .hB .vid-pp{right:auto;left:12px;top:64px}
 }
 @media (prefers-reduced-motion:reduce){ .hB .photo .vid{transition:none} }
 </style></head><body>
@@ -551,6 +559,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
       <span class="name">Fierra, Ecomwarts student</span>
       <p class="vid-cap" aria-hidden="true" hidden></p>
       <button type="button" class="vid-snd" data-cro-id="cs-video-sound" aria-label="Turn sound on" aria-pressed="false"><svg class="i-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="i-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <button type="button" class="vid-pp" data-cro-id="cs-video-playpause" aria-label="Pause video"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="13.5" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button>
       <figure class="proof">
         <img src="../assets/dash-month3-sales.webp" alt="Fierra's Shopify dashboard: sessions 50.1K, total sales $120.9K, May 15 to June 14, 2026" width="496" height="86">
         <figcaption>Her Shopify dashboard, <span class="nw">May 15 to June 14, 2026</span></figcaption>
@@ -1408,20 +1417,28 @@ GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dis
 })();
 </script>
 <script>/* Test 2, arm v6: the hero clip. Muted, looping, inline; it starts after the page has loaded (preload=metadata,
-   so it never slows first paint), plays only while on screen, and never autoplays under reduced motion. The sound
+   so it never slows first paint), plays only while on screen, and never autoplays under reduced motion. The play/pause
+   button stops and resumes it (Gray 2026-11-06: "there needs to be a play button and a pause button"); the sound
    button restarts it from the top with sound on; tapping again mutes. Captions follow the clip's time. */
 (function () {
   var v = document.querySelector(".hB .vid");
   if (!v) return;
   var cap = document.querySelector(".hB .vid-cap");
   var snd = document.querySelector(".hB .vid-snd");
+  var pp = document.querySelector(".hB .vid-pp");
   var CUES = [[0.0, 3.3, "So initially, my goal was just to hit 10K a month,"], [3.3, 5.7, "and I’ll just be very happy or pleased with that."], [5.7, 7.9, "But, you know, as results shown,"], [7.9, 9.8, "I didn’t expect this much success"], [9.8, 11.3, "in the short period of time as well."], [11.3, 13.6, "So it does goes to show that your course"], [13.6, 15.6, "and your mentorship really, it does work."]];
   try { for (var i = 0; i < v.textTracks.length; i++) v.textTracks[i].mode = "hidden"; } catch (e) {}
   v.muted = true;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var loaded = false, inView = true, wantSound = false;
+  // userPaused: the visitor's play/pause choice. Reduced-motion visitors start paused with the play button showing.
+  var loaded = false, inView = true, userPaused = !!reduce;
   function play() { try { var p = v.play(); if (p && p.catch) p.catch(function () {}); } catch (e) {} }
-  function sync() { if (!loaded) return; if (inView && (!reduce || wantSound)) play(); else v.pause(); }
+  function sync() { if (!loaded) return; if (inView && !userPaused) play(); else v.pause(); }
+  function ppState() {
+    pp.classList.toggle("paused", userPaused);
+    pp.setAttribute("aria-label", userPaused ? "Play video" : "Pause video");
+  }
+  ppState();
   v.addEventListener("playing", function () { v.classList.add("on"); });
   var last = "";
   function caption() {
@@ -1439,11 +1456,15 @@ GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dis
   function start() { loaded = true; sync(); }
   if (document.readyState === "complete") setTimeout(start, 0);
   else window.addEventListener("load", function () { setTimeout(start, 0); });
+  // Play/pause: pause stops the clip and leaves the current caption on screen; play resumes where it stopped.
+  pp.addEventListener("click", function () {
+    userPaused = !userPaused; loaded = true; ppState(); sync();
+  });
+  // Sound: on = restart from the top with sound (and play); off = mute, the clip keeps its play state.
   snd.addEventListener("click", function () {
-    wantSound = v.muted;
+    var wantSound = v.muted;
     v.muted = !wantSound;
-    if (wantSound) { try { v.currentTime = 0; } catch (e) {} loaded = true; play(); }
-    else if (reduce) v.pause();
+    if (wantSound) { try { v.currentTime = 0; } catch (e) {} userPaused = false; loaded = true; ppState(); sync(); }
     snd.setAttribute("aria-pressed", wantSound ? "true" : "false");
     snd.setAttribute("aria-label", wantSound ? "Turn sound off" : "Turn sound on");
   });

@@ -1433,9 +1433,10 @@ GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dis
   function two(n) { return (n < 10 ? "0" : "") + n; }
   function fmt(ms) {
     var s = Math.floor(ms / 1000), d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60);
-    if (d > 0) return d + "d " + h + "h " + two(m) + "m";
-    if (h > 0) return h + "h " + two(m) + "m " + two(s % 60) + "s";
-    return m + "m " + two(s % 60) + "s";
+    // Always to the second, zero-padded, so it visibly ticks (Gray 2026-11-06: "doesn't look like it's working").
+    if (d > 0) return d + "d " + two(h) + "h " + two(m) + "m " + two(s % 60) + "s";
+    if (h > 0) return two(h) + "h " + two(m) + "m " + two(s % 60) + "s";
+    return two(m) + "m " + two(s % 60) + "s";
   }
   function tick() {
     var d = window.__wfNextSession;
