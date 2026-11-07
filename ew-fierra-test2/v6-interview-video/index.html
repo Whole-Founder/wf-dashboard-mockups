@@ -508,13 +508,13 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 .hB .photo picture{display:block}
 .hB .vid-cap{position:absolute;left:50%;bottom:88px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);margin:0;padding:5px 12px;border-radius:var(--r-sm);background:rgba(15,20,25,.72);color:var(--white);font-family:var(--ff-body);font-size:0.9375rem;font-weight:600;line-height:1.4;text-align:center;text-wrap:balance;pointer-events:none}
 .hB .vid-snd{position:absolute;top:12px;right:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:0;font:inherit;border-radius:var(--r-pill);background:rgba(15,20,25,.72);color:var(--white);cursor:pointer}
-.hB .vid-snd svg{width:22px;height:22px}
+.hB .vid-snd svg{width:22px;height:22px;pointer-events:none}
 .hB .vid-snd .i-on{display:none}
 .hB .vid-snd[aria-pressed="true"] .i-on{display:block}
 .hB .vid-snd[aria-pressed="true"] .i-off{display:none}
 .hB .vid-snd:focus-visible{outline:3px solid var(--gold-bright);outline-offset:2px}
 .hB .vid-pp{position:absolute;top:12px;right:64px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:0;font:inherit;border-radius:var(--r-pill);background:rgba(15,20,25,.72);color:var(--white);cursor:pointer}
-.hB .vid-pp svg{width:22px;height:22px}
+.hB .vid-pp svg{width:22px;height:22px;pointer-events:none}
 .hB .vid-pp .i-play{display:none}
 .hB .vid-pp.paused .i-play{display:block}
 .hB .vid-pp.paused .i-pause{display:none}
@@ -1430,16 +1430,31 @@ GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dis
   try { for (var i = 0; i < v.textTracks.length; i++) v.textTracks[i].mode = "hidden"; } catch (e) {}
   v.muted = true;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // userPaused: the visitor's play/pause choice. Reduced-motion visitors start paused with the play button showing.
-  var loaded = false, inView = true, userPaused = !!reduce;
-  function play() { try { var p = v.play(); if (p && p.catch) p.catch(function () {}); } catch (e) {} }
+  // userPaused: the visitor chose pause (reduced-motion visitors start that way). The button itself always shows the
+  // video's REAL state (play/pause/playing events): when the browser refuses autoplay (iOS Low Power Mode, in-app
+  // WebViews), the clip stays paused over the photo and the button shows Play, so the first tap starts it.
+  var loaded = false, inView = true, userPaused = !!reduce, how = "autoplay";
+  function play() { try { var p = v.play(); if (p && p.catch) p.catch(function () { ppState(); }); } catch (e) { ppState(); } }
   function sync() { if (!loaded) return; if (inView && !userPaused) play(); else v.pause(); }
   function ppState() {
-    pp.classList.toggle("paused", userPaused);
-    pp.setAttribute("aria-label", userPaused ? "Play video" : "Pause video");
+    var paused = v.paused;
+    pp.classList.toggle("paused", paused);
+    pp.setAttribute("aria-label", paused ? "Play video" : "Pause video");
   }
   ppState();
-  v.addEventListener("playing", function () { v.classList.add("on"); });
+  v.addEventListener("play", ppState);
+  v.addEventListener("pause", ppState);
+  // One tracker event the first time the clip really plays (autoplay or a tap): section_view cs-hero-video-playing.
+  var sent = false;
+  function report(tries) {
+    var x = window.__wfXray;
+    if (x && x.track) { try { x.track("section_view", { croId: "cs-hero-video-playing", how: how }); } catch (e) {} return; }
+    if (tries < 20) setTimeout(function () { report(tries + 1); }, 500);
+  }
+  v.addEventListener("playing", function () {
+    v.classList.add("on"); ppState();
+    if (!sent) { sent = true; report(0); }
+  });
   var last = "";
   function caption() {
     var t = v.currentTime, text = "";
@@ -1458,13 +1473,14 @@ GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dis
   else window.addEventListener("load", function () { setTimeout(start, 0); });
   // Play/pause: pause stops the clip and leaves the current caption on screen; play resumes where it stopped.
   pp.addEventListener("click", function () {
-    userPaused = !userPaused; loaded = true; ppState(); sync();
+    loaded = true;
+    if (v.paused) { userPaused = false; how = "tap"; play(); } else { userPaused = true; v.pause(); }
   });
   // Sound: on = restart from the top with sound (and play); off = mute, the clip keeps its play state.
   snd.addEventListener("click", function () {
     var wantSound = v.muted;
     v.muted = !wantSound;
-    if (wantSound) { try { v.currentTime = 0; } catch (e) {} userPaused = false; loaded = true; ppState(); sync(); }
+    if (wantSound) { try { v.currentTime = 0; } catch (e) {} userPaused = false; loaded = true; if (v.paused) how = "tap"; play(); }
     snd.setAttribute("aria-pressed", wantSound ? "true" : "false");
     snd.setAttribute("aria-label", wantSound ? "Turn sound off" : "Turn sound on");
   });
