@@ -568,3 +568,6 @@ html.js .rv-in.is-in:hover{transition-delay:0s}
 .hquotes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
 .hquotes .hquote{margin:0;max-width:none}
 @media(max-width:860px){.hquotes{grid-template-columns:1fr}}
+.hquote figcaption .ran{display:block;margin-top:6px;font-size:13px;color:var(--ink-muted)}
+.hquote figcaption .ran::before{content:"What we ran: ";font-weight:700;color:var(--peri-deep)}
+@media(max-width:560px){.sec-head h2 .accentword{display:inline-block}}
