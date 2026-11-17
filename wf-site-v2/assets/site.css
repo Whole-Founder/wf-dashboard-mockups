@@ -571,3 +571,4 @@ html.js .rv-in.is-in:hover{transition-delay:0s}
 .hquote figcaption .ran{display:block;margin-top:6px;font-size:13px;color:var(--ink-muted)}
 .hquote figcaption .ran::before{content:"What we ran: ";font-weight:700;color:var(--peri-deep)}
 @media(max-width:560px){.sec-head h2 .accentword{display:inline-block}}
+.foot-bottom span a{color:inherit;text-decoration:underline;text-underline-offset:2px}
