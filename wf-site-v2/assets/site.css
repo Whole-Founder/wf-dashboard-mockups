@@ -565,3 +565,6 @@ html.js .rv-in.is-in:hover{transition-delay:0s}
 @media(max-width:560px){.hquote{grid-template-columns:48px 1fr;padding:20px}.hquote img{width:48px;height:48px;grid-row:auto}.hquote blockquote{grid-column:1/-1;font-size:16.5px}}
 @media(min-width:861px){.logostrip .trust{gap:14px;padding:22px 24px}}
 @media(max-width:560px){.hquote figcaption{grid-column:1/-1}}
+.hquotes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+.hquotes .hquote{margin:0;max-width:none}
+@media(max-width:860px){.hquotes{grid-template-columns:1fr}}
