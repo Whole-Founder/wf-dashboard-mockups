@@ -529,3 +529,37 @@ html.js .rv-in{opacity:0;transform:translateY(22px);transition:opacity .7s var(-
 html.js .rv-in.is-in{opacity:1;transform:none}
 html.js .rv-in.is-in:hover{transition-delay:0s}
 @media (prefers-reduced-motion:reduce){html.js .rv-in{opacity:1;transform:none}}
+
+/* 2026-11-17 launch pass */
+.cta-note{margin-top:16px;font-size:14px;color:var(--ink-muted);text-align:center}
+.diff.diff-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:960px){.diff.diff-3{grid-template-columns:1fr}}
+.why.why-steps{list-style:none;margin:0;padding:0;grid-template-columns:repeat(3,1fr);counter-reset:none}
+.why-steps .stepn{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--mint);font-family:'Inter Tight',sans-serif;font-weight:800;font-size:19px}
+@media(max-width:960px){.why.why-steps{grid-template-columns:1fr}}
+.rfig figcaption span{display:block}
+@media(min-width:1000px){.fnums-1line{flex-wrap:nowrap}.fnums-1line .fnum{flex:1 1 0;max-width:none}}
+.cta-note{display:flex;align-items:center;justify-content:center;gap:10px}
+.cta-note img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 1px var(--light-border)}
+.face-names{flex-basis:100%;text-align:center;font-size:12.5px;color:var(--ink-muted);margin:-4px 0 4px}
+@media(min-width:861px){.face-names{flex-basis:auto;text-align:left;max-width:170px;margin:0}}
+.fnum .c{font-size:13px}
+@media(max-width:560px){.fnums-1line .fnum .c{font-size:13px}.fname-row{flex-wrap:nowrap}.fname{font-size:clamp(24px,7.4vw,30px)}}
+.disc{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:1100px){.disc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.disc{grid-template-columns:1fr}}
+@media(max-width:420px){.fit~*,.sec-head h2{overflow-wrap:normal}}
+.closing-gray{display:block;width:96px;height:96px;margin:0 auto 22px;border-radius:50%;object-fit:cover;border:3px solid var(--mint)}
+.dcard p{text-wrap:pretty}
+@media(max-width:400px){.sec-alt .fit~h2,.fit-h2{font-size:26px;white-space:nowrap}}
+@media(min-width:1024px){.hero{padding:72px 0 56px}}
+.face-names{max-width:none}
+@media(min-width:861px){.face-names{max-width:220px}}
+.logos img[alt="Hotel Investor Academy"]{height:44px;width:auto}
+@media(max-width:400px){.sec-head .fit-h2{font-size:clamp(20px,6.6vw,26px);white-space:normal}}
+.hquote{margin:36px auto 0;max-width:720px;display:grid;grid-template-columns:56px 1fr;gap:6px 16px;align-items:center;background:var(--white);border:1px solid var(--light-border);border-radius:var(--r-card);padding:24px 28px;box-shadow:var(--shadow-card)}
+.hquote img{width:56px;height:56px;border-radius:50%;object-fit:cover;grid-row:1/3}
+.hquote blockquote{margin:0;font-family:'Inter Tight',sans-serif;font-weight:700;font-size:18px;line-height:1.35;color:var(--navy)}
+.hquote figcaption{font-size:13.5px;color:var(--ink-muted)}
+.hquote figcaption b{color:var(--navy);margin-right:6px}
+@media(max-width:560px){.hquote{grid-template-columns:48px 1fr;padding:20px}.hquote img{width:48px;height:48px;grid-row:auto}.hquote blockquote{grid-column:1/-1;font-size:16.5px}}

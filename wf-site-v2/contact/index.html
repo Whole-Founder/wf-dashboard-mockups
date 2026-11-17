@@ -31,6 +31,25 @@
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
 <link href="../assets/site.css" rel="stylesheet" />
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<style>
+/* Contact page only (r2, 2026-11-17) */
+.hero-host{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:26px}
+.hero-host img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--white);box-shadow:0 0 0 2px var(--mint)}
+.hero-host span{display:flex;flex-direction:column;text-align:left;font-size:14px;line-height:1.35;color:var(--ink-muted)}
+.hero-host b{font-family:'Inter Tight',sans-serif;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:-.005em;color:var(--navy)}
+.page-hero .cta-row.pick{justify-content:center;margin-top:24px}
+.cal-card .calendly-inline-widget{height:820px}
+.side-logos{margin-top:34px;padding-top:26px;border-top:1px solid var(--light-border)}
+.side-logos .lbl{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:18px}
+.side-logos .logos{justify-content:flex-start;gap:18px 26px}
+.side-logos .logos img{height:28px;max-width:116px}
+.side-logos .wordmark{font-family:'Inter Tight',sans-serif;font-weight:800;font-size:15px;line-height:1;letter-spacing:-.01em;text-transform:uppercase;color:var(--ink-muted)}
+.faq-cta{justify-content:center;margin-top:32px}
+.faq a{color:var(--peri-deep);text-decoration:underline;text-underline-offset:2px}
+@media(max-width:960px){.side-logos .logos{justify-content:center}.side-logos .lbl{text-align:center}}
+@media(min-width:961px){.contact-grid{grid-template-columns:.8fr 1.2fr}}
+@media(max-width:960px){.contact-grid>.cal-card{order:-1}}
+</style>
 </head>
 <body>
 
@@ -42,10 +61,10 @@
       <a href="../services/">Services</a>
       <a href="../clients/">Clients</a>
       <a href="../contact/" aria-current="page">Contact</a>
-      <a href="#book" class="pill-cta mobile-only">Book a call</a>
+      <a href="#book" class="pill-cta mobile-only">Book a&nbsp;call</a>
     </nav>
     <div class="nav-right">
-      <a href="#book" class="pill-cta">Book a call</a>
+      <a href="#book" class="pill-cta">Book a&nbsp;call</a>
       <button class="menu-btn" aria-label="Menu" aria-expanded="false"><span></span></button>
     </div>
   </div>
@@ -57,8 +76,10 @@
   <span class="blob blob-a"></span><span class="blob blob-b"></span>
   <div class="wrap head">
     <span class="eyebrow">Contact</span>
-    <h1>Let's see if we're <span class="accentword">a good fit</span></h1>
-    <p class="sub">Pick a time for a <b>25&#8209;minute call</b>. <span class="dline">We'll talk through your goals, your numbers and where growth is stuck, and tell you honestly whether we can help.</span></p>
+    <h1>Let's see <span class="dline">if&nbsp;we're <span class="accentword">a&nbsp;good&nbsp;fit</span></span></h1>
+    <p class="sub">Pick a&nbsp;time for&nbsp;a <b>25&#8209;minute call</b> with&nbsp;our&nbsp;founder. <span class="dline">We'll talk through your&nbsp;goals, your&nbsp;numbers and&nbsp;where growth is&nbsp;stuck, and&nbsp;tell you&nbsp;honestly whether we&nbsp;can&nbsp;help.</span></p>
+    <div class="hero-host"><img width="160" height="160" src="../assets/img/people/sm/gray-twombly.webp" alt="Gray Twombly, founder of Whole Founder" /><span><b>Gray Twombly</b>Founder, Whole Founder</span></div>
+    <div class="cta-row pick"><a href="#book" class="pill-cta">Pick a&nbsp;time <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a></div>
   </div>
 </section>
 
@@ -68,25 +89,37 @@
     <div class="contact-grid">
       <div>
         <div class="side-block">
-          <h2>What happens on the call</h2>
+          <h2>What happens on&nbsp;the&nbsp;call</h2>
           <div class="steps compact">
-            <div class="step"><div class="sn">1</div><h3>Your goals and numbers</h3><p>Where the business is today and where you want it to be.</p></div>
-            <div class="step"><div class="sn">2</div><h3>Where your&nbsp;growth is&nbsp;stuck</h3><p>Ads, funnel, show rate, lead quality or the offer itself. We'll give you our honest read.</p></div>
-            <div class="step"><div class="sn">3</div><h3>Next steps</h3><p>If we're a fit, we scope a custom plan. If not, we'll say so.</p></div>
+            <div class="step"><div class="sn">1</div><h3>Your&nbsp;goals and&nbsp;numbers</h3><p>Where the&nbsp;business is&nbsp;today <span class="nobr">and where you want it to&nbsp;be.</span></p></div>
+            <div class="step"><div class="sn">2</div><h3>Where your&nbsp;growth is&nbsp;stuck</h3><p>Ads, funnel, show rate, lead quality or&nbsp;the&nbsp;offer&nbsp;itself.</p></div>
+            <div class="step"><div class="sn">3</div><h3>Next steps</h3><p>If&nbsp;we're a&nbsp;fit, we&nbsp;scope a&nbsp;custom&nbsp;plan. <span class="dline">If&nbsp;not, we'll say&nbsp;so.</span></p></div>
           </div>
         </div>
         <div class="side-block">
-          <h2 class="h2-1line">You'll get the most from it if</h2>
+          <h2 class="h2-1line">You'll get the&nbsp;most from&nbsp;it&nbsp;if</h2>
           <ul class="checks on-light">
-            <li>You run a founder&#8209;led brand with a high&#8209;ticket offer, sold on calls</li>
-            <li>Your offer already sells organically</li>
-            <li>You have a sales team and a CRM in place</li>
+            <li>You&nbsp;run a&nbsp;founder&#8209;led brand selling&nbsp;a&nbsp;$3K+ offer on&nbsp;calls</li>
+            <li>Your&nbsp;offer already sells&nbsp;organically</li>
+            <li>You&nbsp;have a&nbsp;sales team and&nbsp;a&nbsp;CRM in&nbsp;place</li>
           </ul>
+          <div class="side-logos">
+            <div class="lbl">Brands we've run growth for</div>
+            <div class="logos">
+              <img src="../assets/img/brands/netrevenue.svg" alt="NetRevenue" />
+              <img data-ssi width="448" height="112" src="../assets/img/brands/self-storage-income-cyan.webp" alt="Self Storage Income" />
+              <img width="448" height="112" src="../assets/img/brands/limitless-expo.webp" alt="Limitless Expo" />
+              <img width="404" height="112" src="../assets/img/brands/firstdeal.webp" alt="First Deal" />
+              <img width="376" height="112" src="../assets/img/brands/flexspace-network.webp" alt="FlexSpace Network" />
+              <img width="165" height="112" src="../assets/img/brands/hotel-investor-academy.webp" alt="Hotel Investor Academy" />
+              <span class="wordmark" role="img" aria-label="Put Out Content">Put Out Content</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="cal-card">
-        <div class="cal-head"><b>Book your call</b><span>25 minutes · Video call</span></div>
-        <div class="calendly-inline-widget" data-url="https://calendly.com/wholefounder/25-min-whole-founder-meeting?hide_gdpr_banner=1&amp;hide_event_type_details=1"></div>
+        <div class="cal-head"><b>Book your&nbsp;call</b><span>25 minutes · Video call with&nbsp;Gray&nbsp;Twombly</span></div>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/wholefounder/25-min-whole-founder-meeting?hide_gdpr_banner=1"></div>
       </div>
     </div>
   </div>
@@ -96,19 +129,20 @@
 <section class="sec-alt">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Before you book</span>
+      <span class="eyebrow">Before you&nbsp;book</span>
       <h2>Common <span class="accentword">questions</span></h2>
     </div>
     <div class="faq-wrap">
       <div class="faq">
-        <details><summary>How much does it cost?</summary><p>Every engagement is custom, based on your unique business. We scope it after we understand your goals, your numbers and your team. There are no fixed packages.</p></details>
-        <details><summary>Do you run our sales team?</summary><p>No. We plug into your existing sales team, in&#8209;house or outsourced, and feed it qualified calls. If you don't have a sales team yet, we can refer you to a partner who builds them.</p></details>
-        <details><summary>Do you guarantee results?</summary><p>No. We set targets with you, hold ourselves accountable to them and measure our work on your profit. Anyone guaranteeing results on paid traffic is guessing.</p></details>
-        <details><summary>Who do you usually work with?</summary><p>Mostly founder&#8209;led expert brands in wealth and health that sell a high&#8209;ticket offer on sales calls. We've also worked with agencies, law firms and other service businesses.</p></details>
-        <details><summary>Who on our side works with you?</summary><p>Usually the founder or CEO signs off, and a COO or head of operations works with us day to day. The founder stays involved: you're the magic of the business, and we build around you.</p></details>
-        <details><summary>What if our offer is the problem?</summary><p>Then we'll tell you. When ads stop working, the offer is often the real constraint. Message Testing is the fastest way to find out what the market wants now.</p></details>
-        <details><summary>How do we get started?</summary><p>Book a 25&#8209;minute call. We look at your goals and your numbers and tell you honestly where growth is stuck. If we're a fit, you get a scope, targets and pricing built for your business.</p></details>
+        <details><summary>How much does it&nbsp;cost?</summary><p>Every engagement is&nbsp;custom, based on&nbsp;your&nbsp;unique business. <span class="dline">We&nbsp;scope it&nbsp;after we&nbsp;understand your&nbsp;goals, your&nbsp;numbers and&nbsp;your&nbsp;team.</span> <span class="dline">There are no fixed packages.</span></p></details>
+        <details><summary>Do you&nbsp;run our&nbsp;sales team?</summary><p>No. <span class="dline">We&nbsp;plug into&nbsp;your&nbsp;existing sales team, in&#8209;house or&nbsp;outsourced, and&nbsp;feed it&nbsp;qualified calls.</span> <span class="dline">If&nbsp;you&nbsp;don't have a&nbsp;sales team yet, we&nbsp;can refer you&nbsp;to&nbsp;a&nbsp;partner who builds them.</span></p></details>
+        <details><summary>Do you&nbsp;guarantee results?</summary><p>No. <span class="dline">We&nbsp;set targets with&nbsp;you, hold ourselves accountable to&nbsp;them and&nbsp;measure our&nbsp;work on&nbsp;your&nbsp;profit.</span> <span class="dline">Anyone guaranteeing results on&nbsp;paid traffic is&nbsp;guessing.</span></p></details>
+        <details><summary>Who do you&nbsp;usually work with?</summary><p>Mostly founder&#8209;led expert brands, many in&nbsp;real estate and&nbsp;investing, that&nbsp;sell a&nbsp;high&#8209;ticket offer on&nbsp;sales calls. <span class="dline">We've also worked with&nbsp;agencies, law firms and&nbsp;other service businesses.</span></p></details>
+        <details><summary>Who on&nbsp;our&nbsp;side works with&nbsp;you?</summary><p>Usually the&nbsp;founder or&nbsp;CEO signs off, and&nbsp;a&nbsp;COO or&nbsp;head of&nbsp;operations works with&nbsp;us day to&nbsp;day. <span class="dline">The&nbsp;founder stays involved: you're the&nbsp;magic of&nbsp;the&nbsp;business, and&nbsp;we&nbsp;build around you.</span></p></details>
+        <details><summary>What if&nbsp;our&nbsp;offer is&nbsp;the&nbsp;problem?</summary><p>Then we'll tell you. <span class="dline">When ads stop working, the&nbsp;offer is&nbsp;often the&nbsp;real constraint.</span> <span class="dline"><a href="../services/#message-testing">Message Testing</a> is&nbsp;the&nbsp;fastest way to&nbsp;find out what the&nbsp;market wants now.</span></p></details>
+        <details><summary>How do we&nbsp;get started?</summary><p>Pick a&nbsp;time above for&nbsp;a&nbsp;25&#8209;minute call. <span class="dline">If&nbsp;we're a&nbsp;fit, you&nbsp;get a&nbsp;scope, targets and&nbsp;pricing built for&nbsp;your&nbsp;business.</span></p></details>
       </div>
+      <div class="cta-row faq-cta"><a href="#book" class="pill-cta">Pick a&nbsp;time</a></div>
     </div>
   </div>
 </section>
@@ -119,31 +153,33 @@
     <div class="foot-grid">
       <div>
         <a class="flogo" href="../"><img width="348" height="96" src="../assets/img/wf-logo-dark-bg.webp" alt="The Whole Founder" loading="lazy" /></a>
-        <p class="ftag">Whole Founder is a growth marketing agency for the top&nbsp;1% personal brands: paid ads, ad creative and funnels that book qualified sales&nbsp;calls.</p>
+        <p class="ftag">Whole Founder is&nbsp;a&nbsp;growth marketing agency for&nbsp;the&nbsp;top&nbsp;1% personal brands: paid ads, ad creative and&nbsp;funnels that&nbsp;book qualified sales&nbsp;calls.</p>
       </div>
       <div>
         <h4>Site</h4>
-        <ul><li><a href="../">Home</a></li><li><a href="../services/">Services</a></li><li><a href="../clients/">Clients</a></li><li><a href="../contact/">Contact</a></li></ul>
+        <ul><li><a href="../">Home</a></li><li><a href="../services/">Services</a></li><li><a href="../clients/">Clients</a></li><li><a href="../contact/">Contact</a></li><li><a href="../privacy-policy/">Privacy policy</a></li></ul>
       </div>
       <div>
         <h4>Services</h4>
         <ul><li><a href="../services/#full-stack">Full&#8209;stack growth</a></li><li><a href="../services/#head-of-growth">Fractional Head of&nbsp;Growth</a></li><li><a href="../services/#rabbit-whole">Rabbit Whole&trade;</a></li><li><a href="../services/#message-testing">Message Testing</a></li></ul>
       </div>
     </div>
-    <div class="foot-bottom"><span>&copy; 2026 Whole Founder · wholefounder.com · All rights&nbsp;reserved</span><div class="socials"><a href="https://www.linkedin.com/company/whole-founder/" aria-label="Whole Founder on LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11.25H3zM9.5 9.75h3.83v1.54h.06c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.13V21h-4v-4.98c0-1.19-.02-2.72-1.66-2.72-1.66 0-1.92 1.3-1.92 2.63V21h-4z"/></svg></a></div></div>
+    <div class="foot-bottom"><span>&copy; 2026 Whole Founder · wholefounder.com · All&nbsp;rights&nbsp;reserved</span><div class="socials"><a href="https://www.linkedin.com/company/whole-founder/" aria-label="Whole Founder on LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11.25H3zM9.5 9.75h3.83v1.54h.06c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.13V21h-4v-4.98c0-1.19-.02-2.72-1.66-2.72-1.66 0-1.92 1.3-1.92 2.63V21h-4z"/></svg></a></div></div>
   </div>
 </footer>
 
 <button class="rv-btn" aria-expanded="false"><span class="d"></span>Internal review · Contact</button>
 <aside class="rv" aria-label="Internal review notes">
   <h4>Internal preview · Draft copy</h4>
-  <p class="rv-sub">Pass 5b (10/26): Gray's 10/22 review, the SEO/AEO plan and odd-numbered lists applied. Not for clients yet.</p>
+  <p class="rv-sub">Pass r2 (11/17): launch fixes on top of pass 5b (10/26). Gray's 10/22 review, the SEO/AEO plan and odd-numbered lists applied. Not for clients yet.</p>
   <ol>
     <li><b>Calendly</b> is Gray's live "25 Min Whole Founder Meeting" event. Test bookings from this preview land on the real calendar, so don't book test slots.</li>
     <li><b>"You'll get the most from it if"</b> is cut to 3 bullets, as agreed on the 10/22 call.</li>
     <li><b>FAQ:</b> Gray approved every answer on 10/22. The offer answer now names Message Testing. "How do we get started?" makes 7 and reuses the Services steps.</li>
     <li><b>To do in Calendly</b> (Gray's account): add a "How did you hear about us?" question, so booked calls from search and AI can be counted.</li>
     <li><b>Contact email or address:</b> none is shown. Add one?</li>
+    <li><b>r3 (11/17):</b> Gray face crop in the hero, sub says "with our founder" (the chip names him), brand strip under the fit list, "Pick a time" after the FAQ, FAQ 7 trimmed, Message Testing linked.</li>
+    <li><b>r2 (11/17):</b> Gray's name and face in the hero, a "Pick a time" button, the calendar first on mobile, and the Calendly event details now show (who the call is with). The FAQ says "real estate and investing" until Gray confirms health clients. Fit bullet 1 uses the $3K+ offer filter (Gray's locked buyer, 11/07).</li>
   </ol>
 </aside>
 
