@@ -43,7 +43,11 @@
 .svc-proof b{font-weight:700}
 .svc-proof .pf{width:36px;height:36px;border-radius:50%;object-fit:cover;flex:none;align-self:center;margin-right:-4px}
 .svc-proof{align-items:center}
-.hero-logos .wordmark{font-family:'Inter Tight',sans-serif;font-weight:800;font-size:17px;line-height:1;letter-spacing:-.01em;text-transform:uppercase;color:var(--ink-muted)}
+.svc-proof .pfaces{display:flex;flex:none}
+.svc-proof .pfaces img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid var(--white);margin-left:-10px}
+.svc-proof .pfaces img:first-child{margin-left:0}
+@media(max-width:420px){.svc-proof{flex-wrap:wrap;row-gap:8px}.svc-proof .pfaces+.pk{margin-left:0}}
+.hero-logos .wordmark{font-family:'Inter Tight',sans-serif;font-weight:800;font-size:17px;line-height:30px;white-space:nowrap;letter-spacing:-.01em;text-transform:uppercase;color:var(--ink-muted)}
 .steps .step p{color:var(--navy)}
 .host{display:flex;align-items:center;justify-content:center;gap:14px;margin:26px auto 0}
 .host img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--mint);flex:none}
@@ -81,12 +85,12 @@
       <div class="lbl">Brands we've run growth for</div>
       <div class="logos">
         <img src="../assets/img/brands/netrevenue.svg" alt="NetRevenue" />
+        <span class="wordmark" role="img" aria-label="Put Out Content">Put Out Content</span>
         <img data-ssi width="448" height="112" src="../assets/img/brands/self-storage-income-cyan.webp" alt="Self Storage Income" />
         <img width="448" height="112" src="../assets/img/brands/limitless-expo.webp" alt="Limitless Expo" />
         <img width="404" height="112" src="../assets/img/brands/firstdeal.webp" alt="First Deal" />
         <img width="376" height="112" src="../assets/img/brands/flexspace-network.webp" alt="FlexSpace Network" />
         <img width="165" height="112" src="../assets/img/brands/hotel-investor-academy.webp" alt="Hotel Investor Academy" />
-        <span class="wordmark" role="img" aria-label="Put Out Content">Put Out Content</span>
       </div>
     </div>
   </div>
@@ -102,7 +106,7 @@
       <div class="svc-cols">
         <div class="svc-q">
           <div class="pain-k">Is&nbsp;this&nbsp;you?</div>
-          <p class="pain">"I'm acting as the&nbsp;CMO of&nbsp;my&nbsp;company, and&nbsp;I&nbsp;know I'm not the&nbsp;person I'd&nbsp;hire for&nbsp;it."</p>
+          <p class="pain">"I'm acting as the&nbsp;CMO of&nbsp;my&nbsp;company, and&nbsp;I&nbsp;know I'm&nbsp;not the&nbsp;person I'd&nbsp;hire for&nbsp;it."</p>
         </div>
         <div class="svc-a">
           <div class="pain-k">How we&nbsp;come in</div>
@@ -117,7 +121,7 @@
               <li>Email, SMS, tracking and&nbsp;attribution</li>
             </ul>
           </div>
-          <p class="svc-proof" data-result="1"><img class="pf" width="112" height="112" src="../assets/img/people/sm/brandon-turner.webp" alt="Brandon Turner, First Deal" loading="lazy" /><span class="pk">Proof</span><span>For&nbsp;First Deal, we&nbsp;ran the&nbsp;ads, the&nbsp;funnel and&nbsp;the&nbsp;call funnel behind <b>$7.4M+ in&nbsp;sales</b>.</span></p>
+          <p class="svc-proof" data-result="1"><img class="pf" width="112" height="112" src="../assets/img/people/sm/brandon-turner.webp" alt="Brandon Turner, First Deal" loading="lazy" /><span class="pk">Proof</span><span>For&nbsp;First Deal, we&nbsp;ran the&nbsp;ads, the&nbsp;funnel and&nbsp;the&nbsp;call funnel behind <b>$7.4M+ in&nbsp;high&#8209;ticket sales contracted</b>.</span></p>
           <div class="cta-row"><a href="../contact/" data-cal class="pill-cta">Book a&nbsp;call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         </div>
       </div>
@@ -138,7 +142,7 @@
         </div>
         <div class="svc-a">
           <div class="pain-k">How we&nbsp;come in</div>
-          <p class="answer">A&nbsp;senior growth operator audits your&nbsp;marketing, runs your&nbsp;existing team and&nbsp;fills the&nbsp;gaps from&nbsp;our&nbsp;partner network. <span class="dline">You&nbsp;get back to&nbsp;leading the&nbsp;business.</span></p>
+          <p class="answer">Gray Twombly or&nbsp;one of&nbsp;our&nbsp;senior growth strategists audits your&nbsp;marketing, runs your&nbsp;existing team and&nbsp;fills the&nbsp;gaps from&nbsp;our&nbsp;partner network. <span class="dline">You&nbsp;get back to&nbsp;leading the&nbsp;business.</span></p>
           <div class="svc-list">
             <div class="klabel">What you&nbsp;get</div>
             <ul class="checks on-light">
@@ -149,7 +153,7 @@
               <li>Access to&nbsp;our&nbsp;marketing and&nbsp;sales&nbsp;partners</li>
             </ul>
           </div>
-          <p class="svc-proof"><span class="pk">Proof</span><span>Run by the&nbsp;team behind <b>$17M+ in&nbsp;client sales</b>.</span></p>
+          <p class="svc-proof"><img class="pf" width="160" height="160" src="../assets/img/people/sm/gray-twombly.webp" alt="Gray Twombly, founder of Whole Founder" loading="lazy" /><span class="pk">Proof</span><span>Run by the&nbsp;team behind <b>$17M+ in&nbsp;client sales</b>.</span></p>
           <div class="cta-row"><a href="../contact/" data-cal class="pill-cta">Book a&nbsp;call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         </div>
       </div>
@@ -210,10 +214,10 @@
               <li>Angles that&nbsp;lift ad&nbsp;click&#8209;through</li>
               <li class="wrap-fill">Messaging your&nbsp;ideal&nbsp;customer responds&nbsp;to</li>
               <li class="wrap-fill">Signal on&nbsp;which offers the&nbsp;market wants&nbsp;now</li>
-              <li>A&nbsp;clear read on&nbsp;the&nbsp;offer itself, not just the&nbsp;ads</li>
+              <li>A&nbsp;clear read on&nbsp;the&nbsp;offer itself, not&nbsp;just the&nbsp;ads</li>
             </ul>
           </div>
-          <p class="svc-proof"><span class="pk">Proof</span><span><b>1,400+ ad variants</b> tested and&nbsp;scored across five client&nbsp;accounts.</span></p>
+          <p class="svc-proof"><span class="pfaces" aria-hidden="true"><img data-ssi width="112" height="112" src="../assets/img/people/sm/aj-osborne.webp" alt="" loading="lazy" /><img width="112" height="112" src="../assets/img/people/sm/ken-mcelroy.webp" alt="" loading="lazy" /><img width="112" height="112" src="../assets/img/people/sm/brandon-turner.webp" alt="" loading="lazy" /><img width="112" height="112" src="../assets/img/people/sm/deepak-sharma.webp" alt="" loading="lazy" /><img width="112" height="112" src="../assets/img/people/sm/hamza-ali.webp" alt="" loading="lazy" /></span><span class="pk">Proof</span><span><b>1,400+ ad variants</b> tested and&nbsp;scored across five client&nbsp;accounts.</span></p>
           <div class="cta-row"><a href="../contact/" data-cal class="pill-cta">Book a&nbsp;call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         </div>
       </div>
@@ -278,7 +282,8 @@
     <li><b>Each list now has 5 bullets</b> (Gero 10/26). The new ones are: the weekly scorecard (from How we work), ongoing conversion rate optimization after launch (Gray's Rabbit Whole brief), and a clear read on the offer (from the Message Testing copy).</li>
     <li><b>Message Testing</b> is the new name for Sprint Testing (Gray 10/22, Gero 10/26). The anchor is now #message-testing.</li>
     <li><b>"First 14 days" dropped (r2, 11/17):</b> the label now reads "What you get" until Gray confirms the 14&#8209;day promise.</li>
-    <li><b>r3 (11/17):</b> face chips on proof lines 01 (Brandon) and 03 (Deepak), Put Out Content wordmark in the hero strip (7 brands), Gray face crop on the closing, step text in body ink, repeated phrases cut. Who is the "senior growth operator" in 02: if it is Gray, his face belongs there.</li>
+    <li><b>Final fix (11/17):</b> Put Out Content wordmark moved inside the logo row, client face stack on the Message Testing proof, First Deal proof says "high&#8209;ticket sales contracted" to match Clients. 02 now names Gray Twombly or one of our senior growth strategists (Gray 11/17), with Gray's face on its proof line.</li>
+    <li><b>r3 (11/17):</b> face chips on proof lines 01 (Brandon) and 03 (Deepak), Put Out Content wordmark in the hero strip (7 brands), Gray face crop on the closing, step text in body ink, repeated phrases cut. </li>
     <li><b>Proof lines (r2):</b> First Deal $7.4M+ (record $7.40M contracted), $17M+ client sales (shipped 10/15, record $17.48M), Put Out Content $20K in 48 hours (Framer case study), 1,400+ variants (verified 9/21). All client names still need client OK. Closing now shows Gray's face: confirm photo and title.</li>
     <li><b>Rabbit Whole&trade; vs Message Testing:</b> Message Testing runs on its own or as the first phase of Rabbit Whole&trade;. Confirm the line between them.</li>
     <li><b>No pricing</b>, per Gray: "Custom, based on your unique business."</li>

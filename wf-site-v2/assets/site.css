@@ -563,3 +563,5 @@ html.js .rv-in.is-in:hover{transition-delay:0s}
 .hquote figcaption{font-size:13.5px;color:var(--ink-muted)}
 .hquote figcaption b{color:var(--navy);margin-right:6px}
 @media(max-width:560px){.hquote{grid-template-columns:48px 1fr;padding:20px}.hquote img{width:48px;height:48px;grid-row:auto}.hquote blockquote{grid-column:1/-1;font-size:16.5px}}
+@media(min-width:861px){.logostrip .trust{gap:14px;padding:22px 24px}}
+@media(max-width:560px){.hquote figcaption{grid-column:1/-1}}
