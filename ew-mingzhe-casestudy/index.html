@@ -535,7 +535,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 
 @media (min-width:641px) and (max-width:1023px){.hB .photo{max-width:432px}}
 
-.letter-fig{margin:22px auto;max-width:400px}.letter-fig img{display:block;width:100%;height:auto;border-radius:var(--r-sm);box-shadow:var(--hairline)}.letter-fig figcaption{margin-top:8px;font-size:.8125rem;line-height:1.4;color:var(--muted);text-align:center}.trio-cap{margin:-14px auto 18px;max-width:640px;text-align:center;font-size:.8125rem;line-height:1.4;color:var(--muted)}.fold-facts{display:none}@media (max-width:640px){.fold-facts{display:block;margin:0 0 10px;text-align:center;font-size:.8125rem;line-height:1.4;color:var(--muted)}#hero .cta-note{display:none}}
+.letter-fig{margin:22px auto;max-width:400px}.letter-fig img{display:block;width:100%;height:auto;border-radius:var(--r-sm);box-shadow:var(--hairline)}.letter-fig figcaption{margin-top:8px;font-size:.8125rem;line-height:1.4;color:var(--muted);text-align:center}.trio-cap{margin:-14px auto 18px;max-width:640px;text-align:center;font-size:.8125rem;line-height:1.4;color:var(--muted)}.fit-list{list-style:none;margin:0 auto 28px;padding:0;max-width:600px;display:grid;gap:12px;text-align:left}.fit-list li{position:relative;padding:14px 16px 14px 50px;border-radius:var(--r-sm);background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);color:rgba(255,255,255,.88);font-size:0.9375rem;line-height:1.5}.fit-list li b{display:block;color:var(--white);font-weight:600}.fit-list li::before{content:'';position:absolute;left:16px;top:15px;width:20px;height:20px;border-radius:50%;background:center/20px no-repeat}.fit-list.yes li::before{background-color:var(--gold-bright);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%230F1419' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}.fit-list.no li::before{background-color:#dc2626;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.5 6.5l7 7M13.5 6.5l-7 7' fill='none' stroke='%23FFFFFF' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")}.fold-facts{display:none}@media (max-width:640px){.fold-facts{display:block;margin:0 0 10px;text-align:center;font-size:.8125rem;line-height:1.4;color:var(--muted)}#hero .cta-note{display:none}}
 
 .fold-proof{display:none}
 @media (max-width:640px){.fold-proof{display:flex;align-items:center;gap:10px;margin:0 0 10px;text-align:left}#hero{padding-top:20px}#hero .attn{margin-bottom:16px}#hero .sub{margin-bottom:10px}.fold-proof .fp-face{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 2px var(--white), var(--hairline)}.fold-proof .fp-body{flex:1;min-width:0}.fold-proof .fp-dash{display:block;width:100%;height:auto;border-radius:var(--r-sm)}.fold-proof .fp-cap{display:block;margin-top:5px;font-size:11px;line-height:1.35;color:var(--muted)}.fold-proof .fp-nw{white-space:nowrap}}
@@ -992,19 +992,16 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
       <p>What settled it was doing his homework first.</p>
     </div>
     <p class="fit-label">It may suit you if:</p>
-    <div class="short">
-      <p>You have a job and very little spare time.</p>
-      <p>Ming Zhe built his store <span class="keep">on two hours a weeknight</span> <span class="keep">and most of his weekends.</span></p>
-      <p>You want to build something for your family.</p>
-      <p>You’d like to see the work done first.</p>
-    </div>
+    <ul class="fit-list yes">
+      <li><b>You have a job and very little spare time.</b> Ming Zhe built his on two hours a weeknight, plus most weekends.</li>
+      <li><b>You want to build something for your family.</b></li>
+      <li><b>You’d like to see the work done first.</b></li>
+    </ul>
     <p class="fit-label">It won’t suit you yet if:</p>
-    <div class="short">
-      <p><span class="keep">You have no budget for ads,</span> <span class="keep">because running a store</span> <span class="keep">means paying for ads while you test.</span></p>
-      <p>Ming Zhe spent <span class="keep">about $250 USD a week</span> <span class="keep">on each product test.</span></p>
-      <p>You’re hoping for results without the work.</p>
-      <p><span class="keep">Even with AI tools,</span> <span class="keep">Ming Zhe tested 19 products</span> <span class="keep">before one took off.</span></p>
-    </div>
+    <ul class="fit-list no">
+      <li><b>You have no budget for ads.</b> A store needs paid ads while you test. Ming Zhe spent about $250 USD a week per product.</li>
+      <li><b>You’re hoping for results without the work.</b> Even with AI tools, Ming Zhe tested 19 products before one took off.</li>
+    </ul>
     <p class="fit-label">The next step is simple:</p>
     <div class="short">
       <p>Watch the whole build first, at no cost.</p>
