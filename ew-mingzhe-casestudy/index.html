@@ -1272,11 +1272,11 @@ GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dis
     log.push(['fbq CompleteRegistration (not sent, QA mode)', Date.now(), body.event_id]);
     goal(0);
     log.push(['sessionStorage ew_reg_contact (not set, QA mode)', Date.now()]);
-    log.push(['navigate (not done, QA mode)', Date.now(), '/golden-ticket' + location.search]);
+    log.push(['navigate (not done, QA mode)', Date.now(), '/thank-you' + location.search]);
     form.hidden = true;
     var d = document.createElement('div');
     d.className = 'wf-reg-done'; d.id = 'wf-reg-done'; d.style.display = 'block'; d.setAttribute('role', 'status');
-    d.textContent = 'QA mode: nothing was sent. A real visitor goes to the Golden Ticket page now.';
+    d.textContent = 'QA mode: nothing was sent. A real visitor goes to the thank-you page now.';
     form.parentNode.insertBefore(d, form.nextSibling);
   }
 
@@ -1324,9 +1324,9 @@ GOVERNING LAW: This disclaimer is governed by the laws of Singapore, and any dis
         var contact = { email: body.email.trim(), name: body.fullName.trim(), phone: body.phone.trim() };
         if (contact.email || contact.phone) sessionStorage.setItem('ew_reg_contact', JSON.stringify(contact));
       } catch(err){}
-      // 4. A beat for the pixel and the goal to leave, then the $27 Golden Ticket upsell. Buyers go on to /welcome,
+      // 4. A beat for the pixel and the goal to leave, then straight to /thank-you (the $27 Golden Ticket upsell step is bypassed since 2026-11-25).
       //    "No thanks" to /thank-you (that page's own code).
-      wfAfter(copied, 400, WF_COPY_WAIT, function(){ location.href = '/golden-ticket' + location.search; });
+      wfAfter(copied, 400, WF_COPY_WAIT, function(){ location.href = '/thank-you' + location.search; });
     };
     var fail = function(){
       errP.innerHTML = '<span class="keep">Something went wrong saving your spot.</span> <span class="keep">Please try again.</span>'; errP.hidden = false;
