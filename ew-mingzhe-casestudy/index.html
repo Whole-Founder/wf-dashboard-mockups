@@ -541,7 +541,9 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 @media (max-width:640px){.fold-proof{display:flex;align-items:center;gap:10px;margin:0 0 10px;text-align:left}#hero{padding-top:20px}#hero .attn{margin-bottom:16px}#hero .sub{margin-bottom:10px}.fold-proof .fp-face{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 2px var(--white), var(--hairline)}.fold-proof .fp-body{flex:1;min-width:0}.fold-proof .fp-dash{display:block;width:100%;height:auto;border-radius:var(--r-sm)}.fold-proof .fp-cap{display:block;margin-top:5px;font-size:11px;line-height:1.35;color:var(--muted)}.fold-proof .fp-nw{white-space:nowrap}}
 
 .claim-cap{margin:8px auto 18px}
-.tiles{gap:28px}
+.seat{list-style:none;counter-reset:s;margin:0 auto 24px;padding:0;max-width:560px;display:grid;gap:10px;text-align:left}.seat li{counter-increment:s;position:relative;padding:12px 14px 12px 54px;border-radius:var(--r-sm);background:var(--white);color:var(--ink);box-shadow:var(--hairline);font-size:.9375rem;line-height:1.5}.seat li::before{content:counter(s);position:absolute;left:14px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--gold-bright);color:var(--ink);font-family:var(--ff-display);font-weight:700;display:flex;align-items:center;justify-content:center}.seat b{display:block}
+.final-q{margin:0 0 6px;text-align:center;font-family:var(--ff-display);font-weight:700;font-size:1.375rem;line-height:1.3;color:var(--white)}.final-by{margin:0 0 24px;text-align:center;font-size:.875rem;color:var(--gold-pale)}
+.tiles{gap:28px;max-width:660px}
 @media (max-width:640px){.tiles{gap:16px 12px;padding-top:0}}
 @media (min-width:641px) and (max-width:1023px){.cards .card{max-width:396px;margin-left:auto;margin-right:auto}}
 @media (max-width:640px){.fold-proof .fp-face{width:72px;height:72px}}
@@ -563,7 +565,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <p class="attn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.5 21h21L12 2.5Z" fill="#F5C518"/><path d="M12 9v5.5" stroke="#0F1419" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.3" fill="#0F1419"/></svg><span><b>Attention <span class="keep">Singapore working dads:</span></b> <span class="keep">tried a side income</span> <span class="keep">and got nowhere?</span></span></p>
     <h1 data-cro-id="cs-hero-h1"><span class="keep">How a Singapore dad</span> <span class="keep">with a full‑time job</span> <span class="keep">built a store that did</span> <em>$154,126 USD in sales</em> <span class="keep">in 30 days</span></h1>
     <div class="fold-proof"><img class="fp-face" src="assets/mz-face.webp" alt="Ming Zhe" width="520" height="520"><div class="fp-body"><img class="fp-dash" src="assets/mz-dash-30d-strip.webp" alt="Ming Zhe’s Shopify dashboard: sessions 29,747, total sales $154,126, 30 days from July 11, 2026" width="941" height="163"><span class="fp-cap"><span class="fp-nw">From his Shopify app,</span> <span class="fp-nw">30 days from July 11, 2026.</span> <span class="fp-nw">Not a typical result.</span></span></div></div>
-    <p class="sub"><span class="ln"><span class="keep">Watch Rayston Heem,</span> <span class="keep">founder of the program he joined,</span> <span class="keep">build a store live with AI tools</span> <span class="keep">at the One Store Away Workshop.</span></span></p>
+    <p class="sub"><span class="ln"><span class="keep">See a store built live with AI tools</span> <span class="keep">at the One Store Away Workshop,</span> <span class="keep">by Rayston Heem,</span> <span class="keep">founder of the program he joined.</span></span></p>
     <p class="fold-facts">Live on Zoom · 60&nbsp;minutes · No&nbsp;cost to&nbsp;attend</p>
     <a class="btn" data-cro-id="cs-cta" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
     <p class="cta-next" data-wf-session="hero" hidden></p>
@@ -598,20 +600,20 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <p class="tiles-head"><span>Ming Zhe’s store, by the numbers</span><svg viewBox="0 0 60 44" aria-hidden="true"><path d="M2 8 C 26 2, 46 6, 52 34" fill="none" stroke="#8A6D1F" stroke-width="2.2" stroke-linecap="round"/><path d="M45 29 L52 36 L57 27" fill="none" stroke="#8A6D1F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
     <div class="tiles">
       <figure class="tile">
-        <img class="dash" src="assets/mz-dash-30d.webp" alt="Ming Zhe's Shopify dashboard: sessions 29,747 and total sales $154,126, 30 days from July 11, 2026" width="1213" height="774">
-        <figcaption><b>$154,126 USD</b><span><span class="keep">in sales in the 30 days</span> <span class="keep">from July 11, 2026</span></span></figcaption>
+        <img class="dash" src="assets/mz-tile-jul14.webp" alt="Ming Zhe's Shopify dashboard: total sales $1,057.00 on July 14, 2026" width="680" height="340">
+        <figcaption><b>$1,057 USD</b><span><span class="keep">his first $1,000 day,</span> July 14</span></figcaption>
       </figure>
       <figure class="tile">
-        <img class="dash" src="assets/mz-dash-100k.webp" alt="Ming Zhe's Shopify dashboard: total sales $101,008.64, July 9 to August 1, 2026" width="1348" height="640">
-        <figcaption><b>$101,008 USD</b><span><span class="keep">in 24 days,</span> <span class="keep">July 9 to August 1</span></span></figcaption>
-      </figure>
-      <figure class="tile">
-        <img class="dash" src="assets/mz-dash-jul16.webp" alt="Ming Zhe's Shopify dashboard: total sales $4,070.90 on July 16, 2026" width="1100" height="535">
+        <img class="dash" src="assets/mz-tile-jul16.webp" alt="Ming Zhe's Shopify dashboard: total sales $4,070.90 on July 16, 2026" width="680" height="340">
         <figcaption><b>$4,070 USD</b><span>in a single day, July 16</span></figcaption>
       </figure>
       <figure class="tile">
-        <img class="dash" src="assets/mz-dash-jul14.webp" alt="Ming Zhe's Shopify dashboard: total sales $1,057.00 on July 14, 2026" width="1100" height="525">
-        <figcaption><b>$1,057 USD</b><span><span class="keep">his first $1,000 day,</span> July 14</span></figcaption>
+        <img class="dash" src="assets/mz-tile-100k.webp" alt="Ming Zhe's Shopify dashboard: total sales $101,008.64, July 9 to August 1, 2026" width="800" height="400">
+        <figcaption><b>$101,008 USD</b><span><span class="keep">in 24 days,</span> <span class="keep">July 9 to August 1</span></span></figcaption>
+      </figure>
+      <figure class="tile">
+        <img class="dash" src="assets/mz-tile-30d.webp" alt="Ming Zhe's Shopify app: total sales $154,126 in the 30 days from July 11, 2026" width="640" height="320">
+        <figcaption><b>$154,126 USD</b><span><span class="keep">in the 30 days</span> <span class="keep">from July 11, 2026</span></span></figcaption>
       </figure>
     </div>
   </div>
@@ -659,6 +661,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <p>Product 20 came out of a few rounds <span class="keep">of product research with his coach.</span></p>
     <p>He got home from work around 10pm, <span class="keep">built the product page</span> <span class="keep">and launched the ads around 2am.</span></p>
     <p>He woke up to four orders.</p>
+    <figure class="letter-fig"><img src="assets/mz-dash-jul9.webp" alt="Ming Zhe’s Shopify app on July 9, 2026: total sales $185.50 and 4 orders" width="1100" height="554"><figcaption>His Shopify app that morning, July&nbsp;9,&nbsp;2026</figcaption></figure>
     <p>Five days later it passed <span class="keep">$1,000 USD in sales</span> in a day.</p>
     <p>In the 30 days from July 11, 2026, <span class="keep">his store did</span> <span class="keep">$154,126 USD in sales.</span></p>
     <p>Watching other students’ interviews, he had figured <span class="keep">it would take him two years.</span></p>
@@ -689,73 +692,37 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 <section class="casefile" id="case-file" data-cro-id="cs-case-file">
   <div class="wide">
     <h2 class="cf-h2" data-cro-id="cs-case-file-h2"><span class="keep">See how Ming Zhe’s</span> <span class="keep">store grew,</span> <span class="keep">post by post</span></h2>
-    <p class="cf-intro"><span class="ln">From the Shopify dashboards he posted in the Ecomwarts student community</span><span class="ln">and his interview on Rayston Heem’s YouTube channel, published September 2, 2026.</span><span class="ln">All figures are sales, not profit.</span></p>
+    <p class="cf-intro"><span class="ln">Each one is a Shopify screenshot he posted in the Ecomwarts student community.</span><span class="ln">All figures are sales, not profit.</span></p>
     <div class="cards">
 
       <article class="card">
         <h3>Product 8: a first $100 day</h3>
         <div class="card-media"><img class="dash" src="assets/mz-dash-apr29.webp" alt="Ming Zhe’s Shopify app: total sales $168 and 3 orders on April 29, 2026" width="800" height="388"></div>
-        <div class="card-label"><p class="q"><span class="keep">“Woke up crossing</span> <span class="keep">$100/day on Day 1.”</span></p><p class="meta">April 29, 2026</p></div>
-        <dl class="rows">
-          <div><dt>Sales:</dt><dd><b>$168 USD</b></dd></div>
-          <div><dt>Orders:</dt><dd>3</dd></div>
-          <div><dt>Source:</dt><dd>His Shopify app, posted to the Ecomwarts community</dd></div>
-        </dl>
+        <div class="card-label"><p class="q"><span class="keep">“Woke up crossing</span> <span class="keep">$100/day on Day 1.”</span></p><p class="meta">April 29, 2026 · $168 USD, 3 orders</p></div>
       </article>
 
       <article class="card">
-        <h3>Product 20: four orders overnight</h3>
-        <div class="card-media"><img class="dash" src="assets/mz-dash-jul9.webp" alt="Ming Zhe’s Shopify app: total sales $185.50 and 4 orders on July 9, 2026" width="1100" height="554"></div>
-        <div class="card-label"><p class="q"><span class="keep">“I woke up this morning</span> <span class="keep">to 4 orders!”</span></p><p class="meta">July 9, 2026</p></div>
-        <dl class="rows">
-          <div><dt>Sales:</dt><dd><b>$185.50 USD</b></dd></div>
-          <div><dt>Orders:</dt><dd>4</dd></div>
-          <div><dt>The night before:</dt><dd>Home from work around 10pm, ads live around 2am</dd></div>
-          <div><dt>Source:</dt><dd>His Shopify app, posted to the Ecomwarts community</dd></div>
-        </dl>
-      </article>
-
-      <article class="card">
-        <h3>His first $1,000 day</h3>
+        <h3>Product 20: his first $1,000 day</h3>
         <div class="card-media"><img class="dash" src="assets/mz-dash-jul14.webp" alt="Ming Zhe’s Shopify dashboard: total sales $1,057.00 on July 14, 2026" width="1100" height="525"></div>
-        <div class="card-label"><p class="q"><span class="keep">“I honestly didn’t expect</span> <span class="keep">to skip right past it</span> <span class="keep">to a $1k/day</span> <span class="keep">milestone instead.”</span></p><p class="meta">July 14, 2026</p></div>
-        <dl class="rows">
-          <div><dt>Sales:</dt><dd><b>$1,057 USD</b></dd></div>
-          <div><dt>The day before:</dt><dd>Around $400</dd></div>
-          <div><dt>Source:</dt><dd>His Shopify app, posted to the Ecomwarts community</dd></div>
-        </dl>
+        <div class="card-label"><p class="q"><span class="keep">“I honestly didn’t expect</span> <span class="keep">to skip right past it</span> <span class="keep">to a $1k/day</span> <span class="keep">milestone instead.”</span></p><p class="meta">July 14, 2026 · around $400 the day before</p></div>
       </article>
 
       <article class="card">
         <h3>A $4,000 day</h3>
         <div class="card-media"><img class="dash" src="assets/mz-dash-jul16.webp" alt="Ming Zhe’s Shopify dashboard: total sales $4,070.90 on July 16, 2026" width="1100" height="535"></div>
-        <div class="card-label"><p class="q"><span class="keep">“After scaling for 7 days,</span> <span class="keep">hitting 4k today.”</span></p><p class="meta">July 16, 2026</p></div>
-        <dl class="rows">
-          <div><dt>Sales:</dt><dd><b>$4,070.90 USD</b></dd></div>
-          <div><dt>Source:</dt><dd>His Shopify app, posted to the Ecomwarts community</dd></div>
-        </dl>
+        <div class="card-label"><p class="q"><span class="keep">“After scaling for 7 days,</span> <span class="keep">hitting 4k today.”</span></p><p class="meta">July 16, 2026 · $4,070.90 USD</p></div>
       </article>
 
       <article class="card">
         <h3>$101,008 in 24 days</h3>
         <div class="card-media"><img class="dash" src="assets/mz-dash-100k.webp" alt="Ming Zhe’s Shopify dashboard: total sales $101,008.64, July 9 to August 1, 2026" width="1348" height="640"></div>
-        <div class="card-label"><p class="q"><span class="keep">“I got a feeling</span> that this <span class="keep">is the product already.”</span></p><p class="meta">July 9 to August 1, 2026</p></div>
-        <dl class="rows">
-          <div><dt>Sales:</dt><dd><b>$101,008.64 USD</b></dd></div>
-          <div><dt>The quote:</dt><dd>From his interview</dd></div>
-          <div><dt>Source:</dt><dd>His Shopify dashboard</dd></div>
-        </dl>
+        <div class="card-label"><p class="q"><span class="keep">“I got a feeling</span> that this <span class="keep">is the product already.”</span></p><p class="meta">July 9 to August 1, 2026 · quote from his interview</p></div>
       </article>
 
       <article class="card">
-        <h3>The 30 days from July 11</h3>
+        <h3>$154,126 in 30 days</h3>
         <div class="card-media"><img class="dash" src="assets/mz-dash-30d.webp" alt="Ming Zhe’s Shopify app: sessions 29,747 and total sales $154,126, 30 days from July 11, 2026" width="1213" height="774"></div>
-        <div class="card-label"><p class="q"><span class="ln"><span class="keep">“Bro 150k</span> <span class="keep">in the last 30 days!!</span></span> <span class="ln"><span class="keep">More than happy bro!!”</span></span></p><p class="meta">Posted August 10, 2026</p></div>
-        <dl class="rows">
-          <div><dt>Sales:</dt><dd><b>$154,126 USD</b></dd></div>
-          <div><dt>Store visits:</dt><dd>29,747</dd></div>
-          <div><dt>Source:</dt><dd>His Shopify app, posted to the Ecomwarts community</dd></div>
-        </dl>
+        <div class="card-label"><p class="q"><span class="ln"><span class="keep">“Bro 150k</span> <span class="keep">in the last 30 days!!</span></span> <span class="ln"><span class="keep">More than happy bro!!”</span></span></p><p class="meta">Posted August 10, 2026 · 29,747 store visits</p></div>
       </article>
     </div>
     <div class="center cf-cta">
@@ -815,7 +782,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <h3 class="steps-h"><span class="ln">In <em>6 live steps</em>, you’ll see</span><span class="ln">a store go from idea to launch:</span></h3>
     <ol class="msteps">
       <li><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="14" cy="14" r="8"/><path d="M20 20l7 7"/></svg><div><h4>1. Pick the product</h4><p><span class="keep">Rayston shows you how</span> <span class="keep">he picks a product</span> quickly with AI tools.</p></div></li>
-      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12l3-6h16l3 6"/><path d="M5 12h22v14H5z"/><path d="M13 26v-7h6v7"/></svg><div><h4>2. Build the store</h4><p>An entire store, end to end, <span class="keep">in under 60 minutes,</span> with AI tools.</p></div></li>
+      <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12l3-6h16l3 6"/><path d="M5 12h22v14H5z"/><path d="M13 26v-7h6v7"/></svg><div><h4>2. Build the store</h4><p>An entire store, end to end, with&nbsp;AI&nbsp;tools.</p></div></li>
       <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 13v6h4l9 6V7l-9 6H5z"/><path d="M23 11c2 2 2 8 0 10"/></svg><div><h4>3. Make the ads</h4><p>Built with AI tools: no filming yourself and no designing by hand.</p></div></li>
       <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c5 3 7 9 6 15l-6 6-6-6c-1-6 1-12 6-15z"/><circle cx="16" cy="13" r="2.5"/><path d="M10 19l-4 2 2 5 4-2M22 19l4 2-2 5-4-2"/></svg><div><h4>4. Launch the store</h4><p>How he goes live, how he checks it is working, and what success looks like.</p></div></li>
       <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h22v14H14l-6 5v-5H5z"/><path d="M11 13h10M11 17h6"/></svg><div><h4>5. Ask your questions live</h4><p>So you leave clear <span class="keep">on how to build a store yourself.</span></p></div></li>
@@ -834,24 +801,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 
 
 
-<section class="enemy" id="not-another-course" data-cro-id="cs-not-another-course">
-  <div class="wrap">
-    <img class="enemy-img" src="assets/mz-enemy.webp" alt="Ming Zhe explaining his choice in his Ecomwarts interview" width="1440" height="1080">
-    <h2 class="sec-h2" data-cro-id="cs-not-another-course-h2"><span class="ln"><span class="nw">Why a sceptic</span> <span class="nw">with a full‑time job</span></span><span class="ln"><span class="nw">got help</span> <span class="nw">this time</span></span></h2>
-    <div class="short">
-      <p>What Ming Zhe was missing, in his words:</p>
-      <p class="pull"><span class="ln">“I know how to build websites</span> <span class="ln">and how to find products,</span> <span class="ln">but I do not know… <span class="keep">what’s the step‑by‑step.”</span></span></p>
-      <p>He had been burned once by a promise of quick money.</p>
-      <p>So this time he checked everything first, <span class="keep">then got help from people</span> <span class="keep">who run stores themselves.</span></p>
-      <p>You can check first, too.</p>
-      <p>Before you pay for anything, <span class="keep">watch Rayston build a store live.</span></p>
-          </div>
-    <div class="center">
-      <a class="btn" data-cro-id="cs-cta" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
-      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
-    </div>
-  </div>
-</section>
+
 
 
 
@@ -867,7 +817,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <ol class="nums">
       <li><b>You see where to&nbsp;start.</b><br>In&nbsp;2020, Ming&nbsp;Zhe didn’t&nbsp;know, and&nbsp;nothing&nbsp;sold.</li>
       <li><b>You don’t need to have run an&nbsp;ad&nbsp;before.</b><br>In&nbsp;2020, Ming&nbsp;Zhe never&nbsp;had.</li>
-      <li><b>No filming yourself, no&nbsp;designing by&nbsp;hand.</b><br>The&nbsp;ads are made with&nbsp;AI&nbsp;tools.</li>
+      <li><b>You don’t need his software&nbsp;background.</b><br>Rayston builds the store on&nbsp;screen, with&nbsp;AI&nbsp;tools.</li>
       <li><b>You can keep your&nbsp;job.</b><br>Ming&nbsp;Zhe never left&nbsp;his.</li>
       <li><b>The paid program at the end is&nbsp;optional.</b><br>You hear the price before you decide&nbsp;anything.</li>
     </ol>
@@ -881,34 +831,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 
 
 
-<section class="hiw" id="three-steps" data-cro-id="cs-three-steps">
-  <div class="wide">
-    <h2 class="sec-h2" data-cro-id="cs-three-steps-h2">Three steps to your&nbsp;seat</h2>
-    <div class="hiw-cards">
-      <article class="hiw-card">
-        <div class="hiw-media"><img src="assets/signup-form.webp" alt="The sign-up form: full name, email and phone, then Save my spot" width="1200" height="800"><span class="hiw-step">Step<b>1</b></span></div>
-        <h3>Save your spot</h3>
-        <p>Add your name, email and phone.</p>
-        <p>You’re booked <span class="keep">into the next live session,</span> <span class="keep">and the date shows straight away.</span></p>
-      </article>
-      <article class="hiw-card">
-        <div class="hiw-media"><img src="assets/mz-workshop-room.webp" alt="Rayston Heem at the lectern, teaching a room at an Ecomwarts event" width="1280" height="960"><span class="hiw-step">Step<b>2</b></span></div>
-        <h3>Get your&nbsp;date</h3>
-        <p>The date and time of your session show straight&nbsp;away.</p>
-      </article>
-      <article class="hiw-card">
-        <div class="hiw-media"><img src="assets/rayston-live-qa.webp" alt="Rayston Heem answering questions at a live Ecomwarts event" width="960" height="640"><span class="hiw-step">Step<b>3</b></span></div>
-        <h3>Join on&nbsp;Zoom</h3>
-        <p>60&nbsp;minutes, live. Bring your&nbsp;questions.</p>
-      </article>
-    </div>
-    <p class="trio-cap">Photos are from in‑person Ecomwarts events.</p>
-    <div class="center">
-      <a class="btn" data-cro-id="cs-cta" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
-      <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
-    </div>
-  </div>
-</section>
+
 
 
 
@@ -918,18 +841,12 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
     <img class="claim-img" src="assets/mz-twoshot.webp" alt="Ming Zhe and Rayston Heem at the Ecomwarts Elite table" width="1600" height="800">
     <p class="trio-cap claim-cap">Ming&nbsp;Zhe with Rayston Heem at his interview, 2026</p>
     <h2 class="sec-h2 claim-h2" data-cro-id="cs-claim-h2"><span class="keep">Save your spot</span> <span class="keep">and watch a store</span> <em class="keep">go from idea to launch,</em> <span class="keep">live with AI tools</span></h2>
-    <p class="claim-sub">(Without paying to attend or leaving your job)</p>
-    <div class="short">
-      <p>Rayston Heem founded Ecomwarts, the program Ming&nbsp;Zhe&nbsp;joined.</p>
-    </div>
-    <h3 class="claim-h3"><span class="keep">Here’s what you’ll see</span> <span class="keep">at the workshop:</span></h3>
-    <ul class="claim-list">
-      <li><b>How Rayston picks a product quickly</b> with AI tools.</li>
-      <li><b>How he builds the whole&nbsp;store</b> in&nbsp;one&nbsp;sitting.</li>
-      <li><b>How he makes the ads with AI tools,</b> <span class="keep">with no filming</span> <span class="keep">or designing by hand.</span></li>
-      <li><b>How he launches the store</b> <span class="keep">and checks that it’s working.</span></li>
-      <li><b>Answers to your questions, live,</b> from&nbsp;Rayston himself.</li>
-    </ul>
+    <p class="claim-sub">(Without paying to&nbsp;attend)</p>
+    <ol class="seat">
+      <li><b>Save your spot.</b> Add your name, email and&nbsp;phone.</li>
+      <li><b>Get your date.</b> You’re booked into the next live session, and the date shows straight&nbsp;away.</li>
+      <li><b>Join on Zoom.</b> 60&nbsp;minutes, live. Bring your&nbsp;questions.</li>
+    </ol>
     <div class="center">
       <a class="btn" data-cro-id="cs-cta" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
       <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
@@ -944,27 +861,17 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
   <div class="wrap">
     <p class="fit-alert"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.5 21h21L12 2.5Z" fill="#F5C518"/><path d="M12 9v5.5" stroke="#0F1419" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.3" fill="#0F1419"/></svg>An honest note</p>
     <h2 class="sec-h2" data-cro-id="cs-fit-check-h2"><span class="keep">Here’s who this suits,</span> <span class="keep">and who it doesn’t</span></h2>
-    <div class="short">
-      <p>Ming Zhe’s numbers are his own, and results vary.</p>
-      <p><span class="ln">He had doubts too.</span> <span class="ln">Asked if he was sceptical at the start: <span class="keep">“Of course. Of course.”</span></span></p>
-      <p>What settled it was doing his homework first.</p>
-    </div>
     <p class="fit-label">It may suit you if:</p>
     <ul class="fit-list yes">
       <li><b>You have a job, and about two hours a night to give.</b> Ming Zhe built his on two hours a weeknight, plus most weekends.</li>
       <li><b>You want to build something for your family.</b></li>
-      <li><b>You’d like to see the work done first.</b></li>
     </ul>
     <p class="fit-label">It won’t suit you yet if:</p>
     <ul class="fit-list no">
       <li><b>You have no budget for ads.</b> A store needs paid ads while you test. Ming Zhe spent about $250 USD a week per product.</li>
       <li><b>You’re hoping for results without the work.</b> Even with AI tools, Ming Zhe tested 19 products before one took off.</li>
     </ul>
-    <p class="fit-label">The next step is simple:</p>
-    <div class="short">
-      <p>Watch the whole build first, at no cost.</p>
-      <p>Then decide.</p>
-    </div>
+    
     <div class="center">
       <a class="btn" data-cro-id="cs-cta" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
       <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
@@ -1043,6 +950,13 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
         </div>
       </details>
       <details>
+        <summary>Ming&nbsp;Zhe works in software. Can I follow if I&nbsp;don’t?</summary>
+        <div class="faq-a">
+          <p>Rayston builds the store on screen with AI&nbsp;tools, step by&nbsp;step.</p>
+          <p>You can ask him about your own situation&nbsp;live.</p>
+        </div>
+      </details>
+      <details>
         <summary>Had Ming Zhe done this before?</summary>
         <div class="faq-a">
           <p>He tried once in 2020, on his own, and nothing sold.</p>
@@ -1064,11 +978,8 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
   <div class="wrap">
     <img class="final-img" src="assets/mz-final.webp" alt="Ming Zhe in his Ecomwarts interview" width="1440" height="720">
     <h2 class="sec-h2" data-cro-id="cs-final-call-h2"><span class="keep">Ready to watch</span> <span class="keep">the whole build</span> <span class="keep">before you decide?</span></h2>
-    <ul class="final-checks">
-      <li>See a store built live, from&nbsp;product to&nbsp;launch</li>
-      <li>Get your questions answered on&nbsp;the&nbsp;call</li>
-      <li>No cost to&nbsp;attend, twice a&nbsp;week on&nbsp;Zoom</li>
-    </ul>
+    <p class="final-q">“Lock in and don’t give&nbsp;up, everyone!”</p>
+    <p class="final-by">Ming&nbsp;Zhe, to the Ecomwarts community, July&nbsp;16,&nbsp;2026</p>
     <div class="center">
       <a class="btn" data-cro-id="cs-cta" href="https://apply.ecomwarts.net/evnt-one-store">Save my spot</a>
       <p class="cta-note"><span class="keep">No cost to attend · Live on Zoom</span><span class="sep"> · </span><span class="keep l2">Twice a week, 60 minutes</span></p>
@@ -1077,7 +988,7 @@ footer{background:var(--cream);padding:40px 0 56px;border-top:1px solid var(--bo
 </section>
 
 <footer data-cro-id="cs-footer"><div class="wrap"><div data-section="compliance-footer">
-<p class="fda-disclaimer compliance-footer">This page is an advertisement by Ecomwarts Group Private Limited, Singapore. Ming Zhe is an Ecomwarts student and shares his story with permission. His figures are his own, from a video interview published on Rayston Heem’s YouTube channel on September 2, 2026, and his own Shopify screenshot. They are revenue, not profit. His result is not typical.
+<p class="fda-disclaimer compliance-footer">This page is an advertisement by Ecomwarts Group Private Limited, Singapore. Ming Zhe is an Ecomwarts student and shares his story with permission. His figures are his own, from a video interview published on Rayston Heem’s YouTube channel on September 2, 2026, and the Shopify screenshots he posted in the Ecomwarts student community. They are revenue, not profit. His result is not typical.
 
 These results are shown for illustrative purposes only and are based on the past experiences of individual students. Your results may vary depending on your effort, skill, capital, market conditions, and consistency. Running an <span class="keep">e-commerce</span> business involves financial risk. Please read the full disclaimer below.</p>
 <details class="wf-disc"><summary>Full disclaimer</summary>
