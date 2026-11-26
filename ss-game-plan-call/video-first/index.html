@@ -546,11 +546,16 @@ section .lines > p:last-child{margin-bottom:0}
   .hero.vf .hero-grid{gap:0}
 }
 @media (min-width:1024px){
-  .hero.vf .hero-grid{grid-template-columns:1fr 1.05fr;column-gap:52px;align-items:start}
-  .hero.vf .vf-cred,.hero.vf .hero-grid .eyebrow,.hero.vf .hero-grid h1,.hero.vf .hero-grid .sub,.hero.vf .hero-grid .cta{grid-column:1}
-  .hero.vf .hero-grid .hero-photo.vf{grid-column:2;grid-row:1 / span 5;align-self:center}
-  .hero.vf .vf-review{grid-column:1 / -1;margin-top:34px;text-align:center;border-left:0;border-top:1px solid rgba(200,169,110,.5);border-radius:0;background:none;padding:18px 0 0}
-  .hero.vf .hero-grid .stats{margin-top:22px}
+  /* Gray, 2026-11-25: on desktop the video sits beneath the text, one centred column. */
+  .hero.vf .hero-grid{display:flex !important;flex-direction:column;align-items:center;text-align:center;max-width:920px}
+  .hero.vf .vf-cred{order:0;justify-content:center;text-align:left;margin-bottom:16px}
+  .hero.vf .hero-grid .eyebrow{order:1;justify-content:center}
+  .hero.vf .hero-grid h1{order:2;max-width:none;margin-bottom:16px}
+  .hero.vf .hero-grid .sub{order:3;max-width:640px;margin:0 auto}
+  .hero.vf .hero-grid .hero-photo.vf{order:4;width:100%;max-width:660px;margin:32px auto 0 !important;transform:none}
+  .hero.vf .hero-grid .cta{order:5;margin-top:32px !important}
+  .hero.vf .vf-review{order:6;width:100%;margin-top:48px;text-align:center;border-left:0;border-top:1px solid rgba(200,169,110,.5);border-radius:0;background:none;padding:24px 0 0}
+  .hero.vf .hero-grid .stats{order:7;width:100%;margin-top:24px}
   .vf-play{width:84px;height:84px}.vf-title{font-size:17px;left:20px;bottom:18px}.vf-len{right:18px;bottom:18px}
 }
 </style></head>
@@ -563,7 +568,7 @@ section .lines > p:last-child{margin-bottom:0}
       <div class="vf-cred"><i></i><div><b>Dr. Joey Munoz, PhD in Nutritional Sciences</b><span>@dr.joeymunoz <svg class="vb" viewBox="0 0 24 24" width="17" height="17" role="img" aria-label="Verified"><path fill="#0095F6" d="M12 1.5l2.6 1.9 3.2-.2 1.2 3 2.7 1.7-.8 3.1.8 3.1-2.7 1.7-1.2 3-3.2-.2L12 22.5l-2.6-1.9-3.2.2-1.2-3-2.7-1.7.8-3.1-.8-3.1 2.7-1.7 1.2-3 3.2.2z"/><path fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M7.7 12.3l2.9 2.8 5.6-5.9"/></svg> 490K followers</span></div></div>
       <p class="eyebrow">Let down by trainers and diets?</p>
       <h1>Lose fat, build muscle and protect your&nbsp;health for&nbsp;decades with the <span class="hl"><span><span class="nb">PhD-led</span> Strong&nbsp;Standard&nbsp;Method™</span></span></h1>
-      <p class="sub">A free 60-minute call for busy professionals who are putting in the work and not seeing it.</p>
+      <p class="sub"><span>Training, eating well, and your body still won't change? Find out what's holding you back on a free <span class="nb">60-minute</span> call with Dr.&nbsp;Joey&nbsp;Munoz's&nbsp;team at Strong&nbsp;Standard.</span></p>
       <div class="cta">
         <a class="btn" href="#apply">Apply for my free Game&nbsp;Plan&nbsp;Call</a>
         <p class="under">Takes under&nbsp;3&nbsp;minutes.</p>
