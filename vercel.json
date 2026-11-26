@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/", "has": [{ "type": "host", "value": "strongstandard.wholefounder.com" }], "destination": "/tsl/", "permanent": false },
+    { "source": "/:path((?!tsl).*)", "has": [{ "type": "host", "value": "strongstandard.wholefounder.com" }], "destination": "/tsl/", "permanent": false }
+  ]
+}
