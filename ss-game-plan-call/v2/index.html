@@ -774,6 +774,42 @@ section h2{font-size:44px !important;line-height:1.15 !important;text-wrap:balan
 .v2-photo .under,.v2-dark .under,.v2-photo .cta .under,.v2-dark .cta .under{color:color-mix(in srgb,#fff 80%,transparent) !important}
 .v2-block-i img[src*="v2-podcast"]{aspect-ratio:1/1 !important;object-position:50% 0 !important}
 .v2-photo{background-size:min(100%,1440px) auto !important;background-position:50% 0 !important}
+
+/* ===== phone hero clean-up (Gray, 2026-11-27: "fix this formatting") =====
+   Set headline lines, no face behind the words, even subhead lines, compact stats with the icon beside the number. */
+.v2-hero h1 br.mb{display:none}
+@media (max-width:1023px){.v2-hero h1 br.mb{display:inline}}
+@media (max-width:767px){
+  .v2-hero{padding:40px 16px 0;background-position:70% 0}
+  .v2-hero::before{background:linear-gradient(color-mix(in srgb,var(--navy) 86%,transparent),color-mix(in srgb,var(--navy) 90%,transparent) 55%,var(--navy) 92%)}
+  .v2-eyebrow{margin-bottom:16px}
+  .v2-hero h1{font-size:clamp(22px,6.9vw,29px) !important;line-height:1.18;margin-bottom:16px;text-wrap:wrap}
+  .v2-sub{font-size:16px;line-height:1.55;max-width:34ch;margin:0 auto 24px;text-wrap:balance}
+  .v2-hero .under{margin-top:8px}
+  .v2-stats{grid-template-columns:1fr 1fr;margin:32px 0 0;border-top:1px solid color-mix(in srgb,var(--gold) 35%,transparent)}
+  .v2-stats div{display:grid;grid-template-columns:24px 1fr;column-gap:8px;row-gap:4px;align-items:center;text-align:left;padding:16px 4px}
+  .v2-stats .ico{width:24px;height:24px;grid-row:1}
+  .v2-stats strong{font-size:22px;grid-column:2}
+  .v2-stats span{font-size:13px;grid-column:1 / -1}
+}
+@media (max-width:767px){.v2-hero .cta .btn{display:block;width:100%;box-sizing:border-box;padding-left:12px;padding-right:12px;white-space:nowrap}}
+@media (max-width:389px){.v2-hero .cta .btn{font-size:16px}}
+@media (max-width:767px){
+  .v2-stats div{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 8px;text-align:center}
+  .v2-stats span{flex-basis:100%}
+}
+/* team cards: let the text column shrink so nothing runs past the card at 375 (was 26px over) */
+.v2-founder,.v2-founder > *{min-width:0}.v2-founder{overflow-wrap:anywhere}
+@media (max-width:379px){.v2-eyebrow{font-size:14px;letter-spacing:.06em;gap:8px}.v2-eyebrow i{flex:0 0 36px;width:36px;height:36px}.v2-eyebrow{max-width:100%}}
+/* phone hero, round 2 after a fresh review (2026-11-27) */
+.v2-stats strong .st{font-style:normal;margin-left:3px}
+@media (max-width:767px){
+  .v2-hero{padding-bottom:24px}
+  .v2-eyebrow{margin-bottom:8px !important}
+  .v2-hero h1{line-height:1.26;margin-bottom:12px}
+  .v2-sub{text-wrap:pretty;max-width:20.5em}
+  .v2-stats{margin-top:48px}
+}
 </style></head>
 <body data-v="2" class="">
 
@@ -781,11 +817,11 @@ section h2{font-size:44px !important;line-height:1.15 !important;text-wrap:balan
 <section class="v2-hero" id="s1">
   <div class="v2-hero-in">
     <p class="v2-eyebrow"><i></i><span>★★★★★ 1,000+&nbsp;people&nbsp;coached&nbsp;<span class="nw">1-on-1</span></span></p>
-    <h1>Lose fat, build muscle<br class="dk"> and protect your&nbsp;health for&nbsp;decades<br class="dk"> with&nbsp;the <mark class="hl2"><span class="nw">PhD-led</span> Strong&nbsp;Standard&nbsp;Method™</mark></h1>
+    <h1>Lose fat, build muscle<br> and protect your&nbsp;health<br class="mb"> for&nbsp;decades<br class="dk"> with&nbsp;the&nbsp;<mark class="hl2"><span class="nw">PhD-led</span><br class="mb"> Strong&nbsp;Standard&nbsp;Method™</mark></h1>
     <p class="v2-sub">Training, eating well, and your body still won't change? Find out what's holding you back on a free <span class="nw">60-minute</span> call with Dr.&nbsp;Joey&nbsp;Munoz's&nbsp;team at Strong&nbsp;Standard.</p>
     <div class="cta"><a class="btn" href="#apply">Apply for my free Game&nbsp;Plan&nbsp;Call</a><p class="under">Takes under&nbsp;3&nbsp;minutes.</p></div>
   </div>
-  <div class="v2-stats"><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5M22 9v5"/></svg><strong>PhD</strong><span>in Nutritional&nbsp;Sciences</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><strong>10+ years</strong><span>coaching clients</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5a5 5 0 0 1 5.5 5.5"/></svg><strong>6</strong><span>credentialed coaches</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg><strong>4.8★</strong><span>on Apple&nbsp;Podcasts</span></div></div>
+  <div class="v2-stats"><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5M22 9v5"/></svg><strong>PhD</strong><span>in Nutritional&nbsp;Sciences</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><strong>10+ years</strong><span>coaching clients</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5a5 5 0 0 1 5.5 5.5"/></svg><strong>6</strong><span>credentialed coaches</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg><strong>4.8<i class="st">★</i></strong><span>on Apple&nbsp;Podcasts</span></div></div>
 </section>
 
 
